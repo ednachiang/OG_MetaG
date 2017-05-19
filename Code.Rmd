@@ -9,20 +9,20 @@ output: html_document
 library('readr')
 ```
 
-### 3715 Untrimmed SPAdes
+### 3715 Untrimmed SPAdes (Old)
 ```{r}
 # Load in .tsv files
-untrim.3715.55 <- read_tsv('3715.untrim/3715.untrimmed.55.output.tsv')
-untrim.3715.75 <- read_tsv('3715.untrim/3715.untrimmed.75.output.tsv')
-untrim.3715.95 <- read_tsv('3715.untrim/3715.untrimmed.95.output.tsv')
-untrim.3715.111 <- read_tsv('3715.untrim/3715.untrimmed.111.output.tsv')
-untrim.3715.127 <- read_tsv('3715.untrim/3715.untrimmed.127.output.tsv')
+untrim.3715.55 <- read_tsv('3715.untrim/old/3715.untrimmed.55.output.tsv')
+untrim.3715.75 <- read_tsv('3715.untrim/old/3715.untrimmed.75.output.tsv')
+untrim.3715.95 <- read_tsv('3715.untrim/old/3715.untrimmed.95.output.tsv')
+untrim.3715.111 <- read_tsv('3715.untrim/old/3715.untrimmed.111.output.tsv')
+untrim.3715.127 <- read_tsv('3715.untrim/old/3715.untrimmed.127.output.tsv')
 
-untrim.3715.55.sq <- read_tsv('3715.untrim/3715.untrimmed.55.sq.output.tsv')
-untrim.3715.75.sq <- read_tsv('3715.untrim/3715.untrimmed.75.sq.output.tsv')
-untrim.3715.95.sq <- read_tsv('3715.untrim/3715.untrimmed.95.sq.output.tsv')
-untrim.3715.111.sq <- read_tsv('3715.untrim/3715.untrimmed.111.sq.output.tsv')
-untrim.3715.127.sq <- read_tsv('3715.untrim/3715.untrimmed.127.sq.output.tsv')
+untrim.3715.55.sq <- read_tsv('3715.untrim/old/3715.untrimmed.55.sq.output.tsv')
+untrim.3715.75.sq <- read_tsv('3715.untrim/old/3715.untrimmed.75.sq.output.tsv')
+untrim.3715.95.sq <- read_tsv('3715.untrim/old/3715.untrimmed.95.sq.output.tsv')
+untrim.3715.111.sq <- read_tsv('3715.untrim/old/3715.untrimmed.111.sq.output.tsv')
+untrim.3715.127.sq <- read_tsv('3715.untrim/old/3715.untrimmed.127.sq.output.tsv')
 
 # Calculate unclassified vs. classified
 untrim.3715.prop <- data.frame(matrix(5,5))
@@ -52,11 +52,11 @@ untrim.3715.prop$Squirrel <- c(
 untrim.3715.prop$Unclassified <- 1 - untrim.3715.prop$Bact.Arch - untrim.3715.prop$Squirrel
 
 # Number of classified bact/arch
-untrim.3715.55.report <- read_tsv('3715.untrim/3715.untrimmed.55.report.tsv')
-untrim.3715.75.report <- read_tsv('3715.untrim/3715.untrimmed.75.report.tsv')
-untrim.3715.95.report <- read_tsv('3715.untrim/3715.untrimmed.95.report.tsv')
-untrim.3715.111.report <- read_tsv('3715.untrim/3715.untrimmed.111.report.tsv')
-untrim.3715.127.report <- read_tsv('3715.untrim/3715.untrimmed.127.report.tsv')
+untrim.3715.55.report <- read_tsv('3715.untrim/old/3715.untrimmed.55.report.tsv')
+untrim.3715.75.report <- read_tsv('3715.untrim/old/3715.untrimmed.75.report.tsv')
+untrim.3715.95.report <- read_tsv('3715.untrim/old/3715.untrimmed.95.report.tsv')
+untrim.3715.111.report <- read_tsv('3715.untrim/old/3715.untrimmed.111.report.tsv')
+untrim.3715.127.report <- read_tsv('3715.untrim/old/3715.untrimmed.127.report.tsv')
 
 untrim.3715.55.abund <- untrim.3715.55.report[which(untrim.3715.55.report$abundance>0),]
 untrim.3715.75.abund <- untrim.3715.55.report[which(untrim.3715.75.report$abundance>0),]
@@ -74,20 +74,20 @@ untrim.3715.prop$Contigs <- c(111864,108790,105754,103161,91748)
 untrim.3715.prop$Largest.Contig <- c(115865,207778,399291,518071,1334334)
 ```
 
-### 3715 Trimmed SPAdes
+### 3715 Trimmed SPAdes (Old)
 ```{r}
 # Load in .tsv files
-trim.3715.55 <- read_tsv('3715.trimmed/3715.trimmed.55.output.tsv')
-trim.3715.75 <- read_tsv('3715.trimmed/3715.trimmed.75.output.tsv')
-trim.3715.95 <- read_tsv('3715.trimmed/3715.trimmed.95.output.tsv')
-trim.3715.111 <- read_tsv('3715.trimmed/3715.trimmed.111.output.tsv')
-trim.3715.127 <- read_tsv('3715.trimmed/3715.trimmed.127.output.tsv')
+trim.3715.55 <- read_tsv('3715.trimmed/old/3715.trimmed.55.output.tsv')
+trim.3715.75 <- read_tsv('3715.trimmed/old/3715.trimmed.75.output.tsv')
+trim.3715.95 <- read_tsv('3715.trimmed/old/3715.trimmed.95.output.tsv')
+trim.3715.111 <- read_tsv('3715.trimmed/old/3715.trimmed.111.output.tsv')
+trim.3715.127 <- read_tsv('3715.trimmed/old/3715.trimmed.127.output.tsv')
 
-trim.3715.55.sq <- read_tsv('3715.trimmed/3715.trimmed.55.sq.output.tsv')
-trim.3715.75.sq <- read_tsv('3715.trimmed/3715.trimmed.75.sq.output.tsv')
-trim.3715.95.sq <- read_tsv('3715.trimmed/3715.trimmed.95.sq.output.tsv')
-trim.3715.111.sq <- read_tsv('3715.trimmed/3715.trimmed.111.sq.output.tsv')
-trim.3715.127.sq <- read_tsv('3715.trimmed/3715.trimmed.127.sq.output.tsv')
+trim.3715.55.sq <- read_tsv('3715.trimmed/old/3715.trimmed.55.sq.output.tsv')
+trim.3715.75.sq <- read_tsv('3715.trimmed/old/3715.trimmed.75.sq.output.tsv')
+trim.3715.95.sq <- read_tsv('3715.trimmed/old/3715.trimmed.95.sq.output.tsv')
+trim.3715.111.sq <- read_tsv('3715.trimmed/old/3715.trimmed.111.sq.output.tsv')
+trim.3715.127.sq <- read_tsv('3715.trimmed/old/3715.trimmed.127.sq.output.tsv')
 
 # Calculate unclassified vs. classified
 trim.3715.prop <- data.frame(matrix(5,5))
@@ -117,11 +117,11 @@ trim.3715.prop$Squirrel <- c(
 trim.3715.prop$Unclassified <- 1 - trim.3715.prop$Bact.Arch - trim.3715.prop$Squirrel
 
 # Number of classified bact/arch
-trim.3715.55.report <- read_tsv('3715.trimmed/3715.trimmed.55.report.tsv')
-trim.3715.75.report <- read_tsv('3715.trimmed/3715.trimmed.75.report.tsv')
-trim.3715.95.report <- read_tsv('3715.trimmed/3715.trimmed.95.report.tsv')
-trim.3715.111.report <- read_tsv('3715.trimmed/3715.trimmed.111.report.tsv')
-trim.3715.127.report <- read_tsv('3715.trimmed/3715.trimmed.127.report.tsv')
+trim.3715.55.report <- read_tsv('3715.trimmed/old/3715.trimmed.55.report.tsv')
+trim.3715.75.report <- read_tsv('3715.trimmed/old/3715.trimmed.75.report.tsv')
+trim.3715.95.report <- read_tsv('3715.trimmed/old/3715.trimmed.95.report.tsv')
+trim.3715.111.report <- read_tsv('3715.trimmed/old/3715.trimmed.111.report.tsv')
+trim.3715.127.report <- read_tsv('3715.trimmed/old/3715.trimmed.127.report.tsv')
 
 trim.3715.55.abund <- trim.3715.55.report[which(trim.3715.55.report$abundance>0),]
 trim.3715.75.abund <- trim.3715.55.report[which(trim.3715.75.report$abundance>0),]
@@ -134,6 +134,133 @@ trim.3715.prop$Num.Species <- c(nrow(trim.3715.55.abund),nrow(trim.3715.75.abund
                                 nrow(trim.3715.127.abund))
 
 # Quast N50
+trim.3715.prop$N50 <- c(2532,2979,3299,3541,4812)
+trim.3715.prop$Contigs <- c(110852,108041,105253,102685,91594)      
+trim.3715.prop$Largest.Contig <- c(195880,207778,399402,518333,1334344)
+```
+
+
+### 3715 Untrimmed SPAdes
+```{r}
+# Load in .tsv files
+untrim.3715.55 <- read_tsv('3715.untrim/3715.spades.untrim.55.output.tsv')
+untrim.3715.75 <- read_tsv('3715.untrim/3715.spades.untrim.75.output.tsv')
+untrim.3715.95 <- read_tsv('3715.untrim/3715.spades.untrim.95.output.tsv')
+untrim.3715.111 <- read_tsv('3715.untrim/3715.spades.untrim.111.output.tsv')
+untrim.3715.127 <- read_tsv('3715.untrim/3715.spades.untrim.127.output.tsv')
+
+# Calculate unclassified vs. classified
+untrim.3715.prop <- data.frame(matrix(5,5))
+untrim.3715.prop$Kmer <- c(55,75,95,111,127)
+untrim.3715.prop$Unclassified <- c(
+  length(which(untrim.3715.55$taxID=="0"))/nrow(untrim.3715.55),
+  length(which(untrim.3715.75$taxID=="0"))/nrow(untrim.3715.75),
+  length(which(untrim.3715.95$taxID=="0"))/nrow(untrim.3715.95),
+  length(which(untrim.3715.111$taxID=="0"))/nrow(untrim.3715.111),
+  length(which(untrim.3715.127$taxID=="0"))/nrow(untrim.3715.127)
+)
+untrim.3715.prop <- untrim.3715.prop[,-1]
+untrim.3715.prop$Microbial <- c(
+  length(which(untrim.3715.55$taxID != "0" &
+                 untrim.3715.55$taxID != "43179"))/nrow(untrim.3715.55),
+  length(which(untrim.3715.75$taxID != "0" &
+                 untrim.3715.75$taxID != "43179"))/nrow(untrim.3715.75),
+  length(which(untrim.3715.95$taxID != "0" &
+                 untrim.3715.95$taxID != "43179"))/nrow(untrim.3715.95),
+  length(which(untrim.3715.111$taxID != "0" &
+                 untrim.3715.111$taxID != "43179"))/nrow(untrim.3715.111),
+  length(which(untrim.3715.127$taxID != "0" &
+                 untrim.3715.127$taxID != "43179"))/nrow(untrim.3715.127)
+)
+untrim.3715.prop$Squirrel <- c(
+  length(which(untrim.3715.55$taxID == "43179"))/nrow(untrim.3715.55),
+  length(which(untrim.3715.75$taxID == "43179"))/nrow(untrim.3715.75),
+  length(which(untrim.3715.95$taxID == "43179"))/nrow(untrim.3715.95),
+  length(which(untrim.3715.111$taxID == "43179"))/nrow(untrim.3715.111),
+  length(which(untrim.3715.127$taxID == "43179"))/nrow(untrim.3715.127)
+)
+
+# Number of classified Microbes
+untrim.3715.55.report <- read_tsv('3715.untrim/3715.spades.untrim.55.report.tsv')
+untrim.3715.75.report <- read_tsv('3715.untrim/3715.spades.untrim.75.report.tsv')
+untrim.3715.95.report <- read_tsv('3715.untrim/3715.spades.untrim.95.report.tsv')
+untrim.3715.111.report <- read_tsv('3715.untrim/3715.spades.untrim.111.report.tsv')
+untrim.3715.127.report <- read_tsv('3715.untrim/3715.spades.untrim.127.report.tsv')
+
+untrim.3715.55.abund <- untrim.3715.55.report[which(untrim.3715.55.report$abundance>0),]
+untrim.3715.75.abund <- untrim.3715.55.report[which(untrim.3715.75.report$abundance>0),]
+untrim.3715.95.abund <- untrim.3715.55.report[which(untrim.3715.95.report$abundance>0),]
+untrim.3715.111.abund <- untrim.3715.55.report[which(untrim.3715.111.report$abundance>0),]
+untrim.3715.127.abund <- untrim.3715.55.report[which(untrim.3715.127.report$abundance>0),]
+
+untrim.3715.prop$Num.Species <- c(nrow(untrim.3715.55.abund), nrow(untrim.3715.75.abund),
+                                nrow(untrim.3715.95.abund), nrow(untrim.3715.111.abund),
+                                nrow(untrim.3715.127.abund))
+
+# Quast Stats
+untrim.3715.prop$N50 <- c(2505,2959,3296,3545,4801)
+untrim.3715.prop$Contigs <- c(111864,108790,105754,103161,91748)      
+untrim.3715.prop$Largest.Contig <- c(115865,207778,399291,518071,1334334)
+```
+
+### 3715 Trimmed SPAdes
+```{r}
+# Load in .tsv files
+trim.3715.55 <- read_tsv('3715.trim/3715.spades.trim.55.output.tsv')
+trim.3715.75 <- read_tsv('3715.trim/3715.spades.trim.75.output.tsv')
+trim.3715.95 <- read_tsv('3715.trim/3715.spades.trim.95.output.tsv')
+trim.3715.111 <- read_tsv('3715.trim/3715.spades.trim.111.output.tsv')
+trim.3715.127 <- read_tsv('3715.trim/3715.spades.trim.127.output.tsv')
+
+# Calculate unclassified vs. classified
+trim.3715.prop <- data.frame(matrix(5,5))
+trim.3715.prop$Kmer <- c(55,75,95,111,127)
+trim.3715.prop$Unclassified <- c(
+  length(which(trim.3715.55$taxID=="0"))/nrow(trim.3715.55),
+  length(which(trim.3715.75$taxID=="0"))/nrow(trim.3715.75),
+  length(which(trim.3715.95$taxID=="0"))/nrow(trim.3715.95),
+  length(which(trim.3715.111$taxID=="0"))/nrow(trim.3715.111),
+  length(which(trim.3715.127$taxID=="0"))/nrow(trim.3715.127)
+)
+trim.3715.prop <- trim.3715.prop[,-1]
+trim.3715.prop$Microbial <- c(
+  length(which(trim.3715.55$taxID != "0" &
+                 trim.3715.55$taxID != "43179"))/nrow(trim.3715.55),
+  length(which(trim.3715.75$taxID != "0" &
+                 trim.3715.75$taxID != "43179"))/nrow(trim.3715.75),
+  length(which(trim.3715.95$taxID != "0" &
+                 trim.3715.95$taxID != "43179"))/nrow(trim.3715.95),
+  length(which(trim.3715.111$taxID != "0" &
+                 trim.3715.111$taxID != "43179"))/nrow(trim.3715.111),
+  length(which(trim.3715.127$taxID != "0" &
+                 trim.3715.127$taxID != "43179"))/nrow(trim.3715.127)
+)
+trim.3715.prop$Squirrel <- c(
+  length(which(trim.3715.55$taxID == "43179"))/nrow(trim.3715.55),
+  length(which(trim.3715.75$taxID == "43179"))/nrow(trim.3715.75),
+  length(which(trim.3715.95$taxID == "43179"))/nrow(trim.3715.95),
+  length(which(trim.3715.111$taxID == "43179"))/nrow(trim.3715.111),
+  length(which(trim.3715.127$taxID == "43179"))/nrow(trim.3715.127)
+)
+
+# Number of classified Microbes
+trim.3715.55.report <- read_tsv('3715.trim/3715.spades.trim.55.report.tsv')
+trim.3715.75.report <- read_tsv('3715.trim/3715.spades.trim.75.report.tsv')
+trim.3715.95.report <- read_tsv('3715.trim/3715.spades.trim.95.report.tsv')
+trim.3715.111.report <- read_tsv('3715.trim/3715.spades.trim.111.report.tsv')
+trim.3715.127.report <- read_tsv('3715.trim/3715.spades.trim.127.report.tsv')
+
+trim.3715.55.abund <- trim.3715.55.report[which(trim.3715.55.report$abundance>0),]
+trim.3715.75.abund <- trim.3715.55.report[which(trim.3715.75.report$abundance>0),]
+trim.3715.95.abund <- trim.3715.55.report[which(trim.3715.95.report$abundance>0),]
+trim.3715.111.abund <- trim.3715.55.report[which(trim.3715.111.report$abundance>0),]
+trim.3715.127.abund <- trim.3715.55.report[which(trim.3715.127.report$abundance>0),]
+
+trim.3715.prop$Num.Species <- c(nrow(trim.3715.55.abund), nrow(trim.3715.75.abund),
+                                nrow(trim.3715.95.abund), nrow(trim.3715.111.abund),
+                                nrow(trim.3715.127.abund))
+
+# Quast Stats
 trim.3715.prop$N50 <- c(2532,2979,3299,3541,4812)
 trim.3715.prop$Contigs <- c(110852,108041,105253,102685,91594)      
 trim.3715.prop$Largest.Contig <- c(195880,207778,399402,518333,1334344)
@@ -161,15 +288,15 @@ norm.3715.prop$Unclassified <- c(
 norm.3715.prop <- norm.3715.prop[,-1]
 norm.3715.prop$Microbial <- c(
   length(which(norm.3715.55$taxID != "0" &
-                 norm.3715.55$taxID != "43179")/nrow(norm.3715.55))/nrow(norm.3715.55),
+                 norm.3715.55$taxID != "43179"))/nrow(norm.3715.55),
   length(which(norm.3715.75$taxID != "0" &
-                 norm.3715.75$taxID != "43179")/nrow(norm.3715.75))/nrow(norm.3715.75),
+                 norm.3715.75$taxID != "43179"))/nrow(norm.3715.75),
   length(which(norm.3715.95$taxID != "0" &
-                 norm.3715.95$taxID != "43179")/nrow(norm.3715.95))/nrow(norm.3715.95),
+                 norm.3715.95$taxID != "43179"))/nrow(norm.3715.95),
   length(which(norm.3715.111$taxID != "0" &
-                 norm.3715.111$taxID != "43179")/nrow(norm.3715.111))/nrow(norm.3715.111),
+                 norm.3715.111$taxID != "43179"))/nrow(norm.3715.111),
   length(which(norm.3715.127$taxID != "0" &
-                 norm.3715.127$taxID != "43179")/nrow(norm.3715.127))/nrow(norm.3715.127)
+                 norm.3715.127$taxID != "43179"))/nrow(norm.3715.127)
 )
 norm.3715.prop$Unclassified <- c(
   length(which(norm.3715.55$taxID == "0"))/nrow(norm.3715.55),

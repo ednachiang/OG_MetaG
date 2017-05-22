@@ -508,6 +508,85 @@ idba.trim.prop$Contigs <- c(101789, 95023, 91384, 27939, 15565)
 idba.trim.prop$Largest.Contig <- c(19878, 220158, 340857, 322916, 488581)
 ```
 
+
+### 3715 IDBA Normalized
+```{r}
+# Load in .tsv files
+norm.idba.3715.55 <- read_tsv('3715.norm/3715.norm.idba.55.output.tsv')
+norm.idba.3715.75 <- read_tsv('3715.norm/3715.norm.idba.75.output.tsv')
+norm.idba.3715.95 <- read_tsv('3715.norm/3715.norm.idba.95.output.tsv')
+norm.idba.3715.111 <- read_tsv('3715.norm/3715.norm.idba.111.output.tsv')
+norm.idba.3715.127 <- read_tsv('3715.norm/3715.norm.idba.127.output.tsv')
+
+# Calculate unclassified vs. classified
+norm.idba.3715.prop <- data.frame(matrix(5,5))
+norm.idba.3715.prop$Kmer <- c(55,75,95,111,127)
+norm.idba.3715.prop$Unclassified <- c(
+  length(which(norm.idba.3715.55$taxID == "0"))/nrow(norm.idba.3715.55),
+  length(which(norm.idba.3715.75$taxID == "0"))/nrow(norm.idba.3715.75),
+  length(which(norm.idba.3715.95$taxID == "0"))/nrow(norm.idba.3715.95),
+  length(which(norm.idba.3715.111$taxID == "0"))/nrow(norm.idba.3715.111),
+  length(which(norm.idba.3715.127$taxID == "0"))/nrow(norm.idba.3715.127)
+)
+norm.idba.3715.prop <- norm.idba.3715.prop[,-1]
+norm.idba.3715.prop$Microbial <- c(
+  length(which(norm.idba.3715.55$taxID != "0" &
+                 norm.idba.3715.55$taxID != "43179"))/nrow(norm.idba.3715.55),
+  length(which(norm.idba.3715.75$taxID != "0" &
+                 norm.idba.3715.75$taxID != "43179"))/nrow(norm.idba.3715.75),
+  length(which(norm.idba.3715.95$taxID != "0" &
+                 norm.idba.3715.95$taxID != "43179"))/nrow(norm.idba.3715.95),
+  length(which(norm.idba.3715.111$taxID != "0" &
+                 norm.idba.3715.111$taxID != "43179"))/nrow(norm.idba.3715.111),
+  length(which(norm.idba.3715.127$taxID != "0" &
+                 norm.idba.3715.127$taxID != "43179"))/nrow(norm.idba.3715.127)
+)
+norm.idba.3715.prop$Unclassified <- c(
+  length(which(norm.idba.3715.55$taxID == "0"))/nrow(norm.idba.3715.55),
+  length(which(norm.idba.3715.75$taxID == "0"))/nrow(norm.idba.3715.75),
+  length(which(norm.idba.3715.95$taxID == "0"))/nrow(norm.idba.3715.95),
+  length(which(norm.idba.3715.111$taxID == "0"))/nrow(norm.idba.3715.111),
+  length(which(norm.idba.3715.127$taxID == "0"))/nrow(norm.idba.3715.127)
+)
+norm.idba.3715.prop$Squirrel <- c(
+  length(which(norm.idba.3715.55$taxID == "43179"))/nrow(norm.idba.3715.55),
+  length(which(norm.idba.3715.75$taxID == "43179"))/nrow(norm.idba.3715.75),
+  length(which(norm.idba.3715.95$taxID == "43179"))/nrow(norm.idba.3715.95),
+  length(which(norm.idba.3715.111$taxID == "43179"))/nrow(norm.idba.3715.111),
+  length(which(norm.idba.3715.127$taxID == "43179"))/nrow(norm.idba.3715.127)
+)
+
+# Number of classified Microbes
+norm.idba.3715.55.report <- read_tsv('3715.norm/3715.norm.idba.55.report.tsv')
+norm.idba.3715.75.report <- read_tsv('3715.norm/3715.norm.idba.75.report.tsv')
+norm.idba.3715.95.report <- read_tsv('3715.norm/3715.norm.idba.95.report.tsv')
+norm.idba.3715.111.report <- read_tsv('3715.norm/3715.norm.idba.111.report.tsv')
+norm.idba.3715.127.report <- read_tsv('3715.norm/3715.norm.idba.127.report.tsv')
+
+norm.idba.3715.55.abund <-
+  norm.idba.3715.55.report[which(norm.idba.3715.55.report$abundance>0),]
+norm.idba.3715.75.abund <-
+  norm.idba.3715.75.report[which(norm.idba.3715.75.report$abundance>0),]
+norm.idba.3715.95.abund <-
+  norm.idba.3715.95.report[which(norm.idba.3715.95.report$abundance>0),]
+norm.idba.3715.111.abund <-
+  norm.idba.3715.111.report[which(norm.idba.3715.111.report$abundance>0),]
+norm.idba.3715.127.abund <-
+  norm.idba.3715.55.report[which(norm.idba.3715.127.report$abundance>0),]
+
+norm.idba.3715.prop$Num.Species <- c(nrow(norm.idba.3715.55.abund),
+                                     nrow(norm.idba.3715.75.abund),
+                                     nrow(norm.idba.3715.95.abund),
+                                     nrow(norm.idba.3715.111.abund),
+                                     nrow(norm.idba.3715.127.abund))
+
+# Quast Stats
+norm.idba.3715.prop$N50 <- c(1942, 3149, 3652, 6823, 4103)
+norm.idba.3715.prop$Contigs <- c(101789, 95023, 91384, 27939, 15565)
+norm.idba.3715.prop$Largest.Contig <- c(195878, 220158, 340857, 322916, 448581)
+
+```
+
 ### 3733 SPAdes
 ```{r}
 # Load in .tsv files

@@ -298,13 +298,6 @@ norm.3715.prop$Microbial <- c(
   length(which(norm.3715.127$taxID != "0" &
                  norm.3715.127$taxID != "43179"))/nrow(norm.3715.127)
 )
-norm.3715.prop$Unclassified <- c(
-  length(which(norm.3715.55$taxID == "0"))/nrow(norm.3715.55),
-  length(which(norm.3715.75$taxID == "0"))/nrow(norm.3715.75),
-  length(which(norm.3715.95$taxID == "0"))/nrow(norm.3715.95),
-  length(which(norm.3715.111$taxID == "0"))/nrow(norm.3715.111),
-  length(which(norm.3715.127$taxID == "0"))/nrow(norm.3715.127)
-)
 norm.3715.prop$Squirrel <- c(
   length(which(norm.3715.55$taxID == "43179"))/nrow(norm.3715.55),
   length(which(norm.3715.75$taxID == "43179"))/nrow(norm.3715.75),
@@ -381,131 +374,142 @@ mega.3715.prop$Largest.Contig <- c(498993,498993)
 ### 3715 IDBA Untrimmed
 ```{r}
 # Load in .tsv files
-idba.55 <- read_tsv('idba/3715.idba.55.output.tsv')
-idba.75 <- read_tsv('idba/3715.idba.75.output.tsv')
-idba.95 <- read_tsv('idba/3715.idba.95.output.tsv')
-idba.111 <- read_tsv('idba/3715.idba.111.output.tsv')
-idba.127 <- read_tsv('idba/3715.idba.127.output.tsv')
-
-idba.55.sq <- read_tsv('idba/3715.idba.55.sq.output.tsv')
-idba.75.sq <- read_tsv('idba/3715.idba.75.sq.output.tsv')
-idba.95.sq <- read_tsv('idba/3715.idba.95.sq.output.tsv')
-idba.111.sq <- read_tsv('idba/3715.idba.111.sq.output.tsv')
-idba.127.sq <- read_tsv('idba/3715.idba.127.sq.output.tsv')
+idba.untrim.55 <- read_tsv('3715.untrim/3715.idba.untrim.55.output.tsv')
+idba.untrim.75 <- read_tsv('3715.untrim/3715.idba.untrim.75.output.tsv')
+idba.untrim.95 <- read_tsv('3715.untrim/3715.idba.untrim.95.output.tsv')
+idba.untrim.111 <- read_tsv('3715.untrim/3715.idba.untrim.111.output.tsv')
+idba.untrim.127 <- read_tsv('3715.untrim/3715.idba.untrim.127.output.tsv')
 
 # Calculate unclassified vs. classified
-idba.prop <- data.frame(matrix(5,5))
-idba.prop$Kmer <- c(55,75,95,111,127)
-idba.prop$Unclassified <- c(
-  length(which(idba.55$seqID == "unclassified"))/nrow(idba.55),
-  length(which(idba.75$seqID == "unclassified"))/nrow(idba.75),
-  length(which(idba.95$seqID == "unclassified"))/nrow(idba.95),
-  length(which(idba.111$seqID == "unclassified"))/nrow(idba.111),
-  length(which(idba.127$seqID == "unclassified"))/nrow(idba.127)
+idba.untrim.3715.prop <- data.frame(matrix(5,5))
+idba.untrim.3715.prop$Kmer <- c(55,75,85,111,127)
+idba.untrim.3715.prop$Unclassified <- c(
+  length(which(idba.untrim.55$taxID == "0"))/nrow(idba.untrim.55),
+  length(which(idba.untrim.75$taxID == "0"))/nrow(idba.untrim.75),
+  length(which(idba.untrim.95$taxID == "0"))/nrow(idba.untrim.95),
+  length(which(idba.untrim.111$taxID == "0"))/nrow(idba.untrim.111),
+  length(which(idba.untrim.127$taxID == "0"))/nrow(idba.untrim.127)
 )
-idba.prop <- idba.prop[,-1]
-idba.prop$Bact.Arch <- c(
-  length(which(idba.55$seqID != "unclassified"))/nrow(idba.55),
-  length(which(idba.75$seqID != "unclassified"))/nrow(idba.75),
-  length(which(idba.95$seqID != "unclassified"))/nrow(idba.95),
-  length(which(idba.111$seqID != "unclassified"))/nrow(idba.111),
-  length(which(idba.127$seqID != "unclassified"))/nrow(idba.127)
+idba.untrim.3715.prop <- idba.untrim.3715.prop[,-1]
+idba.untrim.3715.prop$Microbial <- c(
+  length(which(idba.untrim.55$taxID != "0" &
+                 idba.untrim.55$taxID != "43179"))/nrow(idba.untrim.55),
+  length(which(idba.untrim.75$taxID != "0" &
+                 idba.untrim.75$taxID != "43179"))/nrow(idba.untrim.75),
+  length(which(idba.untrim.95$taxID != "0" &
+                 idba.untrim.95$taxID != "43179"))/nrow(idba.untrim.95),
+  length(which(idba.untrim.111$taxID != "0" &
+                 idba.untrim.111$taxID != "43179"))/nrow(idba.untrim.111),
+  length(which(idba.untrim.127$taxID != "0" &
+                 idba.untrim.127$taxID != "43179"))/nrow(idba.untrim.127)
 )
-idba.prop$Squirrel <- c(
-  length(which(idba.55.sq$seqID != "unclassified"))/nrow(idba.55.sq),
-  length(which(idba.75.sq$seqID != "unclassified"))/nrow(idba.75.sq),
-  length(which(idba.95.sq$seqID != "unclassified"))/nrow(idba.95.sq),
-  length(which(idba.111.sq$seqID != "unclassified"))/nrow(idba.111.sq),
-  length(which(idba.127.sq$seqID != "unclassified"))/nrow(idba.127.sq)
+idba.untrim.3715.prop$Squirrel <- c(
+  length(which(idba.untrim.55$taxID == "43179"))/nrow(idba.untrim.55),
+  length(which(idba.untrim.75$taxID == "43179"))/nrow(idba.untrim.75),
+  length(which(idba.untrim.95$taxID == "43179"))/nrow(idba.untrim.95),
+  length(which(idba.untrim.111$taxID == "43179"))/nrow(idba.untrim.111),
+  length(which(idba.untrim.127$taxID == "43179"))/nrow(idba.untrim.127)
 )
-idba.prop$Unclassified <- 1 - idba.prop$Bact.Arch - idba.prop$Squirrel
 
-# Number of classified bact/arch
-idba.55.report <- read_tsv('idba/3715.idba.55.report.tsv')
-idba.75.report <- read_tsv('idba/3715.idba.75.report.tsv')
-idba.95.report <- read_tsv('idba/3715.idba.95.report.tsv')
-idba.111.report <- read_tsv('idba/3715.idba.111.report.tsv')
-idba.127.report <- read_tsv('idba/3715.idba.127.report.tsv')
+# Number of classified Microbes
+idba.untrim.3715.55.report <- read_tsv('3715.untrim/3715.idba.untrim.55.report.tsv')
+idba.untrim.3715.75.report <- read_tsv('3715.untrim/3715.idba.untrim.75.report.tsv')
+idba.untrim.3715.95.report <- read_tsv('3715.untrim/3715.idba.untrim.95.report.tsv')
+idba.untrim.3715.111.report <- read_tsv('3715.untrim/3715.idba.untrim.111.report.tsv')
+idba.untrim.3715.127.report <- read_tsv('3715.untrim/3715.idba.untrim.127.report.tsv')
 
-idba.55.abund <- idba.55.report[which(idba.55.report$abundance>0),]
-idba.75.abund <- idba.55.report[which(idba.75.report$abundance>0),]
-idba.95.abund <- idba.55.report[which(idba.95.report$abundance>0),]
-idba.111.abund <- idba.55.report[which(idba.111.report$abundance>0),]
-idba.127.abund <- idba.55.report[which(idba.127.report$abundance>0),]
+idba.untrim.3715.55.abund <- 
+  idba.untrim.3715.55.report[which(idba.untrim.3715.55.report$abundance>0),]
+idba.untrim.3715.75.abund <- 
+  idba.untrim.3715.75.report[which(idba.untrim.3715.75.report$abundance>0),]
+idba.untrim.3715.95.abund <- 
+  idba.untrim.3715.95.report[which(idba.untrim.3715.95.report$abundance>0),]
+idba.untrim.3715.111.abund <- 
+  idba.untrim.3715.111.report[which(idba.untrim.3715.111.report$abundance>0),]
+idba.untrim.3715.127.abund <- 
+  idba.untrim.3715.127.report[which(idba.untrim.3715.127.report$abundance>0),]
 
-idba.prop$Num.Species <- c(nrow(idba.55.abund), nrow(idba.75.abund), nrow(idba.95.abund),
-                           nrow(idba.111.abund), nrow(idba.127.abund))
+idba.untrim.3715.prop$Num.Species <- c(nrow(idba.untrim.3715.55.abund),
+                                       nrow(idba.untrim.3715.75.abund),
+                                       nrow(idba.untrim.3715.95.abund),
+                                       nrow(idba.untrim.3715.111.abund),
+                                       nrow(idba.untrim.3715.127.abund))
 
 # Quast
-idba.prop$N50 <- c(1942, 3135, 3726, 6523, 4324)
-idba.prop$Contigs <- c(102225, 95431, 91776, 28390, 15392)
-idba.prop$Largest.Contig <- c(195878, 220158, 340857, 322916, 450474)
+idba.untrim.3715.prop$N50 <- c(1942, 3135, 3726, 6523, 4324)
+idba.untrim.3715.prop$Contigs <- c(102225, 95431, 91776, 28390, 15392)
+idba.untrim.3715.prop$Largest.Contig <- c(195878, 220158, 340857, 322916, 450474)
 
 ```
 
 ### 3715 IDBA Trimmed
 ```{r}
 # Load in .tsv files
-idba.55.trim <- read_tsv('idba/3715.idba.trim.55.output.tsv')
-idba.75.trim <- read_tsv('idba/3715.idba.trim.75.output.tsv')
-idba.95.trim <- read_tsv('idba/3715.idba.trim.95.output.tsv')
-idba.111.trim <- read_tsv('idba/3715.idba.trim.111.output.tsv')
-idba.127.trim <- read_tsv('idba/3715.idba.trim.127.output.tsv')
-
-idba.55.trim.sq <- read_tsv('idba/3715.idba.trim.55.sq.output.tsv')
-idba.75.trim.sq <- read_tsv('idba/3715.idba.trim.75.sq.output.tsv')
-idba.95.trim.sq <- read_tsv('idba/3715.idba.trim.95.sq.output.tsv')
-idba.111.trim.sq <- read_tsv('idba/3715.idba.trim.111.sq.output.tsv')
-idba.127.trim.sq <- read_tsv('idba/3715.idba.trim.127.sq.output.tsv')
+idba.trim.55 <- read_tsv('3715.trim/3715.idba.trim.55.output.tsv')
+idba.trim.75 <- read_tsv('3715.trim/3715.idba.trim.75.output.tsv')
+idba.trim.95 <- read_tsv('3715.trim/3715.idba.trim.95.output.tsv')
+idba.trim.111 <- read_tsv('3715.trim/3715.idba.trim.111.output.tsv')
+idba.trim.127 <- read_tsv('3715.trim/3715.idba.trim.127.output.tsv')
 
 # Calculate unclassified vs. classified
-idba.trim.prop <- data.frame(matrix(5,5))
-idba.trim.prop$Kmer <- c(55,75,95,111,127)
-idba.trim.prop$Unclassified <- c(
-  length(which(idba.55.trim$seqID == "unclassified"))/nrow(idba.55.trim),
-  length(which(idba.75.trim$seqID == "unclassified"))/nrow(idba.75.trim),
-  length(which(idba.95.trim$seqID == "unclassified"))/nrow(idba.95.trim),
-  length(which(idba.111.trim$seqID == "unclassified"))/nrow(idba.111.trim),
-  length(which(idba.127.trim$seqID == "unclassified"))/nrow(idba.127.trim)
+idba.trim.3715.prop <- data.frame(matrix(5,5))
+idba.trim.3715.prop$Kmer <- c(55,75,85,111,127)
+idba.trim.3715.prop$Unclassified <- c(
+  length(which(idba.trim.55$taxID == "0"))/nrow(idba.trim.55),
+  length(which(idba.trim.75$taxID == "0"))/nrow(idba.trim.75),
+  length(which(idba.trim.95$taxID == "0"))/nrow(idba.trim.95),
+  length(which(idba.trim.111$taxID == "0"))/nrow(idba.trim.111),
+  length(which(idba.trim.127$taxID == "0"))/nrow(idba.trim.127)
 )
-idba.trim.prop <- idba.trim.prop[,-1]
-idba.trim.prop$Bact.Arch <- c(
-  length(which(idba.55.trim$seqID != "unclassified"))/nrow(idba.55.trim),
-  length(which(idba.75.trim$seqID != "unclassified"))/nrow(idba.75.trim),
-  length(which(idba.95.trim$seqID != "unclassified"))/nrow(idba.95.trim),
-  length(which(idba.111.trim$seqID != "unclassified"))/nrow(idba.111.trim),
-  length(which(idba.127.trim$seqID != "unclassified"))/nrow(idba.127.trim)
+idba.trim.3715.prop <- idba.trim.3715.prop[,-1]
+idba.trim.3715.prop$Microbial <- c(
+  length(which(idba.trim.55$taxID != "0" &
+                 idba.trim.55$taxID != "43179"))/nrow(idba.trim.55),
+  length(which(idba.trim.75$taxID != "0" &
+                 idba.trim.75$taxID != "43179"))/nrow(idba.trim.75),
+  length(which(idba.trim.95$taxID != "0" &
+                 idba.trim.95$taxID != "43179"))/nrow(idba.trim.95),
+  length(which(idba.trim.111$taxID != "0" &
+                 idba.trim.111$taxID != "43179"))/nrow(idba.trim.111),
+  length(which(idba.trim.127$taxID != "0" &
+                 idba.trim.127$taxID != "43179"))/nrow(idba.trim.127)
 )
-idba.trim.prop$Squirrel <- c(
-  length(which(idba.55.trim.sq$seqID != "unclassified"))/nrow(idba.55.trim.sq),
-  length(which(idba.75.trim.sq$seqID != "unclassified"))/nrow(idba.75.trim.sq),
-  length(which(idba.95.trim.sq$seqID != "unclassified"))/nrow(idba.95.trim.sq),
-  length(which(idba.111.trim.sq$seqID != "unclassified"))/nrow(idba.111.trim.sq),
-  length(which(idba.127.trim.sq$seqID != "unclassified"))/nrow(idba.127.trim.sq)
+idba.trim.3715.prop$Squirrel <- c(
+  length(which(idba.trim.55$taxID == "43179"))/nrow(idba.trim.55),
+  length(which(idba.trim.75$taxID == "43179"))/nrow(idba.trim.75),
+  length(which(idba.trim.95$taxID == "43179"))/nrow(idba.trim.95),
+  length(which(idba.trim.111$taxID == "43179"))/nrow(idba.trim.111),
+  length(which(idba.trim.127$taxID == "43179"))/nrow(idba.trim.127)
 )
-idba.trim.prop$Unclassified <- 1 - idba.prop$Bact.Arch - idba.prop$Squirrel
 
-# Number of classified bact/arch
-idba.55.trim.report <- read_tsv('idba/3715.idba.trim.55.report.tsv')
-idba.75.trim.report <- read_tsv('idba/3715.idba.trim.75.report.tsv')
-idba.95.trim.report <- read_tsv('idba/3715.idba.trim.95.report.tsv')
-idba.111.trim.report <- read_tsv('idba/3715.idba.trim.111.report.tsv')
-idba.127.trim.report <- read_tsv('idba/3715.idba.trim.127.report.tsv')
+# Number of classified Microbes
+idba.trim.3715.55.report <- read_tsv('3715.trim/3715.idba.trim.55.report.tsv')
+idba.trim.3715.75.report <- read_tsv('3715.trim/3715.idba.trim.75.report.tsv')
+idba.trim.3715.95.report <- read_tsv('3715.trim/3715.idba.trim.95.report.tsv')
+idba.trim.3715.111.report <- read_tsv('3715.trim/3715.idba.trim.111.report.tsv')
+idba.trim.3715.127.report <- read_tsv('3715.trim/3715.idba.trim.127.report.tsv')
 
-idba.55.trim.abund <- idba.55.trim.report[which(idba.55.trim.report$abundance>0),]
-idba.75.trim.abund <- idba.55.trim.report[which(idba.75.trim.report$abundance>0),]
-idba.95.trim.abund <- idba.55.trim.report[which(idba.95.trim.report$abundance>0),]
-idba.111.trim.abund <- idba.55.trim.report[which(idba.111.trim.report$abundance>0),]
-idba.127.trim.abund <- idba.55.trim.report[which(idba.127.trim.report$abundance>0),]
+idba.trim.3715.55.abund <- 
+  idba.trim.3715.55.report[which(idba.trim.3715.55.report$abundance>0),]
+idba.trim.3715.75.abund <- 
+  idba.trim.3715.75.report[which(idba.trim.3715.75.report$abundance>0),]
+idba.trim.3715.95.abund <- 
+  idba.trim.3715.95.report[which(idba.trim.3715.95.report$abundance>0),]
+idba.trim.3715.111.abund <- 
+  idba.trim.3715.111.report[which(idba.trim.3715.111.report$abundance>0),]
+idba.trim.3715.127.abund <- 
+  idba.trim.3715.127.report[which(idba.trim.3715.127.report$abundance>0),]
 
-idba.trim.prop$Num.Species <- c(nrow(idba.55.trim.abund), nrow(idba.75.trim.abund),
-                                nrow(idba.95.trim.abund), nrow(idba.111.trim.abund),
-                                nrow(idba.127.trim.abund))
+idba.trim.3715.prop$Num.Species <- c(nrow(idba.trim.3715.55.abund),
+                                       nrow(idba.trim.3715.75.abund),
+                                       nrow(idba.trim.3715.95.abund),
+                                       nrow(idba.trim.3715.111.abund),
+                                       nrow(idba.trim.3715.127.abund))
 
 # Quast
-idba.trim.prop$N50 <- c(1942, 3149, 3652, 6823, 4103)
-idba.trim.prop$Contigs <- c(101789, 95023, 91384, 27939, 15565)
-idba.trim.prop$Largest.Contig <- c(19878, 220158, 340857, 322916, 488581)
+idba.trim.3715.prop$N50 <- c(1942, 3149, 3652, 6823, 4103)
+idba.trim.3715.prop$Contigs <- c(101789, 95023, 91384, 27939, 15565)
+idba.trim.3715.prop$Largest.Contig <- c(19878, 220158, 340857, 322916, 488581)
 ```
 
 

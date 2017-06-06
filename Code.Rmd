@@ -331,6 +331,145 @@ norm.3715.prop$Largest.Contig <- c(195880, 207776, 399550, 540728, 1178389)
 
 ```
 
+### 3715 Sickle Normalized SPades
+```{r}
+# Load in .tsv files
+sickle.spa.3715.55 <- read_tsv('3715.sickle/3715.sickle.spades.55.output.tsv')
+sickle.spa.3715.75 <- read_tsv('3715.sickle/3715.sickle.spades.75.output.tsv')
+sickle.spa.3715.95 <- read_tsv('3715.sickle/3715.sickle.spades.95.output.tsv')
+sickle.spa.3715.111 <- read_tsv('3715.sickle/3715.sickle.spades.111.output.tsv')
+sickle.spa.3715.127 <- read_tsv('3715.sickle/3715.sickle.spades.127.output.tsv')
+
+# Calculate unclassified vs. classified
+sickle.spa.3715.prop <- data.frame(matrix(5,5))
+sickle.spa.3715.prop$Kmer <- c(55,75,95,111,127)
+sickle.spa.3715.prop$Unclassified <- c(
+  length(which(sickle.spa.3715.55$taxID == "0"))/nrow(sickle.spa.3715.55),
+  length(which(sickle.spa.3715.75$taxID == "0"))/nrow(sickle.spa.3715.75),
+  length(which(sickle.spa.3715.95$taxID == "0"))/nrow(sickle.spa.3715.95),
+  length(which(sickle.spa.3715.111$taxID == "0"))/nrow(sickle.spa.3715.111),
+  length(which(sickle.spa.3715.127$taxID == "0"))/nrow(sickle.spa.3715.127)
+)
+sickle.spa.3715.prop <- sickle.spa.3715.prop[,-1]
+sickle.spa.3715.prop$Microbial <- c(
+  length(which(sickle.spa.3715.55$taxID != "0" &
+                 sickle.spa.3715.55$taxID != "43179"))/nrow(sickle.spa.3715.55),
+  length(which(sickle.spa.3715.75$taxID != "0" &
+                 sickle.spa.3715.75$taxID != "43179"))/nrow(sickle.spa.3715.75),
+  length(which(sickle.spa.3715.95$taxID != "0" &
+                 sickle.spa.3715.95$taxID != "43179"))/nrow(sickle.spa.3715.95),
+  length(which(sickle.spa.3715.111$taxID != "0" &
+                 sickle.spa.3715.111$taxID != "43179"))/nrow(sickle.spa.3715.111),
+  length(which(sickle.spa.3715.127$taxID != "0" &
+                 sickle.spa.3715.127$taxID != "43179"))/nrow(sickle.spa.3715.127)
+)
+sickle.spa.3715.prop$Squirrel <- c(
+  length(which(sickle.spa.3715.55$taxID == "43179"))/nrow(sickle.spa.3715.55),
+  length(which(sickle.spa.3715.75$taxID == "43179"))/nrow(sickle.spa.3715.75),
+  length(which(sickle.spa.3715.95$taxID == "43179"))/nrow(sickle.spa.3715.95),
+  length(which(sickle.spa.3715.111$taxID == "43179"))/nrow(sickle.spa.3715.111),
+  length(which(sickle.spa.3715.127$taxID == "43179"))/nrow(sickle.spa.3715.127)
+)
+
+# Number of classified Microbes
+sickle.spa.3715.55.report <- read_tsv('3715.sickle/3715.sickle.spades.55.report.tsv')
+sickle.spa.3715.75.report <- read_tsv('3715.sickle/3715.sickle.spades.75.report.tsv')
+sickle.spa.3715.95.report <- read_tsv('3715.sickle/3715.sickle.spades.95.report.tsv')
+sickle.spa.3715.111.report <- read_tsv('3715.sickle/3715.sickle.spades.111.report.tsv')
+sickle.spa.3715.127.report <- read_tsv('3715.sickle/3715.sickle.spades.127.report.tsv')
+
+sickle.spa.3715.55.abund <-
+  sickle.spa.3715.55.report[which(sickle.spa.3715.55.report$abundance>0),]
+sickle.spa.3715.75.abund <-
+  sickle.spa.3715.75.report[which(sickle.spa.3715.75.report$abundance>0),]
+sickle.spa.3715.95.abund <-
+  sickle.spa.3715.95.report[which(sickle.spa.3715.95.report$abundance>0),]
+sickle.spa.3715.111.abund <-
+  sickle.spa.3715.111.report[which(sickle.spa.3715.111.report$abundance>0),]
+sickle.spa.3715.127.abund <-
+  sickle.spa.3715.127.report[which(sickle.spa.3715.127.report$abundance>0),]
+
+sickle.spa.3715.prop$Num.Species <- c(nrow(sickle.spa.3715.55.abund), 
+                                      nrow(sickle.spa.3715.75.abund),
+                                      nrow(sickle.spa.3715.95.abund),
+                                      nrow(sickle.spa.3715.111.abund),
+                                      nrow(sickle.spa.3715.127.abund))
+
+# Quast Stats
+sickle.spa.3715.prop$N50 <- c(2534, 2942, 3233, 3494, 4626)
+sickle.spa.3715.prop$Contigs <- c(110398, 108014, 105149, 101852, 91882)
+sickle.spa.3715.prop$Largest.Contig <- c(195880, 207776, 399550, 540728, 1178389)
+
+```
+### 3715 Sickle Raw SPAdes
+```{r}
+# Load in .tsv files
+sickle.raw.spa.3715.55 <- read_tsv('3715.sickle/3715.sickle.raw.spades.55.output.tsv')
+sickle.raw.spa.3715.75 <- read_tsv('3715.sickle/3715.sickle.raw.spades.75.output.tsv')
+sickle.raw.spa.3715.95 <- read_tsv('3715.sickle/3715.sickle.raw.spades.95.output.tsv')
+sickle.raw.spa.3715.111 <- read_tsv('3715.sickle/3715.sickle.raw.spades.111.output.tsv')
+sickle.raw.spa.3715.127 <- read_tsv('3715.sickle/3715.sickle.raw.spades.127.output.tsv')
+
+# Calculate unclassified vs. classified
+sickle.raw.spa.3715.prop <- data.frame(matrix(5,5))
+sickle.raw.spa.3715.prop$Kmer <- c(55,75,95,111,127)
+sickle.raw.spa.3715.prop$Unclassified <- c(
+  length(which(sickle.raw.spa.3715.55$taxID == "0"))/nrow(sickle.raw.spa.3715.55),
+  length(which(sickle.raw.spa.3715.75$taxID == "0"))/nrow(sickle.raw.spa.3715.75),
+  length(which(sickle.raw.spa.3715.95$taxID == "0"))/nrow(sickle.raw.spa.3715.95),
+  length(which(sickle.raw.spa.3715.111$taxID == "0"))/nrow(sickle.raw.spa.3715.111),
+  length(which(sickle.raw.spa.3715.127$taxID == "0"))/nrow(sickle.raw.spa.3715.127)
+)
+sickle.raw.spa.3715.prop <- sickle.raw.spa.3715.prop[,-1]
+sickle.raw.spa.3715.prop$Microbial <- c(
+  length(which(sickle.raw.spa.3715.55$taxID != "0" &
+                 sickle.raw.spa.3715.55$taxID != "43179"))/nrow(sickle.raw.spa.3715.55),
+  length(which(sickle.raw.spa.3715.75$taxID != "0" &
+                 sickle.raw.spa.3715.75$taxID != "43179"))/nrow(sickle.raw.spa.3715.75),
+  length(which(sickle.raw.spa.3715.95$taxID != "0" &
+                 sickle.raw.spa.3715.95$taxID != "43179"))/nrow(sickle.raw.spa.3715.95),
+  length(which(sickle.raw.spa.3715.111$taxID != "0" &
+                 sickle.raw.spa.3715.111$taxID != "43179"))/nrow(sickle.raw.spa.3715.111),
+  length(which(sickle.raw.spa.3715.127$taxID != "0" &
+                 sickle.raw.spa.3715.127$taxID != "43179"))/nrow(sickle.raw.spa.3715.127)
+)
+sickle.raw.spa.3715.prop$Squirrel <- c(
+  length(which(sickle.raw.spa.3715.55$taxID == "43179"))/nrow(sickle.raw.spa.3715.55),
+  length(which(sickle.raw.spa.3715.75$taxID == "43179"))/nrow(sickle.raw.spa.3715.75),
+  length(which(sickle.raw.spa.3715.95$taxID == "43179"))/nrow(sickle.raw.spa.3715.95),
+  length(which(sickle.raw.spa.3715.111$taxID == "43179"))/nrow(sickle.raw.spa.3715.111),
+  length(which(sickle.raw.spa.3715.127$taxID == "43179"))/nrow(sickle.raw.spa.3715.127)
+)
+
+# Number of classified Microbes
+sickle.raw.spa.3715.55.report <- read_tsv('3715.sickle/3715.sickle.raw.spades.55.report.tsv')
+sickle.raw.spa.3715.75.report <- read_tsv('3715.sickle/3715.sickle.raw.spades.75.report.tsv')
+sickle.raw.spa.3715.95.report <- read_tsv('3715.sickle/3715.sickle.raw.spades.95.report.tsv')
+sickle.raw.spa.3715.111.report <- read_tsv('3715.sickle/3715.sickle.raw.spades.111.report.tsv')
+sickle.raw.spa.3715.127.report <- read_tsv('3715.sickle/3715.sickle.raw.spades.127.report.tsv')
+
+sickle.raw.spa.3715.55.abund <-
+  sickle.raw.spa.3715.55.report[which(sickle.raw.spa.3715.55.report$abundance>0),]
+sickle.raw.spa.3715.75.abund <-
+  sickle.raw.spa.3715.75.report[which(sickle.raw.spa.3715.75.report$abundance>0),]
+sickle.raw.spa.3715.95.abund <-
+  sickle.raw.spa.3715.95.report[which(sickle.raw.spa.3715.95.report$abundance>0),]
+sickle.raw.spa.3715.111.abund <-
+  sickle.raw.spa.3715.111.report[which(sickle.raw.spa.3715.111.report$abundance>0),]
+sickle.raw.spa.3715.127.abund <-
+  sickle.raw.spa.3715.127.report[which(sickle.raw.spa.3715.127.report$abundance>0),]
+
+sickle.raw.spa.3715.prop$Num.Species <- c(nrow(sickle.raw.spa.3715.55.abund), 
+                                      nrow(sickle.raw.spa.3715.75.abund),
+                                      nrow(sickle.raw.spa.3715.95.abund),
+                                      nrow(sickle.raw.spa.3715.111.abund),
+                                      nrow(sickle.raw.spa.3715.127.abund))
+
+# Quast Stats
+sickle.raw.spa.3715.prop$N50 <- c(2519, 2973, 3308, 3556, 4785)
+sickle.raw.spa.3715.prop$Contigs <- c(111036, 107972, 105008, 102411, 91644)
+sickle.raw.spa.3715.prop$Largest.Contig <- c(172139, 207778, 399402, 51833, 1334344)
+```
 ### 3715 Megahit
 ```{r}
 # Load in .tsv files
@@ -591,6 +730,148 @@ norm.idba.3715.prop$Largest.Contig <- c(195878, 220158, 340857, 322916, 448581)
 
 ```
 
+### 3715 IDBA Sickle Normalized
+```{r}
+# Load in .tsv files
+sickle.idba.3715.55 <- read_tsv('3715.sickle/3715.sickle.idba.55.output.tsv')
+sickle.idba.3715.75 <- read_tsv('3715.sickle/3715.sickle.idba.75.output.tsv')
+sickle.idba.3715.95 <- read_tsv('3715.sickle/3715.sickle.idba.95.output.tsv')
+sickle.idba.3715.111 <- read_tsv('3715.sickle/3715.sickle.idba.111.output.tsv')
+sickle.idba.3715.127 <- read_tsv('3715.sickle/3715.sickle.idba.127.output.tsv')
+
+# Calculate unclassified vs. classified
+sickle.idba.3715.prop <- data.frame(matrix(5,5))
+sickle.idba.3715.prop$Kmer <- c(55,75,95,111,127)
+sickle.idba.3715.prop$Unclassified <- c(
+  length(which(sickle.idba.3715.55$taxID == "0"))/nrow(sickle.idba.3715.55),
+  length(which(sickle.idba.3715.75$taxID == "0"))/nrow(sickle.idba.3715.75),
+  length(which(sickle.idba.3715.95$taxID == "0"))/nrow(sickle.idba.3715.95),
+  length(which(sickle.idba.3715.111$taxID == "0"))/nrow(sickle.idba.3715.111),
+  length(which(sickle.idba.3715.127$taxID == "0"))/nrow(sickle.idba.3715.127)
+)
+sickle.idba.3715.prop <- sickle.idba.3715.prop[,-1]
+sickle.idba.3715.prop$Microbial <- c(
+  length(which(sickle.idba.3715.55$taxID != "0" &
+                 sickle.idba.3715.55$taxID != "43179"))/nrow(sickle.idba.3715.55),
+  length(which(sickle.idba.3715.75$taxID != "0" &
+                 sickle.idba.3715.75$taxID != "43179"))/nrow(sickle.idba.3715.75),
+  length(which(sickle.idba.3715.95$taxID != "0" &
+                 sickle.idba.3715.95$taxID != "43179"))/nrow(sickle.idba.3715.95),
+  length(which(sickle.idba.3715.111$taxID != "0" &
+                 sickle.idba.3715.111$taxID != "43179"))/nrow(sickle.idba.3715.111),
+  length(which(sickle.idba.3715.127$taxID != "0" &
+                 sickle.idba.3715.127$taxID != "43179"))/nrow(sickle.idba.3715.127)
+)
+sickle.idba.3715.prop$Squirrel <- c(
+  length(which(sickle.idba.3715.55$taxID == "43179"))/nrow(sickle.idba.3715.55),
+  length(which(sickle.idba.3715.75$taxID == "43179"))/nrow(sickle.idba.3715.75),
+  length(which(sickle.idba.3715.95$taxID == "43179"))/nrow(sickle.idba.3715.95),
+  length(which(sickle.idba.3715.111$taxID == "43179"))/nrow(sickle.idba.3715.111),
+  length(which(sickle.idba.3715.127$taxID == "43179"))/nrow(sickle.idba.3715.127)
+)
+
+# Number of classified Microbes
+sickle.idba.3715.55.report <- read_tsv('3715.sickle/3715.sickle.idba.55.report.tsv')
+sickle.idba.3715.75.report <- read_tsv('3715.sickle/3715.sickle.idba.75.report.tsv')
+sickle.idba.3715.95.report <- read_tsv('3715.sickle/3715.sickle.idba.95.report.tsv')
+sickle.idba.3715.111.report <- read_tsv('3715.sickle/3715.sickle.idba.111.report.tsv')
+sickle.idba.3715.127.report <- read_tsv('3715.sickle/3715.sickle.idba.127.report.tsv')
+
+sickle.idba.3715.55.abund <-
+  sickle.idba.3715.55.report[which(sickle.idba.3715.55.report$abundance>0),]
+sickle.idba.3715.75.abund <-
+  sickle.idba.3715.75.report[which(sickle.idba.3715.75.report$abundance>0),]
+sickle.idba.3715.95.abund <-
+  sickle.idba.3715.95.report[which(sickle.idba.3715.95.report$abundance>0),]
+sickle.idba.3715.111.abund <-
+  sickle.idba.3715.111.report[which(sickle.idba.3715.111.report$abundance>0),]
+sickle.idba.3715.127.abund <-
+  sickle.idba.3715.127.report[which(sickle.idba.3715.127.report$abundance>0),]
+
+sickle.idba.3715.prop$Num.Species <- c(nrow(sickle.idba.3715.55.abund), 
+                                      nrow(sickle.idba.3715.75.abund),
+                                      nrow(sickle.idba.3715.95.abund),
+                                      nrow(sickle.idba.3715.111.abund),
+                                      nrow(sickle.idba.3715.127.abund))
+
+# Quast Stats
+sickle.idba.3715.prop$N50 <- c(1945, 3107, 3614, 3568, 758)
+sickle.idba.3715.prop$Contigs <- c(100369, 94302, 90960, 30033, 27657)
+sickle.idba.3715.prop$Largest.Contig <- c(195878, 220158, 340857, 82715, 3664)
+
+```
+
+
+### 3715 IDBA Sickle Raw
+```{r}
+# Load in .tsv files
+sickle.raw.idba.3715.55 <- read_tsv('3715.sickle/3715.sickle.raw.idba.55.output.tsv')
+sickle.raw.idba.3715.75 <- read_tsv('3715.sickle/3715.sickle.raw.idba.75.output.tsv')
+sickle.raw.idba.3715.95 <- read_tsv('3715.sickle/3715.sickle.raw.idba.95.output.tsv')
+sickle.raw.idba.3715.111 <- read_tsv('3715.sickle/3715.sickle.raw.idba.111.output.tsv')
+sickle.raw.idba.3715.127 <- read_tsv('3715.sickle/3715.sickle.raw.idba.127.output.tsv')
+
+# Calculate unclassified vs. classified
+sickle.raw.idba.3715.prop <- data.frame(matrix(5,5))
+sickle.raw.idba.3715.prop$Kmer <- c(55,75,95,111,127)
+sickle.raw.idba.3715.prop$Unclassified <- c(
+  length(which(sickle.raw.idba.3715.55$taxID == "0"))/nrow(sickle.raw.idba.3715.55),
+  length(which(sickle.raw.idba.3715.75$taxID == "0"))/nrow(sickle.raw.idba.3715.75),
+  length(which(sickle.raw.idba.3715.95$taxID == "0"))/nrow(sickle.raw.idba.3715.95),
+  length(which(sickle.raw.idba.3715.111$taxID == "0"))/nrow(sickle.raw.idba.3715.111),
+  length(which(sickle.raw.idba.3715.127$taxID == "0"))/nrow(sickle.raw.idba.3715.127)
+)
+sickle.raw.idba.3715.prop <- sickle.raw.idba.3715.prop[,-1]
+sickle.raw.idba.3715.prop$Microbial <- c(
+  length(which(sickle.raw.idba.3715.55$taxID != "0" &
+                 sickle.raw.idba.3715.55$taxID != "43179"))/nrow(sickle.raw.idba.3715.55),
+  length(which(sickle.raw.idba.3715.75$taxID != "0" &
+                 sickle.raw.idba.3715.75$taxID != "43179"))/nrow(sickle.raw.idba.3715.75),
+  length(which(sickle.raw.idba.3715.95$taxID != "0" &
+                 sickle.raw.idba.3715.95$taxID != "43179"))/nrow(sickle.raw.idba.3715.95),
+  length(which(sickle.raw.idba.3715.111$taxID != "0" &
+                 sickle.raw.idba.3715.111$taxID != "43179"))/nrow(sickle.raw.idba.3715.111),
+  length(which(sickle.raw.idba.3715.127$taxID != "0" &
+                 sickle.raw.idba.3715.127$taxID != "43179"))/nrow(sickle.raw.idba.3715.127)
+)
+sickle.raw.idba.3715.prop$Squirrel <- c(
+  length(which(sickle.raw.idba.3715.55$taxID == "43179"))/nrow(sickle.raw.idba.3715.55),
+  length(which(sickle.raw.idba.3715.75$taxID == "43179"))/nrow(sickle.raw.idba.3715.75),
+  length(which(sickle.raw.idba.3715.95$taxID == "43179"))/nrow(sickle.raw.idba.3715.95),
+  length(which(sickle.raw.idba.3715.111$taxID == "43179"))/nrow(sickle.raw.idba.3715.111),
+  length(which(sickle.raw.idba.3715.127$taxID == "43179"))/nrow(sickle.raw.idba.3715.127)
+)
+
+# Number of classified Microbes
+sickle.raw.idba.3715.55.report <- read_tsv('3715.sickle/3715.sickle.raw.idba.55.report.tsv')
+sickle.raw.idba.3715.75.report <- read_tsv('3715.sickle/3715.sickle.raw.idba.75.report.tsv')
+sickle.raw.idba.3715.95.report <- read_tsv('3715.sickle/3715.sickle.raw.idba.95.report.tsv')
+sickle.raw.idba.3715.111.report <- read_tsv('3715.sickle/3715.sickle.raw.idba.111.report.tsv')
+sickle.raw.idba.3715.127.report <- read_tsv('3715.sickle/3715.sickle.raw.idba.127.report.tsv')
+
+sickle.raw.idba.3715.55.abund <-
+  sickle.raw.idba.3715.55.report[which(sickle.raw.idba.3715.55.report$abundance>0),]
+sickle.raw.idba.3715.75.abund <-
+  sickle.raw.idba.3715.75.report[which(sickle.raw.idba.3715.75.report$abundance>0),]
+sickle.raw.idba.3715.95.abund <-
+  sickle.raw.idba.3715.95.report[which(sickle.raw.idba.3715.95.report$abundance>0),]
+sickle.raw.idba.3715.111.abund <-
+  sickle.raw.idba.3715.111.report[which(sickle.raw.idba.3715.111.report$abundance>0),]
+sickle.raw.idba.3715.127.abund <-
+  sickle.raw.idba.3715.127.report[which(sickle.raw.idba.3715.127.report$abundance>0),]
+
+sickle.raw.idba.3715.prop$Num.Species <- c(nrow(sickle.raw.idba.3715.55.abund), 
+                                      nrow(sickle.raw.idba.3715.75.abund),
+                                      nrow(sickle.raw.idba.3715.95.abund),
+                                      nrow(sickle.raw.idba.3715.111.abund),
+                                      nrow(sickle.raw.idba.3715.127.abund))
+
+# Quast Stats
+sickle.raw.idba.3715.prop$N50 <- c(1936, 3134, 3638, 6771, 4134)
+sickle.raw.idba.3715.prop$Contigs <- c(101720, 94935, 91315, 27838, 15498)
+sickle.raw.idba.3715.prop$Largest.Contig <- c(195878, 220158, 340857, 322916, 450474)
+
+```
 ### 3733 SPAdes
 ```{r}
 # Load in .tsv files

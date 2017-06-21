@@ -7,6 +7,9 @@ output: html_document
 
 ```{r}
 library('readr')
+source('http://portal.nersc.gov/dna/RD/Metagenome_RD/MetaBAT/Files/benchmark.R')
+  # https://bitbucket.org/berkeleylab/metabat/wiki/Best%20Binning%20Practices
+
 ```
 
 ### 3715 Untrimmed SPAdes (Old)
@@ -1036,3 +1039,32 @@ sp.3734.prop$N50 <- c(1622,2016,2051,2861,2083,2124,2671,2899,2937,5293)
 
 
 
+
+
+
+### 3715 IDBA 111 Bin (Default)
+```{r}
+# printPerf function is to show cumulative number of bins fulfilling given recall (completeness or sensitivity) and precision (purity or specificity) cutoffs.
+
+# 9 bins total
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                             removeStrain=F)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                             removeStrain=T)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+
+# The difference between two tables is whether to remove strain level contamination in CheckM results. If removeStrain is set to TRUE, contamination by different strains is ignored for precision calculation and the number of bins fulfilling the same precision cutoff will increase.
+
+# Compare the 2 tables by looking at the last row (specificity = 0.99)
+# The increase in table 1 to table 2 will be due to strain contamination (mixture of different strains)
+
+
+```

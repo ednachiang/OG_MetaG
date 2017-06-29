@@ -1060,11 +1060,197 @@ printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
   # Recall = completeness/sensitivity
   # Precision = purity/specificity
 
+# The difference between two tables is whether to remove strain level contamination in CheckM results. If removeStrain is set to TRUE, contamination by different strains is ignored for precision calculation and the number of bins fulfilling the same precision cutoff will increase.
+
+# Compare the 2 tables by looking at the last row (specificity = 0.99)
+# The increase in table 1 to table 2 will be due to strain contamination (mixture of different strains)
+```
+
+### 3715 IDBA 111 Bin (Contig min = 1500)
+```{r}
+# printPerf function is to show cumulative number of bins fulfilling given recall (completeness or sensitivity) and precision (purity or specificity) cutoffs.
+
+# 12 bins total
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                             removeStrain=F)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                             removeStrain=T)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
 
 # The difference between two tables is whether to remove strain level contamination in CheckM results. If removeStrain is set to TRUE, contamination by different strains is ignored for precision calculation and the number of bins fulfilling the same precision cutoff will increase.
 
 # Compare the 2 tables by looking at the last row (specificity = 0.99)
 # The increase in table 1 to table 2 will be due to strain contamination (mixture of different strains)
-
-
 ```
+
+### 3715 IDBA 111 Bin (Bin size min = 100k)
+```{r}
+# printPerf function is to show cumulative number of bins fulfilling given recall (completeness or sensitivity) and precision (purity or specificity) cutoffs.
+
+# 15 bins total
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                             removeStrain=F)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                             removeStrain=T)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+# The difference between two tables is whether to remove strain level contamination in CheckM results. If removeStrain is set to TRUE, contamination by different strains is ignored for precision calculation and the number of bins fulfilling the same precision cutoff will increase.
+
+# Compare the 2 tables by looking at the last row (specificity = 0.99)
+# The increase in table 1 to table 2 will be due to strain contamination (mixture of different strains)
+```
+
+### 3715 IDBA 111 Bin (Bin size min = 50k)
+```{r}
+# printPerf function is to show cumulative number of bins fulfilling given recall (completeness or sensitivity) and precision (purity or specificity) cutoffs.
+
+# 22 bins total
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                             removeStrain=F)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                             removeStrain=T)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+# The difference between two tables is whether to remove strain level contamination in CheckM results. If removeStrain is set to TRUE, contamination by different strains is ignored for precision calculation and the number of bins fulfilling the same precision cutoff will increase.
+
+# Compare the 2 tables by looking at the last row (specificity = 0.99)
+# The increase in table 1 to table 2 will be due to strain contamination (mixture of different strains)
+```
+
+### 3715 IDBA 111 Bin (Bin size min = 10k)
+```{r}
+# printPerf function is to show cumulative number of bins fulfilling given recall (completeness or sensitivity) and precision (purity or specificity) cutoffs.
+
+# 57 bins total
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                             removeStrain=F)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+printPerf(list(calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                             removeStrain=T)), rec=c(seq(.1,.9,.1),.95),
+          prec=c(seq(.6,.9,.1),.95,.99))
+  # Recall = completeness/sensitivity
+  # Precision = purity/specificity
+
+# The difference between two tables is whether to remove strain level contamination in CheckM results. If removeStrain is set to TRUE, contamination by different strains is ignored for precision calculation and the number of bins fulfilling the same precision cutoff will increase.
+
+# Compare the 2 tables by looking at the last row (specificity = 0.99)
+# The increase in table 1 to table 2 will be due to strain contamination (mixture of different strains)
+```
+
+### Compare 3715 IDBA 111 Metabat Outputs
+```{r}
+# Calculates difference between 2 independent runs of CheckM results.
+# Positive = first result has more bins fulfilling cutoffs; more positive = better
+# You want more positive #'s in bottom right --> more complete & precise bins
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # 3715.bin.checkm is much worse at low completion precision bins, but is barely better than 3715.lowcontig.chekm at high precision & completion bins
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # Pretty much the same
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # Meh
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # Pretty much the same
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # 3715.lowcontig is better at low completeness & precision, but worse at high precision & completness
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # Pretty much the same
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # 3715.lowcontig is better at low completeness & precision, but worse at high precision & completness
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # 100 just slightly better
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # Pretty much the same
+
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                       removeStrain=F),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                       removeStrain=F),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+  # 50 is worse than 10
+
+# No huge difference between the different metabat runs, but if I had to pick, I'd go with 3715.100
+```
+
+
+
+

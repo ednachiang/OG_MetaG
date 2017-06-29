@@ -1175,6 +1175,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # 3715.bin.checkm is much worse at low completion precision bins, but is barely better than 3715.lowcontig.chekm at high precision & completion bins
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
                        removeStrain=F),
@@ -1183,6 +1191,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # Pretty much the same
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
                        removeStrain=F),
@@ -1191,6 +1207,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # Meh
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
                        removeStrain=F),
@@ -1199,6 +1223,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # Pretty much the same
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.bin.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
                        removeStrain=F),
@@ -1207,6 +1239,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # 3715.lowcontig is better at low completeness & precision, but worse at high precision & completness
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
                        removeStrain=F),
@@ -1215,6 +1255,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # Pretty much the same
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
                        removeStrain=F),
@@ -1223,6 +1271,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # 3715.lowcontig is better at low completeness & precision, but worse at high precision & completness
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.lowcontig.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
                        removeStrain=F),
@@ -1231,6 +1287,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # 100 just slightly better
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
                        removeStrain=F),
@@ -1239,6 +1303,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # Pretty much the same
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.100.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
                        removeStrain=F),
@@ -1247,6 +1319,14 @@ diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
          rec=c(seq(.1,.9,.1),.95),
          prec=c(seq(.6,.9,.1), .95, .99))
   # 50 is worse than 10
+diffPerf(calcPerfBySCG("3715.untrim/idba.111.counts/3715.50.checkm.txt",
+                       removeStrain=T),
+         calcPerfBySCG("3715.untrim/idba.111.counts/3715.10.checkm.txt",
+                       removeStrain=T),
+         rec=c(seq(.1,.9,.1),.95),
+         prec=c(seq(.6,.9,.1), .95, .99))
+
+
 
 # No huge difference between the different metabat runs, but if I had to pick, I'd go with 3715.100
 ```

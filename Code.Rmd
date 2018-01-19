@@ -12,6 +12,80 @@ source('http://portal.nersc.gov/dna/RD/Metagenome_RD/MetaBAT/Files/benchmark.R')
 
 ```
 
+### 3715 IDBA 111
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3715.idba.111.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.idba.111.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3715.idba.111.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.idba.111.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3715.idba.111.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.idba.111.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3715.idba.111.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.idba.111.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.idba.111.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.idba.111.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.idba.111.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.idba.111.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.idba.111.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.idba.111.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+```
+
+
+### 3715 IDBA 95
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3715.idba.95.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.idba.95.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.idba.95.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.idba.95.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.idba.95.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.idba.95.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+```
+
+
+
+####### OLD #######
 ### 3715 Untrimmed SPAdes (Old)
 ```{r}
 # Load in .tsv files

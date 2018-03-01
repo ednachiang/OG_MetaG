@@ -1,0 +1,3907 @@
+contig-111_0_1
+contig-111_0_2
+contig-111_0_3
+contig-111_0_4
+contig-111_0_5	K19294
+contig-111_0_6	K16053
+contig-111_0_7	K16053
+contig-111_0_8
+contig-111_0_9
+contig-111_0_10	K01256
+contig-111_0_11
+contig-111_0_12
+contig-111_0_13	K00765
+contig-111_0_14	K00013
+contig-111_0_15	K00817
+contig-111_0_16	K01089
+contig-111_0_17	K01738
+contig-111_0_18	K18139
+contig-111_0_19	K03296
+contig-111_0_20	K03585
+contig-111_0_21	K18954
+contig-111_0_22	K05614
+contig-111_0_23
+contig-111_0_24
+contig-111_0_25
+contig-111_0_26	K07506
+contig-111_0_27	K06889
+contig-111_0_28
+contig-111_0_29	K14155
+contig-111_0_30	K01190
+contig-111_0_31
+contig-111_0_32
+contig-111_0_33	K00156
+contig-111_0_34
+contig-111_0_35	K01881
+contig-111_0_36	K01938
+contig-111_0_37
+contig-111_0_38
+contig-111_0_39	K03394
+contig-111_0_40	K02016
+contig-111_0_41	K02015
+contig-111_0_42	K02013
+contig-111_0_43
+contig-111_0_44
+contig-111_0_45	K00302
+contig-111_0_46
+contig-111_0_47
+contig-111_0_48	K07727
+contig-111_0_49
+contig-111_0_50
+contig-111_0_51
+contig-111_0_52
+contig-111_0_53	K18691
+contig-111_0_54	K03215
+contig-111_0_55	K01006
+contig-111_0_56	K07678
+contig-111_0_57
+contig-111_0_58
+contig-111_0_59
+contig-111_0_60
+contig-111_0_61	K20074
+contig-111_0_62	K12132
+contig-111_0_63
+contig-111_0_64
+contig-111_0_65	K00640
+contig-111_0_66
+contig-111_0_67	K05587
+contig-111_0_68	K00532
+contig-111_0_69	K00334
+contig-111_0_70	K06872
+contig-111_0_71	K03744
+contig-111_0_72	K00428
+contig-111_0_73	K03642
+contig-111_0_74	K08678
+contig-111_0_75	K15725
+contig-111_0_76	K15727
+contig-111_0_77	K15726
+contig-111_0_78	K02483
+contig-111_0_79	K07644
+contig-111_0_80	K05366
+contig-111_0_81	K03778
+contig-111_0_82
+contig-111_0_83	K03147
+contig-111_0_84	K00788
+contig-111_0_85
+contig-111_0_86	K00941
+contig-111_0_87
+contig-111_0_88	K02188
+contig-111_0_89	K05936
+contig-111_0_90	K00595
+contig-111_0_91	K05934
+contig-111_0_92
+contig-111_0_93	K02014
+contig-111_0_94	K02190
+contig-111_0_95	K07085
+contig-111_0_96	K12252
+contig-111_0_97
+contig-111_0_98	K01681
+contig-111_0_99	K00031
+contig-111_0_100	K01647
+contig-111_0_101
+contig-111_0_102
+contig-111_0_103	K03294
+contig-111_0_104
+contig-111_0_105	K07124
+contig-111_0_106
+contig-111_0_107
+contig-111_0_108	K12960
+contig-111_0_109	K03783
+contig-111_0_110
+contig-111_0_111	K03696
+contig-111_0_112	K02469
+contig-111_0_113
+contig-111_0_114
+contig-111_0_115
+contig-111_0_116
+contig-111_0_117	K00532
+contig-111_0_118	K17752
+contig-111_0_119
+contig-111_0_120	K14213
+contig-111_0_121
+contig-111_0_122
+contig-111_0_123	K01990
+contig-111_0_124
+contig-111_0_125
+contig-111_0_126
+contig-111_0_127
+contig-111_0_128
+contig-111_0_129
+contig-111_0_130	K01079
+contig-111_0_131
+contig-111_0_132
+contig-111_0_133	K07507
+contig-111_0_134	K01142
+contig-111_0_135	K17828
+contig-111_0_136	K02823
+contig-111_0_137
+contig-111_0_138
+contig-111_0_139	K02340
+contig-111_0_140	K01241
+contig-111_0_141
+contig-111_0_142
+contig-111_0_143
+contig-111_0_144	K00351
+contig-111_0_145	K00350
+contig-111_0_146	K00349
+contig-111_0_147	K00348
+contig-111_0_148	K00347
+contig-111_0_149	K00346
+contig-111_0_150
+contig-111_0_151
+contig-111_0_152	K01487
+contig-111_0_153
+contig-111_0_154
+contig-111_0_155
+contig-111_0_156
+contig-111_0_157
+contig-111_0_158
+contig-111_0_159	K02552
+contig-111_0_160	K02551
+contig-111_0_161	K01661
+contig-111_0_162	K19802
+contig-111_0_163	K15654
+contig-111_0_164
+contig-111_0_165
+contig-111_0_166
+contig-111_0_167	K15719
+contig-111_0_168	K10773
+contig-111_0_169
+contig-111_0_170
+contig-111_0_171	K01991
+contig-111_0_172	K06167
+contig-111_0_173	K00075
+contig-111_0_174
+contig-111_0_175	K03530
+contig-111_0_176	K00761
+contig-111_0_177	K07678
+contig-111_0_178
+contig-111_0_179	K00010
+contig-111_0_180
+contig-111_0_181	K01130
+contig-111_0_182
+contig-111_0_183
+contig-111_0_184
+contig-111_0_185
+contig-111_0_186	K03088
+contig-111_0_187	K11927
+contig-111_0_188	K03654
+contig-111_0_189
+contig-111_0_190
+contig-111_0_191
+contig-111_0_192
+contig-111_0_193
+contig-111_0_194
+contig-111_0_195
+contig-111_0_196	K17723
+contig-111_0_197
+contig-111_0_198
+contig-111_0_199
+contig-111_0_200	K01665
+contig-111_0_201	K12251
+contig-111_0_202	K10536
+contig-111_0_203
+contig-111_0_204	K08968
+contig-111_0_205
+contig-111_0_206	K19265
+contig-111_0_207	K01138
+contig-111_0_208
+contig-111_0_209
+contig-111_0_210
+contig-111_0_211
+contig-111_0_212	K01912
+contig-111_0_213
+contig-111_0_214	K01838
+contig-111_0_215
+contig-111_0_216
+contig-111_0_217
+contig-111_0_218	K01151
+contig-111_0_219
+contig-111_0_220
+contig-111_0_221	K04564
+contig-111_0_222
+contig-111_0_223
+contig-111_0_224
+contig-111_0_225
+contig-111_0_226
+contig-111_0_227
+contig-111_0_228
+contig-111_0_229
+contig-111_0_230
+contig-111_0_231
+contig-111_0_232
+contig-111_0_233
+contig-111_0_234
+contig-111_0_235
+contig-111_0_236	K16191
+contig-111_0_237
+contig-111_0_238	K07678
+contig-111_0_239	K03695
+contig-111_0_240
+contig-111_0_241
+contig-111_0_242	K09861
+contig-111_0_243
+contig-111_0_244	K03641
+contig-111_0_245
+contig-111_0_246
+contig-111_0_247	K01890
+contig-111_0_248	K00554
+contig-111_0_249
+contig-111_0_250	K00639
+contig-111_0_251	K04486
+contig-111_0_252	K00798
+contig-111_0_253	K03686
+contig-111_0_254	K03687
+contig-111_0_255
+contig-111_0_256	K07456
+contig-111_0_257	K03284
+contig-111_0_258	K14060
+contig-111_0_259
+contig-111_0_260
+contig-111_0_261	K13631
+contig-111_0_262
+contig-111_0_263
+contig-111_0_264	K00844
+contig-111_0_265
+contig-111_0_266	K05825
+contig-111_0_267
+contig-111_0_268
+contig-111_0_269
+contig-111_0_270
+contig-111_0_271	K06899
+contig-111_0_272
+contig-111_0_273
+contig-111_0_274
+contig-111_0_275
+contig-111_6_1
+contig-111_6_2
+contig-111_6_3
+contig-111_6_4
+contig-111_6_5	K03719
+contig-111_6_6
+contig-111_6_7
+contig-111_6_8
+contig-111_6_9	K06920
+contig-111_6_10	K09457
+contig-111_6_11
+contig-111_6_12
+contig-111_6_13
+contig-111_6_14
+contig-111_6_15
+contig-111_6_16
+contig-111_6_17	K01134
+contig-111_6_18	K18222
+contig-111_6_19	K01126
+contig-111_6_20	K01915
+contig-111_6_21
+contig-111_6_22
+contig-111_6_23
+contig-111_6_24
+contig-111_6_25
+contig-111_6_26
+contig-111_6_27	K16055
+contig-111_6_28	K00697
+contig-111_6_29
+contig-111_6_30
+contig-111_6_31
+contig-111_6_32
+contig-111_6_33
+contig-111_6_34	K01546
+contig-111_6_35	K01547
+contig-111_6_36	K01548
+contig-111_6_37
+contig-111_6_38	K07646
+contig-111_6_39	K11383
+contig-111_6_40	K00928
+contig-111_6_41
+contig-111_6_42
+contig-111_6_43	K01091
+contig-111_6_44	K03088
+contig-111_6_45
+contig-111_6_46
+contig-111_6_47
+contig-111_6_48
+contig-111_6_49	K07696
+contig-111_6_50	K02014
+contig-111_6_51
+contig-111_6_52
+contig-111_6_53
+contig-111_6_54	K16698
+contig-111_6_55	K00012
+contig-111_6_56
+contig-111_6_57
+contig-111_6_58
+contig-111_6_59
+contig-111_6_60	K02551
+contig-111_6_61
+contig-111_6_62
+contig-111_6_63
+contig-111_6_64
+contig-111_6_65
+contig-111_6_66
+contig-111_6_67
+contig-111_6_68
+contig-111_6_69
+contig-111_6_70
+contig-111_6_71	K19421
+contig-111_6_72
+contig-111_6_73
+contig-111_6_74	K04763
+contig-111_6_75
+contig-111_6_76
+contig-111_6_77	K00262
+contig-111_6_78	K06958
+contig-111_6_79	K00966
+contig-111_6_80
+contig-111_6_81	K01007
+contig-111_6_82	K00262
+contig-111_6_83	K01159
+contig-111_6_84
+contig-111_6_85
+contig-111_6_86
+contig-111_6_87
+contig-111_6_88
+contig-111_6_89
+contig-111_6_90
+contig-111_6_91	K07636
+contig-111_6_92	K01873
+contig-111_6_93	K06180
+contig-111_6_94	K04084
+contig-111_6_95	K02499
+contig-111_6_96
+contig-111_6_97
+contig-111_6_98	K03088
+contig-111_6_99	K04077
+contig-111_6_100	K04078
+contig-111_6_101	K01201
+contig-111_6_102	K01892
+contig-111_6_103	K06973
+contig-111_6_104	K01939
+contig-111_6_105	K03711
+contig-111_6_106
+contig-111_6_107	K01277
+contig-111_6_108	K00566
+contig-111_6_109	K00948
+contig-111_6_110
+contig-111_6_111	K03975
+contig-111_6_112	K14210
+contig-111_6_113	K07001
+contig-111_6_114	K01507
+contig-111_6_115	K01915
+contig-111_6_116
+contig-111_6_117
+contig-111_6_118	K01740
+contig-111_6_119
+contig-111_6_120
+contig-111_6_121
+contig-111_6_122	K02355
+contig-111_6_123
+contig-111_6_124
+contig-111_6_125
+contig-111_6_126
+contig-111_6_127
+contig-111_6_128
+contig-111_6_129	K07568
+contig-111_6_130	K03286
+contig-111_6_131
+contig-111_6_132
+contig-111_6_133	K01785
+contig-111_6_134
+contig-111_6_135	K00560
+contig-111_6_136	K00287
+contig-111_6_137
+contig-111_6_138
+contig-111_6_139
+contig-111_6_140	K07588
+contig-111_6_141
+contig-111_6_142
+contig-111_6_143	K00850
+contig-111_6_144	K03527
+contig-111_6_145	K00945
+contig-111_6_146
+contig-111_6_147
+contig-111_6_148	K13787
+contig-111_6_149	K03424
+contig-111_6_150
+contig-111_6_151	K03561
+contig-111_6_152
+contig-111_6_153
+contig-111_6_154
+contig-111_6_155
+contig-111_6_156	K03718
+contig-111_6_157	K01893
+contig-111_6_158	K06178
+contig-111_6_159	K01756
+contig-111_6_160
+contig-111_6_161
+contig-111_6_162	K01914
+contig-111_6_163	K03648
+contig-111_6_164
+contig-111_6_165
+contig-111_6_166	K08656
+contig-111_6_167
+contig-111_6_168	K16092
+contig-111_6_169
+contig-111_6_170
+contig-111_6_171
+contig-111_6_172
+contig-111_6_173
+contig-111_6_174	K01776
+contig-111_6_175
+contig-111_6_176
+contig-111_6_177	K07277
+contig-111_6_178	K00806
+contig-111_6_179
+contig-111_6_180
+contig-111_6_181	K11752
+contig-111_6_182	K02493
+contig-111_6_183
+contig-111_6_184	K02242
+contig-111_6_185	K00762
+contig-111_6_186
+contig-111_6_187	K01755
+contig-111_6_188
+contig-111_6_189
+contig-111_6_190
+contig-111_6_191	K00266
+contig-111_6_192	K00528
+contig-111_6_193
+contig-111_6_194
+contig-111_6_195
+contig-111_6_196	K02013
+contig-111_6_197	K02015
+contig-111_6_198
+contig-111_6_199
+contig-111_6_200
+contig-111_6_201
+contig-111_6_202
+contig-111_6_203
+contig-111_6_204	K04041
+contig-111_6_205
+contig-111_6_206
+contig-111_6_207
+contig-111_6_208
+contig-111_6_209
+contig-111_6_210	K06147
+contig-111_6_211
+contig-111_6_212
+contig-111_6_213
+contig-111_6_214
+contig-111_6_215	K07652
+contig-111_6_216	K02483
+contig-111_6_217	K07098
+contig-111_6_218	K07098
+contig-111_6_219	K03797
+contig-111_6_220
+contig-111_6_221	K20534
+contig-111_6_222	K03439
+contig-111_6_223	K03593
+contig-111_6_224
+contig-111_6_225	K01745
+contig-111_6_226
+contig-111_6_227	K01468
+contig-111_6_228	K13990
+contig-111_6_229	K01712
+contig-111_6_230
+contig-111_6_231
+contig-111_6_232
+contig-111_6_233	K19430
+contig-111_6_234
+contig-111_6_235
+contig-111_6_236
+contig-111_6_237	K02474
+contig-111_6_238
+contig-111_6_239	K18704
+contig-111_6_240	K00991
+contig-111_6_241	K07011
+contig-111_6_242
+contig-111_6_243
+contig-111_6_244	K03328
+contig-111_6_245
+contig-111_6_246	K19421
+contig-111_8_1
+contig-111_8_2
+contig-111_8_3
+contig-111_8_4
+contig-111_8_5
+contig-111_8_6
+contig-111_8_7
+contig-111_8_8	K03772
+contig-111_8_9
+contig-111_8_10
+contig-111_8_11
+contig-111_8_12
+contig-111_8_13
+contig-111_8_14
+contig-111_8_15
+contig-111_8_16
+contig-111_8_17
+contig-111_8_18	K03741
+contig-111_8_19
+contig-111_8_20
+contig-111_8_21
+contig-111_8_22
+contig-111_8_23
+contig-111_8_24
+contig-111_8_25
+contig-111_8_26
+contig-111_8_27
+contig-111_8_28
+contig-111_8_29
+contig-111_8_30
+contig-111_8_31
+contig-111_8_32
+contig-111_8_33
+contig-111_8_34
+contig-111_8_35
+contig-111_8_36
+contig-111_8_37
+contig-111_8_38
+contig-111_8_39
+contig-111_8_40
+contig-111_8_41
+contig-111_8_42
+contig-111_8_43
+contig-111_8_44
+contig-111_8_45
+contig-111_8_46
+contig-111_8_47
+contig-111_8_48
+contig-111_8_49
+contig-111_8_50
+contig-111_8_51	K19304
+contig-111_8_52
+contig-111_8_53
+contig-111_8_54
+contig-111_8_55
+contig-111_8_56	K17768
+contig-111_8_57	K01537
+contig-111_8_58
+contig-111_8_59
+contig-111_8_60
+contig-111_8_61
+contig-111_8_62
+contig-111_8_63
+contig-111_8_64
+contig-111_8_65
+contig-111_8_66
+contig-111_8_67
+contig-111_8_68
+contig-111_8_69
+contig-111_8_70
+contig-111_8_71	K05795
+contig-111_8_72	K05795
+contig-111_8_73
+contig-111_8_74
+contig-111_8_75
+contig-111_8_76
+contig-111_8_77
+contig-111_8_78
+contig-111_8_79
+contig-111_8_80
+contig-111_8_81
+contig-111_8_82
+contig-111_8_83
+contig-111_8_84
+contig-111_8_85
+contig-111_8_86
+contig-111_8_87	K12063
+contig-111_8_88
+contig-111_8_89
+contig-111_8_90
+contig-111_8_91
+contig-111_8_92
+contig-111_8_93
+contig-111_8_94
+contig-111_8_95
+contig-111_8_96
+contig-111_8_97
+contig-111_8_98	K03733
+contig-111_8_99	K03650
+contig-111_8_100	K07138
+contig-111_8_101	K07133
+contig-111_8_102	K19285
+contig-111_8_103	K01807
+contig-111_8_104	K00757
+contig-111_8_105
+contig-111_8_106
+contig-111_8_107
+contig-111_8_108	K14058
+contig-111_8_109	K09922
+contig-111_8_110	K00791
+contig-111_8_111
+contig-111_8_112
+contig-111_8_113
+contig-111_8_114
+contig-111_8_115	K00677
+contig-111_8_116	K02535
+contig-111_8_117	K02536
+contig-111_8_118	K01591
+contig-111_8_119	K02835
+contig-111_8_120	K01933
+contig-111_8_121
+contig-111_8_122
+contig-111_8_123	K01489
+contig-111_8_124	K01835
+contig-111_8_125
+contig-111_8_126
+contig-111_8_127
+contig-111_8_128	K01270
+contig-111_8_129
+contig-111_8_130
+contig-111_8_131
+contig-111_8_132
+contig-111_8_133	K02343
+contig-111_8_134
+contig-111_8_135
+contig-111_8_136
+contig-111_8_137
+contig-111_8_138	K00767
+contig-111_8_139
+contig-111_8_140	K00783
+contig-111_8_141	K11741
+contig-111_8_142	K01736
+contig-111_8_143	K03775
+contig-111_8_144	K14155
+contig-111_8_145
+contig-111_8_146	K01687
+contig-111_8_147	K01652
+contig-111_8_148	K01653
+contig-111_8_149	K10782
+contig-111_8_150	K00053
+contig-111_8_151
+contig-111_8_152
+contig-111_8_153
+contig-111_8_154
+contig-111_8_155	K01649
+contig-111_8_156	K01703
+contig-111_8_157	K01704
+contig-111_8_158	K01649
+contig-111_8_159	K01734
+contig-111_8_160	K00052
+contig-111_8_161
+contig-111_8_162	K03442
+contig-111_8_163
+contig-111_8_164
+contig-111_8_165
+contig-111_8_166	K00974
+contig-111_8_167	K00951
+contig-111_8_168
+contig-111_8_169	K00010
+contig-111_8_170
+contig-111_8_171
+contig-111_8_172	K00010
+contig-111_8_173
+contig-111_8_174
+contig-111_8_175
+contig-111_8_176
+contig-111_8_177	K13652
+contig-111_8_178
+contig-111_8_179
+contig-111_8_180	K12267
+contig-111_8_181
+contig-111_8_182
+contig-111_8_183	K07443
+contig-111_8_184
+contig-111_8_185	K03648
+contig-111_8_186	K15738
+contig-111_8_187
+contig-111_8_188
+contig-111_8_189
+contig-111_8_190
+contig-111_8_191
+contig-111_8_192
+contig-111_8_193
+contig-111_8_194	K00812
+contig-111_8_195	K09808
+contig-111_8_196	K07458
+contig-111_8_197
+contig-111_8_198	K01586
+contig-111_8_199	K00928
+contig-111_8_200	K09812
+contig-111_8_201	K11755
+contig-111_8_202	K02500
+contig-111_8_203	K01814
+contig-111_8_204	K02501
+contig-111_8_205
+contig-111_8_206
+contig-111_8_207
+contig-111_8_208
+contig-111_8_209
+contig-111_8_210
+contig-111_8_211
+contig-111_8_212
+contig-111_8_213	K07217
+contig-111_8_214
+contig-111_8_215
+contig-111_8_216
+contig-111_8_217
+contig-111_8_218
+contig-111_8_219
+contig-111_8_220	K03103
+contig-111_8_221
+contig-111_8_222	K07679
+contig-111_8_223
+contig-111_8_224
+contig-111_8_225	K10563
+contig-111_8_226
+contig-111_8_227
+contig-111_8_228	K02099
+contig-111_8_229	K07214
+contig-111_8_230
+contig-111_8_231	K00688
+contig-111_8_232	K00693
+contig-111_8_233
+contig-111_8_234
+contig-111_8_235
+contig-111_8_236	K08218
+contig-111_8_237	K07678
+contig-111_8_238	K07678
+contig-111_8_239
+contig-111_8_240
+contig-111_8_241
+contig-111_8_242
+contig-111_8_243
+contig-111_8_244	K00558
+contig-111_8_245
+contig-111_8_246
+contig-111_8_247
+contig-111_8_248
+contig-111_8_249	K07458
+contig-111_8_250
+contig-111_8_251
+contig-111_8_252
+contig-111_8_253
+contig-111_8_254
+contig-111_8_255
+contig-111_15_1
+contig-111_15_2
+contig-111_15_3
+contig-111_15_4
+contig-111_15_5
+contig-111_15_6
+contig-111_15_7
+contig-111_15_8
+contig-111_15_9
+contig-111_15_10
+contig-111_15_11	K03088
+contig-111_15_12
+contig-111_15_13
+contig-111_15_14
+contig-111_15_15
+contig-111_15_16
+contig-111_15_17
+contig-111_15_18
+contig-111_15_19	K07636
+contig-111_15_20	K02483
+contig-111_15_21	K06200
+contig-111_15_22	K09117
+contig-111_15_23	K03531
+contig-111_15_24	K03590
+contig-111_15_25
+contig-111_15_26	K01924
+contig-111_15_27	K02563
+contig-111_15_28	K03588
+contig-111_15_29	K01925
+contig-111_15_30	K01000
+contig-111_15_31	K01928
+contig-111_15_32	K03587
+contig-111_15_33
+contig-111_15_34	K03438
+contig-111_15_35
+contig-111_15_36
+contig-111_15_37	K06131
+contig-111_15_38	K08316
+contig-111_15_39
+contig-111_15_40
+contig-111_15_41	K01144
+contig-111_15_42
+contig-111_15_43	K07056
+contig-111_15_44
+contig-111_15_45	K08723
+contig-111_15_46	K03734
+contig-111_15_47	K02837
+contig-111_15_48	K00067
+contig-111_15_49
+contig-111_15_50	K02558
+contig-111_15_51
+contig-111_15_52
+contig-111_15_53
+contig-111_15_54
+contig-111_15_55
+contig-111_15_56
+contig-111_15_57
+contig-111_15_58
+contig-111_15_59	K12373
+contig-111_15_60
+contig-111_15_61
+contig-111_15_62
+contig-111_15_63
+contig-111_15_64	K01952
+contig-111_15_65
+contig-111_15_66
+contig-111_15_67
+contig-111_15_68	K07133
+contig-111_15_69	K01735
+contig-111_15_70	K01872
+contig-111_15_71
+contig-111_15_72
+contig-111_15_73
+contig-111_15_74	K07301
+contig-111_15_75	K01139
+contig-111_15_76	K03719
+contig-111_15_77	K01740
+contig-111_15_78
+contig-111_15_79	K02477
+contig-111_15_80	K02478
+contig-111_15_81	K08307
+contig-111_15_82
+contig-111_15_83	K03497
+contig-111_15_84	K03496
+contig-111_15_85
+contig-111_15_86
+contig-111_15_87
+contig-111_15_88	K03524
+contig-111_15_89
+contig-111_15_90
+contig-111_15_91
+contig-111_15_92	K11991
+contig-111_15_93
+contig-111_15_94	K17103
+contig-111_15_95	K01613
+contig-111_15_96	K16898
+contig-111_15_97
+contig-111_15_98
+contig-111_15_99	K09615
+contig-111_15_100	K01770
+contig-111_15_101
+contig-111_15_102
+contig-111_15_103	K01557
+contig-111_15_104	K01926
+contig-111_15_105
+contig-111_15_106	K00980
+contig-111_15_107
+contig-111_15_108	K01079
+contig-111_15_109
+contig-111_15_110
+contig-111_15_111	K01270
+contig-111_15_112
+contig-111_15_113	K02528
+contig-111_15_114	K06213
+contig-111_15_115
+contig-111_15_116
+contig-111_15_117	K02356
+contig-111_15_118	K03630
+contig-111_15_119
+contig-111_15_120	K03269
+contig-111_15_121	K02040
+contig-111_15_122
+contig-111_15_123
+contig-111_15_124
+contig-111_15_125
+contig-111_15_126	K02479
+contig-111_15_127
+contig-111_15_128
+contig-111_15_129
+contig-111_15_130
+contig-111_15_131
+contig-111_15_132	K07231
+contig-111_15_133
+contig-111_15_134
+contig-111_15_135
+contig-111_15_136
+contig-111_15_137
+contig-111_15_138
+contig-111_15_139
+contig-111_15_140
+contig-111_15_141	K01131
+contig-111_15_142
+contig-111_15_143
+contig-111_15_144
+contig-111_15_145	K03088
+contig-111_15_146
+contig-111_15_147	K07678
+contig-111_15_148	K07648
+contig-111_15_149	K02945
+contig-111_15_150
+contig-111_15_151	K01091
+contig-111_15_152	K18954
+contig-111_15_153
+contig-111_15_154
+contig-111_15_155
+contig-111_15_156
+contig-111_15_157
+contig-111_15_158
+contig-111_15_159
+contig-111_15_160
+contig-111_15_161	K00979
+contig-111_15_162
+contig-111_15_163
+contig-111_15_164
+contig-111_17_1	K04047
+contig-111_17_2	K19333
+contig-111_17_3
+contig-111_17_4
+contig-111_17_5
+contig-111_17_6	K13444
+contig-111_17_7
+contig-111_17_8
+contig-111_17_9	K05878
+contig-111_17_10	K05879
+contig-111_17_11	K08321
+contig-111_17_12
+contig-111_17_13
+contig-111_17_14
+contig-111_17_15
+contig-111_17_16	K03310
+contig-111_17_17	K03760
+contig-111_17_18	K20974
+contig-111_17_19	K07148
+contig-111_17_20	K07713
+contig-111_17_21
+contig-111_17_22
+contig-111_17_23	K01163
+contig-111_17_24	K21739
+contig-111_17_25	K00033
+contig-111_17_26	K00036
+contig-111_17_27	K01057
+contig-111_17_28
+contig-111_17_29	K00973
+contig-111_17_30	K02377
+contig-111_17_31	K01711
+contig-111_17_32
+contig-111_17_33	K03606
+contig-111_17_34	K07447
+contig-111_17_35	K01462
+contig-111_17_36	K01966
+contig-111_17_37	K01958
+contig-111_17_38
+contig-111_17_39	K01868
+contig-111_17_40	K02520
+contig-111_17_41	K02916
+contig-111_17_42	K02887
+contig-111_17_43	K13195
+contig-111_17_44	K12373
+contig-111_17_45
+contig-111_17_46	K03284
+contig-111_17_47
+contig-111_17_48	K02314
+contig-111_17_49	K01200
+contig-111_17_50	K00927
+contig-111_17_51	K01872
+contig-111_17_52
+contig-111_17_53
+contig-111_17_54
+contig-111_17_55
+contig-111_17_56	K07001
+contig-111_17_57
+contig-111_17_58	K04079
+contig-111_17_59
+contig-111_17_60	K03543
+contig-111_17_61
+contig-111_17_62
+contig-111_17_63	K03839
+contig-111_17_64	K11381
+contig-111_17_65	K00658
+contig-111_17_66	K03800
+contig-111_17_67	K00382
+contig-111_17_68	K07078
+contig-111_17_69	K02902
+contig-111_17_70
+contig-111_17_71
+contig-111_17_72	K02338
+contig-111_17_73	K02342
+contig-111_17_74	K08325
+contig-111_17_75	K13038
+contig-111_17_76
+contig-111_17_77	K03631
+contig-111_17_78
+contig-111_17_79	K02477
+contig-111_17_80	K02478
+contig-111_17_81
+contig-111_17_82
+contig-111_17_83
+contig-111_17_84	K00857
+contig-111_17_85	K03218
+contig-111_17_86	K09022
+contig-111_17_87
+contig-111_17_88	K00024
+contig-111_17_89
+contig-111_17_90
+contig-111_17_91
+contig-111_17_92	K00919
+contig-111_17_93
+contig-111_17_94	K11754
+contig-111_17_95
+contig-111_17_96	K02483
+contig-111_17_97	K07636
+contig-111_17_98	K11527
+contig-111_17_99	K18954
+contig-111_17_100
+contig-111_17_101
+contig-111_17_102	K05595
+contig-111_17_103	K07175
+contig-111_17_104
+contig-111_17_105
+contig-111_17_106	K11720
+contig-111_17_107	K00773
+contig-111_17_108	K02574
+contig-111_17_109
+contig-111_17_110
+contig-111_17_111
+contig-111_17_112	K03499
+contig-111_17_113	K03498
+contig-111_17_114
+contig-111_17_115	K00854
+contig-111_17_116	K01805
+contig-111_17_117	K08138
+contig-111_17_118
+contig-111_17_119
+contig-111_17_120	K00656
+contig-111_17_121	K04069
+contig-111_17_122	K09132
+contig-111_17_123
+contig-111_17_124	K18954
+contig-111_17_125	K18302
+contig-111_17_126	K18303
+contig-111_17_127
+contig-111_17_128	K01082
+contig-111_17_129
+contig-111_17_130
+contig-111_17_131	K00860
+contig-111_17_132	K00957
+contig-111_17_133	K00955
+contig-111_17_134
+contig-111_17_135
+contig-111_17_136	K01972
+contig-111_17_137
+contig-111_17_138	K01714
+contig-111_17_139
+contig-111_17_140	K07636
+contig-111_17_141	K07657
+contig-111_17_142
+contig-111_17_143
+contig-111_17_144
+contig-111_17_145	K00606
+contig-111_17_146
+contig-111_17_147	K02224
+contig-111_17_148	K00876
+contig-111_17_149
+contig-111_17_150
+contig-111_17_151
+contig-111_17_152	K08307
+contig-111_17_153	K01425
+contig-111_17_154	K01580
+contig-111_17_155
+contig-111_17_156
+contig-111_17_157
+contig-111_17_158
+contig-111_17_159
+contig-111_17_160
+contig-111_17_161	K02117
+contig-111_17_162	K02118
+contig-111_17_163	K02120
+contig-111_17_164	K02123
+contig-111_17_165
+contig-111_17_166
+contig-111_17_167
+contig-111_17_168	K04763
+contig-111_17_169
+contig-111_18_1
+contig-111_18_2	K00611
+contig-111_18_3
+contig-111_18_4
+contig-111_18_5
+contig-111_18_6	K03046
+contig-111_18_7	K03043
+contig-111_18_8	K02935
+contig-111_18_9
+contig-111_18_10	K02863
+contig-111_18_11	K02867
+contig-111_18_12	K02601
+contig-111_18_13
+contig-111_18_14	K02358
+contig-111_18_15
+contig-111_18_16	K03733
+contig-111_18_17
+contig-111_18_18	K08963
+contig-111_18_19
+contig-111_18_20
+contig-111_18_21	K01262
+contig-111_18_22
+contig-111_18_23
+contig-111_18_24
+contig-111_18_25	K01372
+contig-111_18_26	K02527
+contig-111_18_27	K01885
+contig-111_18_28	K07037
+contig-111_18_29
+contig-111_18_30
+contig-111_18_31
+contig-111_18_32
+contig-111_18_33
+contig-111_18_34
+contig-111_18_35
+contig-111_18_36	K01104
+contig-111_18_37	K04066
+contig-111_18_38
+contig-111_18_39
+contig-111_18_40	K01847
+contig-111_18_41	K01847
+contig-111_18_42
+contig-111_18_43
+contig-111_18_44
+contig-111_18_45	K18910
+contig-111_18_46	K01513
+contig-111_18_47
+contig-111_18_48
+contig-111_18_49	K15255
+contig-111_18_50
+contig-111_18_51
+contig-111_18_52
+contig-111_18_53
+contig-111_18_54
+contig-111_18_55
+contig-111_18_56
+contig-111_18_57
+contig-111_18_58	K01130
+contig-111_18_59	K01134
+contig-111_18_60	K01134
+contig-111_18_61
+contig-111_18_62
+contig-111_18_63
+contig-111_18_64	K03088
+contig-111_18_65
+contig-111_18_66
+contig-111_18_67
+contig-111_18_68	K00655
+contig-111_18_69
+contig-111_18_70
+contig-111_18_71
+contig-111_18_72
+contig-111_18_73
+contig-111_18_74	K03088
+contig-111_18_75	K00817
+contig-111_18_76	K01207
+contig-111_18_77
+contig-111_18_78
+contig-111_18_79
+contig-111_18_80
+contig-111_18_81	K02884
+contig-111_18_82
+contig-111_18_83
+contig-111_18_84
+contig-111_18_85
+contig-111_18_86
+contig-111_18_87
+contig-111_18_88
+contig-111_18_89	K07704
+contig-111_18_90	K02477
+contig-111_18_91
+contig-111_18_92
+contig-111_18_93
+contig-111_18_94	K10450
+contig-111_18_95
+contig-111_18_96	K01689
+contig-111_18_97	K02879
+contig-111_18_98	K03040
+contig-111_18_99	K02986
+contig-111_18_100	K02948
+contig-111_18_101	K02952
+contig-111_18_102
+contig-111_18_103	K02518
+contig-111_18_104	K01265
+contig-111_18_105	K03076
+contig-111_18_106	K02876
+contig-111_18_107
+contig-111_18_108	K02988
+contig-111_18_109	K02881
+contig-111_18_110	K02933
+contig-111_18_111	K02994
+contig-111_18_112	K02954
+contig-111_18_113	K02931
+contig-111_18_114	K02895
+contig-111_18_115	K02874
+contig-111_18_116	K02961
+contig-111_18_117
+contig-111_18_118	K02878
+contig-111_18_119	K02982
+contig-111_18_120	K02890
+contig-111_18_121	K02965
+contig-111_18_122	K02886
+contig-111_18_123	K02892
+contig-111_18_124	K02926
+contig-111_18_125	K02906
+contig-111_18_126	K02946
+contig-111_18_127	K02355
+contig-111_18_128	K02992
+contig-111_18_129	K02950
+contig-111_18_130
+contig-111_18_131
+contig-111_18_132
+contig-111_18_133	K03572
+contig-111_18_134
+contig-111_18_135
+contig-111_18_136	K03771
+contig-111_18_137
+contig-111_18_138	K03771
+contig-111_18_139	K00088
+contig-111_18_140	K03654
+contig-111_18_141	K03544
+contig-111_18_142	K01358
+contig-111_18_143
+contig-111_18_144
+contig-111_18_145	K06861
+contig-111_18_146
+contig-111_18_147	K02066
+contig-111_18_148	K02028
+contig-111_18_149	K00789
+contig-111_18_150
+contig-111_18_151	K00950
+contig-111_18_152	K07568
+contig-111_18_153	K03177
+contig-111_18_154	K06153
+contig-111_18_155
+contig-111_18_156	K09811
+contig-111_18_157
+contig-111_18_158
+contig-111_18_159
+contig-111_18_160
+contig-111_20_1
+contig-111_20_2
+contig-111_20_3
+contig-111_20_4
+contig-111_20_5
+contig-111_20_6
+contig-111_20_7
+contig-111_20_8
+contig-111_20_9	K07001
+contig-111_20_10
+contig-111_20_11
+contig-111_20_12
+contig-111_20_13	K06001
+contig-111_20_14
+contig-111_20_15
+contig-111_20_16
+contig-111_20_17	K00133
+contig-111_20_18
+contig-111_20_19
+contig-111_20_20
+contig-111_20_21
+contig-111_20_22
+contig-111_20_23
+contig-111_20_24
+contig-111_20_25
+contig-111_20_26
+contig-111_20_27
+contig-111_20_28	K15976
+contig-111_20_29
+contig-111_20_30
+contig-111_20_31
+contig-111_20_32
+contig-111_20_33
+contig-111_20_34
+contig-111_20_35
+contig-111_20_36	K03701
+contig-111_20_37
+contig-111_20_38
+contig-111_20_39
+contig-111_20_40
+contig-111_20_41	K03665
+contig-111_20_42
+contig-111_20_43
+contig-111_20_44	K06859
+contig-111_20_45	K00845
+contig-111_20_46	K06859
+contig-111_20_47	K08139
+contig-111_20_48
+contig-111_20_49	K01195
+contig-111_20_50
+contig-111_20_51
+contig-111_20_52
+contig-111_20_53	K04763
+contig-111_20_54	K03786
+contig-111_20_55	K00873
+contig-111_20_56
+contig-111_20_57
+contig-111_20_58	K09808
+contig-111_20_59	K00971
+contig-111_20_60
+contig-111_20_61
+contig-111_20_62
+contig-111_20_63	K03830
+contig-111_20_64
+contig-111_20_65	K04763
+contig-111_20_66
+contig-111_20_67
+contig-111_20_68
+contig-111_20_69
+contig-111_20_70
+contig-111_20_71	K19271
+contig-111_20_72
+contig-111_20_73	K12251
+contig-111_20_74	K07148
+contig-111_20_75
+contig-111_20_76
+contig-111_20_77
+contig-111_20_78	K13444
+contig-111_20_79
+contig-111_20_80
+contig-111_20_81	K00798
+contig-111_20_82
+contig-111_20_83
+contig-111_20_84	K18138
+contig-111_20_85	K07799
+contig-111_20_86
+contig-111_20_87
+contig-111_20_88
+contig-111_20_89
+contig-111_20_90
+contig-111_20_91
+contig-111_20_92
+contig-111_20_93	K11105
+contig-111_20_94
+contig-111_20_95	K09955
+contig-111_20_96	K09955
+contig-111_20_97
+contig-111_20_98
+contig-111_20_99
+contig-111_20_100
+contig-111_20_101
+contig-111_20_102
+contig-111_20_103
+contig-111_20_104	K07713
+contig-111_20_105	K06925
+contig-111_20_106
+contig-111_20_107	K12573
+contig-111_20_108	K14274
+contig-111_20_109
+contig-111_20_110	K02470
+contig-111_20_111	K00954
+contig-111_20_112	K03797
+contig-111_20_113	K07240
+contig-111_20_114	K07240
+contig-111_20_115	K12340
+contig-111_20_116	K02005
+contig-111_20_117	K02003
+contig-111_20_118	K02004
+contig-111_20_119	K07704
+contig-111_20_120	K02477
+contig-111_20_121	K07259
+contig-111_20_122	K03548
+contig-111_20_123
+contig-111_20_124	K22026
+contig-111_20_125
+contig-111_20_126
+contig-111_20_127
+contig-111_20_128	K01929
+contig-111_20_129	K00796
+contig-111_20_130	K18672
+contig-111_20_131	K00625
+contig-111_20_132	K00925
+contig-111_20_133	K09903
+contig-111_20_134	K10439
+contig-111_20_135	K03332
+contig-111_20_136	K00847
+contig-111_20_137	K02429
+contig-111_20_138	K02838
+contig-111_20_139	K06949
+contig-111_20_140	K01129
+contig-111_21_1	K03088
+contig-111_21_2
+contig-111_21_3
+contig-111_21_4
+contig-111_21_5
+contig-111_21_6
+contig-111_21_7	K03100
+contig-111_21_8	K03100
+contig-111_21_9	K00215
+contig-111_21_10
+contig-111_21_11
+contig-111_21_12
+contig-111_21_13
+contig-111_21_14
+contig-111_21_15
+contig-111_21_16
+contig-111_21_17
+contig-111_21_18
+contig-111_21_19	K01312
+contig-111_21_20
+contig-111_21_21	K02614
+contig-111_21_22	K01883
+contig-111_21_23
+contig-111_21_24	K02481
+contig-111_21_25	K07709
+contig-111_21_26	K07075
+contig-111_21_27
+contig-111_21_28
+contig-111_21_29
+contig-111_21_30	K14487
+contig-111_21_31	K00850
+contig-111_21_32
+contig-111_21_33
+contig-111_21_34
+contig-111_21_35	K03685
+contig-111_21_36	K09458
+contig-111_21_37	K02078
+contig-111_21_38	K11175
+contig-111_21_39	K00058
+contig-111_21_40
+contig-111_21_41
+contig-111_21_42
+contig-111_21_43
+contig-111_21_44
+contig-111_21_45
+contig-111_21_46
+contig-111_21_47
+contig-111_21_48	K00891
+contig-111_21_49	K00259
+contig-111_21_50	K00174
+contig-111_21_51	K00175
+contig-111_21_52	K01610
+contig-111_21_53
+contig-111_21_54	K07391
+contig-111_21_55	K18954
+contig-111_21_56
+contig-111_21_57
+contig-111_21_58
+contig-111_21_59
+contig-111_21_60
+contig-111_21_61
+contig-111_21_62
+contig-111_21_63
+contig-111_21_64
+contig-111_21_65
+contig-111_21_66
+contig-111_21_67	K01874
+contig-111_21_68	K13017
+contig-111_21_69
+contig-111_21_70
+contig-111_21_71	K13018
+contig-111_21_72
+contig-111_21_73	K00010
+contig-111_21_74
+contig-111_21_75
+contig-111_21_76	K16694
+contig-111_21_77
+contig-111_21_78
+contig-111_21_79
+contig-111_21_80
+contig-111_21_81	K19423
+contig-111_21_82
+contig-111_21_83
+contig-111_21_84
+contig-111_21_85
+contig-111_21_86
+contig-111_21_87
+contig-111_21_88	K01251
+contig-111_21_89	K00059
+contig-111_21_90
+contig-111_21_91	K00666
+contig-111_21_92
+contig-111_21_93	K02956
+contig-111_21_94	K06207
+contig-111_21_95
+contig-111_21_96
+contig-111_21_97	K01337
+contig-111_21_98	K01676
+contig-111_21_99	K07133
+contig-111_21_100
+contig-111_21_101
+contig-111_21_102
+contig-111_21_103
+contig-111_21_104
+contig-111_21_105
+contig-111_21_106	K00962
+contig-111_21_107
+contig-111_21_108	K03624
+contig-111_21_109	K02503
+contig-111_21_110
+contig-111_21_111	K10947
+contig-111_21_112	K01897
+contig-111_21_113	K02836
+contig-111_21_114
+contig-111_21_115
+contig-111_21_116
+contig-111_21_117
+contig-111_21_118
+contig-111_21_119
+contig-111_21_120
+contig-111_21_121
+contig-111_21_122
+contig-111_21_123
+contig-111_21_124	K07652
+contig-111_21_125
+contig-111_21_126
+contig-111_21_127	K01208
+contig-111_21_128
+contig-111_21_129
+contig-111_21_130
+contig-111_21_131	K01208
+contig-111_21_132	K03929
+contig-111_21_133	K06606
+contig-111_21_134	K11527
+contig-111_21_135	K01206
+contig-111_21_136
+contig-111_21_137
+contig-111_24_1
+contig-111_24_2
+contig-111_24_3
+contig-111_24_4	K03517
+contig-111_24_5	K03218
+contig-111_24_6
+contig-111_24_7	K14623
+contig-111_24_8
+contig-111_24_9
+contig-111_24_10
+contig-111_24_11	K18577
+contig-111_24_12	K10532
+contig-111_24_13
+contig-111_24_14
+contig-111_24_15
+contig-111_24_16
+contig-111_24_17
+contig-111_24_18
+contig-111_24_19	K03321
+contig-111_24_20
+contig-111_24_21	K00278
+contig-111_24_22
+contig-111_24_23
+contig-111_24_24
+contig-111_24_25
+contig-111_24_26
+contig-111_24_27	K03088
+contig-111_24_28
+contig-111_24_29
+contig-111_24_30
+contig-111_24_31
+contig-111_24_32
+contig-111_24_33
+contig-111_24_34
+contig-111_24_35
+contig-111_24_36
+contig-111_24_37
+contig-111_24_38
+contig-111_24_39	K00382
+contig-111_24_40
+contig-111_24_41
+contig-111_24_42
+contig-111_24_43	K08998
+contig-111_24_44	K03424
+contig-111_24_45	K01866
+contig-111_24_46
+contig-111_24_47
+contig-111_24_48
+contig-111_24_49
+contig-111_24_50
+contig-111_24_51
+contig-111_24_52
+contig-111_24_53
+contig-111_24_54	K05349
+contig-111_24_55	K05349
+contig-111_24_56
+contig-111_24_57
+contig-111_24_58
+contig-111_24_59
+contig-111_24_60
+contig-111_24_61
+contig-111_24_62	K01811
+contig-111_24_63
+contig-111_24_64
+contig-111_24_65
+contig-111_24_66
+contig-111_24_67	K07263
+contig-111_24_68
+contig-111_24_69
+contig-111_24_70
+contig-111_24_71	K22278
+contig-111_24_72	K18979
+contig-111_24_73
+contig-111_24_74
+contig-111_24_75	K09815
+contig-111_24_76	K09817
+contig-111_24_77
+contig-111_24_78	K00329
+contig-111_24_79
+contig-111_24_80
+contig-111_24_81
+contig-111_24_82
+contig-111_24_83
+contig-111_24_84	K07005
+contig-111_24_85
+contig-111_24_86
+contig-111_24_87
+contig-111_24_88	K00640
+contig-111_24_89	K07444
+contig-111_24_90	K01278
+contig-111_24_91	K01945
+contig-111_24_92
+contig-111_24_93
+contig-111_24_94	K06871
+contig-111_24_95
+contig-111_24_96
+contig-111_24_97
+contig-111_24_98
+contig-111_24_99
+contig-111_24_100
+contig-111_24_101	K01438
+contig-111_24_102	K11753
+contig-111_24_103
+contig-111_24_104
+contig-111_24_105	K04763
+contig-111_24_106	K03088
+contig-111_24_107	K07648
+contig-111_24_108	K07679
+contig-111_24_109	K01811
+contig-111_24_110	K01190
+contig-111_24_111	K05349
+contig-111_24_112	K07223
+contig-111_24_113
+contig-111_24_114
+contig-111_25_1
+contig-111_25_2
+contig-111_25_3
+contig-111_25_4
+contig-111_25_5
+contig-111_25_6	K00648
+contig-111_25_7	K00059
+contig-111_25_8
+contig-111_25_9
+contig-111_25_10
+contig-111_25_11	K02474
+contig-111_25_12
+contig-111_25_13
+contig-111_25_14
+contig-111_25_15
+contig-111_25_16	K16694
+contig-111_25_17	K02474
+contig-111_25_18	K01784
+contig-111_25_19
+contig-111_25_20
+contig-111_25_21
+contig-111_25_22	K02316
+contig-111_25_23	K01990
+contig-111_25_24	K01992
+contig-111_25_25	K09710
+contig-111_25_26	K03798
+contig-111_25_27	K00981
+contig-111_25_28
+contig-111_25_29
+contig-111_25_30
+contig-111_25_31	K03625
+contig-111_25_32	K03210
+contig-111_25_33
+contig-111_25_34	K00859
+contig-111_25_35
+contig-111_25_36	K00845
+contig-111_25_37	K01788
+contig-111_25_38	K00656
+contig-111_25_39	K04069
+contig-111_25_40	K00661
+contig-111_25_41
+contig-111_25_42
+contig-111_25_43
+contig-111_25_44
+contig-111_25_45
+contig-111_25_46
+contig-111_25_47	K01338
+contig-111_25_48	K15460
+contig-111_25_49	K07029
+contig-111_25_50	K00639
+contig-111_25_51
+contig-111_25_52	K05837
+contig-111_25_53	K05515
+contig-111_25_54
+contig-111_25_55	K03570
+contig-111_25_56	K03569
+contig-111_25_57	K00602
+contig-111_25_58
+contig-111_25_59	K07075
+contig-111_25_60
+contig-111_25_61
+contig-111_25_62
+contig-111_25_63	K18682
+contig-111_25_64
+contig-111_25_65
+contig-111_25_66
+contig-111_25_67
+contig-111_25_68	K05810
+contig-111_25_69	K03979
+contig-111_25_70	K00939
+contig-111_25_71	K00760
+contig-111_25_72	K17758
+contig-111_25_73
+contig-111_25_74
+contig-111_25_75
+contig-111_25_76
+contig-111_25_77
+contig-111_25_78
+contig-111_25_79
+contig-111_25_80
+contig-111_25_81
+contig-111_25_82
+contig-111_25_83
+contig-111_25_84
+contig-111_25_85
+contig-111_25_86
+contig-111_25_87
+contig-111_25_88
+contig-111_25_89
+contig-111_25_90
+contig-111_25_91
+contig-111_25_92	K03305
+contig-111_25_93
+contig-111_25_94	K01012
+contig-111_25_95	K00833
+contig-111_25_96	K00652
+contig-111_25_97	K09789
+contig-111_25_98	K02169
+contig-111_25_99	K01935
+contig-111_25_100
+contig-111_25_101
+contig-111_25_102
+contig-111_25_103	K21741
+contig-111_25_104	K18954
+contig-111_25_105	K03671
+contig-111_25_106
+contig-111_25_107
+contig-111_25_108
+contig-111_25_109
+contig-111_25_110
+contig-111_25_111	K02483
+contig-111_25_112	K02484
+contig-111_25_113
+contig-111_25_114
+contig-111_25_115
+contig-111_25_116
+contig-111_25_117	K06173
+contig-111_25_118	K07085
+contig-111_25_119
+contig-111_25_120
+contig-111_25_121	K15255
+contig-111_25_122
+contig-111_25_123
+contig-111_25_124	K03100
+contig-111_25_125
+contig-111_25_126
+contig-111_25_127
+contig-111_25_128
+contig-111_25_129
+contig-111_25_130
+contig-111_25_131	K07497
+contig-111_25_132
+contig-111_25_133	K01624
+contig-111_25_134	K02909
+contig-111_25_135
+contig-111_25_136	K00012
+contig-111_25_137
+contig-111_25_138
+contig-111_25_139	K04072
+contig-111_25_140	K03417
+contig-111_25_141	K03328
+contig-111_25_142
+contig-111_25_143	K00745
+contig-111_25_144	K07271
+contig-111_25_145	K13012
+contig-111_25_146	K01784
+contig-111_25_147	K01955
+contig-111_25_148
+contig-111_25_149
+contig-111_25_150
+contig-111_28_1
+contig-111_28_2
+contig-111_28_3
+contig-111_28_4	K02338
+contig-111_28_5
+contig-111_28_6
+contig-111_28_7	K11645
+contig-111_28_8
+contig-111_28_9
+contig-111_28_10	K00847
+contig-111_28_11	K07652
+contig-111_28_12
+contig-111_28_13	K19294
+contig-111_28_14
+contig-111_28_15	K03768
+contig-111_28_16	K08303
+contig-111_28_17	K00651
+contig-111_28_18
+contig-111_28_19
+contig-111_28_20	K03585
+contig-111_28_21	K03296
+contig-111_28_22	K18139
+contig-111_28_23	K18908
+contig-111_28_24
+contig-111_28_25
+contig-111_28_26	K18139
+contig-111_28_27	K03296
+contig-111_28_28	K03585
+contig-111_28_29	K06180
+contig-111_28_30	K00059
+contig-111_28_31	K00648
+contig-111_28_32
+contig-111_28_33
+contig-111_28_34	K02614
+contig-111_28_35	K03816
+contig-111_28_36	K16345
+contig-111_28_37
+contig-111_28_38	K01620
+contig-111_28_39
+contig-111_28_40
+contig-111_28_41
+contig-111_28_42
+contig-111_28_43
+contig-111_28_44
+contig-111_28_45
+contig-111_28_46
+contig-111_28_47
+contig-111_28_48
+contig-111_28_49
+contig-111_28_50	K02395
+contig-111_28_51
+contig-111_28_52
+contig-111_28_53
+contig-111_28_54
+contig-111_28_55	K12308
+contig-111_28_56	K00895
+contig-111_28_57
+contig-111_28_58
+contig-111_28_59
+contig-111_28_60
+contig-111_28_61
+contig-111_28_62
+contig-111_28_63
+contig-111_28_64
+contig-111_28_65
+contig-111_28_66
+contig-111_28_67
+contig-111_28_68	K06158
+contig-111_28_69	K04477
+contig-111_28_70
+contig-111_28_71
+contig-111_28_72	K01992
+contig-111_28_73	K01992
+contig-111_28_74	K01993
+contig-111_28_75
+contig-111_28_76	K08223
+contig-111_28_77
+contig-111_28_78	K07636
+contig-111_28_79
+contig-111_28_80
+contig-111_28_81
+contig-111_28_82
+contig-111_28_83	K19427
+contig-111_28_84
+contig-111_28_85	K00858
+contig-111_28_86
+contig-111_28_87	K03474
+contig-111_28_88	K03561
+contig-111_28_89
+contig-111_28_90
+contig-111_28_91	K03152
+contig-111_28_92	K01442
+contig-111_28_93
+contig-111_28_94	K02548
+contig-111_28_95
+contig-111_28_96
+contig-111_28_97
+contig-111_28_98	K16211
+contig-111_28_99	K02529
+contig-111_28_100
+contig-111_28_101
+contig-111_28_102
+contig-111_28_103	K07386
+contig-111_28_104	K01209
+contig-111_28_105
+contig-111_28_106
+contig-111_28_107	K03768
+contig-111_28_108	K03768
+contig-111_28_109	K02346
+contig-111_28_110
+contig-111_28_111	K05305
+contig-111_28_112	K14060
+contig-111_28_113	K00940
+contig-111_28_114
+contig-111_28_115	K01791
+contig-111_28_116	K02472
+contig-111_28_117
+contig-111_28_118
+contig-111_28_119
+contig-111_28_120
+contig-111_28_121
+contig-111_28_122
+contig-111_28_123
+contig-111_28_124
+contig-111_28_125	K03328
+contig-111_28_126	K00012
+contig-111_28_127
+contig-111_28_128
+contig-111_28_129
+contig-111_28_130
+contig-111_28_131
+contig-111_28_132
+contig-111_28_133
+contig-111_31_1	K01133
+contig-111_31_2	K09704
+contig-111_31_3	K03086
+contig-111_31_4	K04771
+contig-111_31_5
+contig-111_31_6
+contig-111_31_7
+contig-111_31_8	K03686
+contig-111_31_9	K00793
+contig-111_31_10	K01442
+contig-111_31_11
+contig-111_31_12
+contig-111_31_13
+contig-111_31_14	K13888
+contig-111_31_15
+contig-111_31_16
+contig-111_31_17
+contig-111_31_18
+contig-111_31_19
+contig-111_31_20
+contig-111_31_21	K18954
+contig-111_31_22
+contig-111_31_23	K12538
+contig-111_31_24	K03585
+contig-111_31_25	K03296
+contig-111_31_26
+contig-111_31_27
+contig-111_31_28	K00059
+contig-111_31_29	K02897
+contig-111_31_30	K01056
+contig-111_31_31	K04762
+contig-111_31_32
+contig-111_31_33
+contig-111_31_34
+contig-111_31_35
+contig-111_31_36
+contig-111_31_37	K00265
+contig-111_31_38	K00266
+contig-111_31_39	K01953
+contig-111_31_40
+contig-111_31_41	K01778
+contig-111_31_42	K10206
+contig-111_31_43	K01915
+contig-111_31_44
+contig-111_31_45
+contig-111_31_46	K01950
+contig-111_31_47
+contig-111_31_48
+contig-111_31_49
+contig-111_31_50	K22230
+contig-111_31_51
+contig-111_31_52	K00605
+contig-111_31_53	K01258
+contig-111_31_54	K00764
+contig-111_31_55	K07487
+contig-111_31_56
+contig-111_31_57	K02899
+contig-111_31_58	K02888
+contig-111_31_59	K07482
+contig-111_31_60	K02377
+contig-111_31_61	K01711
+contig-111_31_62
+contig-111_31_63	K19354
+contig-111_31_64
+contig-111_31_65
+contig-111_31_66	K03478
+contig-111_31_67
+contig-111_31_68
+contig-111_31_69
+contig-111_31_70
+contig-111_31_71
+contig-111_31_72	K00059
+contig-111_31_73
+contig-111_31_74
+contig-111_31_75
+contig-111_31_76	K00002
+contig-111_31_77
+contig-111_31_78	K03606
+contig-111_31_79
+contig-111_31_80
+contig-111_31_81
+contig-111_31_82
+contig-111_31_83
+contig-111_31_84
+contig-111_31_85
+contig-111_31_86
+contig-111_31_87
+contig-111_31_88
+contig-111_31_89	K02687
+contig-111_31_90
+contig-111_31_91
+contig-111_31_92
+contig-111_31_93	K00134
+contig-111_31_94	K00791
+contig-111_31_95	K01627
+contig-111_31_96	K21563
+contig-111_31_97
+contig-111_31_98
+contig-111_31_99	K03702
+contig-111_31_100
+contig-111_31_101
+contig-111_31_102
+contig-111_31_103	K03296
+contig-111_31_104	K03585
+contig-111_31_105
+contig-111_31_106	K06201
+contig-111_31_107	K02112
+contig-111_31_108
+contig-111_31_109
+contig-111_31_110
+contig-111_31_111
+contig-111_31_112
+contig-111_31_113	K02113
+contig-111_31_114	K02111
+contig-111_31_115	K02115
+contig-111_31_116
+contig-111_31_117	K12524
+contig-111_31_118	K15635
+contig-111_31_119	K01733
+contig-111_35_1	K07636
+contig-111_35_2	K07712
+contig-111_35_3
+contig-111_35_4
+contig-111_35_5
+contig-111_35_6
+contig-111_35_7	K03385
+contig-111_35_8
+contig-111_35_9	K02557
+contig-111_35_10
+contig-111_35_11
+contig-111_35_12	K02429
+contig-111_35_13
+contig-111_35_14
+contig-111_35_15
+contig-111_35_16
+contig-111_35_17	K02217
+contig-111_35_18
+contig-111_35_19	K02002
+contig-111_35_20	K02001
+contig-111_35_21	K02000
+contig-111_35_22	K07648
+contig-111_35_23	K03386
+contig-111_35_24	K07005
+contig-111_35_25
+contig-111_35_26	K06911
+contig-111_35_27	K00088
+contig-111_35_28	K07407
+contig-111_35_29
+contig-111_35_30
+contig-111_35_31
+contig-111_35_32
+contig-111_35_33
+contig-111_35_34
+contig-111_35_35
+contig-111_35_36	K07507
+contig-111_35_37	K07106
+contig-111_35_38
+contig-111_35_39
+contig-111_35_40	K01958
+contig-111_35_41	K01961
+contig-111_35_42	K01966
+contig-111_35_43	K01058
+contig-111_35_44
+contig-111_35_45
+contig-111_35_46	K03402
+contig-111_35_47
+contig-111_35_48	K01940
+contig-111_35_49	K00145
+contig-111_35_50	K00821
+contig-111_35_51
+contig-111_35_52
+contig-111_35_53
+contig-111_35_54
+contig-111_35_55
+contig-111_35_56	K01218
+contig-111_35_57
+contig-111_35_58	K03292
+contig-111_35_59	K01787
+contig-111_35_60	K05970
+contig-111_35_61
+contig-111_35_62
+contig-111_35_63	K03885
+contig-111_35_64
+contig-111_35_65
+contig-111_35_66	K01897
+contig-111_35_67	K12373
+contig-111_35_68
+contig-111_35_69	K18707
+contig-111_35_70
+contig-111_35_71	K07011
+contig-111_35_72
+contig-111_35_73	K11527
+contig-111_35_74	K05595
+contig-111_35_75
+contig-111_35_76	K00532
+contig-111_35_77	K01633
+contig-111_35_78
+contig-111_35_79
+contig-111_35_80
+contig-111_35_81
+contig-111_35_82	K00705
+contig-111_35_83	K00525
+contig-111_35_84	K02313
+contig-111_35_85
+contig-111_35_86	K01448
+contig-111_35_87	K02939
+contig-111_35_88	K02963
+contig-111_35_89	K02990
+contig-111_35_90	K01132
+contig-111_35_91	K01130
+contig-111_35_92
+contig-111_35_93
+contig-111_35_94
+contig-111_35_95	K03088
+contig-111_35_96	K02227
+contig-111_35_97	K06182
+contig-111_35_98	K02231
+contig-111_35_99	K00768
+contig-111_35_100	K02233
+contig-111_35_101	K02226
+contig-111_36_1
+contig-111_36_2	K02429
+contig-111_36_3
+contig-111_36_4	K00845
+contig-111_36_5	K01809
+contig-111_36_6
+contig-111_36_7
+contig-111_36_8	K03312
+contig-111_36_9
+contig-111_36_10	K02004
+contig-111_36_11
+contig-111_36_12
+contig-111_36_13	K02003
+contig-111_36_14
+contig-111_36_15
+contig-111_36_16
+contig-111_36_17	K01816
+contig-111_36_18
+contig-111_36_19	K09125
+contig-111_36_20	K20866
+contig-111_36_21	K11069
+contig-111_36_22	K11070
+contig-111_36_23	K11071
+contig-111_36_24	K11072
+contig-111_36_25
+contig-111_36_26
+contig-111_36_27	K01679
+contig-111_36_28
+contig-111_36_29	K20534
+contig-111_36_30
+contig-111_36_31
+contig-111_36_32
+contig-111_36_33
+contig-111_36_34
+contig-111_36_35	K00852
+contig-111_36_36
+contig-111_36_37
+contig-111_36_38
+contig-111_36_39
+contig-111_36_40
+contig-111_36_41
+contig-111_36_42
+contig-111_36_43	K01785
+contig-111_36_44	K02429
+contig-111_36_45	K00849
+contig-111_36_46	K03574
+contig-111_36_47	K00615
+contig-111_36_48	K01808
+contig-111_36_49	K01960
+contig-111_36_50
+contig-111_36_51
+contig-111_36_52
+contig-111_36_53
+contig-111_36_54
+contig-111_36_55
+contig-111_36_56
+contig-111_36_57	K08257
+contig-111_36_58	K14607
+contig-111_36_59	K01134
+contig-111_36_60	K01130
+contig-111_36_61	K01135
+contig-111_36_62
+contig-111_36_63
+contig-111_36_64
+contig-111_36_65
+contig-111_36_66	K03088
+contig-111_36_67
+contig-111_36_68	K19611
+contig-111_36_69
+contig-111_36_70
+contig-111_36_71
+contig-111_36_72
+contig-111_36_73	K03169
+contig-111_36_74
+contig-111_36_75	K15778
+contig-111_36_76
+contig-111_36_77	K06881
+contig-111_36_78	K02238
+contig-111_36_79	K01783
+contig-111_36_80
+contig-111_36_81	K03088
+contig-111_36_82
+contig-111_36_83
+contig-111_36_84
+contig-111_36_85
+contig-111_36_86
+contig-111_36_87	K01424
+contig-111_36_88
+contig-111_36_89
+contig-111_36_90	K06158
+contig-111_36_91
+contig-111_36_92	K02959
+contig-111_36_93
+contig-111_36_94	K03671
+contig-111_39_1	K15889
+contig-111_39_2	K01201
+contig-111_39_3
+contig-111_39_4
+contig-111_39_5	K07787
+contig-111_39_6
+contig-111_39_7
+contig-111_39_8
+contig-111_39_9
+contig-111_39_10	K03327
+contig-111_39_11	K02341
+contig-111_39_12
+contig-111_39_13	K00297
+contig-111_39_14
+contig-111_39_15	K00826
+contig-111_39_16	K07133
+contig-111_39_17	K03737
+contig-111_39_18
+contig-111_39_19
+contig-111_39_20	K03768
+contig-111_39_21	K01673
+contig-111_39_22
+contig-111_39_23
+contig-111_39_24
+contig-111_39_25
+contig-111_39_26
+contig-111_39_27
+contig-111_39_28
+contig-111_39_29
+contig-111_39_30
+contig-111_39_31	K00645
+contig-111_39_32
+contig-111_39_33	K03118
+contig-111_39_34	K01476
+contig-111_39_35
+contig-111_39_36
+contig-111_39_37	K13051
+contig-111_39_38	K04485
+contig-111_39_39	K07137
+contig-111_39_40	K15921
+contig-111_39_41
+contig-111_39_42	K03768
+contig-111_39_43	K07085
+contig-111_39_44	K00845
+contig-111_39_45
+contig-111_39_46	K03654
+contig-111_39_47	K07462
+contig-111_39_48	K07566
+contig-111_39_49	K03606
+contig-111_39_50	K03281
+contig-111_39_51	K00604
+contig-111_39_52
+contig-111_39_53	K03781
+contig-111_39_54
+contig-111_39_55
+contig-111_39_56	K03772
+contig-111_39_57	K03296
+contig-111_39_58	K18298
+contig-111_39_59
+contig-111_39_60
+contig-111_39_61	K00058
+contig-111_39_62	K00029
+contig-111_39_63
+contig-111_39_64	K07636
+contig-111_39_65	K03547
+contig-111_39_66	K03546
+contig-111_39_67
+contig-111_39_68
+contig-111_39_69	K00700
+contig-111_39_70	K01809
+contig-111_39_71	K01246
+contig-111_39_72
+contig-111_39_73
+contig-111_39_74
+contig-111_39_75	K00077
+contig-111_39_76	K00868
+contig-111_39_77	K05601
+contig-111_39_78
+contig-111_39_79
+contig-111_39_80
+contig-111_39_81
+contig-111_39_82
+contig-111_39_83
+contig-111_39_84
+contig-111_39_85
+contig-111_39_86
+contig-111_39_87
+contig-111_39_88
+contig-111_39_89
+contig-111_39_90
+contig-111_48_1
+contig-111_48_2
+contig-111_48_3
+contig-111_48_4	K00600
+contig-111_48_5	K12373
+contig-111_48_6
+contig-111_48_7
+contig-111_48_8	K07657
+contig-111_48_9	K00996
+contig-111_48_10
+contig-111_48_11
+contig-111_48_12
+contig-111_48_13
+contig-111_48_14
+contig-111_48_15	K16699
+contig-111_48_16	K00674
+contig-111_48_17
+contig-111_48_18	K07011
+contig-111_48_19	K00568
+contig-111_48_20	K19422
+contig-111_48_21
+contig-111_48_22
+contig-111_48_23
+contig-111_48_24	K02314
+contig-111_48_25	K02316
+contig-111_48_26
+contig-111_48_27
+contig-111_48_28
+contig-111_48_29
+contig-111_48_30
+contig-111_48_31
+contig-111_48_32	K16695
+contig-111_48_33	K01953
+contig-111_48_34	K19003
+contig-111_48_35	K11936
+contig-111_48_36	K11527
+contig-111_48_37	K01737
+contig-111_48_38	K10026
+contig-111_48_39	K01465
+contig-111_48_40	K00721
+contig-111_48_41	K04761
+contig-111_48_42
+contig-111_48_43	K03088
+contig-111_48_44
+contig-111_48_45
+contig-111_48_46	K02474
+contig-111_48_47	K12340
+contig-111_48_48	K18303
+contig-111_48_49	K18302
+contig-111_48_50	K01173
+contig-111_48_51
+contig-111_48_52
+contig-111_48_53
+contig-111_48_54
+contig-111_48_55
+contig-111_48_56
+contig-111_48_57	K01629
+contig-111_48_58	K02856
+contig-111_48_59	K01813
+contig-111_48_60	K00848
+contig-111_48_61
+contig-111_48_62	K09955
+contig-111_48_63	K07677
+contig-111_48_64	K01273
+contig-111_48_65
+contig-111_48_66
+contig-111_48_67
+contig-111_48_68	K06157
+contig-111_48_69	K01992
+contig-111_48_70	K01992
+contig-111_48_71	K01990
+contig-111_48_72	K01990
+contig-111_48_73	K01993
+contig-111_48_74
+contig-111_48_75
+contig-111_48_76
+contig-111_48_77	K01752
+contig-111_48_78
+contig-111_48_79	K10532
+contig-111_48_80
+contig-111_48_81
+contig-111_48_82
+contig-111_48_83
+contig-111_48_84
+contig-111_48_85	K16698
+contig-111_48_86
+contig-111_48_87
+contig-111_48_88
+contig-111_48_89
+contig-111_48_90
+contig-111_48_91
+contig-111_48_92
+contig-111_48_93
+contig-111_51_1
+contig-111_51_2
+contig-111_51_3
+contig-111_51_4
+contig-111_51_5
+contig-111_51_6
+contig-111_51_7
+contig-111_51_8
+contig-111_51_9	K03641
+contig-111_51_10
+contig-111_51_11
+contig-111_51_12
+contig-111_51_13	K02342
+contig-111_51_14
+contig-111_51_15	K03315
+contig-111_51_16	K03315
+contig-111_51_17
+contig-111_51_18	K12410
+contig-111_51_19	K03773
+contig-111_51_20	K03773
+contig-111_51_21	K03718
+contig-111_51_22	K01342
+contig-111_51_23	K03601
+contig-111_51_24
+contig-111_51_25	K00991
+contig-111_51_26	K03655
+contig-111_51_27	K19304
+contig-111_51_28
+contig-111_51_29
+contig-111_51_30	K01803
+contig-111_51_31
+contig-111_51_32	K01495
+contig-111_51_33
+contig-111_51_34	K19157
+contig-111_51_35
+contig-111_51_36
+contig-111_51_37
+contig-111_51_38	K02478
+contig-111_51_39	K02477
+contig-111_51_40	K07214
+contig-111_51_41
+contig-111_51_42
+contig-111_51_43	K01572
+contig-111_51_44	K01960
+contig-111_51_45
+contig-111_51_46	K09667
+contig-111_51_47
+contig-111_51_48
+contig-111_51_49
+contig-111_51_50
+contig-111_51_51	K02914
+contig-111_51_52
+contig-111_51_53	K06180
+contig-111_51_54	K01921
+contig-111_51_55
+contig-111_51_56	K00819
+contig-111_51_57	K01476
+contig-111_51_58
+contig-111_51_59
+contig-111_51_60
+contig-111_51_61
+contig-111_51_62	K01092
+contig-111_51_63
+contig-111_51_64
+contig-111_51_65
+contig-111_51_66	K01662
+contig-111_51_67	K03499
+contig-111_51_68	K03498
+contig-111_51_69
+contig-111_51_70	K03550
+contig-111_51_71
+contig-111_51_72	K16089
+contig-111_51_73	K07043
+contig-111_51_74	K15633
+contig-111_51_75
+contig-111_51_76
+contig-111_55_1
+contig-111_55_2
+contig-111_55_3
+contig-111_55_4
+contig-111_55_5
+contig-111_55_6
+contig-111_55_7
+contig-111_55_8
+contig-111_55_9
+contig-111_55_10
+contig-111_55_11
+contig-111_55_12
+contig-111_55_13
+contig-111_55_14
+contig-111_55_15
+contig-111_55_16
+contig-111_55_17
+contig-111_55_18
+contig-111_55_19
+contig-111_55_20
+contig-111_55_21
+contig-111_55_22
+contig-111_55_23
+contig-111_55_24
+contig-111_55_25
+contig-111_55_26
+contig-111_55_27
+contig-111_55_28
+contig-111_55_29
+contig-111_55_30	K02564
+contig-111_55_31	K00845
+contig-111_55_32	K02429
+contig-111_55_33
+contig-111_55_34
+contig-111_55_35
+contig-111_55_36
+contig-111_55_37	K22132
+contig-111_55_38	K09810
+contig-111_55_39	K03308
+contig-111_55_40
+contig-111_55_41
+contig-111_55_42
+contig-111_55_43
+contig-111_55_44	K03310
+contig-111_55_45
+contig-111_55_46
+contig-111_55_47
+contig-111_55_48
+contig-111_55_49
+contig-111_55_50	K07652
+contig-111_55_51	K07667
+contig-111_55_52
+contig-111_55_53	K17732
+contig-111_55_54
+contig-111_55_55	K01301
+contig-111_55_56	K06041
+contig-111_55_57	K00847
+contig-111_55_58	K01104
+contig-111_55_59	K05592
+contig-111_55_60	K01303
+contig-111_55_61
+contig-111_55_62
+contig-111_55_63
+contig-111_55_64
+contig-111_55_65	K07651
+contig-111_55_66
+contig-111_55_67	K03551
+contig-111_55_68
+contig-111_55_69
+contig-111_55_70
+contig-111_55_71
+contig-111_55_72
+contig-111_55_73
+contig-111_55_74
+contig-111_55_75
+contig-111_55_76
+contig-111_55_77	K06871
+contig-111_55_78
+contig-111_55_79
+contig-111_55_80
+contig-111_55_81
+contig-111_55_82	K19427
+contig-111_55_83
+contig-111_55_84
+contig-111_55_85	K20344
+contig-111_65_1	K07493
+contig-111_65_2
+contig-111_65_3
+contig-111_65_4
+contig-111_65_5	K02428
+contig-111_65_6
+contig-111_65_7	K01869
+contig-111_65_8
+contig-111_65_9
+contig-111_65_10
+contig-111_65_11
+contig-111_65_12
+contig-111_65_13
+contig-111_65_14	K00558
+contig-111_65_15
+contig-111_65_16
+contig-111_65_17
+contig-111_65_18
+contig-111_65_19
+contig-111_65_20
+contig-111_65_21
+contig-111_65_22
+contig-111_65_23	K03555
+contig-111_65_24
+contig-111_65_25
+contig-111_65_26	K03088
+contig-111_65_27
+contig-111_65_28
+contig-111_65_29
+contig-111_65_30
+contig-111_65_31
+contig-111_65_32	K03641
+contig-111_65_33	K06942
+contig-111_65_34
+contig-111_65_35
+contig-111_65_36
+contig-111_65_37
+contig-111_65_38
+contig-111_65_39
+contig-111_65_40
+contig-111_65_41
+contig-111_65_42
+contig-111_65_43
+contig-111_65_44	K09633
+contig-111_65_45
+contig-111_65_46
+contig-111_65_47	K02335
+contig-111_65_48	K02523
+contig-111_65_49	K01619
+contig-111_65_50
+contig-111_65_51	K07560
+contig-111_65_52	K03703
+contig-111_65_53	K01486
+contig-111_65_54	K03495
+contig-111_65_55
+contig-111_65_56
+contig-111_65_57
+contig-111_65_58	K07042
+contig-111_65_59
+contig-111_65_60	K00058
+contig-111_65_61
+contig-111_65_62
+contig-111_65_63	K06966
+contig-111_65_64
+contig-111_65_65
+contig-111_65_66	K17948
+contig-111_65_67	K05970
+contig-111_65_68	K12373
+contig-111_65_69	K01186
+contig-111_65_70
+contig-111_65_71
+contig-111_65_72	K08191
+contig-111_65_73	K01787
+contig-111_65_74	K01639
+contig-111_65_75	K00845
+contig-111_65_76
+contig-111_66_1
+contig-111_66_2
+contig-111_66_3
+contig-111_66_4
+contig-111_66_5
+contig-111_66_6
+contig-111_66_7
+contig-111_66_8	K00012
+contig-111_66_9	K08678
+contig-111_66_10
+contig-111_66_11
+contig-111_66_12	K16694
+contig-111_66_13
+contig-111_66_14
+contig-111_66_15	K13668
+contig-111_66_16
+contig-111_66_17	K01912
+contig-111_66_18
+contig-111_66_19
+contig-111_66_20
+contig-111_66_21	K00012
+contig-111_66_22	K16698
+contig-111_66_23
+contig-111_66_24	K01889
+contig-111_66_25	K03699
+contig-111_66_26
+contig-111_66_27
+contig-111_66_28	K00610
+contig-111_66_29	K00609
+contig-111_66_30	K01077
+contig-111_66_31	K01262
+contig-111_66_32
+contig-111_66_33	K17686
+contig-111_66_34
+contig-111_66_35	K11068
+contig-111_66_36	K03592
+contig-111_66_37	K03568
+contig-111_66_38	K06871
+contig-111_66_39
+contig-111_66_40
+contig-111_66_41
+contig-111_66_42	K20265
+contig-111_66_43
+contig-111_66_44	K03701
+contig-111_66_45
+contig-111_66_46
+contig-111_66_47
+contig-111_66_48	K03313
+contig-111_66_49
+contig-111_66_50	K01187
+contig-111_66_51	K01176
+contig-111_66_52	K05367
+contig-111_66_53
+contig-111_66_54	K06894
+contig-111_66_55	K13091
+contig-111_66_56
+contig-111_66_57
+contig-111_66_58
+contig-111_66_59	K03657
+contig-111_66_60	K13747
+contig-111_66_61
+contig-111_66_62
+contig-111_66_63	K03110
+contig-111_66_64	K14441
+contig-111_66_65
+contig-111_66_66
+contig-111_66_67	K03924
+contig-111_66_68
+contig-111_66_69
+contig-111_66_70	K07114
+contig-111_66_71	K07114
+contig-111_66_72
+contig-111_66_73
+contig-111_66_74
+contig-111_66_75
+contig-111_66_76
+contig-111_66_77
+contig-111_66_78
+contig-111_66_79
+contig-111_73_1
+contig-111_73_2
+contig-111_73_3
+contig-111_73_4
+contig-111_73_5
+contig-111_73_6	K01867
+contig-111_73_7
+contig-111_73_8
+contig-111_73_9
+contig-111_73_10
+contig-111_73_11
+contig-111_73_12
+contig-111_73_13
+contig-111_73_14
+contig-111_73_15
+contig-111_73_16	K03088
+contig-111_73_17
+contig-111_73_18
+contig-111_73_19
+contig-111_73_20
+contig-111_73_21
+contig-111_73_22
+contig-111_73_23
+contig-111_73_24	K11384
+contig-111_73_25	K07709
+contig-111_73_26
+contig-111_73_27
+contig-111_73_28
+contig-111_73_29
+contig-111_73_30
+contig-111_73_31
+contig-111_73_32
+contig-111_73_33
+contig-111_73_34
+contig-111_73_35
+contig-111_73_36	K13652
+contig-111_73_37
+contig-111_73_38
+contig-111_73_39
+contig-111_73_40
+contig-111_73_41
+contig-111_73_42	K07651
+contig-111_73_43
+contig-111_73_44	K03426
+contig-111_73_45
+contig-111_73_46	K07713
+contig-111_73_47	K07709
+contig-111_73_48	K20974
+contig-111_73_49
+contig-111_73_50	K15461
+contig-111_73_51	K03671
+contig-111_73_52	K02337
+contig-111_73_53
+contig-111_73_54
+contig-111_73_55
+contig-111_74_1
+contig-111_74_2	K06381
+contig-111_74_3
+contig-111_74_4	K01119
+contig-111_74_5	K03307
+contig-111_74_6	K03978
+contig-111_74_7
+contig-111_74_8	K16089
+contig-111_74_9
+contig-111_74_10	K07085
+contig-111_74_11	K05681
+contig-111_74_12
+contig-111_74_13
+contig-111_74_14	K07678
+contig-111_74_15	K00290
+contig-111_74_16	K03564
+contig-111_74_17	K03553
+contig-111_74_18
+contig-111_74_19
+contig-111_74_20
+contig-111_74_21
+contig-111_74_22
+contig-111_74_23
+contig-111_74_24
+contig-111_74_25
+contig-111_74_26	K04759
+contig-111_74_27
+contig-111_74_28
+contig-111_74_29	K00012
+contig-111_74_30	K00817
+contig-111_74_31
+contig-111_74_32	K03328
+contig-111_74_33
+contig-111_74_34	K07271
+contig-111_74_35	K05946
+contig-111_74_36
+contig-111_74_37
+contig-111_74_38
+contig-111_74_39
+contig-111_74_40	K01991
+contig-111_74_41	K00243
+contig-111_74_42	K03596
+contig-111_74_43
+contig-111_74_44
+contig-111_74_45
+contig-111_74_46
+contig-111_74_47
+contig-111_74_48
+contig-111_74_49
+contig-111_74_50
+contig-111_74_51
+contig-111_74_52
+contig-111_74_53
+contig-111_74_54
+contig-111_74_55
+contig-111_74_56
+contig-111_74_57
+contig-111_74_58
+contig-111_74_59
+contig-111_74_60
+contig-111_74_61
+contig-111_74_62
+contig-111_74_63
+contig-111_74_64
+contig-111_74_65
+contig-111_74_66	K14440
+contig-111_74_67
+contig-111_74_68
+contig-111_74_69
+contig-111_74_70
+contig-111_74_71	K15352
+contig-111_74_72
+contig-111_74_73
+contig-111_74_74
+contig-111_74_75
+contig-111_74_76
+contig-111_74_77
+contig-111_74_78
+contig-111_82_1
+contig-111_82_2
+contig-111_82_3
+contig-111_82_4
+contig-111_82_5
+contig-111_82_6
+contig-111_82_7
+contig-111_82_8
+contig-111_82_9
+contig-111_82_10	K03100
+contig-111_82_11
+contig-111_82_12
+contig-111_82_13
+contig-111_82_14	K18306
+contig-111_82_15	K03296
+contig-111_82_16
+contig-111_82_17	K03296
+contig-111_82_18
+contig-111_82_19
+contig-111_82_20
+contig-111_82_21
+contig-111_82_22
+contig-111_82_23
+contig-111_82_24
+contig-111_82_25
+contig-111_82_26
+contig-111_82_27
+contig-111_82_28
+contig-111_82_29	K11540
+contig-111_82_30
+contig-111_82_31	K17218
+contig-111_82_32	K18930
+contig-111_82_33	K02016
+contig-111_82_34
+contig-111_82_35	K16092
+contig-111_82_36
+contig-111_82_37
+contig-111_82_38
+contig-111_82_39	K02190
+contig-111_82_40	K16089
+contig-111_82_41	K21636
+contig-111_82_42	K04068
+contig-111_82_43
+contig-111_82_44
+contig-111_82_45
+contig-111_82_46
+contig-111_82_47
+contig-111_82_48
+contig-111_82_49	K01775
+contig-111_82_50
+contig-111_82_51	K00208
+contig-111_82_52	K07566
+contig-111_82_53	K18577
+contig-111_82_54
+contig-111_82_55
+contig-111_88_1
+contig-111_88_2
+contig-111_88_3
+contig-111_88_4
+contig-111_88_5
+contig-111_88_6
+contig-111_88_7
+contig-111_88_8
+contig-111_88_9
+contig-111_88_10	K00980
+contig-111_88_11	K07271
+contig-111_88_12	K00978
+contig-111_88_13	K01709
+contig-111_88_14	K01784
+contig-111_88_15	K01790
+contig-111_88_16
+contig-111_88_17
+contig-111_88_18
+contig-111_88_19	K01876
+contig-111_88_20
+contig-111_88_21
+contig-111_88_22	K04075
+contig-111_88_23	K03628
+contig-111_88_24	K05592
+contig-111_88_25	K07636
+contig-111_88_26	K02030
+contig-111_88_27
+contig-111_88_28	K00177
+contig-111_88_29	K00175
+contig-111_88_30
+contig-111_88_31	K00174
+contig-111_88_32
+contig-111_88_33	K07714
+contig-111_88_34	K07710
+contig-111_88_35
+contig-111_88_36
+contig-111_88_37	K01990
+contig-111_88_38
+contig-111_88_39
+contig-111_88_40	K08974
+contig-111_88_41
+contig-111_88_42	K01886
+contig-111_88_43	K03322
+contig-111_88_44	K07710
+contig-111_88_45	K07713
+contig-111_88_46	K08169
+contig-111_88_47	K03327
+contig-111_88_48
+contig-111_88_49
+contig-111_88_50
+contig-111_88_51
+contig-111_88_52	K03856
+contig-111_88_53	K10206
+contig-111_88_54	K04518
+contig-111_88_55	K18954
+contig-111_88_56
+contig-111_88_57
+contig-111_88_58	K03976
+contig-111_88_59	K06959
+contig-111_88_60
+contig-111_88_61	K11527
+contig-111_88_62	K05847
+contig-111_88_63
+contig-111_88_64	K14392
+contig-111_88_65
+contig-111_88_66
+contig-111_88_67
+contig-111_88_68
+contig-111_88_69	K07678
+contig-111_88_70	K03152
+contig-111_88_71	K03594
+contig-111_88_72
+contig-111_88_73	K02232
+contig-111_88_74
+contig-111_91_1	K03088
+contig-111_91_2
+contig-111_91_3
+contig-111_91_4
+contig-111_91_5
+contig-111_91_6
+contig-111_91_7	K03088
+contig-111_91_8
+contig-111_91_9
+contig-111_91_10
+contig-111_91_11
+contig-111_91_12
+contig-111_91_13	K01190
+contig-111_91_14	K01195
+contig-111_91_15
+contig-111_91_16	K00865
+contig-111_91_17	K03299
+contig-111_91_18
+contig-111_91_19
+contig-111_91_20
+contig-111_91_21
+contig-111_91_22	K21814
+contig-111_91_23
+contig-111_91_24
+contig-111_91_25
+contig-111_91_26
+contig-111_91_27
+contig-111_91_28
+contig-111_91_29
+contig-111_91_30
+contig-111_91_31
+contig-111_91_32
+contig-111_91_33
+contig-111_91_34
+contig-111_91_35
+contig-111_91_36
+contig-111_91_37
+contig-111_91_38
+contig-111_91_39	K03930
+contig-111_91_40	K00800
+contig-111_91_41
+contig-111_91_42	K09816
+contig-111_91_43
+contig-111_96_1
+contig-111_96_2	K00147
+contig-111_96_3	K00931
+contig-111_96_4	K01895
+contig-111_96_5
+contig-111_96_6
+contig-111_96_7
+contig-111_96_8	K00294
+contig-111_96_9	K00318
+contig-111_96_10	K00286
+contig-111_96_11
+contig-111_96_12
+contig-111_96_13
+contig-111_96_14	K01278
+contig-111_96_15
+contig-111_96_16
+contig-111_96_17
+contig-111_96_18	K01537
+contig-111_96_19
+contig-111_96_20
+contig-111_96_21
+contig-111_96_22	K07139
+contig-111_96_23
+contig-111_96_24
+contig-111_96_25	K08674
+contig-111_96_26	K03644
+contig-111_96_27
+contig-111_96_28	K07095
+contig-111_96_29	K00937
+contig-111_96_30
+contig-111_96_31
+contig-111_96_32	K03500
+contig-111_96_33	K07056
+contig-111_96_34	K13018
+contig-111_96_35
+contig-111_96_36
+contig-111_96_37
+contig-111_96_38
+contig-111_96_39
+contig-111_96_40
+contig-111_96_41
+contig-111_96_42
+contig-111_96_43	K03100
+contig-111_96_44
+contig-111_96_45
+contig-111_96_46	K06180
+contig-111_96_47	K01198
+contig-111_96_48
+contig-111_96_49	K03827
+contig-111_96_50	K03790
+contig-111_96_51	K03790
+contig-111_96_52	K00059
+contig-111_96_53	K07071
+contig-111_96_54
+contig-111_96_55
+contig-111_96_56	K00121
+contig-111_96_57	K07448
+contig-111_96_58	K07316
+contig-111_96_59	K07316
+contig-111_96_60
+contig-111_96_61
+contig-111_97_1
+contig-111_97_2
+contig-111_97_3
+contig-111_97_4
+contig-111_97_5
+contig-111_97_6
+contig-111_97_7
+contig-111_97_8
+contig-111_97_9
+contig-111_97_10
+contig-111_97_11
+contig-111_97_12
+contig-111_97_13
+contig-111_97_14	K16698
+contig-111_97_15
+contig-111_97_16	K00764
+contig-111_97_17	K01956
+contig-111_97_18	K11540
+contig-111_97_19
+contig-111_97_20	K18928
+contig-111_97_21	K18929
+contig-111_97_22
+contig-111_97_23	K08325
+contig-111_97_24	K01695
+contig-111_97_25	K01817
+contig-111_97_26	K01609
+contig-111_97_27	K00766
+contig-111_97_28	K01658
+contig-111_97_29	K01657
+contig-111_97_30	K01696
+contig-111_97_31	K01744
+contig-111_97_32
+contig-111_97_33
+contig-111_97_34	K01834
+contig-111_97_35
+contig-111_97_36
+contig-111_97_37
+contig-111_97_38
+contig-111_97_39
+contig-111_97_40
+contig-111_97_41	K07722
+contig-111_97_42	K16092
+contig-111_97_43	K07713
+contig-111_97_44	K01843
+contig-111_97_45
+contig-111_97_46
+contig-111_97_47
+contig-111_97_48
+contig-111_97_49
+contig-111_97_50
+contig-111_97_51
+contig-111_97_52	K01897
+contig-111_97_53	K03723
+contig-111_97_54
+contig-111_97_55
+contig-111_101_1
+contig-111_101_2
+contig-111_101_3
+contig-111_101_4
+contig-111_101_5
+contig-111_101_6	K00930
+contig-111_101_7	K05776
+contig-111_101_8	K04763
+contig-111_101_9	K19611
+contig-111_101_10
+contig-111_101_11	K07478
+contig-111_101_12	K00831
+contig-111_101_13	K00058
+contig-111_101_14
+contig-111_101_15
+contig-111_101_16	K11527
+contig-111_101_17	K01784
+contig-111_101_18	K03617
+contig-111_101_19	K03613
+contig-111_101_20	K03612
+contig-111_101_21	K03614
+contig-111_101_22	K03615
+contig-111_101_23	K03616
+contig-111_101_24
+contig-111_101_25
+contig-111_101_26	K01937
+contig-111_101_27	K03217
+contig-111_101_28
+contig-111_101_29	K00979
+contig-111_101_30	K03455
+contig-111_101_31
+contig-111_101_32
+contig-111_101_33	K03088
+contig-111_101_34	K01897
+contig-111_101_35	K03814
+contig-111_101_36	K03801
+contig-111_101_37
+contig-111_101_38
+contig-111_101_39	K01409
+contig-111_101_40	K03743
+contig-111_101_41	K16795
+contig-111_101_42
+contig-111_101_43
+contig-111_101_44	K02478
+contig-111_101_45	K02477
+contig-111_101_46	K13694
+contig-111_101_47	K01875
+contig-111_101_48
+contig-111_101_49
+contig-111_101_50
+contig-111_101_51
+contig-111_101_52	K00226
+contig-111_101_53	K06997
+contig-111_101_54
+contig-111_101_55
+contig-111_109_1
+contig-111_109_2	K03092
+contig-111_109_3
+contig-111_109_4	K02437
+contig-111_109_5	K01588
+contig-111_109_6	K03526
+contig-111_109_7	K01520
+contig-111_109_8	K09667
+contig-111_109_9
+contig-111_109_10
+contig-111_109_11
+contig-111_109_12
+contig-111_109_13	K01077
+contig-111_109_14
+contig-111_109_15
+contig-111_109_16
+contig-111_109_17
+contig-111_109_18
+contig-111_109_19
+contig-111_109_20
+contig-111_109_21	K01812
+contig-111_109_22	K01625
+contig-111_109_23	K00874
+contig-111_109_24	K05540
+contig-111_109_25	K08303
+contig-111_109_26
+contig-111_109_27	K04096
+contig-111_109_28
+contig-111_109_29
+contig-111_109_30	K02469
+contig-111_109_31
+contig-111_109_32
+contig-111_109_33
+contig-111_109_34	K01880
+contig-111_109_35	K03773
+contig-111_109_36
+contig-111_109_37
+contig-111_109_38	K11527
+contig-111_109_39	K05841
+contig-111_109_40	K22226
+contig-111_109_41
+contig-111_109_42	K00240
+contig-111_109_43	K00239
+contig-111_109_44
+contig-111_109_45
+contig-111_109_46
+contig-111_109_47
+contig-111_109_48
+contig-111_109_49
+contig-111_109_50
+contig-111_113_1
+contig-111_113_2	K05349
+contig-111_113_3
+contig-111_113_4	K19304
+contig-111_113_5
+contig-111_113_6	K21395
+contig-111_113_7
+contig-111_113_8
+contig-111_113_9	K01686
+contig-111_113_10
+contig-111_113_11	K02529
+contig-111_113_12
+contig-111_113_13	K03585
+contig-111_113_14	K03296
+contig-111_113_15	K18139
+contig-111_113_16	K00677
+contig-111_113_17
+contig-111_113_18	K00024
+contig-111_113_19
+contig-111_113_20
+contig-111_113_21	K06969
+contig-111_113_22	K10900
+contig-111_113_23
+contig-111_113_24	K07079
+contig-111_113_25
+contig-111_113_26	K03466
+contig-111_113_27
+contig-111_113_28	K00384
+contig-111_113_29	K01126
+contig-111_113_30
+contig-111_113_31
+contig-111_113_32
+contig-111_113_33
+contig-111_113_34
+contig-111_113_35	K03088
+contig-111_113_36
+contig-111_113_37
+contig-111_113_38
+contig-111_113_39
+contig-111_113_40
+contig-111_113_41	K03664
+contig-111_113_42
+contig-111_113_43	K00548
+contig-111_113_44
+contig-111_113_45
+contig-111_113_46
+contig-111_113_47
+contig-111_113_48
+contig-111_113_49
+contig-111_117_1
+contig-111_117_2
+contig-111_117_3	K03525
+contig-111_117_4
+contig-111_117_5
+contig-111_117_6
+contig-111_117_7	K03699
+contig-111_117_8	K07533
+contig-111_117_9	K06941
+contig-111_117_10
+contig-111_117_11	K00097
+contig-111_117_12	K00980
+contig-111_117_13	K00059
+contig-111_117_14
+contig-111_117_15
+contig-111_117_16	K12266
+contig-111_117_17
+contig-111_117_18
+contig-111_117_19
+contig-111_117_20
+contig-111_117_21
+contig-111_117_22
+contig-111_117_23	K00794
+contig-111_117_24
+contig-111_117_25	K03629
+contig-111_117_26
+contig-111_117_27	K01934
+contig-111_117_28	K03797
+contig-111_117_29	K01493
+contig-111_117_30	K01284
+contig-111_117_31	K01196
+contig-111_117_32
+contig-111_117_33	K07405
+contig-111_117_34
+contig-111_117_35	K00703
+contig-111_117_36	K01918
+contig-111_117_37	K01579
+contig-111_117_38
+contig-111_117_39
+contig-111_117_40	K01534
+contig-111_117_41	K03106
+contig-111_117_42	K01491
+contig-111_117_43	K01302
+contig-111_117_44
+contig-111_117_45	K15727
+contig-111_117_46	K15726
+contig-111_117_47	K15725
+contig-111_117_48
+contig-111_117_49
+contig-111_117_50
+contig-111_117_51	K01190
+contig-111_117_52
+contig-111_120_1
+contig-111_120_2
+contig-111_120_3
+contig-111_120_4
+contig-111_120_5
+contig-111_120_6
+contig-111_120_7
+contig-111_120_8
+contig-111_120_9	K03305
+contig-111_120_10
+contig-111_120_11
+contig-111_120_12	K00281
+contig-111_120_13
+contig-111_120_14	K03501
+contig-111_120_15
+contig-111_120_16
+contig-111_120_17
+contig-111_120_18	K01195
+contig-111_120_19	K03823
+contig-111_120_20
+contig-111_120_21	K00790
+contig-111_120_22
+contig-111_120_23	K06194
+contig-111_120_24	K00099
+contig-111_120_25	K11749
+contig-111_120_26
+contig-111_120_27	K00259
+contig-111_120_28	K03070
+contig-111_120_29
+contig-111_120_30
+contig-111_120_31
+contig-111_120_32
+contig-111_120_33
+contig-111_120_34
+contig-111_120_35
+contig-111_120_36
+contig-111_120_37
+contig-111_120_38
+contig-111_120_39
+contig-111_120_40
+contig-111_120_41
+contig-111_120_42
+contig-111_120_43
+contig-111_120_44
+contig-111_120_45
+contig-111_120_46	K07455
+contig-111_120_47
+contig-111_120_48
+contig-111_120_49
+contig-111_120_50
+contig-111_120_51
+contig-111_120_52
+contig-111_120_53	K06941
+contig-111_120_54	K00558
+contig-111_120_55
+contig-111_120_56
+contig-111_120_57
+contig-111_120_58
+contig-111_120_59	K00390
+contig-111_121_1
+contig-111_121_2
+contig-111_121_3
+contig-111_121_4
+contig-111_121_5
+contig-111_121_6	K01446
+contig-111_121_7
+contig-111_121_8
+contig-111_121_9	K04763
+contig-111_121_10	K12257
+contig-111_121_11
+contig-111_121_12
+contig-111_121_13
+contig-111_121_14
+contig-111_121_15
+contig-111_121_16	K03530
+contig-111_121_17	K01887
+contig-111_121_18	K03168
+contig-111_121_19
+contig-111_121_20	K02485
+contig-111_121_21	K07709
+contig-111_121_22	K07709
+contig-111_121_23	K07709
+contig-111_121_24
+contig-111_121_25
+contig-111_121_26
+contig-111_121_27	K00845
+contig-111_121_28	K01759
+contig-111_121_29
+contig-111_121_30
+contig-111_121_31
+contig-111_121_32
+contig-111_121_33
+contig-111_121_34
+contig-111_121_35
+contig-111_121_36
+contig-111_121_37
+contig-111_121_38	K08289
+contig-111_121_39	K02003
+contig-111_121_40	K02004
+contig-111_121_41	K02004
+contig-111_121_42	K13888
+contig-111_121_43	K12340
+contig-111_128_1
+contig-111_128_2
+contig-111_128_3
+contig-111_128_4
+contig-111_128_5
+contig-111_128_6	K06168
+contig-111_128_7
+contig-111_128_8	K22214
+contig-111_128_9
+contig-111_128_10
+contig-111_128_11	K02037
+contig-111_128_12	K02038
+contig-111_128_13	K02036
+contig-111_128_14	K02039
+contig-111_128_15
+contig-111_128_16	K15923
+contig-111_128_17
+contig-111_128_18	K11085
+contig-111_128_19
+contig-111_128_20
+contig-111_128_21	K22226
+contig-111_128_22
+contig-111_128_23	K05349
+contig-111_128_24
+contig-111_128_25
+contig-111_128_26	K07075
+contig-111_128_27
+contig-111_128_28	K07075
+contig-111_128_29
+contig-111_128_30
+contig-111_128_31
+contig-111_128_32
+contig-111_128_33
+contig-111_128_34
+contig-111_128_35	K19157
+contig-111_128_36	K03977
+contig-111_128_37	K03595
+contig-111_128_38	K00648
+contig-111_128_39	K02911
+contig-111_128_40
+contig-111_128_41	K07636
+contig-111_135_1
+contig-111_135_2
+contig-111_135_3
+contig-111_135_4
+contig-111_135_5	K07710
+contig-111_135_6	K07714
+contig-111_135_7
+contig-111_135_8	K00887
+contig-111_135_9
+contig-111_135_10
+contig-111_135_11
+contig-111_135_12
+contig-111_135_13	K02004
+contig-111_135_14
+contig-111_135_15	K02003
+contig-111_135_16
+contig-111_135_17	K05685
+contig-111_135_18
+contig-111_135_19	K02004
+contig-111_135_20	K13888
+contig-111_135_21
+contig-111_135_22
+contig-111_135_23
+contig-111_135_24
+contig-111_135_25	K01190
+contig-111_135_26	K07792
+contig-111_135_27	K03671
+contig-111_135_28	K01754
+contig-111_135_29
+contig-111_135_30
+contig-111_135_31
+contig-111_135_32
+contig-111_135_33
+contig-111_135_34
+contig-111_135_35	K06217
+contig-111_135_36	K01923
+contig-111_135_37	K03183
+contig-111_135_38	K00014
+contig-111_135_39
+contig-111_135_40
+contig-111_135_41	K06189
+contig-111_135_42	K03111
+contig-111_135_43	K03575
+contig-111_135_44	K03530
+contig-111_135_45
+contig-111_135_46	K08300
+contig-111_135_47	K04043
+contig-111_135_48
+contig-111_135_49
+contig-111_143_1	K03630
+contig-111_143_2
+contig-111_143_3
+contig-111_143_4
+contig-111_143_5	K00949
+contig-111_143_6	K03811
+contig-111_143_7	K16092
+contig-111_143_8
+contig-111_143_9
+contig-111_143_10	K02600
+contig-111_143_11	K02519
+contig-111_143_12
+contig-111_143_13	K09014
+contig-111_143_14	K09013
+contig-111_143_15	K09015
+contig-111_143_16	K01759
+contig-111_143_17	K01208
+contig-111_143_18	K05546
+contig-111_143_19	K01130
+contig-111_143_20	K11717
+contig-111_143_21
+contig-111_143_22	K03470
+contig-111_143_23	K02426
+contig-111_143_24	K00683
+contig-111_143_25	K07010
+contig-111_143_26	K07010
+contig-111_143_27	K02470
+contig-111_143_28
+contig-111_143_29
+contig-111_143_30
+contig-111_143_31
+contig-111_143_32
+contig-111_143_33
+contig-111_143_34
+contig-111_143_35
+contig-111_143_36
+contig-111_143_37
+contig-111_143_38
+contig-111_143_39
+contig-111_143_40	K07316
+contig-111_143_41
+contig-111_143_42
+contig-111_157_1	K19430
+contig-111_157_2	K19428
+contig-111_157_3
+contig-111_157_4	K05396
+contig-111_157_5	K01955
+contig-111_157_6
+contig-111_157_7	K04940
+contig-111_157_8	K00633
+contig-111_157_9
+contig-111_157_10	K07282
+contig-111_157_11
+contig-111_157_12
+contig-111_157_13	K03328
+contig-111_157_14	K00012
+contig-111_157_15
+contig-111_157_16
+contig-111_157_17
+contig-111_157_18
+contig-111_157_19
+contig-111_157_20
+contig-111_157_21	K07407
+contig-111_157_22
+contig-111_157_23	K01870
+contig-111_157_24
+contig-111_157_25
+contig-111_157_26
+contig-111_157_27
+contig-111_157_28	K03437
+contig-111_157_29
+contig-111_157_30	K03671
+contig-111_157_31
+contig-111_157_32	K09760
+contig-111_157_33	K11065
+contig-111_157_34
+contig-111_157_35	K03327
+contig-111_157_36	K18244
+contig-111_157_37	K03522
+contig-111_157_38	K03521
+contig-111_157_39
+contig-111_191_1
+contig-111_191_2	K02217
+contig-111_191_3	K00567
+contig-111_191_4
+contig-111_191_5
+contig-111_191_6
+contig-111_191_7
+contig-111_191_8
+contig-111_191_9
+contig-111_191_10
+contig-111_191_11	K01551
+contig-111_191_12	K03741
+contig-111_191_13	K03325
+contig-111_191_14
+contig-111_191_15
+contig-111_191_16
+contig-111_191_17
+contig-111_191_18
+contig-111_191_19
+contig-111_191_20	K03088
+contig-111_191_21	K02564
+contig-111_191_22	K01443
+contig-111_191_23	K01443
+contig-111_191_24	K06158
+contig-111_191_25	K06889
+contig-111_191_26
+contig-111_191_27
+contig-111_194_1
+contig-111_194_2
+contig-111_194_3
+contig-111_194_4	K01993
+contig-111_194_5	K01992
+contig-111_194_6	K01992
+contig-111_194_7
+contig-111_194_8
+contig-111_194_9	K19270
+contig-111_194_10	K03530
+contig-111_194_11	K01810
+contig-111_194_12	K00057
+contig-111_194_13	K04567
+contig-111_194_14
+contig-111_194_15	K00969
+contig-111_194_16
+contig-111_194_17	K00942
+contig-111_194_18
+contig-111_194_19	K14742
+contig-111_194_20
+contig-111_194_21	K01572
+contig-111_194_22	K01965
+contig-111_194_23
+contig-111_194_24	K01966
+contig-111_194_25	K05606
+contig-111_194_26
+contig-111_194_27
+contig-111_194_28
+contig-111_194_29	K03270
+contig-111_194_30	K06287
+contig-111_194_31
+contig-111_194_32	K03734
+contig-111_194_33	K01687
+contig-111_194_34
+contig-111_194_35
+contig-111_194_36
+contig-111_194_37
+contig-111_223_1
+contig-111_223_2
+contig-111_223_3
+contig-111_223_4
+contig-111_223_5
+contig-111_223_6
+contig-111_223_7	K00390
+contig-111_223_8
+contig-111_223_9
+contig-111_223_10
+contig-111_223_11
+contig-111_223_12
+contig-111_223_13	K01737
+contig-111_223_14	K10026
+contig-111_223_15	K01495
+contig-111_223_16
+contig-111_223_17
+contig-111_223_18
+contig-111_223_19
+contig-111_223_20
+contig-111_223_21
+contig-111_223_22
+contig-111_223_23
+contig-111_223_24
+contig-111_223_25
+contig-111_223_26
+contig-111_223_27
+contig-111_223_28
+contig-111_223_29
+contig-111_223_30
+contig-111_223_31
+contig-111_223_32
+contig-111_223_33
+contig-111_223_34
+contig-111_223_35
+contig-111_223_36
+contig-111_223_37
+contig-111_223_38
+contig-111_223_39
+contig-111_223_40
+contig-111_223_41
+contig-111_249_1
+contig-111_249_2
+contig-111_249_3
+contig-111_249_4
+contig-111_249_5	K11527
+contig-111_249_6
+contig-111_249_7
+contig-111_249_8
+contig-111_249_9
+contig-111_249_10
+contig-111_249_11	K03146
+contig-111_249_12
+contig-111_249_13
+contig-111_249_14	K15727
+contig-111_249_15
+contig-111_249_16
+contig-111_249_17	K02371
+contig-111_249_18
+contig-111_249_19	K01284
+contig-111_249_20	K01284
+contig-111_249_21	K04763
+contig-111_257_1
+contig-111_257_2
+contig-111_257_3	K01119
+contig-111_257_4
+contig-111_257_5
+contig-111_257_6
+contig-111_257_7	K00180
+contig-111_257_8	K00179
+contig-111_257_9	K07082
+contig-111_257_10
+contig-111_257_11	K01905
+contig-111_257_12	K04652
+contig-111_257_13	K04651
+contig-111_257_14	K04656
+contig-111_257_15	K04653
+contig-111_257_16	K04654
+contig-111_257_17	K04655
+contig-111_257_18	K06282
+contig-111_257_19	K06281
+contig-111_257_20	K03620
+contig-111_257_21	K03605
+contig-111_257_22	K02440
+contig-111_257_23	K00864
+contig-111_257_24	K00111
+contig-111_283_1
+contig-111_283_2
+contig-111_283_3
+contig-111_283_4
+contig-111_283_5	K00784
+contig-111_283_6
+contig-111_283_7	K00426
+contig-111_283_8	K00425
+contig-111_283_9
+contig-111_283_10
+contig-111_283_11
+contig-111_283_12
+contig-111_283_13
+contig-111_283_14
+contig-111_283_15	K03088
+contig-111_283_16
+contig-111_283_17
+contig-111_283_18
+contig-111_283_19	K03088
+contig-111_283_20
+contig-111_283_21	K00748
+contig-111_283_22	K03787
+contig-111_283_23
+contig-111_307_1	K05366
+contig-111_307_2	K19239
+contig-111_307_3	K21900
+contig-111_307_4
+contig-111_307_5	K07387
+contig-111_307_6	K07677
+contig-111_307_7	K08999
+contig-111_307_8	K03317
+contig-111_307_9	K09761
+contig-111_307_10
+contig-111_307_11	K01951
+contig-111_307_12	K01951
+contig-111_307_13	K01790
+contig-111_307_14	K01710
+contig-111_307_15
+contig-111_307_16	K19421
+contig-111_309_1
+contig-111_309_2
+contig-111_309_3
+contig-111_309_4	K02564
+contig-111_309_5	K12264
+contig-111_309_6	K13292
+contig-111_309_7
+contig-111_309_8
+contig-111_309_9
+contig-111_309_10
+contig-111_309_11
+contig-111_309_12	K04749
+contig-111_309_13
+contig-111_309_14
+contig-111_309_15
+contig-111_309_16
+contig-111_309_17
+contig-111_356_1
+contig-111_356_2	K12111
+contig-111_356_3	K03701
+contig-111_356_4
+contig-111_356_5
+contig-111_356_6
+contig-111_356_7
+contig-111_356_8
+contig-111_356_9	K00661
+contig-111_356_10
+contig-111_356_11
+contig-111_356_12	K14261
+contig-111_356_13	K07735
+contig-111_356_14	K00657
+contig-111_356_15	K07011
+contig-111_356_16	K06187
+contig-111_356_17	K08679
+contig-111_356_18
+contig-111_356_19	K10012
+contig-111_356_20
+contig-111_403_1
+contig-111_403_2
+contig-111_403_3
+contig-111_403_4
+contig-111_403_5	K02871
+contig-111_403_6	K02996
+contig-111_403_7	K02967
+contig-111_403_8	K02357
+contig-111_403_9	K00812
+contig-111_403_10	K14652
+contig-111_403_11
+contig-111_403_12
+contig-111_403_13
+contig-111_403_14
+contig-111_403_15
+contig-111_403_16	K07075
+contig-111_438_1
+contig-111_438_2
+contig-111_438_3
+contig-111_438_4
+contig-111_438_5	K04773
+contig-111_438_6	K00912
+contig-111_438_7	K00946
+contig-111_438_8
+contig-111_438_9

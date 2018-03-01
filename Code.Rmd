@@ -12,6 +12,322 @@ source('http://portal.nersc.gov/dna/RD/Metagenome_RD/MetaBAT/Files/benchmark.R')
 
 ```
 
+### ISME ###
+# All SPAdes 125
+
+### 3715
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3715.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3715.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3717
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3717.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3717.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3717.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3717.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3717.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3717.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3717.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3717.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3717.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3717.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3717.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3717.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3717.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3717.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3723
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3723.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3723.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3723.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3723.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3723.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3723.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3723.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3723.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3723.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3723.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3723.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3723.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3723.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3723.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3733
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3733.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3733.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3733.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3733.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3733.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3733.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3733.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3733.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3733.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3733.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3733.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3733.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3733.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3733.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+### 3734
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3734.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3734.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3734.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3734.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3734.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3734.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3734.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3734.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3734.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3734.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3734.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3734.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3734.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3734.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3744
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3744.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3744.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3744.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3744.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3744.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3744.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3744.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3744.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3744.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3744.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3744.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3744.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3744.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3744.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3772
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3772.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3772.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3772.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3772.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3772.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3772.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3772.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3772.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3772.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3772.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3772.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3772.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3772.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3772.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3773
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3773.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3773.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3773.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3773.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3773.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3773.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3773.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3773.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3773.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3773.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3773.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3773.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3773.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3773.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3775
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3715.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3715.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+
+
+
+
+
+
+##### OLD #####
+
 ### 3715 IDBA 111
 ```{r}
 ### Job 1
@@ -64,8 +380,7 @@ printPerf(list(calcPerfBySCG("checkm.3715.idba.95.job3.txt", removeStrain=T)), r
 
 
 ### Comparisons
-diffPerf(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=F), 
-         calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+diffPerf(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=F), calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
 
 diffPerf(calcPerfBySCG("checkm.3715.idba.95.job1.txt", removeStrain=T), 
          calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
@@ -84,8 +399,181 @@ diffPerf(calcPerfBySCG("checkm.3715.idba.95.job2.txt", removeStrain=T),
 ```
 
 
+### 3715 SPAdes 95
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3715.spades.95.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
 
-####### OLD #######
+printPerf(list(calcPerfBySCG("checkm.3715.spades.95.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3715.spades.95.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.95.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3715.spades.95.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.95.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3715.spades.95.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.95.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.95.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.95.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.95.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.95.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.95.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.95.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.95.job2.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.95.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.95.job2.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.95.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+```
+
+
+
+### 3715 SPAdes 105
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3715.spades.105.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.105.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3715.spades.105.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.105.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3715.spades.105.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.105.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3715.spades.105.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.105.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.105.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.105.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.105.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.105.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.105.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.105.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.105.job2.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.105.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.105.job2.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.105.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+```
+
+
+
+
+### 3715 SPAdes 105
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3715.spades.115.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.115.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3715.spades.115.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.115.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3715.spades.115.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.115.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3715.spades.115.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.115.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.115.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.115.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.115.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.115.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.115.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.115.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.115.job2.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.115.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.115.job2.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.115.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+```
+
+
+
+
+
+### 3715 SPAdes 125
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3715.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.125.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3715.spades.125.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.125.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3715.spades.125.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3715.spades.125.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3715.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.125.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.125.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.125.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.125.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.125.job2.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3715.spades.125.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3715.spades.125.job2.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3715.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+```
+
+
+
+
+
+###### OLD ######
+
+
+
+
+
+
+
+
+
 ### 3715 Untrimmed SPAdes (Old)
 ```{r}
 # Load in .tsv files

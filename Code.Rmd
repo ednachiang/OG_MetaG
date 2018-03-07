@@ -9,7 +9,8 @@ output: html_document
 library('readr')
 source('http://portal.nersc.gov/dna/RD/Metagenome_RD/MetaBAT/Files/benchmark.R')
   # https://bitbucket.org/berkeleylab/metabat/wiki/Best%20Binning%20Practices
-library('limma')
+#library('limma')
+library('pgirmess')
 set.seed(1)
 ```
 
@@ -379,6 +380,126 @@ kruskal.test(formula= EnvironInfoProc_Tot ~ Season, data=kegg.prop)
   # p-value = 0.02732
 kruskal.test(formula= Other_Tot ~ Season, data=kegg.prop)
   # p-value = 0.3292
+
+# Can I find pairwise trends?
+kruskalmc(resp = GlycMet ~ Season, data =kegg.prop)
+kruskalmc(resp = CofVitMet ~ Season, data =kegg.prop)
+kruskalmc(resp = FoldSortDegr ~ Season, data =kegg.prop)
+kruskalmc(resp = MemTrans ~ Season, data =kegg.prop)
+kruskalmc(resp = EnvironInfoProc_Tot ~ Season, data =kegg.prop)
+  # Spring differs from winter
+  # No diff btwn spr/sum & sum/win
+
+
+kruskal.test(formula = GlycMet ~ Season, data = kegg.prop, subset= Season!= "Spring")
+  # Sum vs. Win
+  # p-value = 0.04953
+wilcox.test(GlycMet ~ Season, data=kegg.prop, subset= Season!="Spring", alternative="less")
+  # Sum vs. Win
+  # Sum < Win
+  # p-value = 0.05
+kruskal.test(formula = GlycMet ~ Season, data = kegg.prop, subset= Season!= "Winter")
+  # Sum vs. Spr
+  # p-value = 0.5127
+wilcox.test(GlycMet ~ Season, data=kegg.prop, subset= Season!="Winter")
+  # Sum vs. Spr
+  # p-value = 0.7
+kruskal.test(formula = GlycMet ~ Season, data = kegg.prop, subset= Season!= "Summer")
+  # Win vs. Spr
+  # p-value = 0.04953
+wilcox.test(GlycMet ~ Season, data=kegg.prop, subset= Season!="Summer", alternative="less")
+  # Win vs. Spr
+  # Spr < Win
+  # p-value = 0.05
+
+
+kruskal.test(formula = CofVitMet ~ Season, data = kegg.prop, subset= Season!= "Spring")
+  # Sum vs. Win
+  # p-value = 0.04953
+wilcox.test(CofVitMet ~ Season, data=kegg.prop, subset= Season!="Spring", alternative="less")
+  # Sum vs. Win
+  # Sum < Win
+  # p-value = 0.05
+kruskal.test(formula = CofVitMet ~ Season, data = kegg.prop, subset= Season!= "Winter")
+  # Sum vs. Spr
+  # p-value = 0.8273
+wilcox.test(CofVitMet ~ Season, data=kegg.prop, subset= Season!="Winter")
+  # Sum vs. Spr
+  # p-value = 1
+kruskal.test(formula = CofVitMet ~ Season, data = kegg.prop, subset= Season!= "Summer")
+  # Win vs. Spr
+  # p-value = 0.04953
+wilcox.test(CofVitMet ~ Season, data=kegg.prop, subset= Season!="Summer", alternative="less")
+  # Win vs. Spr
+  # Spr < Win
+  # p-value = 0.05
+
+
+kruskal.test(formula = FoldSortDegr ~ Season, data = kegg.prop, subset= Season!= "Spring")
+  # Sum vs. Win
+  # p-value = 0.5127
+wilcox.test(FoldSortDegr ~ Season, data=kegg.prop, subset= Season!="Spring")
+  # Sum vs. Win
+  # p-value = 0.7
+kruskal.test(formula = FoldSortDegr ~ Season, data = kegg.prop, subset= Season!= "Winter")
+  # Sum vs. Spr
+  # p-value = 0.1266
+wilcox.test(FoldSortDegr ~ Season, data=kegg.prop, subset= Season!="Winter", alternative="less")
+  # Sum vs. Spr
+  # Spr < Sum (weak trend)
+  # p-value = 0.1
+kruskal.test(formula = FoldSortDegr ~ Season, data = kegg.prop, subset= Season!= "Summer")
+  # Win vs. Spr
+  # p-value = 0.04953
+wilcox.test(FoldSortDegr ~ Season, data=kegg.prop, subset= Season!="Summer", alternative="less")
+  # Win vs. Spr
+  # Spr < Win
+  # p-value = 0.05
+
+
+kruskal.test(formula = MemTrans ~ Season, data = kegg.prop, subset= Season!= "Spring")
+  # Sum vs. Win
+  # p-value = 0.8273
+wilcox.test(MemTrans ~ Season, data=kegg.prop, subset= Season!="Spring")
+  # Sum vs. Win
+  # p-value = 1
+kruskal.test(formula = MemTrans ~ Season, data = kegg.prop, subset= Season!= "Winter")
+  # Sum vs. Spr
+  # p-value = 0.04953
+wilcox.test(MemTrans ~ Season, data=kegg.prop, subset= Season!="Winter", alternative="greater")
+  # Sum vs. Spr
+  # Spr > Sum
+  # p-value = 0.05
+kruskal.test(formula = MemTrans ~ Season, data = kegg.prop, subset= Season!= "Summer")
+  # Win vs. Spr
+  # p-value = 0.04953
+wilcox.test(MemTrans ~ Season, data=kegg.prop, subset= Season!="Summer", alternative="greater")
+  # Win vs. Spr
+  # Spr > Win
+  # p-value = 0.05
+
+
+kruskal.test(formula = EnvironInfoProc_Tot ~ Season, data = kegg.prop, subset= Season!= "Spring")
+  # Sum vs. Win
+  # p-value = 0.04953
+wilcox.test(EnvironInfoProc_Tot ~ Season, data=kegg.prop, subset= Season!="Spring", alternative="greater")
+  # Sum vs. Win
+  # Sum > Win
+  # p-value = 0.05
+kruskal.test(formula = EnvironInfoProc_Tot ~ Season, data = kegg.prop, subset= Season!= "Winter")
+  # Sum vs. Spr
+  # p-value = 0.04953
+wilcox.test(EnvironInfoProc_Tot ~ Season, data=kegg.prop, subset= Season!="Winter", alternative="greater")
+  # Sum vs. Spr
+  # Spr > Sum
+  # p-value = 0.05
+kruskal.test(formula = EnvironInfoProc_Tot ~ Season, data = kegg.prop, subset= Season!= "Summer")
+  # Win vs. Spr
+  # p-value = 0.04953
+wilcox.test(EnvironInfoProc_Tot ~ Season, data=kegg.prop, subset= Season!="Summer", alternative="greater")
+  # Win vs. Spr
+  # Spr > Win
+  # p-value = 0.05
 ```
 
 

@@ -9,7 +9,8 @@ output: html_document
 library('readr')
 source('http://portal.nersc.gov/dna/RD/Metagenome_RD/MetaBAT/Files/benchmark.R')
   # https://bitbucket.org/berkeleylab/metabat/wiki/Best%20Binning%20Practices
-
+library('limma')
+set.seed(1)
 ```
 
 ### ISME ###
@@ -318,6 +319,82 @@ diffPerf(calcPerfBySCG("isme/checkm.3715.spades.125.job1.txt", removeStrain=T),
          calcPerfBySCG("isme/checkm.3715.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
 
 ```
+
+
+### KEGG Outputs ###
+```{r}
+kegg <- read.csv('isme/KEGG/KEGG_results.csv', fileEncoding="UTF-8-BOM")
+
+# Calculate proportion of each pathway in each metagenome
+kegg.prop <- kegg
+for(i in 1:nrow(kegg.prop)){
+  for(j in 4:ncol(kegg.prop)){
+    kegg.prop[i,j] <- (kegg.prop[i,j]/kegg.prop[i,3])*100
+  }
+}
+
+
+# Kruskal-Wallis
+kruskal.test(formula= CarbMet ~ Season, data=kegg.prop)
+  # p-value = 0.6703
+kruskal.test(formula= FAMet ~ Season, data=kegg.prop)
+  # p-value = 0.1479
+kruskal.test(formula= NRGMet ~ Season, data=kegg.prop)
+  # p-value = 0.4298
+kruskal.test(formula= LipMet ~ Season, data=kegg.prop)
+  # p-value = 0.1133
+kruskal.test(formula= NucMet ~ Season, data=kegg.prop)
+  # p-value = 0.1133
+kruskal.test(formula= AAMet ~ Season, data=kegg.prop)
+  # p-value = 0.5611
+kruskal.test(formula= GlycMet ~ Season, data=kegg.prop)
+  # p-value = 0.06081
+kruskal.test(formula= CofVitMet ~ Season, data=kegg.prop)
+  # p-value = 0.06646
+kruskal.test(formula= TerPolMet ~ Season, data=kegg.prop)
+  # p-value = 0.3932
+kruskal.test(formula= SecMet ~ Season, data=kegg.prop)
+  # p-value = 0.4298
+kruskal.test(formula= Xen ~ Season, data=kegg.prop)
+  # p-value = 0.2521
+kruskal.test(formula= Met_Tot ~ Season, data=kegg.prop)
+  # p-value = 0.1931
+kruskal.test(formula= Transcription ~ Season, data=kegg.prop)
+  # p-value = 0.5611
+kruskal.test(formula= Translation ~ Season, data=kegg.prop)
+  # p-value = 0.2881
+kruskal.test(formula= FoldSortDegr ~ Season, data=kegg.prop)
+  # p-value = 0.09915
+kruskal.test(formula= RepRep ~ Season, data=kegg.prop)
+  # p-value = 0.1767
+kruskal.test(formula= GeneticInfo_Tot ~ Season, data=kegg.prop)
+  # p-value = 0.3932
+kruskal.test(formula= MemTrans ~ Season, data=kegg.prop)
+  # p-value = 0.06646
+kruskal.test(formula= SigTransd ~ Season, data=kegg.prop)
+  # p-value = 0.1931
+kruskal.test(formula= SigMol ~ Season, data=kegg.prop)
+  # p-value = 0.3292
+kruskal.test(formula= EnvironInfoProc_Tot ~ Season, data=kegg.prop)
+  # p-value = 0.02732
+kruskal.test(formula= Other_Tot ~ Season, data=kegg.prop)
+  # p-value = 0.3292
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

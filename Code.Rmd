@@ -15,7 +15,7 @@ set.seed(1)
 ```
 
 ### No Host ###
-### 3715 idba
+### 3715 idba metabat
 ```{r}
 ### Job 1
 printPerf(list(calcPerfBySCG("checkm.3715.nohost.idba.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
@@ -48,7 +48,7 @@ diffPerf(calcPerfBySCG("checkm.3715.nohost.idba.125.job1.txt", removeStrain=T),
 
 ```
 
-### 3715 SPAdes
+### 3715 SPAdes metabat
 ```{r}
 ### Job 1
 printPerf(list(calcPerfBySCG("checkm.3715.nohost.spades.125.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
@@ -80,6 +80,71 @@ diffPerf(calcPerfBySCG("checkm.3715.nohost.spades.125.job1.txt", removeStrain=T)
          calcPerfBySCG("checkm.3715.nohost.spades.125.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
 
 ```
+
+
+### 3715 nohost idba centrifuge
+```{r}
+# Load in .tsv files
+nohost.3715.idba.output <- read_tsv('3715.nohost.idba.125.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3715.idba.prop <- data.frame(matrix(1,2))
+unclass.3715.idba <- length(which(nohost.3715.idba.output$seqID == "unclassified"))/nrow(nohost.3715.idba.output)
+
+# Number of species
+nohost.3715.idba.report <- read_tsv('3715.nohost.idba.125.report.tsv')
+nohost.3715.idba.abund <- nohost.3715.idba.report[which(nohost.3715.idba.report$abundance>0),]
+num.species.3715.idba <- nrow(nohost.3715.idba.abund)
+```
+
+### 3715 nohost SPAdes centrifuge
+```{r}
+# Load in .tsv files
+nohost.3715.spades.output <- read_tsv('3715.nohost.spades.125.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3715.spades.prop <- data.frame(matrix(1,2))
+unclass.3715.spades <- length(which(nohost.3715.spades.output$seqID == "unclassified"))/nrow(nohost.3715.spades.output)
+
+# Number of species
+nohost.3715.spades.report <- read_tsv('3715.nohost.spades.125.report.tsv')
+nohost.3715.spades.abund <- nohost.3715.spades.report[which(nohost.3715.spades.report$abundance>0),]
+num.species.3715.spades <- nrow(nohost.3715.spades.abund)
+```
+
+### 3715 nohost megahit centrifuge
+```{r}
+# Load in .tsv files
+nohost.3715.megahit.output <- read_tsv('3715.nohost.megahit.125.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3715.megahit.prop <- data.frame(matrix(1,2))
+unclass.3715.megahit <- length(which(nohost.3715.megahit.output$seqID == "unclassified"))/nrow(nohost.3715.megahit.output)
+
+# Number of species
+nohost.3715.megahit.report <- read_tsv('3715.nohost.megahit.125.report.tsv')
+nohost.3715.megahit.abund <- nohost.3715.megahit.report[which(nohost.3715.megahit.report$abundance>0),]
+num.species.3715.megahit <- nrow(nohost.3715.megahit.abund)
+```
+
+### 3715 nohost unassembled centrifuge
+```{r}
+# Load in .tsv files
+nohost.3715.output <- read_tsv('3715.nohost.output2.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3715.prop <- data.frame(matrix(1,2))
+unclass.nohost.3715 <- length(which(nohost.3715.output$seqID == "unclassified"))/nrow(nohost.3715.output)
+
+# Number of species
+nohost.3715.report <- read_tsv('3715.nohost.report2.tsv')
+nohost.3715.abund <- nohost.3715.report[which(nohost.3715.report$abundance>0),]
+num.species.3715 <- nrow(nohost.3715.abund)
+
+
+```
+
+
 
 
 

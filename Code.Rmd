@@ -16,34 +16,6 @@ set.seed(1)
 
 ### No Host ###
 
-### No Host Fastq Read Distributions
-```{r}
-readDist.3715.129 <- read.csv('NoHost_Dist/3715.idba.129.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.131 <- read.csv('NoHost_Dist/3715.idba.131.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.133 <- read.csv('NoHost_Dist/3715.idba.133.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.135 <- read.csv('NoHost_Dist/3715.idba.135.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.137 <- read.csv('NoHost_Dist/3715.idba.137.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.139 <- read.csv('NoHost_Dist/3715.idba.139.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.141 <- read.csv('NoHost_Dist/3715.idba.141.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.143 <- read.csv('NoHost_Dist/3715.idba.143.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.145 <- read.csv('NoHost_Dist/3715.idba.145.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.147 <- read.csv('NoHost_Dist/3715.idba.147.readDistribution.csv', fileEncoding="UTF-8-BOM")
-readDist.3715.149 <- read.csv('NoHost_Dist/3715.idba.149.readDistribution.csv', fileEncoding="UTF-8-BOM")
-
-plot(readDist.3715.129)
-plot(readDist.3715.131)
-plot(readDist.3715.133)
-plot(readDist.3715.135)
-plot(readDist.3715.137)
-plot(readDist.3715.139)
-plot(readDist.3715.141)
-plot(readDist.3715.143)
-plot(readDist.3715.145)
-plot(readDist.3715.147)
-plot(readDist.3715.149)
-
-```
-
 ### 3715 idba metabat
 ```{r}
 ### Job 1
@@ -172,6 +144,106 @@ num.species.3715 <- nrow(nohost.3715.abund)
 
 
 ```
+
+
+### 3733 nohost SPAdes centrifuge
+```{r}
+# Load in .tsv files
+nohost.3733.spades.output <- read_tsv('3733.nohost.spades.127.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3733.spades.prop <- data.frame(matrix(1,2))
+unclass.3733.spades <- length(which(nohost.3733.spades.output$seqID == "unclassified"))/nrow(nohost.3733.spades.output)
+
+# Number of species
+nohost.3733.spades.report <- read_tsv('3733.nohost.spades.127.report.tsv')
+nohost.3733.spades.abund <- nohost.3733.spades.report[which(nohost.3733.spades.report$abundance>0),]
+num.species.3733.spades <- nrow(nohost.3733.spades.abund)
+```
+
+
+
+### 3733 nohost idba centrifuge
+```{r}
+# Load in .tsv files
+nohost.3733.idba.output <- read_tsv('3733.nohost.idba.127.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3733.idba.prop <- data.frame(matrix(1,2))
+unclass.3733.idba <- length(which(nohost.3733.idba.output$seqID == "unclassified"))/nrow(nohost.3733.idba.output)
+
+# Number of species
+nohost.3733.idba.report <- read_tsv('3733.nohost.idba.127.report.tsv')
+nohost.3733.idba.abund <- nohost.3733.idba.report[which(nohost.3733.idba.report$abundance>0),]
+num.species.3733.idba <- nrow(nohost.3733.idba.abund)
+```
+
+### 3733 nohost unassembled centrifuge
+```{r}
+# Load in .tsv files
+nohost.3733.output <- read_tsv('3733.nohost.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3733.prop <- data.frame(matrix(1,2))
+unclass.nohost.3733 <- length(which(nohost.3733.output$seqID == "unclassified"))/nrow(nohost.3733.output)
+
+# Number of species
+nohost.3733.report <- read_tsv('3733.nohost.report.tsv')
+nohost.3733.abund <- nohost.3733.report[which(nohost.3733.report$abundance>0),]
+num.species.3733 <- nrow(nohost.3733.abund)
+```
+
+
+### 3775 nohost SPAdes centrifuge
+```{r}
+# Load in .tsv files
+nohost.3775.spades.output <- read_tsv('3775.nohost.spades.127.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3775.spades.prop <- data.frame(matrix(1,2))
+unclass.3775.spades <- length(which(nohost.3775.spades.output$seqID == "unclassified"))/nrow(nohost.3775.spades.output)
+
+# Number of species
+nohost.3775.spades.report <- read_tsv('3775.nohost.spades.127.report.tsv')
+nohost.3775.spades.abund <- nohost.3775.spades.report[which(nohost.3775.spades.report$abundance>0),]
+num.species.3775.spades <- nrow(nohost.3775.spades.abund)
+```
+
+### 3775 nohost idba centrifuge
+```{r}
+# Load in .tsv files
+nohost.3775.idba.output <- read_tsv('3775.nohost.idba.127.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3775.idba.prop <- data.frame(matrix(1,2))
+unclass.3775.idba <- length(which(nohost.3775.idba.output$seqID == "unclassified"))/nrow(nohost.3775.idba.output)
+
+# Number of species
+nohost.3775.idba.report <- read_tsv('3775.nohost.idba.127.report.tsv')
+nohost.3775.idba.abund <- nohost.3775.idba.report[which(nohost.3775.idba.report$abundance>0),]
+num.species.3775.idba <- nrow(nohost.3775.idba.abund)
+```
+
+
+### 3775 nohost unassembled centrifuge
+```{r}
+# Load in .tsv files
+nohost.3775.output <- read_tsv('3775.nohost.output.tsv')
+
+# Calculate proportion classified & unclassified
+nohost.3775.prop <- data.frame(matrix(1,2))
+unclass.nohost.3775 <- length(which(nohost.3775.output$seqID == "unclassified"))/nrow(nohost.3775.output)
+
+# Number of species
+nohost.3775.report <- read_tsv('3775.nohost.report.tsv')
+nohost.3775.abund <- nohost.3775.report[which(nohost.3775.report$abundance>0),]
+num.species.3775 <- nrow(nohost.3775.abund)
+```
+
+
+
+
+
 
 
 

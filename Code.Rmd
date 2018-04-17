@@ -15,6 +15,35 @@ set.seed(1)
 ```
 
 ### No Host ###
+
+### No Host Fastq Read Distributions
+```{r}
+readDist.3715.129 <- read.csv('NoHost_Dist/3715.idba.129.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.131 <- read.csv('NoHost_Dist/3715.idba.131.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.133 <- read.csv('NoHost_Dist/3715.idba.133.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.135 <- read.csv('NoHost_Dist/3715.idba.135.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.137 <- read.csv('NoHost_Dist/3715.idba.137.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.139 <- read.csv('NoHost_Dist/3715.idba.139.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.141 <- read.csv('NoHost_Dist/3715.idba.141.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.143 <- read.csv('NoHost_Dist/3715.idba.143.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.145 <- read.csv('NoHost_Dist/3715.idba.145.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.147 <- read.csv('NoHost_Dist/3715.idba.147.readDistribution.csv', fileEncoding="UTF-8-BOM")
+readDist.3715.149 <- read.csv('NoHost_Dist/3715.idba.149.readDistribution.csv', fileEncoding="UTF-8-BOM")
+
+plot(readDist.3715.129)
+plot(readDist.3715.131)
+plot(readDist.3715.133)
+plot(readDist.3715.135)
+plot(readDist.3715.137)
+plot(readDist.3715.139)
+plot(readDist.3715.141)
+plot(readDist.3715.143)
+plot(readDist.3715.145)
+plot(readDist.3715.147)
+plot(readDist.3715.149)
+
+```
+
 ### 3715 idba metabat
 ```{r}
 ### Job 1

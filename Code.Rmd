@@ -14,6 +14,173 @@ library('pgirmess')
 set.seed(1)
 ```
 
+
+### KEGG Brite
+```{r}
+ko.comp <- read.csv('KEGG/ko_comp.csv', fileEncoding="UTF-8-BOM")
+rownames(ko.comp) <- ko.comp[,1]
+ko.comp <- ko.comp[,-1]
+
+# Remove SPAdes
+kegg <- ko.comp[-which(ko.comp$Assembler == "SPAdes"),]
+
+hist(kegg$Metabolism)
+qqnorm(kegg$Metabolism)
+qqline(kegg$Metabolism)
+shapiro.test(kegg$Metabolism)
+  # p-value = 0.8298
+norm.pvals <- data.frame(rep(999, 25))
+for(i in 1:(ncol(kegg)-2)){
+  print(i)
+  temp.test <- shapiro.test(kegg[,i])
+  print(i)
+  norm.pvals[i,1] <- temp.test$p.value
+  print(i)
+  rownames(norm.pvals)[i] <- colnames(kegg)[i]
+  print(i)
+}
+sum(which(norm.pvals[,1] < 0.06))
+  # All normally distributed
+
+
+### Normalize
+min <- summary(kegg$Total)[[1]]
+kegg.norm <- data.frame(rep(999, 9))
+for(i in 1:9){
+  for(j in 1:25){
+    kegg.norm[i,j] <- (kegg[i,j]/kegg[i,25])*min
+  }
+}
+rownames(kegg.norm) <- rownames(kegg)
+colnames(kegg.norm) <- colnames(kegg)[1:25]
+kegg.norm$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
+
+### Summarize KEGG
+sum <- kegg.norm[which(kegg.norm$Season == "Summer"),]
+for(i in 1:ncol(sum)){
+  sum[4,i] <- sum(sum[1:3,i])/3
+  sum[5,i] <- sd(sum[1:3,i])
+  sum[6,i] <- sd(sum[1:3,i])/(sqrt(3))
+}
+rownames(sum)[4:6] <- c("Mean", "SD", "SE")
+spr <- kegg.norm[which(kegg.norm$Season == "Spring"),]
+for(i in 1:ncol(spr)){
+  spr[4,i] <- sum(spr[1:3,i])/3
+  spr[5,i] <- sd(spr[1:3,i])
+  spr[6,i] <- sd(spr[1:3,i])/(sqrt(3))
+}
+rownames(spr)[4:6] <- c("Mean", "SD", "SE")
+win <- kegg.norm[which(kegg.norm$Season == "Winter"),]
+for(i in 1:ncol(win)){
+  win[4,i] <- sum(win[1:3,i])/3
+  win[5,i] <- sd(win[1:3,i])
+  win[6,i] <- sd(win[1:3,i])/(sqrt(3))
+}
+rownames(win)[4:6] <- c("Mean", "SD", "SE")
+kegg.norm.sum <- sum[4:6,]
+kegg.norm.sum[4:6,] <- win[4:6,]
+kegg.norm.sum[7:9,] <- spr[4:6,]
+colnames(kegg.norm.sum) <- colnames(sum)
+kegg.norm.sum$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
+rownames(kegg.norm.sum) <- c("Summer Mean", "Summer SD", "Summer SE", "Winter Mean", "Winter SD", "Winter SE", "Spring Mean", "Spring SD", "Spring SE")
+
+
+
+
+
+### ANOVA
+kegg.pvals <- data.frame(rep(999, 25))
+for(i in 1:(ncol(kegg.norm)-1)){
+  temp.aov <- summary(aov(kegg.norm[,i] ~ Season, data=kegg.norm))
+  kegg.pvals[i,1] <- temp.aov[[1]][1,5]
+  rownames(kegg.pvals)[i] <- colnames(kegg)[i]
+}
+sig <- rownames(kegg.pvals)[which(kegg.pvals[,1] < 0.06)]
+# 
+# # Tukey HSD
+# tukey.pvals <- data.frame(rep(999,4))
+# cat <- which(colnames(kegg) == sig[1])
+# temp.aov <- aov(kegg[,cat] ~ Season, data=kegg)
+# temp.tukey <- TukeyHSD(temp.aov)
+# tukey.pvals[1:3,1] <- temp.tukey$Season[,4]
+# 
+# cat <- which(colnames(kegg) == sig[2])
+# temp.aov <- aov(kegg[,cat] ~ Season, data=kegg)
+# temp.tukey <- TukeyHSD(temp.aov)
+# tukey.pvals[1:3,2] <- temp.tukey$Season[,4]
+# 
+# cat <- which(colnames(kegg) == sig[3])
+# temp.aov <- aov(kegg[,cat] ~ Season, data=kegg)
+# temp.tukey <- TukeyHSD(temp.aov)
+# tukey.pvals[1:3,3] <- temp.tukey$Season[,4]
+# 
+# cat <- which(colnames(kegg) == sig[4])
+# temp.aov <- aov(kegg[,cat] ~ Season, data=kegg)
+# temp.tukey <- TukeyHSD(temp.aov)
+# tukey.pvals[1:3,4] <- temp.tukey$Season[,4]
+# colnames(tukey.pvals) <- sig
+# rownames(tukey.pvals) <- rownames(temp.tukey$Season)
+
+# tukey.pvals <- data.frame(rep(999,4))
+# for(i in 1:length(sig)){
+#   cat <- which(colnames(kegg) == sig[i])
+#   temp.aov <- aov(kegg[,cat] ~ Season, data=kegg)
+#   temp.tukey <- TukeyHSD(temp.aov)
+#   tukey.pvals[(1:3),i] <- temp.tukey$Season[,4]
+#   rownames(tukey.pvals)[1:3,i] <- rownames(temp.tukey$Season)
+# }
+
+
+summary(aov(shannon ~ Group, data=adiv))
+  # p-value = 0.0501
+t.test(shannon ~ Sample_Type, data=adiv)
+  # p-value = 0.8445
+t.test(shannon ~ Diet, data=adiv)
+  # p-value = 0.02371
+
+
+
+for(i in 1:(ncol(kegg)-2)){
+  temp.aov <- summary(aov(kegg[,1] ~ Season, data=kegg))
+  kegg.pvals[1,1] <- temp.aov[[1]][1,5]
+  rownames(kegg.pvals)[i] <- colnames(kegg)[1]
+}
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### No Host ###
 
 ### 3715 idba metabat
@@ -349,6 +516,140 @@ diffPerf(calcPerfBySCG("checkm.3775.idba.149.job1.txt", removeStrain=T),
 
 ```
 
+
+### 3733 idba 99-149 
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3733.idba.99.149.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3733.idba.99.149.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3733.idba.99.149.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3733.idba.99.149.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3733.idba.99.149.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3733.idba.99.149.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3733.idba.99.149.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3733.idba.99.149.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3733.idba.99.149.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3733.idba.99.149.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3733.idba.99.149.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3733.idba.99.149.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3733.idba.99.149.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3733.idba.99.149.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+### 3733 idba 49-149 
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3733.idba.49.149.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3733.idba.49.149.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3733.idba.49.149.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3733.idba.49.149.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3733.idba.49.149.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3733.idba.49.149.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3733.idba.49.149.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3733.idba.49.149.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3733.idba.49.149.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3733.idba.49.149.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3733.idba.49.149.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3733.idba.49.149.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3733.idba.49.149.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3733.idba.49.149.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3775 idba 99-149 
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3775.idba.99.149.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3775.idba.99.149.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3775.idba.99.149.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3775.idba.99.149.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3775.idba.99.149.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3775.idba.99.149.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3775.idba.99.149.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3775.idba.99.149.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3775.idba.99.149.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3775.idba.99.149.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3775.idba.99.149.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3775.idba.99.149.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3775.idba.99.149.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3775.idba.99.149.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
+
+
+### 3775 idba 149 final
+```{r}
+### Job 1
+printPerf(list(calcPerfBySCG("checkm.3775.idba.149.final.job1.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3775.idba.149.final.job1.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 2
+printPerf(list(calcPerfBySCG("checkm.3775.idba.149.final.job2.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3775.idba.149.final.job2.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+### Job 3
+printPerf(list(calcPerfBySCG("checkm.3775.idba.149.final.job3.txt", removeStrain=F)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+printPerf(list(calcPerfBySCG("checkm.3775.idba.149.final.job3.txt", removeStrain=T)), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+
+### Comparisons
+diffPerf(calcPerfBySCG("checkm.3775.idba.149.final.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3775.idba.149.final.job2.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3775.idba.149.final.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3775.idba.149.final.job2.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3775.idba.149.final.job1.txt", removeStrain=F), 
+         calcPerfBySCG("checkm.3775.idba.149.final.job3.txt", removeStrain=F), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+diffPerf(calcPerfBySCG("checkm.3775.idba.149.final.job1.txt", removeStrain=T), 
+         calcPerfBySCG("checkm.3775.idba.149.final.job3.txt", removeStrain=T), rec=c(seq(.1,.9,.1),.95), prec=c(seq(.6,.9,.1),.95,.99))
+
+```
 
 
 

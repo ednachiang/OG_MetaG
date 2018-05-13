@@ -12,6 +12,7 @@ source('http://portal.nersc.gov/dna/RD/Metagenome_RD/MetaBAT/Files/benchmark.R')
 #library('limma')
 library('pgirmess')
 set.seed(1)
+
 ```
 
 
@@ -24,55 +25,36 @@ ko.comp <- ko.comp[,-1]
 # Remove SPAdes
 kegg <- ko.comp[-which(ko.comp$Assembler == "SPAdes"),]
 
-### Check for Normal distribution
-hist(kegg$Metabolism)
-qqnorm(kegg$Metabolism)
-qqline(kegg$Metabolism)
-shapiro.test(kegg$Metabolism)
-  # p-value = 0.8298
-norm.pvals <- data.frame(rep(999, 25))
-for(i in 1:(ncol(kegg)-2)){
-  print(i)
-  temp.test <- shapiro.test(kegg[,i])
-  print(i)
-  norm.pvals[i,1] <- temp.test$p.value
-  print(i)
-  rownames(norm.pvals)[i] <- colnames(kegg)[i]
-  print(i)
-}
-sum(which(norm.pvals[,1] < 0.06))
-  # All normally distributed
-
 
 ### Normalize
-min <- summary(kegg$Total)[[1]]
-kegg.norm <- data.frame(rep(999, 9))
+norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
+rownames(norm.factor) <- c(3715,3717,3723,3733,3734,3744,3772,3773,3775)
+colnames(norm.factor) <- "Factor"
+kegg.norm <- kegg[,-26:-27]
 for(i in 1:9){
-  for(j in 1:25){
-    kegg.norm[i,j] <- round((kegg[i,j]/kegg[i,25])*min)
-  }
+  kegg.norm[i,] <- round(kegg.norm[i,]*norm.factor[i,1])
 }
-rownames(kegg.norm) <- rownames(kegg)
-colnames(kegg.norm) <- colnames(kegg)[1:25]
 kegg.norm$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
+
+
 
 ### Summarize KEGG
 sum <- kegg.norm[which(kegg.norm$Season == "Summer"),]
-for(i in 1:ncol(sum)){
+for(i in 1:(ncol(sum)-1)){
   sum[4,i] <- sum(sum[1:3,i])/3
   sum[5,i] <- sd(sum[1:3,i])
   sum[6,i] <- sd(sum[1:3,i])/(sqrt(3))
 }
 rownames(sum)[4:6] <- c("Mean", "SD", "SE")
 spr <- kegg.norm[which(kegg.norm$Season == "Spring"),]
-for(i in 1:ncol(spr)){
+for(i in 1:(ncol(spr)-1)){
   spr[4,i] <- sum(spr[1:3,i])/3
   spr[5,i] <- sd(spr[1:3,i])
   spr[6,i] <- sd(spr[1:3,i])/(sqrt(3))
 }
 rownames(spr)[4:6] <- c("Mean", "SD", "SE")
 win <- kegg.norm[which(kegg.norm$Season == "Winter"),]
-for(i in 1:ncol(win)){
+for(i in 1:(ncol(win)-1)){
   win[4,i] <- sum(win[1:3,i])/3
   win[5,i] <- sd(win[1:3,i])
   win[6,i] <- sd(win[1:3,i])/(sqrt(3))
@@ -85,7 +67,44 @@ colnames(kegg.norm.sum) <- colnames(sum)
 kegg.norm.sum$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
 rownames(kegg.norm.sum) <- c("Summer Mean", "Summer SD", "Summer SE", "Winter Mean", "Winter SD", "Winter SE", "Spring Mean", "Spring SD", "Spring SE")
 
+### Check for Normal distribution
+norm.pvals <- data.frame(rep(999, 25))
+for(i in 1:(ncol(kegg.norm)-1)){
+  temp.test <- shapiro.test(kegg.norm[,i])
+  norm.pvals[i,1] <- temp.test$p.value
+  rownames(norm.pvals)[i] <- colnames(kegg.norm)[i]
+}
+length(which(norm.pvals[,1] < 0.06))
+rownames(norm.pvals)[which(norm.pvals[,1] < 0.06)]
 
+### Overall Summary
+kegg.all.sum <- data.frame(999)
+for(i in 1:(ncol(kegg.norm)-1)){
+  kegg.all.sum[1,i] <- sum(kegg.norm[1:3,i])/3
+  kegg.all.sum[2,i] <- sd(kegg.norm[1:3,i])
+  kegg.all.sum[3,i] <- sd(kegg.norm[1:3,i])/(sqrt(3))
+}
+colnames(kegg.all.sum) <- colnames(kegg.norm)[1:25]
+rownames(kegg.all.sum) <- c("Mean", "SD", "SE")
+
+### Overall Rel Abund
+kegg.relabund <- kegg.norm[,-1]
+kegg.relabund <- kegg.relabund[,-25]
+for(i in 1:9){
+  kegg.relabund[i+9,] <- (kegg.relabund[i,] / kegg.relabund[i,24])*100
+}
+kegg.relabund <- kegg.relabund[-1:-9,]
+rownames(kegg.relabund) <- rownames(kegg.norm)[1:9]
+
+kegg.relabund.sum <- data.frame(999)
+for(i in 1:(ncol(kegg.relabund))){
+  kegg.relabund.sum[1,i] <- sum(kegg.relabund[1:3,i])/3
+  kegg.relabund.sum[2,i] <- sd(kegg.relabund[1:3,i])
+  kegg.relabund.sum[3,i] <- sd(kegg.relabund[1:3,i])/(sqrt(3))
+}
+colnames(kegg.relabund.sum) <- colnames(kegg.relabund)[1:24]
+rownames(kegg.relabund.sum) <- c("Mean", "SD", "SE")
+kegg.relabund.sum <- kegg.relabund.sum[,order(kegg.relabund.sum[1,], decreasing=T)]
 
 
 
@@ -131,23 +150,6 @@ sig <- rownames(kegg.pvals)[which(kegg.pvals[,1] < 0.06)]
 #   rownames(tukey.pvals)[1:3,i] <- rownames(temp.tukey$Season)
 # }
 
-
-summary(aov(shannon ~ Group, data=adiv))
-  # p-value = 0.0501
-t.test(shannon ~ Sample_Type, data=adiv)
-  # p-value = 0.8445
-t.test(shannon ~ Diet, data=adiv)
-  # p-value = 0.02371
-
-
-
-for(i in 1:(ncol(kegg)-2)){
-  temp.aov <- summary(aov(kegg[,1] ~ Season, data=kegg))
-  kegg.pvals[1,1] <- temp.aov[[1]][1,5]
-  rownames(kegg.pvals)[i] <- colnames(kegg)[1]
-}
-
-
 ```
 
 
@@ -161,25 +163,19 @@ dbcan.comp <- dbcan.comp[,-1]
 dbcan <- dbcan.comp[-which(dbcan.comp$Assembler == "SPAdes"),]
 
 ### Normalize
-min <- summary(dbcan$Total)[[1]]
-dbcan.norm <- data.frame(rep(999, 9))
-for(i in 1:9){
-  for(j in 1:8){
-    dbcan.norm[i,j] <- round((dbcan[i,j]/dbcan[i,8])*min)
-  }
+norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
+rownames(norm.factor) <- c(3715,3717,3723,3733,3734,3744,3772,3773,3775)
+colnames(norm.factor) <- "Factor"
+dbcan.norm <- dbcan[,-9:-10]
+for(i in 1:8){
+  dbcan.norm[i,] <- round(dbcan.norm[i,]*norm.factor[i,1])
 }
-rownames(dbcan.norm) <- rownames(dbcan)
-colnames(dbcan.norm) <- colnames(dbcan)[1:8]
 dbcan.norm$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
 
+
 ### Check for Normal distribution
-hist(dbcan.norm$Metabolism)
-qqnorm(dbcan.norm$Metabolism)
-qqline(dbcan.norm$Metabolism)
-shapiro.test(dbcan.norm$Metabolism)
-  # p-value = 0.8298
-dbcan.norm.pvals <- data.frame(rep(999, 6))
-for(i in 1:(ncol(dbcan.norm)-2)){
+dbcan.norm.pvals <- data.frame(rep(999, 7))
+for(i in 1:(ncol(dbcan.norm)-1)){
   temp.test <- shapiro.test(dbcan.norm[,i])
   dbcan.norm.pvals[i,1] <- temp.test$p.value
   rownames(dbcan.norm.pvals)[i] <- colnames(dbcan.norm)[i]
@@ -215,11 +211,19 @@ colnames(dbcan.norm.sum) <- colnames(sum)
 dbcan.norm.sum$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
 rownames(dbcan.norm.sum) <- c("Summer Mean", "Summer SD", "Summer SE", "Winter Mean", "Winter SD", "Winter SE", "Spring Mean", "Spring SD", "Spring SE")
 
-
+### Overall Summary
+dbcan.all.sum <- data.frame(999)
+for(i in 1:(ncol(dbcan.norm)-1)){
+  dbcan.all.sum[1,i] <- sum(dbcan.norm[1:3,i])/3
+  dbcan.all.sum[2,i] <- sd(dbcan.norm[1:3,i])
+  dbcan.all.sum[3,i] <- sd(dbcan.norm[1:3,i])/(sqrt(3))
+}
+colnames(dbcan.all.sum) <- colnames(dbcan.norm)[1:8]
+rownames(dbcan.all.sum) <- c("Mean", "SD", "SE")
 
 ### ANOVA
 dbcan.pvals <- data.frame(rep(999, 7))
-for(i in 1:(ncol(dbcan.norm)-2)){
+for(i in 1:(ncol(dbcan.norm)-1)){
   temp.aov <- summary(aov(dbcan.norm[,i] ~ Season, data=dbcan.norm))
   dbcan.pvals[i,1] <- temp.aov[[1]][1,5]
   rownames(dbcan.pvals)[i] <- colnames(dbcan)[i]

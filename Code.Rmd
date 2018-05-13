@@ -24,6 +24,7 @@ ko.comp <- ko.comp[,-1]
 # Remove SPAdes
 kegg <- ko.comp[-which(ko.comp$Assembler == "SPAdes"),]
 
+### Check for Normal distribution
 hist(kegg$Metabolism)
 qqnorm(kegg$Metabolism)
 qqline(kegg$Metabolism)
@@ -48,7 +49,7 @@ min <- summary(kegg$Total)[[1]]
 kegg.norm <- data.frame(rep(999, 9))
 for(i in 1:9){
   for(j in 1:25){
-    kegg.norm[i,j] <- (kegg[i,j]/kegg[i,25])*min
+    kegg.norm[i,j] <- round((kegg[i,j]/kegg[i,25])*min)
   }
 }
 rownames(kegg.norm) <- rownames(kegg)
@@ -150,7 +151,82 @@ for(i in 1:(ncol(kegg)-2)){
 ```
 
 
+### dbcan
+```{r}
+dbcan.comp <- read.csv('dbcan/dbcan_comp.csv', fileEncoding="UTF-8-BOM")
+rownames(dbcan.comp) <- dbcan.comp[,1]
+dbcan.comp <- dbcan.comp[,-1]
 
+# Remove SPAdes
+dbcan <- dbcan.comp[-which(dbcan.comp$Assembler == "SPAdes"),]
+
+### Normalize
+min <- summary(dbcan$Total)[[1]]
+dbcan.norm <- data.frame(rep(999, 9))
+for(i in 1:9){
+  for(j in 1:8){
+    dbcan.norm[i,j] <- round((dbcan[i,j]/dbcan[i,8])*min)
+  }
+}
+rownames(dbcan.norm) <- rownames(dbcan)
+colnames(dbcan.norm) <- colnames(dbcan)[1:8]
+dbcan.norm$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
+
+### Check for Normal distribution
+hist(dbcan.norm$Metabolism)
+qqnorm(dbcan.norm$Metabolism)
+qqline(dbcan.norm$Metabolism)
+shapiro.test(dbcan.norm$Metabolism)
+  # p-value = 0.8298
+dbcan.norm.pvals <- data.frame(rep(999, 6))
+for(i in 1:(ncol(dbcan.norm)-2)){
+  temp.test <- shapiro.test(dbcan.norm[,i])
+  dbcan.norm.pvals[i,1] <- temp.test$p.value
+  rownames(dbcan.norm.pvals)[i] <- colnames(dbcan.norm)[i]
+}
+  # All normal
+
+### Summarize KEGG
+sum <- dbcan.norm[which(dbcan.norm$Season == "Summer"),]
+for(i in 1:(ncol(sum)-1)){
+  sum[4,i] <- sum(sum[1:3,i])/3
+  sum[5,i] <- sd(sum[1:3,i])
+  sum[6,i] <- sd(sum[1:3,i])/(sqrt(3))
+}
+rownames(sum)[4:6] <- c("Mean", "SD", "SE")
+spr <- dbcan.norm[which(dbcan.norm$Season == "Spring"),]
+for(i in 1:(ncol(spr)-1)){
+  spr[4,i] <- sum(spr[1:3,i])/3
+  spr[5,i] <- sd(spr[1:3,i])
+  spr[6,i] <- sd(spr[1:3,i])/(sqrt(3))
+}
+rownames(spr)[4:6] <- c("Mean", "SD", "SE")
+win <- dbcan.norm[which(dbcan.norm$Season == "Winter"),]
+for(i in 1:(ncol(win)-1)){
+  win[4,i] <- sum(win[1:3,i])/3
+  win[5,i] <- sd(win[1:3,i])
+  win[6,i] <- sd(win[1:3,i])/(sqrt(3))
+}
+rownames(win)[4:6] <- c("Mean", "SD", "SE")
+dbcan.norm.sum <- sum[4:6,]
+dbcan.norm.sum[4:6,] <- win[4:6,]
+dbcan.norm.sum[7:9,] <- spr[4:6,]
+colnames(dbcan.norm.sum) <- colnames(sum)
+dbcan.norm.sum$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
+rownames(dbcan.norm.sum) <- c("Summer Mean", "Summer SD", "Summer SE", "Winter Mean", "Winter SD", "Winter SE", "Spring Mean", "Spring SD", "Spring SE")
+
+
+
+### ANOVA
+dbcan.pvals <- data.frame(rep(999, 7))
+for(i in 1:(ncol(dbcan.norm)-2)){
+  temp.aov <- summary(aov(dbcan.norm[,i] ~ Season, data=dbcan.norm))
+  dbcan.pvals[i,1] <- temp.aov[[1]][1,5]
+  rownames(dbcan.pvals)[i] <- colnames(dbcan)[i]
+}
+sig <- rownames(dbcan.pvals)[which(dbcan.pvals[,1] < 0.06)]
+
+```
 
 
 

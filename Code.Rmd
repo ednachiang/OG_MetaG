@@ -7,7 +7,7 @@ output: html_document
 
 ```{r}
 library('readr')
-source('http://portal.nersc.gov/dna/RD/Metagenome_RD/MetaBAT/Files/benchmark.R')
+#source('http://portal.nersc.gov/dna/RD/Metagenome_RD/MetaBAT/Files/benchmark.R')
   # https://bitbucket.org/berkeleylab/metabat/wiki/Best%20Binning%20Practices
 #library('limma')
 library('pgirmess')
@@ -80,9 +80,9 @@ rownames(norm.pvals)[which(norm.pvals[,1] < 0.06)]
 ### Overall Summary
 kegg.all.sum <- data.frame(999)
 for(i in 1:(ncol(kegg.norm)-1)){
-  kegg.all.sum[1,i] <- sum(kegg.norm[1:3,i])/3
-  kegg.all.sum[2,i] <- sd(kegg.norm[1:3,i])
-  kegg.all.sum[3,i] <- sd(kegg.norm[1:3,i])/(sqrt(3))
+  kegg.all.sum[1,i] <- sum(kegg.norm[1:9,i])/9
+  kegg.all.sum[2,i] <- sd(kegg.norm[1:9,i])
+  kegg.all.sum[3,i] <- sd(kegg.norm[1:9,i])/(sqrt(9))
 }
 colnames(kegg.all.sum) <- colnames(kegg.norm)[1:25]
 rownames(kegg.all.sum) <- c("Mean", "SD", "SE")
@@ -214,9 +214,9 @@ rownames(dbcan.norm.sum) <- c("Summer Mean", "Summer SD", "Summer SE", "Winter M
 ### Overall Summary
 dbcan.all.sum <- data.frame(999)
 for(i in 1:(ncol(dbcan.norm)-1)){
-  dbcan.all.sum[1,i] <- sum(dbcan.norm[1:3,i])/3
-  dbcan.all.sum[2,i] <- sd(dbcan.norm[1:3,i])
-  dbcan.all.sum[3,i] <- sd(dbcan.norm[1:3,i])/(sqrt(3))
+  dbcan.all.sum[1,i] <- sum(dbcan.norm[1:9,i])/9
+  dbcan.all.sum[2,i] <- sd(dbcan.norm[1:9,i])
+  dbcan.all.sum[3,i] <- sd(dbcan.norm[1:9,i])/(sqrt(9))
 }
 colnames(dbcan.all.sum) <- colnames(dbcan.norm)[1:8]
 rownames(dbcan.all.sum) <- c("Mean", "SD", "SE")

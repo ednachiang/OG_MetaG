@@ -34,7 +34,8 @@ kegg.norm <- kegg[,-26:-27]
 for(i in 1:9){
   kegg.norm[i,] <- round(kegg.norm[i,]*norm.factor[i,1])
 }
-kegg.norm$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
+kegg.norm$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+
 
 
 
@@ -108,6 +109,89 @@ kegg.relabund.sum <- kegg.relabund.sum[,order(kegg.relabund.sum[1,], decreasing=
 
 
 
+
+### Seasonal Summary
+kegg.sum.sum <- data.frame(999)
+kegg.sum <- kegg.norm[which(kegg.norm$Season == "Summer"),]
+for(i in 1:(ncol(kegg.norm)-1)){
+  kegg.sum.sum[1,i] <- sum(kegg.sum[1:3,i])/3
+  kegg.sum.sum[2,i] <- sd(kegg.sum[1:3,i])
+  kegg.sum.sum[3,i] <- sd(kegg.sum[1:3,i])/(sqrt(3))
+}
+colnames(kegg.sum.sum) <- colnames(kegg.sum)[1:25]
+rownames(kegg.sum.sum) <- c("Mean", "SD", "SE")
+# Winter
+kegg.win.sum <- data.frame(999)
+kegg.win <- kegg.norm[which(kegg.norm$Season == "Winter"),]
+for(i in 1:(ncol(kegg.norm)-1)){
+  kegg.win.sum[1,i] <- sum(kegg.win[1:3,i])/3
+  kegg.win.sum[2,i] <- sd(kegg.win[1:3,i])
+  kegg.win.sum[3,i] <- sd(kegg.win[1:3,i])/(sqrt(3))
+}
+colnames(kegg.win.sum) <- colnames(kegg.win)[1:25]
+rownames(kegg.win.sum) <- c("Mean", "SD", "SE")
+#Spring
+kegg.spr.sum <- data.frame(999)
+kegg.spr <- kegg.norm[which(kegg.norm$Season == "Spring"),]
+for(i in 1:(ncol(kegg.norm)-1)){
+  kegg.spr.sum[1,i] <- sum(kegg.spr[1:3,i])/3
+  kegg.spr.sum[2,i] <- sd(kegg.spr[1:3,i])
+  kegg.spr.sum[3,i] <- sd(kegg.spr[1:3,i])/(sqrt(3))
+}
+colnames(kegg.spr.sum) <- colnames(kegg.spr)[1:25]
+rownames(kegg.spr.sum) <- c("Mean", "SD", "SE")
+
+### Seasonal Rel Abund
+kegg.seas.relabund <- kegg.norm[,-1]
+kegg.seas.relabund <- kegg.seas.relabund[,-25]
+for(i in 1:9){
+  kegg.seas.relabund[i+9,] <- (kegg.seas.relabund[i,] / kegg.seas.relabund[i,24])*100
+}
+kegg.seas.relabund <- kegg.seas.relabund[-1:-9,]
+rownames(kegg.seas.relabund) <- rownames(kegg.norm)[1:9]
+
+sum <- which(kegg.norm$Season == "Summer")
+win <- which(kegg.norm$Season == "Winter")
+spr <- which(kegg.norm$Season == "Spring")
+sum.relabund <- kegg.seas.relabund[sum,]
+win.relabund <- kegg.seas.relabund[win,]
+spr.relabund <- kegg.seas.relabund[spr,]
+
+# Summer
+kegg.sum.relabund.sum <- data.frame(999)
+for(i in 1:(ncol(sum.relabund))){
+  kegg.sum.relabund.sum[1,i] <- sum(sum.relabund[1:3,i])/3
+  kegg.sum.relabund.sum[2,i] <- sd(sum.relabund[1:3,i])
+  kegg.sum.relabund.sum[3,i] <- sd(sum.relabund[1:3,i])/(sqrt(3))
+}
+colnames(kegg.sum.relabund.sum) <- colnames(sum.relabund)[1:24]
+rownames(kegg.sum.relabund.sum) <- c("Mean", "SD", "SE")
+kegg.sum.relabund.sum <- kegg.sum.relabund.sum[,order(kegg.sum.relabund.sum[1,], decreasing=T)]
+
+# Winter
+kegg.win.relabund.sum <- data.frame(999)
+for(i in 1:(ncol(win.relabund))){
+  kegg.win.relabund.sum[1,i] <- sum(win.relabund[1:3,i])/3
+  kegg.win.relabund.sum[2,i] <- sd(win.relabund[1:3,i])
+  kegg.win.relabund.sum[3,i] <- sd(win.relabund[1:3,i])/(sqrt(3))
+}
+colnames(kegg.win.relabund.sum) <- colnames(win.relabund)[1:24]
+rownames(kegg.win.relabund.sum) <- c("Mean", "SD", "SE")
+kegg.win.relabund.sum <- kegg.win.relabund.sum[,order(kegg.win.relabund.sum[1,], decreasing=T)]
+
+# Spring
+kegg.spr.relabund.sum <- data.frame(999)
+for(i in 1:(ncol(spr.relabund))){
+  kegg.spr.relabund.sum[1,i] <- sum(spr.relabund[1:3,i])/3
+  kegg.spr.relabund.sum[2,i] <- sd(spr.relabund[1:3,i])
+  kegg.spr.relabund.sum[3,i] <- sd(spr.relabund[1:3,i])/(sqrt(3))
+}
+colnames(kegg.spr.relabund.sum) <- colnames(spr.relabund)[1:24]
+rownames(kegg.spr.relabund.sum) <- c("Mean", "SD", "SE")
+kegg.spr.relabund.sum <- kegg.spr.relabund.sum[,order(kegg.spr.relabund.sum[1,], decreasing=T)]
+
+
+
 ### ANOVA
 kegg.pvals <- data.frame(rep(999, 25))
 for(i in 1:(ncol(kegg.norm)-1)){
@@ -174,7 +258,7 @@ dbcan.norm$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
 
 
 ### Check for Normal distribution
-dbcan.norm.pvals <- data.frame(rep(999, 7))
+dbcan.norm.pvals <- data.frame(rep(999, 8))
 for(i in 1:(ncol(dbcan.norm)-1)){
   temp.test <- shapiro.test(dbcan.norm[,i])
   dbcan.norm.pvals[i,1] <- temp.test$p.value
@@ -182,7 +266,7 @@ for(i in 1:(ncol(dbcan.norm)-1)){
 }
   # All normal
 
-### Summarize KEGG
+### Summarize dbcan
 sum <- dbcan.norm[which(dbcan.norm$Season == "Summer"),]
 for(i in 1:(ncol(sum)-1)){
   sum[4,i] <- sum(sum[1:3,i])/3
@@ -218,11 +302,11 @@ for(i in 1:(ncol(dbcan.norm)-1)){
   dbcan.all.sum[2,i] <- sd(dbcan.norm[1:9,i])
   dbcan.all.sum[3,i] <- sd(dbcan.norm[1:9,i])/(sqrt(9))
 }
-colnames(dbcan.all.sum) <- colnames(dbcan.norm)[1:8]
+colnames(dbcan.all.sum) <- colnames(dbcan.norm)[1:6]
 rownames(dbcan.all.sum) <- c("Mean", "SD", "SE")
 
 ### ANOVA
-dbcan.pvals <- data.frame(rep(999, 7))
+dbcan.pvals <- data.frame(rep(999, 8))
 for(i in 1:(ncol(dbcan.norm)-1)){
   temp.aov <- summary(aov(dbcan.norm[,i] ~ Season, data=dbcan.norm))
   dbcan.pvals[i,1] <- temp.aov[[1]][1,5]

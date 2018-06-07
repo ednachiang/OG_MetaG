@@ -377,13 +377,13 @@ cbm.barplot <- ggplot(cbm, aes(x=Season, y=Mean, fill=Season)) +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   ggtitle("Carbohydrate-Binding Modules") +
   ylab("Mean Count") +
-  theme(plot.title=element_text(hjust=0.5, size=16),
+  theme(plot.title=element_text(hjust=0.5, size=16, face = "bold"),
         axis.text.x = element_text(size=12),
         axis.title = element_text(size=14),
         axis.text.y = element_text(size=12),
-        plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))+
-        #legend.title = element_text(size=14),
-        #legend.text = element_text(size=12)) +
+        plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + #,
+        #legend.title = element_text(size=16),
+        #legend.text = element_text(size=14)) +
         guides(fill = F)
 
 g_legend <- function(a.gplot){
@@ -399,7 +399,7 @@ ce.barplot <- ggplot(ce, aes(x=Season, y=Mean, fill=Season)) +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   ggtitle("Carbohydrate Esterases") +
   ylab("Mean Count") +
-  theme(plot.title=element_text(hjust=0.5, size=16),
+  theme(plot.title=element_text(hjust=0.5, size=16, face = "bold"),
         axis.text.x = element_text(size=12),
         axis.title = element_text(size=14),
         axis.text.y = element_text(size=12),
@@ -412,7 +412,7 @@ gh.barplot <- ggplot(gh, aes(x=Season, y=Mean, fill=Season)) +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   ggtitle("Glycoside Hydrolases") +
   ylab("Mean Count") +
-  theme(plot.title=element_text(hjust=0.5, size=16),
+  theme(plot.title=element_text(hjust=0.5, size=16, face = "bold"),
         axis.text.x = element_text(size=12),
         axis.title = element_text(size=14),
         axis.text.y = element_text(size=12),
@@ -425,7 +425,7 @@ pl.barplot <- ggplot(pl, aes(x=Season, y=Mean, fill=Season)) +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   ggtitle("Polysaccharide Lyases") +
   ylab("Mean Count") +
-  theme(plot.title=element_text(hjust=0.5, size=16),
+  theme(plot.title=element_text(hjust=0.5, size=16, face = "bold"),
         axis.text.x = element_text(size=12),
         axis.title = element_text(size=14),
         axis.text.y = element_text(size=12),

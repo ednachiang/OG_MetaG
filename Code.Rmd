@@ -11,6 +11,9 @@ library('readr')
   # https://bitbucket.org/berkeleylab/metabat/wiki/Best%20Binning%20Practices
 #library('limma')
 library('pgirmess')
+library('ggplot2')
+library('grid')
+theme_set(theme_bw())
 set.seed(1)
 
 ```
@@ -30,7 +33,7 @@ kegg <- ko.comp[-which(ko.comp$Assembler == "SPAdes"),]
 norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
 rownames(norm.factor) <- c(3715,3717,3723,3733,3734,3744,3772,3773,3775)
 colnames(norm.factor) <- "Factor"
-kegg.norm <- kegg[,-26:-27]
+kegg.norm <- kegg[,-26:-29]
 for(i in 1:9){
   kegg.norm[i,] <- round(kegg.norm[i,]*norm.factor[i,1])
 }
@@ -191,6 +194,64 @@ rownames(kegg.spr.relabund.sum) <- c("Mean", "SD", "SE")
 kegg.spr.relabund.sum <- kegg.spr.relabund.sum[,order(kegg.spr.relabund.sum[1,], decreasing=T)]
 
 
+### Prep for barplot
+sum.trim <- kegg.sum.relabund.sum
+sum.trim <- data.frame(t(sum.trim))
+sum.trim <- sum.trim[-1:-2,]
+sum.trim <- sum.trim[-3,]
+sum.trim <- sum.trim[-4,]
+sum.trim <- sum.trim[-6:-20,]
+sum.trim$Season <- rep("Summer",5)
+sum.trim$Pathway <- c("Other", "Carbohydrate Metabolism", "Amino Acid Metabolism", "Nucleotide Metabolism", "Energy Metabolism")
+sum.trim$se.max <- sum.trim$Mean + sum.trim$SE
+sum.trim$se.min <- sum.trim$Mean - sum.trim$SE
+win.trim <- kegg.win.relabund.sum
+win.trim <- data.frame(t(win.trim))
+win.trim <- win.trim[-1:-2,]
+win.trim <- win.trim[-3,]
+win.trim <- win.trim[-4,]
+win.trim <- win.trim[-6:-20,]
+win.trim$Season <- rep("Winter",5)
+win.trim$Pathway <- c("Other", "Carbohydrate Metabolism", "Amino Acid Metabolism", "Nucleotide Metabolism", "Energy Metabolism")
+win.trim$se.max <- win.trim$Mean + win.trim$SE
+win.trim$se.min <- win.trim$Mean - win.trim$SE
+spr.trim <- kegg.spr.relabund.sum
+spr.trim <- data.frame(t(spr.trim))
+spr.trim <- spr.trim[-1:-2,]
+spr.trim <- spr.trim[-3,]
+spr.trim <- spr.trim[-4,]
+spr.trim <- spr.trim[-6:-20,]
+spr.trim$Season <- rep("Spring",5)
+spr.trim$Pathway <- c("Other", "Carbohydrate Metabolism", "Amino Acid Metabolism", "Nucleotide Metabolism", "Energy Metabolism")
+spr.trim$se.max <- spr.trim$Mean + spr.trim$SE
+spr.trim$se.min <- spr.trim$Mean - spr.trim$SE
+kegg.barplot <- sum.trim
+kegg.barplot[6:10,] <- win.trim
+kegg.barplot[11:15,] <- spr.trim
+kegg.barplot$Pathway <- ordered(kegg.barplot$Pathway, levels=c("Other", "Carbohydrate Metabolism", "Amino Acid Metabolism", "Nucleotide Metabolism", "Energy Metabolism"))
+kegg.barplot$Season <- ordered(kegg.barplot$Season, levels=c("Summer", "Winter", "Spring"))
+
+##### BARPLOT! #####
+tiff("kegg.barplot.tiff", width = 13, height = 7, units = "in", res = 300)
+ggplot(kegg.barplot, aes(x=Pathway, y=Mean, fill=Pathway)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(. ~ Season) +
+  geom_errorbar(aes(ymax=se.max, ymin=se.min), width=0.25) +
+  scale_fill_manual(values = c("lightcoral", "lightskyblue", "palegreen", "plum", "khaki1")) +
+  xlab("Pathway") +
+  ylab("Mean Relative Abundance") +
+  scale_y_continuous(limits=c(0,55), expand=c(0,0))+
+  theme(axis.text.x = element_blank(),
+        panel.spacing=unit(1, "lines"),
+        axis.title = element_text(size=20),
+        strip.text.x = element_text(size=14),
+        strip.text.y = element_text(size=14),
+        axis.text.y = element_text(size=12),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size=12))
+dev.off()
+
+
 
 ### ANOVA
 kegg.pvals <- data.frame(rep(999, 25))
@@ -254,8 +315,7 @@ dbcan.norm <- dbcan[,-9:-10]
 for(i in 1:8){
   dbcan.norm[i,] <- round(dbcan.norm[i,]*norm.factor[i,1])
 }
-dbcan.norm$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
-
+dbcan.norm$Season <- dbcan$Season
 
 ### Check for Normal distribution
 dbcan.norm.pvals <- data.frame(rep(999, 8))
@@ -294,6 +354,92 @@ dbcan.norm.sum[7:9,] <- spr[4:6,]
 colnames(dbcan.norm.sum) <- colnames(sum)
 dbcan.norm.sum$Season <- c(rep("Summer",3), rep("Winter",3), rep("Spring",3))
 rownames(dbcan.norm.sum) <- c("Summer Mean", "Summer SD", "Summer SE", "Winter Mean", "Winter SD", "Winter SE", "Spring Mean", "Spring SD", "Spring SE")
+
+
+### Prep for barplot ###
+# barplot.df <- dbcan.norm.sum[,-1]
+# barplot.df <- barplot.df[,-4]
+# barplot.df <- barplot.df[,-5:-6]
+# dbcan.barplot <- t(barplot.df[1,])
+# dbcan.barplot[6:10,] <- t(barplot.df[4,])
+
+##### BARPLOT! #####
+dbcan.barplot <- read.csv('dbcan/barplot_df.csv', fileEncoding="UTF-8-BOM")
+dbcan.barplot$Season <- ordered(dbcan.barplot$Season, levels=c("Summer", "Winter", "Spring"))
+cbm <- dbcan.barplot[which(dbcan.barplot$Cazyme=="Carbohydrate-Binding Modules"),]
+ce <- dbcan.barplot[which(dbcan.barplot$Cazyme=="Carbohydrate Esterases"),]
+gh <- dbcan.barplot[which(dbcan.barplot$Cazyme=="Glycoside Hydrolases"),]
+pl <- dbcan.barplot[which(dbcan.barplot$Cazyme=="Polysaccharide Lyases"),]
+
+cbm.barplot <- ggplot(cbm, aes(x=Season, y=Mean, fill=Season)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=se.max, ymin=se.min), width=0.25) +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Carbohydrate-Binding Modules") +
+  ylab("Mean Count") +
+  theme(plot.title=element_text(hjust=0.5, size=16),
+        axis.text.x = element_text(size=12),
+        axis.title = element_text(size=14),
+        axis.text.y = element_text(size=12))+
+        #legend.title = element_text(size=14),
+        #legend.text = element_text(size=12)) +
+        guides(fill = F)
+
+g_legend <- function(a.gplot){
+   tmp <- ggplot_gtable(ggplot_build(a.gplot))
+   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+   legend <- tmp$grobs[[leg]]
+   return(legend)}
+legend <- g_legend(cbm.barplot)
+
+ce.barplot <- ggplot(ce, aes(x=Season, y=Mean, fill=Season)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=se.max, ymin=se.min), width=0.25) +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Carbohydrate Esterases") +
+  ylab("Mean Count") +
+  theme(plot.title=element_text(hjust=0.5, size=16),
+        axis.text.x = element_text(size=12),
+        axis.title = element_text(size=14),
+        axis.text.y = element_text(size=12)) +
+        guides(fill = F)
+
+gh.barplot <- ggplot(gh, aes(x=Season, y=Mean, fill=Season)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=se.max, ymin=se.min), width=0.25) +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Glycoside Hydrolases") +
+  ylab("Mean Count") +
+  theme(plot.title=element_text(hjust=0.5, size=16),
+        axis.text.x = element_text(size=12),
+        axis.title = element_text(size=14),
+        axis.text.y = element_text(size=12)) +
+        guides(fill = F)
+
+pl.barplot <- ggplot(pl, aes(x=Season, y=Mean, fill=Season)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=se.max, ymin=se.min), width=0.25) +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Polysaccharide Lyases") +
+  ylab("Mean Count") +
+  theme(plot.title=element_text(hjust=0.5, size=16),
+        axis.text.x = element_text(size=12),
+        axis.title = element_text(size=14),
+        axis.text.y = element_text(size=12)) +
+        guides(fill = F)
+
+
+
+tiff("dbcan.barplot.tiff", width = 13, height = 8, units = "in", res = 300)
+grid.newpage()
+pushViewport(viewport(layout=(grid.layout(2,3, widths=c(1,1,0.3), heights=c(1,1)))))
+print(cbm.barplot, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(ce.barplot, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+print(gh.barplot, vp=viewport(layout.pos.row=2, layout.pos.col=1))
+print(pl.barplot, vp=viewport(layout.pos.row=2, layout.pos.col=2))
+legend$vp <- viewport(layout.pos.row = 1:2, layout.pos.col = 3)
+grid.draw(legend)
+dev.off()
 
 ### Overall Summary
 dbcan.all.sum <- data.frame(999)

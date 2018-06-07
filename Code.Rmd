@@ -380,7 +380,8 @@ cbm.barplot <- ggplot(cbm, aes(x=Season, y=Mean, fill=Season)) +
   theme(plot.title=element_text(hjust=0.5, size=16),
         axis.text.x = element_text(size=12),
         axis.title = element_text(size=14),
-        axis.text.y = element_text(size=12))+
+        axis.text.y = element_text(size=12),
+        plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))+
         #legend.title = element_text(size=14),
         #legend.text = element_text(size=12)) +
         guides(fill = F)
@@ -401,7 +402,8 @@ ce.barplot <- ggplot(ce, aes(x=Season, y=Mean, fill=Season)) +
   theme(plot.title=element_text(hjust=0.5, size=16),
         axis.text.x = element_text(size=12),
         axis.title = element_text(size=14),
-        axis.text.y = element_text(size=12)) +
+        axis.text.y = element_text(size=12),
+        plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) +
         guides(fill = F)
 
 gh.barplot <- ggplot(gh, aes(x=Season, y=Mean, fill=Season)) +
@@ -413,7 +415,8 @@ gh.barplot <- ggplot(gh, aes(x=Season, y=Mean, fill=Season)) +
   theme(plot.title=element_text(hjust=0.5, size=16),
         axis.text.x = element_text(size=12),
         axis.title = element_text(size=14),
-        axis.text.y = element_text(size=12)) +
+        axis.text.y = element_text(size=12),
+        plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) +
         guides(fill = F)
 
 pl.barplot <- ggplot(pl, aes(x=Season, y=Mean, fill=Season)) +
@@ -425,7 +428,8 @@ pl.barplot <- ggplot(pl, aes(x=Season, y=Mean, fill=Season)) +
   theme(plot.title=element_text(hjust=0.5, size=16),
         axis.text.x = element_text(size=12),
         axis.title = element_text(size=14),
-        axis.text.y = element_text(size=12)) +
+        axis.text.y = element_text(size=12),
+        plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) +
         guides(fill = F)
 
 

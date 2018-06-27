@@ -628,8 +628,7 @@ kend[9,7] <- cor(path.prop[,9], path.prop[,7], method = "kendall")
 kend[9,8] <- cor(path.prop[,9], path.prop[,8], method = "kendall")
 kend[9,9] <- cor(path.prop[,9], path.prop[,9], method = "kendall")
 
-write.table(kend, file="kegg.kendall.csv")
-
+#write.table(kend, file="kegg.kendall.csv")
 
 ```
 

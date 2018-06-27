@@ -512,9 +512,13 @@ path <- read.csv('KEGG/kegg_counts.csv', fileEncoding="UTF-8-BOM")
 row.names(path) <- path[,1]
 path <- path[,-1]
 colnames(path) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
 meta <- read.csv('KEGG/metadata.csv', fileEncoding="UTF-8-BOM")
 row.names(meta) <- meta[,1]
-#meta <- meta[,-1]
+
+class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
+row.names(class) <- class[,1]
+class <- class[,-1]
 
 ### Normalize
 norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
@@ -534,9 +538,39 @@ for(i in 1:nrow(path.norm)){
 
 # Prepare physeq object
 path.otu <- otu_table(path, taxa_are_rows = T)
-path.meta <- sample_data(meta)
-path.physeq <- merge_phyloseq(path.otu, path.meta)
+path.otu <- path.otu + 1
+path.samp <- sample_data(meta)
+path.tax <- tax_table(class)
+row.names(path.tax) <- row.names(class)
+path.physeq <- merge_phyloseq(path.otu, path.samp, path.tax)
 
+# Summer vs. Winter
+sw.physeq <- subset_samples(path.physeq, Season != "Spring")
+test <- deSEQ(data=sw.physeq, valuetest= ~Season)
+sum <- which(test$log2FoldChange < 0)
+sum.path <- rownames(test[sum,])
+  # ko04145
+win <- which(test$log2FoldChange > 0)
+win.path <- rownames(test[win,])
 
+# Spring vs. Summer
+ss.physeq <- subset_samples(path.physeq, Season != "Winter")
+test <- deSEQ(data=ss.physeq, valuetest= ~Season)
+spr <- which(test$log2FoldChange < 0)
+spr.path <- rownames(test[spr,])
+sum <- which(test$log2FoldChange > 0)
+sum.path <- rownames(test[sum,])
+  # ko00540
+  # ko00130
+
+# Spring vs. Winter
+sw.physeq <- subset_samples(path.physeq, Season != "Summer")
+test <- deSEQ(data=ss.physeq, valuetest= ~Season)
+spr <- which(test$log2FoldChange < 0)
+spr.path <- rownames(test[spr,])
+win <- which(test$log2FoldChange > 0)
+win.path <- rownames(test[win,])
+  # ko00540
+  # ko00130
 
 ```

@@ -532,6 +532,113 @@ for(i in 1:nrow(path.norm)){
 }
   # All > 0
 
+### Calculate proportions
+path.prop <- path.norm
+for(i in 1:9){
+  path.prop[,i] <- (path.prop[,i] / colSums(path.prop)[i])
+}
+rem <- which(rowSums(path.prop) < 0.001)
+path.prop <- path.prop[-rem,]
+
+kend <- data.frame(c(3715, 3717, 3723, 3733, 3734, 3744, 3772, 3773, 3775))
+rownames(kend) <- kend[,1]
+kend[,2:9] <- NA
+colnames(kend) <- kend[,1]
+kend[,1] <- NA
+
+kend[1,1] <- cor(path.prop[,1], path.prop[,1], method = "kendall")
+kend[1,2] <- cor(path.prop[,1], path.prop[,2], method = "kendall")
+kend[1,3] <- cor(path.prop[,1], path.prop[,3], method = "kendall")
+kend[1,4] <- cor(path.prop[,1], path.prop[,4], method = "kendall")
+kend[1,5] <- cor(path.prop[,1], path.prop[,5], method = "kendall")
+kend[1,6] <- cor(path.prop[,1], path.prop[,6], method = "kendall")
+kend[1,7] <- cor(path.prop[,1], path.prop[,7], method = "kendall")
+kend[1,8] <- cor(path.prop[,1], path.prop[,8], method = "kendall")
+kend[1,9] <- cor(path.prop[,1], path.prop[,9], method = "kendall")
+kend[2,1] <- cor(path.prop[,2], path.prop[,1], method = "kendall")
+kend[2,2] <- cor(path.prop[,2], path.prop[,2], method = "kendall")
+kend[2,3] <- cor(path.prop[,2], path.prop[,3], method = "kendall")
+kend[2,4] <- cor(path.prop[,2], path.prop[,4], method = "kendall")
+kend[2,5] <- cor(path.prop[,2], path.prop[,5], method = "kendall")
+kend[2,6] <- cor(path.prop[,2], path.prop[,6], method = "kendall")
+kend[2,7] <- cor(path.prop[,2], path.prop[,7], method = "kendall")
+kend[2,8] <- cor(path.prop[,2], path.prop[,8], method = "kendall")
+kend[2,9] <- cor(path.prop[,2], path.prop[,9], method = "kendall")
+kend[3,1] <- cor(path.prop[,3], path.prop[,1], method = "kendall")
+kend[3,2] <- cor(path.prop[,3], path.prop[,2], method = "kendall")
+kend[3,3] <- cor(path.prop[,3], path.prop[,3], method = "kendall")
+kend[3,4] <- cor(path.prop[,3], path.prop[,4], method = "kendall")
+kend[3,5] <- cor(path.prop[,3], path.prop[,5], method = "kendall")
+kend[3,6] <- cor(path.prop[,3], path.prop[,6], method = "kendall")
+kend[3,7] <- cor(path.prop[,3], path.prop[,7], method = "kendall")
+kend[3,8] <- cor(path.prop[,3], path.prop[,8], method = "kendall")
+kend[3,9] <- cor(path.prop[,3], path.prop[,9], method = "kendall")
+kend[4,1] <- cor(path.prop[,4], path.prop[,1], method = "kendall")
+kend[4,2] <- cor(path.prop[,4], path.prop[,2], method = "kendall")
+kend[4,3] <- cor(path.prop[,4], path.prop[,3], method = "kendall")
+kend[4,4] <- cor(path.prop[,4], path.prop[,4], method = "kendall")
+kend[4,5] <- cor(path.prop[,4], path.prop[,5], method = "kendall")
+kend[4,6] <- cor(path.prop[,4], path.prop[,6], method = "kendall")
+kend[4,7] <- cor(path.prop[,4], path.prop[,7], method = "kendall")
+kend[4,8] <- cor(path.prop[,4], path.prop[,8], method = "kendall")
+kend[4,9] <- cor(path.prop[,4], path.prop[,9], method = "kendall")
+kend[5,1] <- cor(path.prop[,5], path.prop[,1], method = "kendall")
+kend[5,2] <- cor(path.prop[,5], path.prop[,2], method = "kendall")
+kend[5,3] <- cor(path.prop[,5], path.prop[,3], method = "kendall")
+kend[5,4] <- cor(path.prop[,5], path.prop[,4], method = "kendall")
+kend[5,5] <- cor(path.prop[,5], path.prop[,5], method = "kendall")
+kend[5,6] <- cor(path.prop[,5], path.prop[,6], method = "kendall")
+kend[5,7] <- cor(path.prop[,5], path.prop[,7], method = "kendall")
+kend[5,8] <- cor(path.prop[,5], path.prop[,8], method = "kendall")
+kend[5,9] <- cor(path.prop[,5], path.prop[,9], method = "kendall")
+kend[6,1] <- cor(path.prop[,6], path.prop[,1], method = "kendall")
+kend[6,2] <- cor(path.prop[,6], path.prop[,2], method = "kendall")
+kend[6,3] <- cor(path.prop[,6], path.prop[,3], method = "kendall")
+kend[6,4] <- cor(path.prop[,6], path.prop[,4], method = "kendall")
+kend[6,5] <- cor(path.prop[,6], path.prop[,5], method = "kendall")
+kend[6,6] <- cor(path.prop[,6], path.prop[,6], method = "kendall")
+kend[6,7] <- cor(path.prop[,6], path.prop[,7], method = "kendall")
+kend[6,8] <- cor(path.prop[,6], path.prop[,8], method = "kendall")
+kend[6,9] <- cor(path.prop[,6], path.prop[,9], method = "kendall")
+kend[7,1] <- cor(path.prop[,7], path.prop[,1], method = "kendall")
+kend[7,2] <- cor(path.prop[,7], path.prop[,2], method = "kendall")
+kend[7,3] <- cor(path.prop[,7], path.prop[,3], method = "kendall")
+kend[7,4] <- cor(path.prop[,7], path.prop[,4], method = "kendall")
+kend[7,5] <- cor(path.prop[,7], path.prop[,5], method = "kendall")
+kend[7,6] <- cor(path.prop[,7], path.prop[,6], method = "kendall")
+kend[7,7] <- cor(path.prop[,7], path.prop[,7], method = "kendall")
+kend[7,8] <- cor(path.prop[,7], path.prop[,8], method = "kendall")
+kend[7,9] <- cor(path.prop[,7], path.prop[,9], method = "kendall")
+kend[8,1] <- cor(path.prop[,8], path.prop[,1], method = "kendall")
+kend[8,2] <- cor(path.prop[,8], path.prop[,2], method = "kendall")
+kend[8,3] <- cor(path.prop[,8], path.prop[,3], method = "kendall")
+kend[8,4] <- cor(path.prop[,8], path.prop[,4], method = "kendall")
+kend[8,5] <- cor(path.prop[,8], path.prop[,5], method = "kendall")
+kend[8,6] <- cor(path.prop[,8], path.prop[,6], method = "kendall")
+kend[8,7] <- cor(path.prop[,8], path.prop[,7], method = "kendall")
+kend[8,8] <- cor(path.prop[,8], path.prop[,8], method = "kendall")
+kend[8,9] <- cor(path.prop[,8], path.prop[,9], method = "kendall")
+kend[9,1] <- cor(path.prop[,9], path.prop[,1], method = "kendall")
+kend[9,2] <- cor(path.prop[,9], path.prop[,2], method = "kendall")
+kend[9,3] <- cor(path.prop[,9], path.prop[,3], method = "kendall")
+kend[9,4] <- cor(path.prop[,9], path.prop[,4], method = "kendall")
+kend[9,5] <- cor(path.prop[,9], path.prop[,5], method = "kendall")
+kend[9,6] <- cor(path.prop[,9], path.prop[,6], method = "kendall")
+kend[9,7] <- cor(path.prop[,9], path.prop[,7], method = "kendall")
+kend[9,8] <- cor(path.prop[,9], path.prop[,8], method = "kendall")
+kend[9,9] <- cor(path.prop[,9], path.prop[,9], method = "kendall")
+
+write.table(kend, file="kegg.kendall.csv")
+
+
+```
+
+
+
+
+
+### DESeq
+```{r}
 ##### DESeq
 # Use UN-NORMALIZED data!!!
 # DESeq accounts for library size!!!

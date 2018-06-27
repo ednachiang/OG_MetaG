@@ -1,0 +1,214 @@
+﻿,LvlOne,LvlTwo,LvlThree,LvlFour
+ko00010,Metabolism,Carbohydrate metabolism,Glycolysis / Gluconeogenesis,ko00010
+ko00020,Metabolism,Carbohydrate metabolism,Citrate cycle (TCA cycle),ko00020
+ko00030,Metabolism,Carbohydrate metabolism,Pentose phosphate pathway,ko00030
+ko00040,Metabolism,Carbohydrate metabolism,Pentose and glucuronate interconversions,ko00040
+ko00051,Metabolism,Carbohydrate metabolism,Fructose and mannose metabolism,ko00051
+ko00052,Metabolism,Carbohydrate metabolism,Galactose metabolism,ko00052
+ko00053,Metabolism,Carbohydrate metabolism,Ascorbate and aldarate metabolism,ko00053
+ko00500,Metabolism,Carbohydrate metabolism,Starch and sucrose metabolism,ko00500
+ko00520,Metabolism,Carbohydrate metabolism,Amino sugar and nucleotide sugar metabolism,ko00520
+ko00620,Metabolism,Carbohydrate metabolism,Pyruvate metabolism,ko00620
+ko00630,Metabolism,Carbohydrate metabolism,Glyoxylate and dicarboxylate metabolism,ko00630
+ko00640,Metabolism,Carbohydrate metabolism,Propanoate metabolism,ko00640
+ko00650,Metabolism,Carbohydrate metabolism,Butanoate metabolism,ko00650
+ko00660,Metabolism,Carbohydrate metabolism,C5-Branched dibasic acid metabolism,ko00660
+ko00562,Metabolism,Carbohydrate metabolism,Inositol phosphate metabolism,ko00562
+ko00190,Metabolism,Energy metabolism,Oxidative phosphorylation,ko00190
+ko00195,Metabolism,Energy metabolism,Photosynthesis,ko00195
+ko00710,Metabolism,Energy metabolism,Carbon fixation in photosynthetic organisms,ko00710
+ko00720,Metabolism,Energy metabolism,Carbon fixation pathways in prokaryotes,ko00720
+ko00680,Metabolism,Energy metabolism,Methane metabolism,ko00680
+ko00910,Metabolism,Energy metabolism,Nitrogen metabolism,ko00910
+ko00920,Metabolism,Energy metabolism,Sulfur metabolism,ko00920
+ko00061,Metabolism,Lipid metabolism,Fatty acid biosynthesis,ko00061
+ko00062,Metabolism,Lipid metabolism,Fatty acid elongation,ko00062
+ko00071,Metabolism,Lipid metabolism,Fatty acid degradation,ko00071
+ko00072,Metabolism,Lipid metabolism,Synthesis and degradation of ketone bodies,ko00072
+ko00100,Metabolism,Lipid metabolism,Steroid biosynthesis,ko00100
+ko00120,Metabolism,Lipid metabolism,Primary bile acid biosynthesi,ko00120
+ko00121,Metabolism,Lipid metabolism,Secondary bile acid biosynthesis,ko00121
+ko00140,Metabolism,Lipid metabolism,Steroid hormone biosynthesis,ko00140
+ko00561,Metabolism,Lipid metabolism,Glycerolipid metabolism,ko00561
+ko00564,Metabolism,Lipid metabolism,Glycerophospholipid metabolism,ko00564
+ko00565,Metabolism,Lipid metabolism,Ether lipid metabolism,ko00565
+ko00600,Metabolism,Lipid metabolism,Sphingolipid metabolism,ko00600
+ko00590,Metabolism,Lipid metabolism,Arachidonic acid metabolism,ko00590
+ko00591,Metabolism,Lipid metabolism,Linoleic acid metabolism,ko00591
+ko00592,Metabolism,Lipid metabolism,alpha-Linolenic acid metabolism,ko00592
+ko01040,Metabolism,Lipid metabolism,Biosynthesis of unsaturated fatty acids,ko01040
+ko00230,Metabolism,Nucleotide metabolism,Purine metabolism,ko00230
+ko00240,Metabolism,Nucleotide metabolism,Pyrimidine metabolism,ko00240
+ko00250,Metabolism,Amino acid metabolism,"Alanine, aspartate and glutamate metabolism",ko00250
+ko00260,Metabolism,Amino acid metabolism,"Glycine, serine and threonine metabolism",ko00260
+ko00270,Metabolism,Amino acid metabolism,Cysteine and methionine metabolism,ko00270
+ko00280,Metabolism,Amino acid metabolism,"Valine, leucine and isoleucine degradation",ko00280
+ko00290,Metabolism,Amino acid metabolism,"Valine, leucine and isoleucine biosynthesis",ko00290
+ko00300,Metabolism,Amino acid metabolism,Lysine biosynthesi,ko00300
+ko00310,Metabolism,Amino acid metabolism,Lysine degradation,ko00310
+ko00220,Metabolism,Amino acid metabolism,Arginine biosynthesis,ko00220
+ko00330,Metabolism,Amino acid metabolism,Arginine and proline metabolism,ko00330
+ko00340,Metabolism,Amino acid metabolism,Histidine metabolism,ko00340
+ko00350,Metabolism,Amino acid metabolism,Tyrosine metabolism,ko00350
+ko00360,Metabolism,Amino acid metabolism,Phenylalanine metabolism,ko00360
+ko00380,Metabolism,Amino acid metabolism,Tryptophan metabolism,ko00380
+ko00400,Metabolism,Amino acid metabolism,"Phenylalanine, tyrosine and tryptophan biosynthesis",ko00400
+ko00410,Metabolism,Metabolism of other amino acids,beta-Alanine metabolism,ko00410
+ko00430,Metabolism,Metabolism of other amino acids,Taurine and hypotaurine metabolism,ko00430
+ko00440,Metabolism,Metabolism of other amino acids,Phosphonate and phosphinate metabolism,ko00440
+ko00450,Metabolism,Metabolism of other amino acids,Selenocompound metabolism,ko00450
+ko00460,Metabolism,Metabolism of other amino acids,Cyanoamino acid metabolism,ko00460
+ko00471,Metabolism,Metabolism of other amino acids,D-Glutamine and D-glutamate metabolism,ko00471
+ko00472,Metabolism,Metabolism of other amino acids,D-Arginine and D-ornithine metabolism,ko00472
+ko00473,Metabolism,Metabolism of other amino acids,D-Alanine metabolism,ko00473
+ko00480,Metabolism,Metabolism of other amino acids,Glutathione metabolism,ko00480
+ko00510,Metabolism,Glycan biosynthesis and metabolism,N-Glycan biosynthesis,ko00510
+ko00513,Metabolism,Glycan biosynthesis and metabolism,Various types of N-glycan biosynthesis,ko00513
+ko00512,Metabolism,Glycan biosynthesis and metabolism,Mucin type O-glycan biosynthesis,ko00512
+ko00515,Metabolism,Glycan biosynthesis and metabolism,Mannose type O-glycan biosyntheis,ko00515
+ko00514,Metabolism,Glycan biosynthesis and metabolism,Other types of O-glycan biosynthesis,ko00514
+ko00532,Metabolism,Glycan biosynthesis and metabolism,Glycosaminoglycan biosynthesis - chondroitin sulfate / dermatan sulfat,ko00532
+ko00534,Metabolism,Glycan biosynthesis and metabolism,Glycosaminoglycan biosynthesis - heparan sulfate / heparin,ko00534
+ko00531,Metabolism,Glycan biosynthesis and metabolism,Glycosaminoglycan degradation,ko00531
+ko00563,Metabolism,Glycan biosynthesis and metabolism,Glycosylphosphatidylinositol(GPI)-anchor biosynthesi,ko00563
+ko00601,Metabolism,Glycan biosynthesis and metabolism,Glycosphingolipid biosynthesis - lacto and neolacto series,ko00601
+ko00603,Metabolism,Glycan biosynthesis and metabolism,Glycosphingolipid biosynthesis - globo and isoglobo series,ko00603
+ko00604,Metabolism,Glycan biosynthesis and metabolism,Glycosphingolipid biosynthesis - ganglio series,ko00604
+ko00540,Metabolism,Glycan biosynthesis and metabolism,Lipopolysaccharide biosynthesis,ko00540
+ko00550,Metabolism,Glycan biosynthesis and metabolism,Peptidoglycan biosynthesis,ko00550
+ko00511,Metabolism,Glycan biosynthesis and metabolism,Other glycan degradation,ko00511
+ko00730,Metabolism,Metabolism of cofactors and vitamins,Thiamine metabolism,ko00730
+ko00740,Metabolism,Metabolism of cofactors and vitamins,Riboflavin metabolism,ko00740
+ko00750,Metabolism,Metabolism of cofactors and vitamins,Vitamin B6 metabolism,ko00750
+ko00760,Metabolism,Metabolism of cofactors and vitamins,Nicotinate and nicotinamide metabolism,ko00760
+ko00770,Metabolism,Metabolism of cofactors and vitamins,Pantothenate and CoA biosynthesis,ko00770
+ko00780,Metabolism,Metabolism of cofactors and vitamins,Biotin metabolism,ko00780
+ko00785,Metabolism,Metabolism of cofactors and vitamins,Lipoic acid metabolism,ko00785
+ko00790,Metabolism,Metabolism of cofactors and vitamins,Folate biosynthesis,ko00790
+ko00670,Metabolism,Metabolism of cofactors and vitamins,One carbon pool by folate,ko00670
+ko00830,Metabolism,Metabolism of cofactors and vitamins,Retinol metabolism,ko00830
+ko00860,Metabolism,Metabolism of cofactors and vitamins,Porphyrin and chlorophyll metabolism,ko00860
+ko00130,Metabolism,Metabolism of cofactors and vitamins,Ubiquinone and other terpenoid-quinone biosynthesix,ko00130
+ko00900,Metabolism,Metabolism of terpenoids and polyketides,Terpenoid backbone biosynthesis,ko00900
+ko00909,Metabolism,Metabolism of terpenoids and polyketides,Sesquiterpenoid and triterpenoid biosynthesis,ko00909
+ko00906,Metabolism,Metabolism of terpenoids and polyketides,Carotenoid biosynthesi,ko00906
+ko00905,Metabolism,Metabolism of terpenoids and polyketides,Brassinosteroid biosynthesis,ko00905
+ko00908,Metabolism,Metabolism of terpenoids and polyketides,Zeatin biosynthesis,ko00908
+ko00903,Metabolism,Metabolism of terpenoids and polyketides,Limonene and pinene degradation,ko00903
+ko00281,Metabolism,Metabolism of terpenoids and polyketides,Geraniol degradation,ko00281
+ko01051,Metabolism,Metabolism of terpenoids and polyketides,Biosynthesis of ansamycins,ko01051
+ko00523,Metabolism,Metabolism of terpenoids and polyketides,Polyketide sugar unit biosynthesis,ko00523
+ko01054,Metabolism,Metabolism of terpenoids and polyketides,Nonribosomal peptide structures ,ko01054
+ko01053,Metabolism,Metabolism of terpenoids and polyketides,Biosynthesis of siderophore group nonribosomal peptides,ko01053
+ko01055,Metabolism,Metabolism of terpenoids and polyketides,Biosynthesis of vancomycin group antibiotics,ko01055
+ko00940,Metabolism,Biosynthesis of other secondary metabolites,Phenylpropanoid biosynthesis,ko00940
+ko00945,Metabolism,Biosynthesis of other secondary metabolites,"Stilbenoid, diarylheptanoid and gingerol biosynthesis",ko00945
+ko00941,Metabolism,Biosynthesis of other secondary metabolites,Flavonoid biosynthesis,ko00941
+ko00944,Metabolism,Biosynthesis of other secondary metabolites,Flavone and flavonol biosynthesis,ko00944
+ko00950,Metabolism,Biosynthesis of other secondary metabolites,Isoquinoline alkaloid biosynthesis,ko00950
+ko00960,Metabolism,Biosynthesis of other secondary metabolites,"Tropane, piperidine and pyridine alkaloid biosynthesi",ko00960
+ko00232,Metabolism,Biosynthesis of other secondary metabolites,Caffeine metabolism,ko00232
+ko00966,Metabolism,Biosynthesis of other secondary metabolites,Glucosinolate biosynthesis,ko00966
+ko00311,Metabolism,Biosynthesis of other secondary metabolites,Penicillin and cephalosporin biosynthesis,ko00311
+ko00332,Metabolism,Biosynthesis of other secondary metabolites,Carbapenem biosynthesis,ko00332
+ko00261,Metabolism,Biosynthesis of other secondary metabolites,Monobactam biosynthesis,ko00261
+ko00521,Metabolism,Biosynthesis of other secondary metabolites,Streptomycin biosynthesis,ko00521
+ko00524,Metabolism,Biosynthesis of other secondary metabolites,"Neomycin, kanamycin and gentamicin biosynthesis",ko00524
+ko00525,Metabolism,Biosynthesis of other secondary metabolites,Acarbose and validamycin biosynthesis,ko00525
+ko00401,Metabolism,Biosynthesis of other secondary metabolites,Novobiocin biosynthesis,ko00401
+ko00405,Metabolism,Biosynthesis of other secondary metabolites,Phenazine biosynthesis,ko00405
+ko00333,Metabolism,Biosynthesis of other secondary metabolites,Prodigiosin biosyntheses,ko00333
+ko00362,Metabolism,Xenobiotics biodegradation and metabolism,Benzoate degradation,ko00362
+ko00627,Metabolism,Xenobiotics biodegradation and metabolism,Aminobenzoate degradation,ko00627
+ko00364,Metabolism,Xenobiotics biodegradation and metabolism,Fluorobenzoate degradation,ko00364
+ko00625,Metabolism,Xenobiotics biodegradation and metabolism,Chloroalkane and chloroalkene degradation,ko00625
+ko00361,Metabolism,Xenobiotics biodegradation and metabolism,Chlorocyclohexane and chlorobenzene degradation,ko00361
+ko00622,Metabolism,Xenobiotics biodegradation and metabolism,Xylene degradation,ko00622
+ko00633,Metabolism,Xenobiotics biodegradation and metabolism,Nitrotoluene degradation,ko00633
+ko00642,Metabolism,Xenobiotics biodegradation and metabolism,Ethylbenzene degradation,ko00642
+ko00643,Metabolism,Xenobiotics biodegradation and metabolism,Styrene degradation,ko00643
+ko00791,Metabolism,Xenobiotics biodegradation and metabolism,Atrazine degradation,ko00791
+ko00930,Metabolism,Xenobiotics biodegradation and metabolism,Caprolactam degradation,ko00930
+ko00621,Metabolism,Xenobiotics biodegradation and metabolism,Dioxin degradation,ko00621
+ko00626,Metabolism,Xenobiotics biodegradation and metabolism,Naphthalene degradation,ko00626
+ko00984,Metabolism,Xenobiotics biodegradation and metabolism,Steroid degradation,ko00984
+ko00980,Metabolism,Xenobiotics biodegradation and metabolism,Metabolism of xenobiotics by cytochrome P450,ko00980
+ko00982,Metabolism,Xenobiotics biodegradation and metabolism,Drug metabolism - cytochrome P450,ko00982
+ko00983,Metabolism,Xenobiotics biodegradation and metabolism,Drug metabolism - other enzymes,ko00983
+ko03020,Genetic Information Processing,Transcription,RNA polymerase,ko03020
+ko03022,Genetic Information Processing,Transcription,Basal transcription factors,ko03022
+ko03040,Genetic Information Processing,Transcription,Spliceosome,ko03040
+ko03010,Genetic Information Processing,Translation,Ribosome,ko03010
+ko00970,Genetic Information Processing,Translation,Aminoacyl-tRNA,ko00970
+ko03013,Genetic Information Processing,Translation,RNA transport,ko03013
+ko03015,Genetic Information Processing,Translation,mRNA surveillance pathway,ko03015
+ko03008,Genetic Information Processing,Translation,Ribosome biogenesis in eukaryotes,ko03008
+ko03060,Genetic Information Processing,"Folding, sorting and degradation",Protein export,ko03060
+ko04141,Genetic Information Processing,"Folding, sorting and degradation",Protein processing in endoplasmic reticulum,ko04141
+ko04130,Genetic Information Processing,"Folding, sorting and degradation",SNARE interactions in vesicular transport,ko04130
+ko04120,Genetic Information Processing,"Folding, sorting and degradation",Ubiquitin mediated proteolysis,ko04120
+ko04122,Genetic Information Processing,"Folding, sorting and degradation",Sulfur relay system,ko04122
+ko03050,Genetic Information Processing,"Folding, sorting and degradation",Proteasome,ko03050
+ko03018,Genetic Information Processing,"Folding, sorting and degradation",RNA degradation,ko03018
+ko03030,Genetic Information Processing,Replication and repair,DNA replication,ko03030
+ko03410,Genetic Information Processing,Replication and repair,Base excision repair,ko03410
+ko03420,Genetic Information Processing,Replication and repair,Nucleotide excision repair,ko03420
+ko03430,Genetic Information Processing,Replication and repair,Msimatch repair,ko03430
+ko03440,Genetic Information Processing,Replication and repair,Homologous recombination,ko03440
+ko03450,Genetic Information Processing,Replication and repair,Non-homologous end-joining,ko03450
+ko03460,Genetic Information Processing,Replication and repair,Fanconi anemia  pathway,ko03460
+ko02010,Environmental Information Processing,Membrane transport,ABX transporters,ko02010
+ko02060,Environmental Information Processing,Membrane transport,Phosphotransferase system (PTS),ko02060
+ko03070,Environmental Information Processing,Membrane transport,Bacterial secretion system,ko03070
+ko02020,Environmental Information Processing,Signal transduction,Two-component system,ko02020
+ko04014,Environmental Information Processing,Signal transduction,Ras signaling pathway,ko04014
+ko04015,Environmental Information Processing,Signal transduction,Rap1 signaling pathway,ko04015
+ko04010,Environmental Information Processing,Signal transduction,MAPK signaling pathway,ko04010
+ko04011,Environmental Information Processing,Signal transduction,MAPK signaling pathway - yeast,ko04011
+ko04012,Environmental Information Processing,Signal transduction,ErbB signaling pathway,ko04012
+ko04310,Environmental Information Processing,Signal transduction,Wnt signaling pathway,ko04310
+ko04330,Environmental Information Processing,Signal transduction,Notch signaling pathway,ko04330
+ko04340,Environmental Information Processing,Signal transduction,Hedgehog signaling pathway,ko04340
+ko04350,Environmental Information Processing,Signal transduction,TGF-beta signaling pathway,ko04350
+ko04390,Environmental Information Processing,Signal transduction,Hippo signaling pathway,ko04390
+ko04392,Environmental Information Processing,Signal transduction,Hippo signaling pathway - multiple species,ko04392
+ko04370,Environmental Information Processing,Signal transduction,VEGF signaling pathway,ko04370
+ko04371,Environmental Information Processing,Signal transduction,Apelin signaling pathway,ko04371
+ko04630,Environmental Information Processing,Signal transduction,Jak-STAT signaling pathway,ko04630
+ko04064,Environmental Information Processing,Signal transduction,NF-kappa B signaling pathway,ko04064
+ko04668,Environmental Information Processing,Signal transduction,TNF signaling pathway,ko04668
+ko04066,Environmental Information Processing,Signal transduction,HIF-1 signaling pathway,ko04066
+ko04068,Environmental Information Processing,Signal transduction,FoxO signaling pathway,ko04068
+ko04020,Environmental Information Processing,Signal transduction,Calcium signaling pathway,ko04020
+ko04070,Environmental Information Processing,Signal transduction,Phosphatidylinositol signaling system,ko04070
+ko04072,Environmental Information Processing,Signal transduction,Phospholipase D signaling pathway,ko04072
+ko04071,Environmental Information Processing,Signal transduction,Sphingolipid signaling pathway,ko04071
+ko04024,Environmental Information Processing,Signal transduction,cAMP signaling pathway,ko04024
+ko04022,Environmental Information Processing,Signal transduction,cGMP - PKG signaling pathwa,ko04022
+ko04151,Environmental Information Processing,Signal transduction,PI3K-Akt signaling pathway,ko04151
+ko04152,Environmental Information Processing,Signal transduction,AMPK signaling pathwa,ko04152
+ko04150,Environmental Information Processing,Signal transduction,mTOR signaling pathway,ko04150
+ko04080,Environmental Information Processing,Signaling molecules and interaction,Neuroactive ligand-receptor interaction,ko04080
+ko04060,Environmental Information Processing,Signaling molecules and interaction,Cytokine-cytokine receptor interaction,ko04060
+ko04512,Environmental Information Processing,Signaling molecules and interaction,ECM-receptor interaction,ko04512
+ko04514,Environmental Information Processing,Signaling molecules and interaction,Cell adhesion molecules (CAMs),ko04514
+ko04144,Cellular Processes,Transport and catabolism,Endocytosis,ko04144
+ko04145,Cellular Processes,Transport and catabolism,Phagosome,ko04145
+ko04142,Cellular Processes,Transport and catabolism,Lysosome,ko04142
+ko04146,Cellular Processes,Transport and catabolism,Peroxisome,ko04146
+ko04138,Cellular Processes,Transport and catabolism,Autophay - yeast,ko04138
+ko04136,Cellular Processes,Transport and catabolism,Autophagy - other eukaryotes,ko04136
+ko04139,Cellular Processes,Transport and catabolism,Mitophagy -  yeast,ko04139
+ko04110,Cellular Processes,Cell growth and death,Cell cycle,ko04110
+ko04111,Cellular Processes,Cell growth and death,Cell cycle - yeast,ko04111
+ko04112,Cellular Processes,Cell growth and death,Cell -cycle Caulobacter,ko04112
+ko04113,Cellular Processes,Cell growth and death,Meiosis - yeast,ko04113
+ko04210,Cellular Processes,Cell growth and death,Apoptosis,ko04210
+ko04216,Cellular Processes,Cell growth and death,Ferroptosis,ko04216
+ko02024,Cellular Processes,Cellular community - prokaryotes,Quorom sensing,ko02024
+ko05111,Cellular Processes,Cellular community - prokaryotes,Biofilm formation - Vibrio cholerae,ko05111
+ko02025,Cellular Processes,Cellular community - prokaryotes,Biofilm formation - Pseudomoonas aeruginosa,ko02025
+ko02026,Cellular Processes,Cellular community - prokaryotes,Biofilm formation - Escherichia coli,ko02026
+ko02030,Cellular Processes,Cell motility,Bacterial chemotaxis,ko02030
+ko02040,Cellular Processes,Cell motility,Flagellar assembly,ko02040
+ko04810,Cellular Processes,Cell motility,Regulation of actin cytoskeleton,ko04810

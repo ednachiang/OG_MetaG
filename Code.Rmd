@@ -13,9 +13,19 @@ library('readr')
 library('pgirmess')
 library('ggplot2')
 library('grid')
+library('phyloseq')
+library('DESeq2')
 theme_set(theme_bw())
 set.seed(1)
 
+deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.01){
+  data_pruned <- prune_taxa(taxa_sums(data) > cutoff, data)
+  de_data <- phyloseq_to_deseq2(data_pruned, valuetest)
+  de_data2 <- DESeq(de_data, test="Wald", fitType="local")
+  res_data <- results(de_data2, cooksCutoff = FALSE)
+  sig_data <- res_data[which(res_data$padj < alpha), ]
+  sigtab_sherm <- cbind(as(sig_data, "data.frame"), as(tax_table(data_pruned)[rownames(sig_data), ], "matrix"))
+}
 ```
 
 
@@ -496,3 +506,37 @@ sig <- rownames(dbcan.pvals)[which(dbcan.pvals[,1] < 0.06)]
 
 
 
+### KEGG Pathways
+```{r}
+path <- read.csv('KEGG/kegg_counts.csv', fileEncoding="UTF-8-BOM")
+row.names(path) <- path[,1]
+path <- path[,-1]
+colnames(path) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+meta <- read.csv('KEGG/metadata.csv', fileEncoding="UTF-8-BOM")
+row.names(meta) <- meta[,1]
+#meta <- meta[,-1]
+
+### Normalize
+norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
+path.norm <- path
+for(i in 1:9){
+  path.norm[,i] <- round(path.norm[,i]*norm.factor[i,1])
+}
+# Remove pathways = 0
+for(i in 1:nrow(path.norm)){
+  print(sum(path.norm[i,]))
+}
+  # All > 0
+
+##### DESeq
+# Use UN-NORMALIZED data!!!
+# DESeq accounts for library size!!!
+
+# Prepare physeq object
+path.otu <- otu_table(path, taxa_are_rows = T)
+path.meta <- sample_data(meta)
+path.physeq <- merge_phyloseq(path.otu, path.meta)
+
+
+
+```

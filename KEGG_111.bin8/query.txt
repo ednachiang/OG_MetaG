@@ -1,8 +1,0 @@
-
-ID :	1516397091
-query name :	3715.idba.111.job1.bin8
-program :	BLAST
-method :	SBH
-GENES data set :	hsa, dme, ath, sce, pfa, eco, sty, hin, pae, nme
-hpy, rpr, mlo, bsu, sau, lla, spn, cac, mge, mtu
-ctr, bbu, syn, aae, mja, afu, pho, ape

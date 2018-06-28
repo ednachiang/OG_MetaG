@@ -927,7 +927,7 @@ kruskal.pretty = function(otu, metrics, csv, interesting, output_name, taxonomy)
 ```
 
 
-### DESeq
+### Pathway DESeq
 ```{r}
 ##### DESeq
 # Use UN-NORMALIZED data!!!
@@ -969,5 +969,185 @@ win <- which(test$log2FoldChange > 0)
 win.path <- rownames(test[win,])
   # ko00540
   # ko00130
+
+```
+
+
+### dbcan family prep
+```{r}
+### 3715
+dbcan.3715 <- read.csv("dbcan/3715.idba.dbCAN.parsed.csv")
+dbcan.3717 <- read.csv("dbcan/3717.idba.dbCAN.parsed.csv")
+dbcan.3723 <- read.csv("dbcan/3723.idba.dbCAN.parsed.csv")
+dbcan.3733 <- read.csv("dbcan/3733.idba.dbCAN.parsed.csv")
+dbcan.3734 <- read.csv("dbcan/3734.idba.dbCAN.parsed.csv")
+dbcan.3744 <- read.csv("dbcan/3744.idba.dbCAN.parsed.csv")
+dbcan.3772 <- read.csv("dbcan/3772.idba.dbCAN.parsed.csv")
+dbcan.3773 <- read.csv("dbcan/3773.idba.dbCAN.parsed.csv")
+dbcan.3775 <- read.csv("dbcan/3775.idba.dbCAN.parsed.csv")
+
+
+# Isolate family names
+fam.3715 <- substr(dbcan.3715$predicted_protein, 1, 5)
+fam.3717 <- substr(dbcan.3717$predicted_protein, 1, 5)
+fam.3723 <- substr(dbcan.3723$predicted_protein, 1, 5)
+fam.3733 <- substr(dbcan.3733$predicted_protein, 1, 5)
+fam.3734 <- substr(dbcan.3734$predicted_protein, 1, 5)
+fam.3744 <- substr(dbcan.3744$predicted_protein, 1, 5)
+fam.3772 <- substr(dbcan.3772$predicted_protein, 1, 5)
+fam.3773 <- substr(dbcan.3773$predicted_protein, 1, 5)
+fam.3775 <- substr(dbcan.3775$predicted_protein, 1, 5)
+
+
+# Remove unwanted categories
+fam.3715 <- fam.3715[-which(substr(fam.3715, 1, 2) == "AA")]
+fam.3715 <- fam.3715[-which(substr(fam.3715, 1, 2) == "GT")]
+fam.3715 <- fam.3715[-which(substr(fam.3715, 1, 2) == "SL")]
+fam.3715 <- fam.3715[-which(substr(fam.3715, 1, 2) == "co")]
+fam.3715 <- fam.3715[-which(substr(fam.3715, 1, 2) == "do")]
+
+fam.3717 <- fam.3717[-which(substr(fam.3717, 1, 2) == "AA")]
+fam.3717 <- fam.3717[-which(substr(fam.3717, 1, 2) == "GT")]
+fam.3717 <- fam.3717[-which(substr(fam.3717, 1, 2) == "SL")]
+fam.3717 <- fam.3717[-which(substr(fam.3717, 1, 2) == "co")]
+fam.3717 <- fam.3717[-which(substr(fam.3717, 1, 2) == "do")]
+
+fam.3723 <- fam.3723[-which(substr(fam.3723, 1, 2) == "AA")]
+fam.3723 <- fam.3723[-which(substr(fam.3723, 1, 2) == "GT")]
+fam.3723 <- fam.3723[-which(substr(fam.3723, 1, 2) == "SL")]
+fam.3723 <- fam.3723[-which(substr(fam.3723, 1, 2) == "co")]
+fam.3723 <- fam.3723[-which(substr(fam.3723, 1, 2) == "do")]
+
+fam.3733 <- fam.3733[-which(substr(fam.3733, 1, 2) == "AA")]
+fam.3733 <- fam.3733[-which(substr(fam.3733, 1, 2) == "GT")]
+fam.3733 <- fam.3733[-which(substr(fam.3733, 1, 2) == "SL")]
+fam.3733 <- fam.3733[-which(substr(fam.3733, 1, 2) == "co")]
+fam.3733 <- fam.3733[-which(substr(fam.3733, 1, 2) == "do")]
+
+fam.3734 <- fam.3734[-which(substr(fam.3734, 1, 2) == "AA")]
+fam.3734 <- fam.3734[-which(substr(fam.3734, 1, 2) == "GT")]
+fam.3734 <- fam.3734[-which(substr(fam.3734, 1, 2) == "SL")]
+fam.3734 <- fam.3734[-which(substr(fam.3734, 1, 2) == "co")]
+fam.3734 <- fam.3734[-which(substr(fam.3734, 1, 2) == "do")]
+
+fam.3744 <- fam.3744[-which(substr(fam.3744, 1, 2) == "AA")]
+fam.3744 <- fam.3744[-which(substr(fam.3744, 1, 2) == "GT")]
+fam.3744 <- fam.3744[-which(substr(fam.3744, 1, 2) == "SL")]
+fam.3744 <- fam.3744[-which(substr(fam.3744, 1, 2) == "co")]
+fam.3744 <- fam.3744[-which(substr(fam.3744, 1, 2) == "do")]
+
+fam.3772 <- fam.3772[-which(substr(fam.3772, 1, 2) == "AA")]
+fam.3772 <- fam.3772[-which(substr(fam.3772, 1, 2) == "GT")]
+fam.3772 <- fam.3772[-which(substr(fam.3772, 1, 2) == "SL")]
+fam.3772 <- fam.3772[-which(substr(fam.3772, 1, 2) == "co")]
+fam.3772 <- fam.3772[-which(substr(fam.3772, 1, 2) == "do")]
+
+fam.3773 <- fam.3773[-which(substr(fam.3773, 1, 2) == "AA")]
+fam.3773 <- fam.3773[-which(substr(fam.3773, 1, 2) == "GT")]
+fam.3773 <- fam.3773[-which(substr(fam.3773, 1, 2) == "SL")]
+fam.3773 <- fam.3773[-which(substr(fam.3773, 1, 2) == "co")]
+fam.3773 <- fam.3773[-which(substr(fam.3773, 1, 2) == "do")]
+
+fam.3775 <- fam.3775[-which(substr(fam.3775, 1, 2) == "AA")]
+fam.3775 <- fam.3775[-which(substr(fam.3775, 1, 2) == "GT")]
+fam.3775 <- fam.3775[-which(substr(fam.3775, 1, 2) == "SL")]
+fam.3775 <- fam.3775[-which(substr(fam.3775, 1, 2) == "co")]
+fam.3775 <- fam.3775[-which(substr(fam.3775, 1, 2) == "do")]
+
+# Pull out unique families
+fam.names.3715 <- unique(fam.3715)
+fam.names.3717 <- unique(fam.3717)
+fam.names.3723 <- unique(fam.3723)
+fam.names.3733 <- unique(fam.3733)
+fam.names.3734 <- unique(fam.3734)
+fam.names.3744 <- unique(fam.3744)
+fam.names.3772 <- unique(fam.3772)
+fam.names.3773 <- unique(fam.3773)
+fam.names.3775 <- unique(fam.3775)
+
+# Create df
+fam.df.3715 <- data.frame(fam.names.3715)
+fam.df.3715$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3715)){
+  x <- length(which(substr(fam.3715, 1, 5) == fam.names.3715[i]))
+  fam.df.3715[i,2] <- x
+}
+
+fam.df.3717 <- data.frame(fam.names.3717)
+fam.df.3717$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3717)){
+  x <- length(which(substr(fam.3717, 1, 5) == fam.names.3717[i]))
+  fam.df.3717[i,2] <- x
+}
+
+fam.df.3723 <- data.frame(fam.names.3723)
+fam.df.3723$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3723)){
+  x <- length(which(substr(fam.3723, 1, 5) == fam.names.3723[i]))
+  fam.df.3723[i,2] <- x
+}
+
+fam.df.3733 <- data.frame(fam.names.3733)
+fam.df.3733$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3733)){
+  x <- length(which(substr(fam.3733, 1, 5) == fam.names.3733[i]))
+  fam.df.3733[i,2] <- x
+}
+
+fam.df.3734 <- data.frame(fam.names.3734)
+fam.df.3734$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3734)){
+  x <- length(which(substr(fam.3734, 1, 5) == fam.names.3734[i]))
+  fam.df.3734[i,2] <- x
+}
+
+fam.df.3744 <- data.frame(fam.names.3744)
+fam.df.3744$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3744)){
+  x <- length(which(substr(fam.3744, 1, 5) == fam.names.3744[i]))
+  fam.df.3744[i,2] <- x
+}
+
+fam.df.3772 <- data.frame(fam.names.3772)
+fam.df.3772$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3772)){
+  x <- length(which(substr(fam.3772, 1, 5) == fam.names.3772[i]))
+  fam.df.3772[i,2] <- x
+}
+
+fam.df.3773 <- data.frame(fam.names.3773)
+fam.df.3773$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3773)){
+  x <- length(which(substr(fam.3773, 1, 5) == fam.names.3773[i]))
+  fam.df.3773[i,2] <- x
+}
+
+fam.df.3775 <- data.frame(fam.names.3775)
+fam.df.3775$count <- 9999
+# Add in family counts
+for(i in 1:length(fam.names.3775)){
+  x <- length(which(substr(fam.3775, 1, 5) == fam.names.3775[i]))
+  fam.df.3775[i,2] <- x
+}
+
+# Save dataframe
+#write.csv(fam.df.3715, "3715.dbcan.fam.csv")
+#write.csv(fam.df.3717, "3717.dbcan.fam.csv")
+#write.csv(fam.df.3723, "3723.dbcan.fam.csv")
+#write.csv(fam.df.3733, "3733.dbcan.fam.csv")
+#write.csv(fam.df.3734, "3734.dbcan.fam.csv")
+#write.csv(fam.df.3744, "3744.dbcan.fam.csv")
+#write.csv(fam.df.3772, "3772.dbcan.fam.csv")
+#write.csv(fam.df.3773, "3773.dbcan.fam.csv")
+#write.csv(fam.df.3775, "3775.dbcan.fam.csv")
+
 
 ```

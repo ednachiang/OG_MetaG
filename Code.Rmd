@@ -15,6 +15,8 @@ library('ggplot2')
 library('grid')
 library('phyloseq')
 library('DESeq2')
+library('phangorn')
+library('vegan')
 theme_set(theme_bw())
 set.seed(1)
 
@@ -628,13 +630,106 @@ kend[9,7] <- cor(path.prop[,9], path.prop[,7], method = "kendall")
 kend[9,8] <- cor(path.prop[,9], path.prop[,8], method = "kendall")
 kend[9,9] <- cor(path.prop[,9], path.prop[,9], method = "kendall")
 
-#write.table(kend, file="kegg.kendall.csv")
+#write.table(kend, file="kegg.kendall.txt", sep="\t")
+
+```
+
+```{r}
+kend.fix <- kend
+kend.fix[1,1] <- 0
+kend.fix[2,2] <- 0
+kend.fix[3,3] <- 0
+kend.fix[4,4] <- 0
+kend.fix[5,5] <- 0
+kend.fix[6,6] <- 0
+kend.fix[7,7] <- 0
+kend.fix[8,8] <- 0
+kend.fix[9,9] <- 0
+path.upgma <- upgma(kend.fix)
+plot(path.upgma)
+
+
+path.nj <- NJ(data.frame(kend.fix))
 
 ```
 
 
 
 
+### Pathway Bray-Curtis
+```{r}
+#Prepare physeq object
+path <- read.csv('KEGG/kegg_counts.csv', fileEncoding="UTF-8-BOM")
+row.names(path) <- path[,1]
+path <- path[,-1]
+colnames(path) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('KEGG/metadata.csv', fileEncoding="UTF-8-BOM")
+row.names(meta) <- meta[,1]
+
+class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
+row.names(class) <- class[,1]
+class <- class[,-1]
+
+### Normalize
+norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
+path.norm <- path
+for(i in 1:9){
+  path.norm[,i] <- round(path.norm[,i]*norm.factor[i,1])
+}
+# Remove pathways = 0
+for(i in 1:nrow(path.norm)){
+  print(sum(path.norm[i,]))
+}
+  # All > 0
+
+# Prepare phyloseq object
+path.otu <- otu_table(path.norm, taxa_are_rows = T)
+path.samp <- sample_data(meta)
+path.tax <- tax_table(class)
+row.names(path.tax) <- row.names(class)
+path.physeq <- merge_phyloseq(path.otu, path.samp, path.tax)
+
+nmds <- ordinate(physeq=path.physeq, method="NMDS", distance="bray")
+  # stress = 0.01481376
+
+plot_ordination(physeq=path.physeq, ordination=nmds, color="Season")
+
+### PERMANOVA
+path.sampdf <- data.frame(sample_data(path.physeq))
+path.bray<- phyloseq::distance(physeq=path.physeq, method="bray")
+adonis(path.bray~ Season, data=path.sampdf)
+  # p-value = 0.333
+beta.tax = betadisper(d=path.bray, group=path.sampdf$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.304
+
+### ANOSIM
+anosim(path.bray, meta$Season, permutations=1000)
+  # p-value = 0.13986
+```
+
+### Pathway Jaccard
+```{r}
+jac <- ordinate(physeq=path.physeq, method="NMDS", distance="jaccard")
+  # stress = 0.02570319
+plot_ordination(physeq=path.physeq, ordination=jac, color="Season")
+
+### PERMANOVA
+path.sampdf <- data.frame(sample_data(path.physeq))
+path.jac <- phyloseq::distance(physeq=path.physeq, method="jaccard")
+adonis(path.jac~ Season, data=path.sampdf)
+  # p-value = 0.235
+beta.tax = betadisper(d=path.jac, group=path.sampdf$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.367
+
+### ANOSIM
+anosim(path.jac, meta$Season, permutations=1000)
+  # p-value = 0.14386
+```
 
 ### DESeq
 ```{r}

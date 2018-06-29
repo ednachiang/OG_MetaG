@@ -515,7 +515,7 @@ row.names(path) <- path[,1]
 path <- path[,-1]
 colnames(path) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 
-meta <- read.csv('KEGG/metadata.csv', fileEncoding="UTF-8-BOM")
+meta <- read.csv('metadata.csv', fileEncoding="UTF-8-BOM")
 row.names(meta) <- meta[,1]
 
 class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
@@ -634,6 +634,7 @@ kend[9,9] <- cor(path.prop[,9], path.prop[,9], method = "kendall")
 
 ```
 
+### Pathway UPGMA
 ```{r}
 kend.fix <- kend
 kend.fix[1,1] <- 0
@@ -1149,5 +1150,152 @@ for(i in 1:length(fam.names.3775)){
 #write.csv(fam.df.3773, "3773.dbcan.fam.csv")
 #write.csv(fam.df.3775, "3775.dbcan.fam.csv")
 
+
+```
+
+
+### dbCAN Family
+```{r}
+fam.count <- read.csv("dbcan.fam.counts.csv")
+row.names(fam.count) <- fam.count[,1]
+fam.count <- fam.count[,-1]
+colnames(fam.count) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv')
+row.names(meta) <- meta[,1]
+
+class <- read.csv('dbcan/classification.csv')
+row.names(class) <- class[,1]
+class <- class[,-1]
+
+### Normalize
+norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
+fam.count.norm <- fam.count
+for(i in 1:9){
+  fam.count.norm[,i] <- round(fam.count.norm[,i]*norm.factor[i,1])
+}
+# Remove pathways = 0
+for(i in 1:nrow(fam.count.norm)){
+  print(sum(fam.count.norm[i,]))
+}
+  # All > 0
+
+### Calculate proportions
+fam.prop <- fam.count.norm
+for(i in 1:9){
+  fam.prop[,i] <- (fam.prop[,i] / colSums(fam.prop)[i])
+}
+rem <- which(rowSums(fam.prop) < 0.001)
+fam.prop <- fam.prop[-rem,]
+
+kend <- data.frame(c(3715, 3717, 3723, 3733, 3734, 3744, 3772, 3773, 3775))
+rownames(kend) <- kend[,1]
+kend[,2:9] <- NA
+colnames(kend) <- kend[,1]
+kend[,1] <- NA
+
+kend[1,1] <- cor(fam.prop[,1], fam.prop[,1], method = "kendall")
+kend[1,2] <- cor(fam.prop[,1], fam.prop[,2], method = "kendall")
+kend[1,3] <- cor(fam.prop[,1], fam.prop[,3], method = "kendall")
+kend[1,4] <- cor(fam.prop[,1], fam.prop[,4], method = "kendall")
+kend[1,5] <- cor(fam.prop[,1], fam.prop[,5], method = "kendall")
+kend[1,6] <- cor(fam.prop[,1], fam.prop[,6], method = "kendall")
+kend[1,7] <- cor(fam.prop[,1], fam.prop[,7], method = "kendall")
+kend[1,8] <- cor(fam.prop[,1], fam.prop[,8], method = "kendall")
+kend[1,9] <- cor(fam.prop[,1], fam.prop[,9], method = "kendall")
+kend[2,1] <- cor(fam.prop[,2], fam.prop[,1], method = "kendall")
+kend[2,2] <- cor(fam.prop[,2], fam.prop[,2], method = "kendall")
+kend[2,3] <- cor(fam.prop[,2], fam.prop[,3], method = "kendall")
+kend[2,4] <- cor(fam.prop[,2], fam.prop[,4], method = "kendall")
+kend[2,5] <- cor(fam.prop[,2], fam.prop[,5], method = "kendall")
+kend[2,6] <- cor(fam.prop[,2], fam.prop[,6], method = "kendall")
+kend[2,7] <- cor(fam.prop[,2], fam.prop[,7], method = "kendall")
+kend[2,8] <- cor(fam.prop[,2], fam.prop[,8], method = "kendall")
+kend[2,9] <- cor(fam.prop[,2], fam.prop[,9], method = "kendall")
+kend[3,1] <- cor(fam.prop[,3], fam.prop[,1], method = "kendall")
+kend[3,2] <- cor(fam.prop[,3], fam.prop[,2], method = "kendall")
+kend[3,3] <- cor(fam.prop[,3], fam.prop[,3], method = "kendall")
+kend[3,4] <- cor(fam.prop[,3], fam.prop[,4], method = "kendall")
+kend[3,5] <- cor(fam.prop[,3], fam.prop[,5], method = "kendall")
+kend[3,6] <- cor(fam.prop[,3], fam.prop[,6], method = "kendall")
+kend[3,7] <- cor(fam.prop[,3], fam.prop[,7], method = "kendall")
+kend[3,8] <- cor(fam.prop[,3], fam.prop[,8], method = "kendall")
+kend[3,9] <- cor(fam.prop[,3], fam.prop[,9], method = "kendall")
+kend[4,1] <- cor(fam.prop[,4], fam.prop[,1], method = "kendall")
+kend[4,2] <- cor(fam.prop[,4], fam.prop[,2], method = "kendall")
+kend[4,3] <- cor(fam.prop[,4], fam.prop[,3], method = "kendall")
+kend[4,4] <- cor(fam.prop[,4], fam.prop[,4], method = "kendall")
+kend[4,5] <- cor(fam.prop[,4], fam.prop[,5], method = "kendall")
+kend[4,6] <- cor(fam.prop[,4], fam.prop[,6], method = "kendall")
+kend[4,7] <- cor(fam.prop[,4], fam.prop[,7], method = "kendall")
+kend[4,8] <- cor(fam.prop[,4], fam.prop[,8], method = "kendall")
+kend[4,9] <- cor(fam.prop[,4], fam.prop[,9], method = "kendall")
+kend[5,1] <- cor(fam.prop[,5], fam.prop[,1], method = "kendall")
+kend[5,2] <- cor(fam.prop[,5], fam.prop[,2], method = "kendall")
+kend[5,3] <- cor(fam.prop[,5], fam.prop[,3], method = "kendall")
+kend[5,4] <- cor(fam.prop[,5], fam.prop[,4], method = "kendall")
+kend[5,5] <- cor(fam.prop[,5], fam.prop[,5], method = "kendall")
+kend[5,6] <- cor(fam.prop[,5], fam.prop[,6], method = "kendall")
+kend[5,7] <- cor(fam.prop[,5], fam.prop[,7], method = "kendall")
+kend[5,8] <- cor(fam.prop[,5], fam.prop[,8], method = "kendall")
+kend[5,9] <- cor(fam.prop[,5], fam.prop[,9], method = "kendall")
+kend[6,1] <- cor(fam.prop[,6], fam.prop[,1], method = "kendall")
+kend[6,2] <- cor(fam.prop[,6], fam.prop[,2], method = "kendall")
+kend[6,3] <- cor(fam.prop[,6], fam.prop[,3], method = "kendall")
+kend[6,4] <- cor(fam.prop[,6], fam.prop[,4], method = "kendall")
+kend[6,5] <- cor(fam.prop[,6], fam.prop[,5], method = "kendall")
+kend[6,6] <- cor(fam.prop[,6], fam.prop[,6], method = "kendall")
+kend[6,7] <- cor(fam.prop[,6], fam.prop[,7], method = "kendall")
+kend[6,8] <- cor(fam.prop[,6], fam.prop[,8], method = "kendall")
+kend[6,9] <- cor(fam.prop[,6], fam.prop[,9], method = "kendall")
+kend[7,1] <- cor(fam.prop[,7], fam.prop[,1], method = "kendall")
+kend[7,2] <- cor(fam.prop[,7], fam.prop[,2], method = "kendall")
+kend[7,3] <- cor(fam.prop[,7], fam.prop[,3], method = "kendall")
+kend[7,4] <- cor(fam.prop[,7], fam.prop[,4], method = "kendall")
+kend[7,5] <- cor(fam.prop[,7], fam.prop[,5], method = "kendall")
+kend[7,6] <- cor(fam.prop[,7], fam.prop[,6], method = "kendall")
+kend[7,7] <- cor(fam.prop[,7], fam.prop[,7], method = "kendall")
+kend[7,8] <- cor(fam.prop[,7], fam.prop[,8], method = "kendall")
+kend[7,9] <- cor(fam.prop[,7], fam.prop[,9], method = "kendall")
+kend[8,1] <- cor(fam.prop[,8], fam.prop[,1], method = "kendall")
+kend[8,2] <- cor(fam.prop[,8], fam.prop[,2], method = "kendall")
+kend[8,3] <- cor(fam.prop[,8], fam.prop[,3], method = "kendall")
+kend[8,4] <- cor(fam.prop[,8], fam.prop[,4], method = "kendall")
+kend[8,5] <- cor(fam.prop[,8], fam.prop[,5], method = "kendall")
+kend[8,6] <- cor(fam.prop[,8], fam.prop[,6], method = "kendall")
+kend[8,7] <- cor(fam.prop[,8], fam.prop[,7], method = "kendall")
+kend[8,8] <- cor(fam.prop[,8], fam.prop[,8], method = "kendall")
+kend[8,9] <- cor(fam.prop[,8], fam.prop[,9], method = "kendall")
+kend[9,1] <- cor(fam.prop[,9], fam.prop[,1], method = "kendall")
+kend[9,2] <- cor(fam.prop[,9], fam.prop[,2], method = "kendall")
+kend[9,3] <- cor(fam.prop[,9], fam.prop[,3], method = "kendall")
+kend[9,4] <- cor(fam.prop[,9], fam.prop[,4], method = "kendall")
+kend[9,5] <- cor(fam.prop[,9], fam.prop[,5], method = "kendall")
+kend[9,6] <- cor(fam.prop[,9], fam.prop[,6], method = "kendall")
+kend[9,7] <- cor(fam.prop[,9], fam.prop[,7], method = "kendall")
+kend[9,8] <- cor(fam.prop[,9], fam.prop[,8], method = "kendall")
+kend[9,9] <- cor(fam.prop[,9], fam.prop[,9], method = "kendall")
+
+#write.table(kend, file="dbcan.kendall.txt", sep="\t")
+
+```
+
+### dbCAN UPGMA
+```{r}
+kend.fix <- kend
+kend.fix[1,1] <- 0
+kend.fix[2,2] <- 0
+kend.fix[3,3] <- 0
+kend.fix[4,4] <- 0
+kend.fix[5,5] <- 0
+kend.fix[6,6] <- 0
+kend.fix[7,7] <- 0
+kend.fix[8,8] <- 0
+kend.fix[9,9] <- 0
+fam.upgma <- upgma(kend.fix)
+plot(fam.upgma)
+
+
+fam.nj <- NJ(data.frame(kend.fix))
 
 ```

@@ -1299,3 +1299,51 @@ plot(fam.upgma)
 fam.nj <- NJ(data.frame(kend.fix))
 
 ```
+
+### dbCAN DESeq
+```{r}
+##### DESeq
+# Use UN-NORMALIZED data!!!
+# DESeq accounts for library size!!!
+
+# Prepare physeq object
+fam.otu <- otu_table(fam.count, taxa_are_rows = T)
+fam.otu <- fam.otu + 1
+fam.samp <- sample_data(meta)
+fam.tax <- tax_table(class)
+row.names(fam.tax) <- row.names(class)
+fam.physeq <- merge_phyloseq(fam.otu, fam.samp, fam.tax)
+
+# Summer vs. Winter
+sw.physeq <- subset_samples(fam.physeq, Season != "Spring")
+test <- deSEQ(data=sw.physeq, valuetest= ~Season)
+sum <- which(test$log2FoldChange < 0)
+sum.fam <- rownames(test[sum,])
+  # CE12
+  # GH115
+  # GH43
+  # PL1
+win <- which(test$log2FoldChange > 0)
+win.fam <- rownames(test[win,])
+
+# Spring vs. Summer
+ss.physeq <- subset_samples(fam.physeq, Season != "Winter")
+test <- deSEQ(data=ss.physeq, valuetest= ~Season)
+spr <- which(test$log2FoldChange < 0)
+spr.fam <- rownames(test[spr,])
+  # GH1
+sum <- which(test$log2FoldChange > 0)
+sum.fam <- rownames(test[sum,])
+  # ko00540
+  # ko00130
+
+# Spring vs. Winter
+sw.physeq <- subset_samples(fam.physeq, Season != "Summer")
+test <- deSEQ(data=ss.physeq, valuetest= ~Season)
+spr <- which(test$log2FoldChange < 0)
+spr.fam <- rownames(test[spr,])
+  # GH1
+win <- which(test$log2FoldChange > 0)
+win.fam <- rownames(test[win,])
+
+```

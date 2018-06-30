@@ -838,7 +838,7 @@ path.nj <- NJ(data.frame(kend.fix))
 
 ### Pathway Bray-Curtis
 ```{r}
-#Prepare physeq object
+# Prepare physeq object
 path <- read.csv('KEGG/kegg_counts.csv', fileEncoding="UTF-8-BOM")
 row.names(path) <- path[,1]
 path <- path[,-1]
@@ -932,6 +932,18 @@ path.simper.kw <- read.csv("path.kw_krusk_simper.csv")
 # DESeq accounts for library size!!!
 
 # Prepare physeq object
+# Prepare physeq object
+path <- read.csv('KEGG/kegg_counts.csv', fileEncoding="UTF-8-BOM")
+row.names(path) <- path[,1]
+path <- path[,-1]
+colnames(path) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv')
+row.names(meta) <- meta[,1]
+
+class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
+row.names(class) <- class[,1]
+
 path.otu <- otu_table(path, taxa_are_rows = T)
 path.otu <- path.otu + 1
 path.samp <- sample_data(meta)
@@ -944,7 +956,7 @@ sw.physeq <- subset_samples(path.physeq, Season != "Spring")
 test <- deSEQ(data=sw.physeq, valuetest= ~Season)
 sum <- which(test$log2FoldChange < 0)
 sum.path <- rownames(test[sum,])
-  # ko04145
+  # "ko03040" "ko04010" "ko04370" "ko04144" "ko04145" "ko04810"
 win <- which(test$log2FoldChange > 0)
 win.path <- rownames(test[win,])
 
@@ -955,8 +967,7 @@ spr <- which(test$log2FoldChange < 0)
 spr.path <- rownames(test[spr,])
 sum <- which(test$log2FoldChange > 0)
 sum.path <- rownames(test[sum,])
-  # ko00540
-  # ko00130
+  # "ko00540" "ko00130"
 
 # Spring vs. Winter
 sw.physeq <- subset_samples(path.physeq, Season != "Summer")
@@ -965,8 +976,15 @@ spr <- which(test$log2FoldChange < 0)
 spr.path <- rownames(test[spr,])
 win <- which(test$log2FoldChange > 0)
 win.path <- rownames(test[win,])
-  # ko00540
-  # ko00130
+  # "ko00540" "ko00130"
+
+# Feed vs Fast
+test <- deSEQ(data=path.physeq, valuetest= ~Diet)
+fast <- which(test$log2FoldChange < 0)
+fast.path <- rownames(test[spr,])
+feed <- which(test$log2FoldChange > 0)
+feed.path <- rownames(test[win,])
+  # "ko00540" "ko00130"
 
 ```
 
@@ -1623,15 +1641,15 @@ cog..prot.3775 <- read.table("COG/3775.results/protein-id_cog.txt", sep="\t", qu
 ### COG Kendall Correlation
 ```{r}
 cog.all <- read.csv('COG/cog_counts.csv')
-row.names(cow.all) <- cog.all[,1]
+row.names(cog.all) <- cog.all[,1]
 cog.all <- cog.all[,-1]
 colnames(cog.all) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 
 meta <- read.csv('metadata.csv', fileEncoding="UTF-8-BOM")
 row.names(meta) <- meta[,1]
 
-class <- read.csv('COG_cog_classification.csv')
-row.names(class) <- class[,1]
+class <- read.csv('COG/cog_classification.csv')
+rownames(class) <- class[,1]
 #class <- class[,-1]
 
 ### Normalize
@@ -1770,10 +1788,22 @@ cog.nj <- NJ(data.frame(cog.kend.fix))
 # DESeq accounts for library size!!!
 
 # Prepare physeq object
+cog.all <- read.csv('COG/cog_counts.csv')
+row.names(cog.all) <- cog.all[,1]
+cog.all <- cog.all[,-1]
+colnames(cog.all) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv')
+row.names(meta) <- meta[,1]
+
+cog.class <- read.csv('COG/cog_classification.csv')
+rownames(cog.class) <- cog.class[,2]
+#class <- class[,-1]
+
 cog.otu <- otu_table(cog.all, taxa_are_rows = T)
 #cog.otu <- cog.otu + 1
 cog.samp <- sample_data(meta)
-rownames(cog.class) <- cog.class[,1]
+rownames(cog.class) <- cog.class[,2]
 cog.tax <- tax_table(cog.class)
 row.names(cog.tax) <- row.names(cog.class)
 cog.physeq <- merge_phyloseq(cog.otu, cog.samp, cog.tax)
@@ -1783,17 +1813,17 @@ sw.physeq <- subset_samples(cog.physeq, Season != "Spring")
 test <- deSEQ(data=sw.physeq, valuetest= ~Season)
 sum <- which(test$log2FoldChange < 0)
 sum.cog <- rownames(test[sum,])
-  # "COG2207" "COG3507" "COG3693" "COG3866" "COG4677" "COG5021" "COG5434"
+  # "COG0243" "COG1874" "COG2207" "COG2730" "COG3507" "COG3534" "COG3693" "COG3757" "COG3866" "COG4677" "COG5434"
 win <- which(test$log2FoldChange > 0)
 win.cog <- rownames(test[win,])
-  # "COG3246"
+  # "COG1775" "COG3246"
 
 # Spring vs. Summer
 ss.physeq <- subset_samples(cog.physeq, Season != "Winter")
 test <- deSEQ(data=ss.physeq, valuetest= ~Season)
 spr <- which(test$log2FoldChange < 0)
 spr.cog <- rownames(test[spr,])
-  # "COG0183" "COG0395" "COG0411" "COG0444" "COG0448" "COG0559" "COG1070" "COG1080" "COG1126" "COG1129" "COG1172" "COG1173" "COG1175" "COG1307" "COG1609" "COG1744" "COG1775" "COG1802" "COG1879" "COG2972" "COG3077" "COG3958" "COG3959" "COG4166" "COG4608" "COG4905"
+  # "COG0395" "COG0444" "COG1129" "COG1172" "COG1175" "COG3958" "COG3959" "COG4166"
 sum <- which(test$log2FoldChange > 0)
 sum.cog <- rownames(test[sum,])
   # "COG0243" "COG0437" "COG0457" "COG0810" "COG1409" "COG1538" "COG1596" "COG1629" "COG2885"
@@ -1803,40 +1833,40 @@ sw.physeq <- subset_samples(cog.physeq, Season != "Summer")
 test <- deSEQ(data=ss.physeq, valuetest= ~Season)
 spr <- which(test$log2FoldChange < 0)
 spr.cog <- rownames(test[spr,])
-  # "COG0183" "COG0395" "COG0411" "COG0444" "COG0448" "COG0559" "COG1070" "COG1080" "COG1126" "COG1129" "COG1172" "COG1173" "COG1175" "COG1307" "COG1609" "COG1744" "COG1775" "COG1802" "COG1879" "COG2972" "COG3077" "COG3958" "COG3959" "COG4166" "COG4608" "COG4905"
+  # "COG0395" "COG0444" "COG1129" "COG1172" "COG1175" "COG3958" "COG3959" "COG4166"
 win <- which(test$log2FoldChange > 0)
 win.cog <- rownames(test[win,])
-  # "COG0243" "COG0437" "COG0457" "COG0810" "COG1409" "COG1538" "COG1596" "COG1629" "COG2885"
+  # "COG0243" "COG0437" "COG0457" "COG0810" "COG1538" "COG1596" "COG1629" "COG2885"
 
-# Active vs. Hibernation
-test <- deSEQ(data=sw.physeq, valuetest= ~SubSeason)
-act <- which(test$log2FoldChange < 0)
-act.cog <- rownames(test[act,])
-  # "COG0004" "COG0028" "COG0119" "COG0235" "COG0246" "COG0372" "COG0395" "COG0407" "COG0448" "COG0456" "COG0554" "COG0561" "COG0675" "COG0722" "COG0745" "COG0855" "COG1026" "COG1051" "COG1061" "COG1070" "COG1104" "COG1105" "COG1122" "COG1131" "COG1132" "COG1134" "COG1136" "COG1161" "COG1164" "COG1175" "COG1191" "COG1196" "COG1302" "COG1307" "COG1349" "COG1453" "COG1461" "COG1472" "COG1486" "COG1501" "COG1511" "COG1609" "COG1621" "COG1653" "COG1662" "COG1682" "COG1686" "COG1874" "COG1882" "COG1918" "COG1925" "COG1959" "COG2002" "COG2081" "COG2176" "COG2182" "COG2190" "COG2199" "COG2200" "COG2207" "COG2252" "COG2333" "COG2357" "COG2407" "COG2508" "COG2730" "COG2816" "COG2972" "COG3044" "COG3153" "COG3279" "COG3331" "COG3345" "COG3437" "COG3459" "COG3464" "COG3481" "COG3507" "COG3534" "COG3635" "COG3664" "COG3693" "COG3757" "COG3833" "COG3835" "COG3839" "COG3857" "COG3887" "COG3894" "COG3940" "COG3958" "COG3959" "COG3981" "COG4166" "COG4189" "COG4209" "COG4284" "COG4465" "COG4468" "COG4485" "COG4509" "COG4626" "COG4709" "COG4753" "COG4805" "COG4870" "COG4962" "COG5023" "COG5412" "COG5578"
-hib <- which(test$log2FoldChange > 0)
-hib.cog <- rownames(test[hib,])
-  # "COG0156" "COG0457" "COG0612" "COG0760" "COG0767" "COG0795" "COG0810" "COG0811" "COG0841" "COG0845" "COG0848" "COG1043" "COG1409" "COG1452" "COG1463" "COG1538" "COG1596" "COG1629" "COG1663" "COG2885" "COG2982" "COG3176" "COG3203" "COG3468" "COG3525" "COG3637" "COG3712" "COG4566" "COG4775" "COG4783"
+# Fasting vs Feeding
+test <- deSEQ(data=sw.physeq, valuetest= ~Diet)
+fast <- which(test$log2FoldChange < 0)
+fast.cog <- rownames(test[fast,])
+  # "COG0156" "COG0247" "COG0339" "COG0457" "COG0612" "COG0659" "COG0760" "COG0767" "COG0774" "COG0776" "COG0795" "COG0810" "COG0811" "COG0841" "COG0845" "COG0847" "COG0848" "COG0859" "COG1043" "COG1137" "COG1409" "COG1452" "COG1463" "COG1538" "COG1566" "COG1596" "COG1629" "COG1663" "COG2067" "COG2095" "COG2259" "COG2814" "COG2825" "COG2834" "COG2885" "COG2982" "COG3169" "COG3176" "COG3187" "COG3203" "COG3468" "COG3525" "COG3637" "COG3712" "COG4105" "COG4409" "COG4566" "COG4775" "COG4783" "COG5010"
+feed <- which(test$log2FoldChange > 0)
+feed.cog <- rownames(test[feed,])
+  # "COG0004" "COG0028" "COG0246" "COG0372" "COG0395" "COG0407" "COG0448" "COG0456" "COG0554" "COG0561" "COG0675" "COG0722" "COG0745" "COG0855" "COG1026" "COG1061" "COG1070" "COG1104" "COG1105" "COG1131" "COG1132" "COG1134" "COG1136" "COG1175" "COG1302" "COG1307" "COG1349" "COG1461" "COG1472" "COG1511" "COG1609" "COG1621" "COG1653" "COG1662" "COG1686" "COG1874" "COG1882" "COG1925" "COG2182" "COG2190" "COG2199" "COG2200" "COG2207" "COG2252" "COG2357" "COG2407" "COG2508" "COG2730" "COG2972" "COG3044" "COG3279" "COG3331" "COG3345" "COG3437" "COG3459" "COG3481" "COG3507" "COG3534" "COG3635" "COG3664" "COG3693" "COG3757" "COG3835" "COG3857" "COG3887" "COG3894" "COG3940" "COG3958" "COG3959" "COG4166" "COG4189" "COG4209" "COG4284" "COG4465" "COG4468" "COG4485" "COG4509" "COG4626" "COG4709" "COG4753" "COG4805" "COG4870" "COG5578"
 
 ### Identify Overrep COGs
-cog.act.id <- data.frame(act.cog)
-cog.act.id$ID <- NA
-for(i in 1:length(act.cog)){
-  test <- which(act.cog[i] == cog.3715[,1])
-  cog.act.id[i,2] <- cog.3715[test,2]
+cog.feed.id <- data.frame(feed.cog)
+cog.feed.id$ID <- NA
+for(i in 1:length(feed.cog)){
+  test <- which(feed.cog[i] == cog.3715[,1])
+  cog.feed.id[i,2] <- cog.3715[test,2]
 }
-#write.csv(cog.act.id, 'COG/cog.act.id.csv')
-cog.hib.id <- data.frame(hib.cog)
-for(i in 1:length(hib.cog)){
-  test <- which(hib.cog[i] == cog.3723[,1])
-  cog.hib.id[i,2] <- cog.3723[test,2]
+#write.csv(cog.feed.id, 'COG/cog.feed.id.csv')
+cog.fast.id <- data.frame(fast.cog)
+for(i in 1:length(fast.cog)){
+  test <- which(fast.cog[i] == cog.3723[,1])
+  cog.fast.id[i,2] <- cog.3723[test,2]
 }
-#write.csv(cog.hib.id, 'COG/cog.hib.id.csv')
+#write.csv(cog.fast.id, 'COG/cog.fast.id.csv')
 ```
 
 
 
 
-### COGBray-Curtis
+### COG Bray-Curtis
 ```{r}
 # Prepare physeq object
 cog.all <- read.csv('COG/cog_counts.csv')
@@ -1905,7 +1935,7 @@ anosim(cog.bray, meta$SubSeason, permutations=1000)
   # p-value = 0.1049
 ```
 
-### Pathway Jaccard
+### COG Jaccard
 ```{r}
 jac.cog <- ordinate(physeq=cog.physeq, method="NMDS", distance="jaccard")
   # stress = 0.04125187
@@ -1937,12 +1967,12 @@ anosim(cog.jac, cog.sampdf$Season, permutations=1000)
   # p-value = 0.14386
 ```
 
-### cogway SIMPER
+### COG SIMPER
 ```{r}
 ### Separate out pairw
 simper(cog.all.norm, group= meta$SubSeason)
 
-
+cog.all.norm.t <- data.frame(t(cog.all.norm))
 simper.pretty(cog.all.norm, metrics = meta, interesting = 'Season', perc_cutoff = 0.5, low_cutoff = 'y', low_val = 0.01, 'cog')
 
 cog.simper <- read.csv("cog_clean_simper.csv")

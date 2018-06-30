@@ -1832,3 +1832,122 @@ for(i in 1:length(hib.cog)){
 }
 #write.csv(cog.hib.id, 'COG/cog.hib.id.csv')
 ```
+
+
+
+
+### COGBray-Curtis
+```{r}
+# Prepare physeq object
+cog.all <- read.csv('COG/cog_counts.csv')
+row.names(cog.all) <- cog.all[,1]
+cog.all <- cog.all[,-1]
+colnames(cog.all) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv', fileEncoding="UTF-8-BOM")
+row.names(meta) <- meta[,1]
+
+cog.class <- read.csv('COG/cog_classification.csv')
+row.names(cog.class) <- cog.class[,1]
+#class <- class[,-1]
+
+### Normalize
+norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
+cog.all.norm <- path
+for(i in 1:9){
+  cog.all.norm[,i] <- round(cog.all.norm[,i]*norm.factor[i,1])
+}
+# Remove pathways = 0
+for(i in 1:nrow(cog.all.norm)){
+  print(sum(cog.all.norm[i,]))
+}
+  # All > 0
+
+# Prepare phyloseq object
+cog.otu <- otu_table(cog.all, taxa_are_rows = T)
+cog.samp <- sample_data(meta)
+rownames(cog.class) <- cog.class[,1]
+cog.tax <- tax_table(cog.class)
+row.names(cog.tax) <- row.names(cog.class)
+cog.physeq <- merge_phyloseq(cog.otu, cog.samp, cog.tax)
+
+
+nmds.cog <- ordinate(physeq=cog.physeq, method="NMDS", distance="bray")
+  # stress = 0.04563243 
+
+plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Season")
+plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="SubSeason")
+
+### PERMANOVA
+cog.sampdf <- data.frame(sample_data(cog.physeq))
+cog.bray<- phyloseq::distance(physeq=cog.physeq, method="bray")
+
+## Season
+adonis(cog.bray~ Season, data=cog.sampdf)
+  # p-value = 0.164
+beta.tax = betadisper(d=cog.bray, group=cog.sampdf$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.877
+
+## Diet
+adonis(cog.bray~ SubSeason, data=cog.sampdf)
+  # p-value = 0.237
+beta.tax = betadisper(d=cog.bray, group=cog.sampdf$SubSeason)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.426
+
+### ANOSIM
+anosim(cog.bray, meta$Season, permutations=1000)
+  # p-value = 0.1852
+anosim(cog.bray, meta$SubSeason, permutations=1000)
+  # p-value = 0.1049
+```
+
+### Pathway Jaccard
+```{r}
+jac.cog <- ordinate(physeq=cog.physeq, method="NMDS", distance="jaccard")
+  # stress = 0.04125187
+plot_ordination(physeq=cog.physeq, ordination=jac.cog, color="Season")
+plot_ordination(physeq=cog.physeq, ordination=jac.cog, color="SubSeason")
+
+### PERMANOVA
+cog.sampdf <- data.frame(sample_data(cog.physeq))
+cog.jac <- phyloseq::distance(physeq=cog.physeq, method="jaccard")
+
+## Season
+adonis(cog.jac~ Season, data=cog.sampdf)
+  # p-value = 0.148
+beta.tax = betadisper(d=cog.jac, group=cog.sampdf$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.867
+
+## Diet
+adonis(cog.jac~ SubSeason, data=cog.sampdf)
+  # p-value = 0.17
+beta.tax = betadisper(d=cog.jac, group=cog.sampdf$SubSeason)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.398
+
+### ANOSIM
+anosim(cog.jac, cog.sampdf$Season, permutations=1000)
+  # p-value = 0.14386
+```
+
+### cogway SIMPER
+```{r}
+### Separate out pairw
+simper(cog.all.norm, group= meta$SubSeason)
+
+
+simper.pretty(cog.all.norm, metrics = meta, interesting = 'Season', perc_cutoff = 0.5, low_cutoff = 'y', low_val = 0.01, 'cog')
+
+cog.simper <- read.csv("cog_clean_simper.csv")
+
+kruskal.pretty(otu = cog.all.norm, metrics = meta, csv = cog.simper, interesting = 'Season', output_name = 'cog.kw')
+
+cog.simper.kw <- read.csv("cog.kw_krusk_simper.csv")
+```

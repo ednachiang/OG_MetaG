@@ -1435,3 +1435,99 @@ kruskal.pretty(otu = fam.norm, metrics = meta, csv =  fam.simper, interesting = 
 
 fam.simper.kw <- read.csv("fam.kw_krusk_simper.csv")
 ```
+
+### COG Functional Groups
+```{r}
+cog.fun <- read.csv("COG/cog_func.csv")
+rownames(cog.fun) <- cog.fun[,1]
+cog.fun <- cog.fun[,-1]
+colnames(cog.fun) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv', fileEncoding="UTF-8-BOM")
+row.names(meta) <- meta[,1]
+
+### Normalize
+norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
+cog.fun.norm <- cog.fun
+for(i in 1:9){
+  cog.fun.norm[,i] <- round(cog.fun.norm[,i]*norm.factor[i,1])
+}
+# Remove pathways = 0
+for(i in 1:nrow(cog.fun.norm)){
+  print(sum(cog.fun.norm[i,]))
+}
+  # All > 0
+
+### Summarize
+cog.fun.norm.t <- data.frame(t(cog.fun.norm))
+sum.cog <- cog.fun.norm.t[which(meta$Season == "Summer"),]
+for(i in 1:(ncol(sum.cog))){
+  sum.cog[4,i] <- sum(sum.cog[1:3,i])/3
+  sum.cog[5,i] <- sd(sum.cog[1:3,i])
+  sum.cog[6,i] <- sd(sum.cog[1:3,i])/(sqrt(3))
+}
+rownames(sum.cog)[4:6] <- c("Mean", "SD", "SE")
+spr.cog <- cog.fun.norm.t[which(meta$Season == "Spring"),]
+for(i in 1:(ncol(spr.cog))){
+  spr.cog[4,i] <- sum(spr.cog[1:3,i])/3
+  spr.cog[5,i] <- sd(spr.cog[1:3,i])
+  spr.cog[6,i] <- sd(spr.cog[1:3,i])/(sqrt(3))
+}
+rownames(spr.cog)[4:6] <- c("Mean", "SD", "SE")
+win.cog <- cog.fun.norm.t[which(meta$Season == "Winter"),]
+for(i in 1:(ncol(win.cog))){
+  win.cog[4,i] <- sum(win.cog[1:3,i])/3
+  win.cog[5,i] <- sd(win.cog[1:3,i])
+  win.cog[6,i] <- sd(win.cog[1:3,i])/(sqrt(3))
+}
+rownames(win.cog)[4:6] <- c("Mean", "SD", "SE")
+cog.sum <- sum.cog[4:6,]
+cog.sum[4:6,] <- win.cog[4:6,]
+cog.sum[7:9,] <- spr.cog[4:6,]
+colnames(cog.sum) <- colnames(sum.cog)
+rownames(cog.sum) <- c("Summer Mean", "Summer SD", "Summer SE", "Winter Mean", "Winter SD", "Winter SE", "Spring Mean", "Spring SD", "Spring SE")
+
+
+### Check for Normal distribution
+norm.pvals <- data.frame(rep(999, 25))
+for(i in 1:(ncol(cog.fun.norm))){
+  temp.test <- shapiro.test(cog.fun.norm[,i])
+  norm.pvals[i,1] <- temp.test$p.value
+  rownames(norm.pvals)[i] <- colnames(cog.fun.norm)[i]
+}
+length(which(norm.pvals[,1] < 0.06))
+rownames(norm.pvals)[which(norm.pvals[,1] < 0.06)]
+  # 3733, 3734, 3744, and 3773 aren't normal
+
+### Overall Summary
+cog.fun.sum <- data.frame(999)
+for(i in 1:(ncol(cog.fun.norm.t))){
+  cog.fun.sum[1,i] <- sum(cog.fun.norm.t[1:ncol(cog.fun.norm.t),i])/9
+  cog.fun.sum[2,i] <- sd(cog.fun.norm.t[1:ncol(cog.fun.norm.t),i])
+  cog.fun.sum[3,i] <- sd(cog.fun.norm.t[1:ncol(cog.fun.norm.t),i])/(sqrt(9))
+}
+colnames(cog.fun.sum) <- colnames(cog.fun.norm.t)[1:25]
+rownames(cog.fun.sum) <- c("Mean", "SD", "SE")
+
+### Kruskal-Wallis
+# Seasons
+cog.fun.pvals <- data.frame(rep(999, 25))
+for(i in 1:(ncol(cog.fun.norm.t))){
+  temp.kw <- kruskal.test(formula = cog.fun.norm.t[,i] ~ meta$Season, data=cog.fun.norm.t)
+  cog.fun.pvals[i,1] <- temp.kw[3]
+  rownames(cog.fun.pvals)[i] <- colnames(cog.fun.norm.t)[i]
+}
+sig <- rownames(cog.fun.pvals)[which(cog.fun.pvals[,1] < 0.06)]
+  # None
+
+# Active vs. Hib
+cog.fun.pvals <- data.frame(rep(999, 25))
+for(i in 1:(ncol(cog.fun.norm.t))){
+  temp.kw <- kruskal.test(formula = cog.fun.norm.t[,i] ~ meta$SubSeason, data=cog.fun.norm.t)
+  cog.fun.pvals[i,1] <- temp.kw[3]
+  rownames(cog.fun.pvals)[i] <- colnames(cog.fun.norm.t)[i]
+}
+sig <- rownames(cog.fun.pvals)[which(cog.fun.pvals[,1] < 0.06)]
+
+
+```

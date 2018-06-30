@@ -1,0 +1,51 @@
+act.cog,ID,Function_ID,Function,Season
+COG0246,Mannitol-1-phosphate/altronate dehydrogenases,G,Carbohydrate transport and metabolism,Active
+COG0395,"ABC-type sugar transport system, permease component",G,Carbohydrate transport and metabolism,Active
+COG0561,Predicted hydrolases of the HAD superfamily,R,General function prediction only,Active
+COG0675,Transposase and inactivated derivatives,L,"Replication, recombination and repair",Active
+COG0722,3-deoxy-D-arabino-heptulosonate 7-phosphate (DAHP) synthase,E,Amino acid transport and metabolism,Active
+COG1026,"Predicted Zn-dependent peptidases, insulinase-like",R,General function prediction only,Active
+COG1061,DNA or RNA helicases of superfamily II,KL,"Transcription; Replication, recombination and repair",Active
+COG1070,Sugar (pentulose and hexulose) kinases,G,Carbohydrate transport and metabolism,Active
+COG1104,Cysteine sulfinate desulfinase/cysteine desulfurase and related enzymes,E,Amino acid transport and metabolism,Active
+COG1105,Fructose-1-phosphate kinase and related fructose-6-phosphate kinase (PfkB),G,Carbohydrate transport and metabolism,Active
+COG1131,"ABC-type multidrug transport system, ATPase component",V,Defense mechanisms,Active
+COG1132,"ABC-type multidrug transport system, ATPase and permease components",V,Defense mechanisms,Active
+COG1175,"ABC-type sugar transport systems, permease components",G,Carbohydrate transport and metabolism,Active
+COG1307,Uncharacterized protein conserved in bacteria,S,Function unknown,Active
+COG1349,Transcriptional regulators of sugar metabolism,KG,Transcription; Carbohydrate transport and metabolism,Active
+COG1472,Beta-glucosidase-related glycosidases,G,Carbohydrate transport and metabolism,Active
+COG1511,Predicted membrane protein,S,Function unknown,Active
+COG1609,Transcriptional regulators,K,Transcription,Active
+COG1621,Beta-fructosidases (levanase/invertase),G,Carbohydrate transport and metabolism,Active
+COG1653,"ABC-type sugar transport system, periplasmic component",G,Carbohydrate transport and metabolism,Active
+COG1874,Beta-galactosidase,G,Carbohydrate transport and metabolism,Active
+COG1882,Pyruvate-formate lyase,C,"Cell cycle control, cell division, chromosome partitioning",Active
+COG1925,"Phosphotransferase system, HPr-related proteins",G,Carbohydrate transport and metabolism,Active
+COG2182,Maltose-binding periplasmic proteins/domains,G,Carbohydrate transport and metabolism,Active
+COG2190,Phosphotransferase system IIA components,G,Carbohydrate transport and metabolism,Active
+COG2199,FOG: GGDEF domain,T,Transcription,Active
+COG2200,FOG: EAL domain,T,Transcription,Active
+COG2357,Uncharacterized protein conserved in bacteria,S,Function unknown,Active
+COG2407,L-fucose isomerase and related proteins,G,Carbohydrate transport and metabolism,Active
+COG2730,Endoglucanase,G,Carbohydrate transport and metabolism,Active
+COG2972,Predicted signal transduction protein with a C-terminal ATPase domain,T,Transcription,Active
+COG3044,Predicted ATPase of the ABC class,R,General function prediction only,Active
+COG3507,Beta-xylosidase,G,Carbohydrate transport and metabolism,Active
+COG3534,Alpha-L-arabinofuranosidase,G,Carbohydrate transport and metabolism,Active
+COG3693,"Beta-1,4-xylanase",G,Carbohydrate transport and metabolism,Active
+COG3757,"Lyzozyme M1 (1,4-beta-N-acetylmuramidase)",M,Cell wall/membrane/envelope biogenesis,Active
+COG3857,"ATP-dependent nuclease, subunit B",L,"Replication, recombination and repair",Active
+COG3887,Predicted signaling protein consisting of a modified GGDEF domain and a DHH domain,T,Transcription,Active
+COG4209,"ABC-type polysaccharide transport system, permease component",G,Carbohydrate transport and metabolism,Active
+COG4485,Predicted membrane protein,S,Function unknown,Active
+COG4509,Uncharacterized protein conserved in bacteria,S,Function unknown,Active
+COG4709,Predicted membrane protein,S,Function unknown,Active
+COG5578,Predicted integral membrane protein,S,Function unknown,Active
+COG1538,Outer membrane protein,MU,"Cell wall/membrane/envelope biogenesis; Intracellular trafficking, secretion, and vesicular transport",Hibernation
+COG1629,"Outer membrane receptor proteins, mostly Fe transport",P,Inorganic ion transport and metabolism,Hibernation
+COG2885,Outer membrane protein and related peptidoglycan-associated (lipo)proteins,M,Cell wall/membrane/envelope biogenesis,Hibernation
+COG3203,Outer membrane protein (porin),M,Cell wall/membrane/envelope biogenesis,Hibernation
+COG3525,N-acetyl-beta-hexosaminidase,G,Carbohydrate transport and metabolism,Hibernation
+COG3712,"Fe2+-dicitrate sensor, membrane component",PT,Inorganic ion transport and metabolism; Transcription,Hibernation
+COG4775,Outer membrane protein/protective antigen OMA87,M,Cell wall/membrane/envelope biogenesis,Hibernation

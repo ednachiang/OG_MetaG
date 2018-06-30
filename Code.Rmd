@@ -25,11 +25,11 @@ set.seed(1)
 ### Load Functions
 ```{r}
 ### DESeq2
-deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.01){
+deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.05){
   data_pruned <- prune_taxa(taxa_sums(data) > cutoff, data)
   de_data <- phyloseq_to_deseq2(data_pruned, valuetest)
   de_data2 <- DESeq(de_data, test="Wald", fitType="local")
-  res_data <- results(de_data2, cooksCutoff = FALSE)
+  res_data <- results(de_data2, cooksCutoff = FALSE, pAdjustMethod = "BH")
   sig_data <- res_data[which(res_data$padj < alpha), ]
   sigtab_sherm <- cbind(as(sig_data, "data.frame"), as(tax_table(data_pruned)[rownames(sig_data), ], "matrix"))
 }
@@ -1533,8 +1533,10 @@ sig <- rownames(cog.fun.pvals)[which(cog.fun.pvals[,1] < 0.06)]
 ```
 
 
-### COG Counts
+### COG Count Prep
 ```{r}
+### Count Counts
+# Load tables
 cog.3715 <- read.table("COG/3715.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
 cog.3717 <- read.table("COG/3717.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
 cog.3723 <- read.table("COG/3723.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
@@ -1545,11 +1547,10 @@ cog.3772 <- read.table("COG/3772.results/cog_stats.txt", sep="\t", quote="", str
 cog.3773 <- read.table("COG/3773.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
 cog.3775 <- read.table("COG/3775.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
 
+# Create COG count table
 cog.names <- paste(c(cog.3715[,1], cog.3717[,1], cog.3723[,1], cog.3733[,1], cog.3734[,1], cog.3744[,1], cog.3772[,1], cog.3773[,1], cog.3775[,1]))
 cog.uniq <- unique(cog.names)
-
 cog.all <- data.frame(cog.uniq)
-
 for(i in 1:nrow(cog.3715)){
   test <- which(cog.all[,1] == cog.3715[i,1])
   cog.all[test,2] <- cog.3715[i,3]
@@ -1586,10 +1587,248 @@ for(i in 1:nrow(cog.3775)){
   test <- which(cog.all[,1] == cog.3775[i,1])
   cog.all[test,10] <- cog.3775[i,3]
 }
-
 rownames(cog.all) <- cog.all[,1]
 cog.all <- cog.all[,-1]
 colnames(cog.all) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.all[is.na(cog.all)] <- 0
+  # Replaces all NA's w/ 0
 
+
+# Save COG count table
 #write.csv(cog.all, "COG/cog_counts.csv")
+
+### Create COG Classification table
+# Temp version
+cog.class <- data.frame(cog.uniq)
+#write.csv(cog.class, "COG/cog_classification.csv")
+
+
+# Load tables
+cog.prot.3715 <- read.table("COG/3715.results/protein-id_cog.edit.txt", sep="\t", quote="", stringsAsFactors = F, na = NA)
+test <- unique(cog.prot.3715)
+test1 <- cog.prot.3715[,2]
+test2 <- which(rownames(cog.all) == test1[1])
+test3 <- cog.all
+
+cog..prot.3717 <- read.table("COG/3717.results/protein-id_cog.txt", sep="\t", quote="", stringsAsFactors = F)
+cog..prot.3723 <- read.table("COG/3723.results/protein-id_cog.txt", sep="\t", quote="", stringsAsFactors = F)
+cog..prot.3733 <- read.table("COG/3733.results/protein-id_cog.txt", sep="\t", quote="", stringsAsFactors = F)
+cog..prot.3734 <- read.table("COG/3734.results/protein-id_cog.txt", sep="\t", quote="", stringsAsFactors = F)
+cog..prot.3744 <- read.table("COG/3744.results/protein-id_cog.txt", sep="\t", quote="", stringsAsFactors = F)
+cog..prot.3772 <- read.table("COG/3772.results/protein-id_cog.txt", sep="\t", quote="", stringsAsFactors = F)
+cog..prot.3773 <- read.table("COG/3773.results/protein-id_cog.txt", sep="\t", quote="", stringsAsFactors = F)
+cog..prot.3775 <- read.table("COG/3775.results/protein-id_cog.txt", sep="\t", quote="", stringsAsFactors = F)
+```
+
+### COG Kendall Correlation
+```{r}
+cog.all <- read.csv('COG/cog_counts.csv')
+row.names(cow.all) <- cog.all[,1]
+cog.all <- cog.all[,-1]
+colnames(cog.all) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv', fileEncoding="UTF-8-BOM")
+row.names(meta) <- meta[,1]
+
+class <- read.csv('COG_cog_classification.csv')
+row.names(class) <- class[,1]
+#class <- class[,-1]
+
+### Normalize
+norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
+cog.all.norm <- cog.all
+for(i in 1:9){
+  cog.all.norm[,i] <- round(cog.all.norm[,i]*norm.factor[i,1])
+}
+# Remove pathways = 0
+for(i in 1:nrow(cog.all.norm)){
+  print(sum(cog.all.norm[i,]))
+}
+  # All > 0
+
+### Calculate proportions
+cog.all.prop <- cog.all.norm
+for(i in 1:9){
+  cog.all.prop[,i] <- (cog.all.prop[,i] / colSums(cog.all.prop)[i])
+}
+rem <- which(rowSums(cog.all.prop) < 0.001)
+cog.all.prop <- cog.all.prop[-rem,]
+
+cog.kend <- data.frame(c(3715, 3717, 3723, 3733, 3734, 3744, 3772, 3773, 3775))
+rownames(cog.kend) <- cog.kend[,1]
+cog.kend[,2:9] <- NA
+colnames(cog.kend) <- cog.kend[,1]
+cog.kend[,1] <- NA
+
+cog.kend[1,1] <- cor(cog.all.prop[,1], cog.all.prop[,1], method = "kendall")
+cog.kend[1,2] <- cor(cog.all.prop[,1], cog.all.prop[,2], method = "kendall")
+cog.kend[1,3] <- cor(cog.all.prop[,1], cog.all.prop[,3], method = "kendall")
+cog.kend[1,4] <- cor(cog.all.prop[,1], cog.all.prop[,4], method = "kendall")
+cog.kend[1,5] <- cor(cog.all.prop[,1], cog.all.prop[,5], method = "kendall")
+cog.kend[1,6] <- cor(cog.all.prop[,1], cog.all.prop[,6], method = "kendall")
+cog.kend[1,7] <- cor(cog.all.prop[,1], cog.all.prop[,7], method = "kendall")
+cog.kend[1,8] <- cor(cog.all.prop[,1], cog.all.prop[,8], method = "kendall")
+cog.kend[1,9] <- cor(cog.all.prop[,1], cog.all.prop[,9], method = "kendall")
+cog.kend[2,1] <- cor(cog.all.prop[,2], cog.all.prop[,1], method = "kendall")
+cog.kend[2,2] <- cor(cog.all.prop[,2], cog.all.prop[,2], method = "kendall")
+cog.kend[2,3] <- cor(cog.all.prop[,2], cog.all.prop[,3], method = "kendall")
+cog.kend[2,4] <- cor(cog.all.prop[,2], cog.all.prop[,4], method = "kendall")
+cog.kend[2,5] <- cor(cog.all.prop[,2], cog.all.prop[,5], method = "kendall")
+cog.kend[2,6] <- cor(cog.all.prop[,2], cog.all.prop[,6], method = "kendall")
+cog.kend[2,7] <- cor(cog.all.prop[,2], cog.all.prop[,7], method = "kendall")
+cog.kend[2,8] <- cor(cog.all.prop[,2], cog.all.prop[,8], method = "kendall")
+cog.kend[2,9] <- cor(cog.all.prop[,2], cog.all.prop[,9], method = "kendall")
+cog.kend[3,1] <- cor(cog.all.prop[,3], cog.all.prop[,1], method = "kendall")
+cog.kend[3,2] <- cor(cog.all.prop[,3], cog.all.prop[,2], method = "kendall")
+cog.kend[3,3] <- cor(cog.all.prop[,3], cog.all.prop[,3], method = "kendall")
+cog.kend[3,4] <- cor(cog.all.prop[,3], cog.all.prop[,4], method = "kendall")
+cog.kend[3,5] <- cor(cog.all.prop[,3], cog.all.prop[,5], method = "kendall")
+cog.kend[3,6] <- cor(cog.all.prop[,3], cog.all.prop[,6], method = "kendall")
+cog.kend[3,7] <- cor(cog.all.prop[,3], cog.all.prop[,7], method = "kendall")
+cog.kend[3,8] <- cor(cog.all.prop[,3], cog.all.prop[,8], method = "kendall")
+cog.kend[3,9] <- cor(cog.all.prop[,3], cog.all.prop[,9], method = "kendall")
+cog.kend[4,1] <- cor(cog.all.prop[,4], cog.all.prop[,1], method = "kendall")
+cog.kend[4,2] <- cor(cog.all.prop[,4], cog.all.prop[,2], method = "kendall")
+cog.kend[4,3] <- cor(cog.all.prop[,4], cog.all.prop[,3], method = "kendall")
+cog.kend[4,4] <- cor(cog.all.prop[,4], cog.all.prop[,4], method = "kendall")
+cog.kend[4,5] <- cor(cog.all.prop[,4], cog.all.prop[,5], method = "kendall")
+cog.kend[4,6] <- cor(cog.all.prop[,4], cog.all.prop[,6], method = "kendall")
+cog.kend[4,7] <- cor(cog.all.prop[,4], cog.all.prop[,7], method = "kendall")
+cog.kend[4,8] <- cor(cog.all.prop[,4], cog.all.prop[,8], method = "kendall")
+cog.kend[4,9] <- cor(cog.all.prop[,4], cog.all.prop[,9], method = "kendall")
+cog.kend[5,1] <- cor(cog.all.prop[,5], cog.all.prop[,1], method = "kendall")
+cog.kend[5,2] <- cor(cog.all.prop[,5], cog.all.prop[,2], method = "kendall")
+cog.kend[5,3] <- cor(cog.all.prop[,5], cog.all.prop[,3], method = "kendall")
+cog.kend[5,4] <- cor(cog.all.prop[,5], cog.all.prop[,4], method = "kendall")
+cog.kend[5,5] <- cor(cog.all.prop[,5], cog.all.prop[,5], method = "kendall")
+cog.kend[5,6] <- cor(cog.all.prop[,5], cog.all.prop[,6], method = "kendall")
+cog.kend[5,7] <- cor(cog.all.prop[,5], cog.all.prop[,7], method = "kendall")
+cog.kend[5,8] <- cor(cog.all.prop[,5], cog.all.prop[,8], method = "kendall")
+cog.kend[5,9] <- cor(cog.all.prop[,5], cog.all.prop[,9], method = "kendall")
+cog.kend[6,1] <- cor(cog.all.prop[,6], cog.all.prop[,1], method = "kendall")
+cog.kend[6,2] <- cor(cog.all.prop[,6], cog.all.prop[,2], method = "kendall")
+cog.kend[6,3] <- cor(cog.all.prop[,6], cog.all.prop[,3], method = "kendall")
+cog.kend[6,4] <- cor(cog.all.prop[,6], cog.all.prop[,4], method = "kendall")
+cog.kend[6,5] <- cor(cog.all.prop[,6], cog.all.prop[,5], method = "kendall")
+cog.kend[6,6] <- cor(cog.all.prop[,6], cog.all.prop[,6], method = "kendall")
+cog.kend[6,7] <- cor(cog.all.prop[,6], cog.all.prop[,7], method = "kendall")
+cog.kend[6,8] <- cor(cog.all.prop[,6], cog.all.prop[,8], method = "kendall")
+cog.kend[6,9] <- cor(cog.all.prop[,6], cog.all.prop[,9], method = "kendall")
+cog.kend[7,1] <- cor(cog.all.prop[,7], cog.all.prop[,1], method = "kendall")
+cog.kend[7,2] <- cor(cog.all.prop[,7], cog.all.prop[,2], method = "kendall")
+cog.kend[7,3] <- cor(cog.all.prop[,7], cog.all.prop[,3], method = "kendall")
+cog.kend[7,4] <- cor(cog.all.prop[,7], cog.all.prop[,4], method = "kendall")
+cog.kend[7,5] <- cor(cog.all.prop[,7], cog.all.prop[,5], method = "kendall")
+cog.kend[7,6] <- cor(cog.all.prop[,7], cog.all.prop[,6], method = "kendall")
+cog.kend[7,7] <- cor(cog.all.prop[,7], cog.all.prop[,7], method = "kendall")
+cog.kend[7,8] <- cor(cog.all.prop[,7], cog.all.prop[,8], method = "kendall")
+cog.kend[7,9] <- cor(cog.all.prop[,7], cog.all.prop[,9], method = "kendall")
+cog.kend[8,1] <- cor(cog.all.prop[,8], cog.all.prop[,1], method = "kendall")
+cog.kend[8,2] <- cor(cog.all.prop[,8], cog.all.prop[,2], method = "kendall")
+cog.kend[8,3] <- cor(cog.all.prop[,8], cog.all.prop[,3], method = "kendall")
+cog.kend[8,4] <- cor(cog.all.prop[,8], cog.all.prop[,4], method = "kendall")
+cog.kend[8,5] <- cor(cog.all.prop[,8], cog.all.prop[,5], method = "kendall")
+cog.kend[8,6] <- cor(cog.all.prop[,8], cog.all.prop[,6], method = "kendall")
+cog.kend[8,7] <- cor(cog.all.prop[,8], cog.all.prop[,7], method = "kendall")
+cog.kend[8,8] <- cor(cog.all.prop[,8], cog.all.prop[,8], method = "kendall")
+cog.kend[8,9] <- cor(cog.all.prop[,8], cog.all.prop[,9], method = "kendall")
+cog.kend[9,1] <- cor(cog.all.prop[,9], cog.all.prop[,1], method = "kendall")
+cog.kend[9,2] <- cor(cog.all.prop[,9], cog.all.prop[,2], method = "kendall")
+cog.kend[9,3] <- cor(cog.all.prop[,9], cog.all.prop[,3], method = "kendall")
+cog.kend[9,4] <- cor(cog.all.prop[,9], cog.all.prop[,4], method = "kendall")
+cog.kend[9,5] <- cor(cog.all.prop[,9], cog.all.prop[,5], method = "kendall")
+cog.kend[9,6] <- cor(cog.all.prop[,9], cog.all.prop[,6], method = "kendall")
+cog.kend[9,7] <- cor(cog.all.prop[,9], cog.all.prop[,7], method = "kendall")
+cog.kend[9,8] <- cor(cog.all.prop[,9], cog.all.prop[,8], method = "kendall")
+cog.kend[9,9] <- cor(cog.all.prop[,9], cog.all.prop[,9], method = "kendall")
+
+#write.table(cog.kend, file="COG/cog.kendall.txt", sep="\t")
+```
+
+### COG UPGMA
+```{r}
+cog.kend.fix <- cog.kend
+cog.kend.fix[1,1] <- 0
+cog.kend.fix[2,2] <- 0
+cog.kend.fix[3,3] <- 0
+cog.kend.fix[4,4] <- 0
+cog.kend.fix[5,5] <- 0
+cog.kend.fix[6,6] <- 0
+cog.kend.fix[7,7] <- 0
+cog.kend.fix[8,8] <- 0
+cog.kend.fix[9,9] <- 0
+cog.upgma <- upgma(cog.kend.fix)
+plot(cog.upgma)
+
+
+cog.nj <- NJ(data.frame(cog.kend.fix))
+```
+### COG DESeq2
+```{r}
+##### DESeq
+# Use UN-NORMALIZED data!!!
+# DESeq accounts for library size!!!
+
+# Prepare physeq object
+cog.otu <- otu_table(cog.all, taxa_are_rows = T)
+#cog.otu <- cog.otu + 1
+cog.samp <- sample_data(meta)
+rownames(cog.class) <- cog.class[,1]
+cog.tax <- tax_table(cog.class)
+row.names(cog.tax) <- row.names(cog.class)
+cog.physeq <- merge_phyloseq(cog.otu, cog.samp, cog.tax)
+
+# Summer vs. Winter
+sw.physeq <- subset_samples(cog.physeq, Season != "Spring")
+test <- deSEQ(data=sw.physeq, valuetest= ~Season)
+sum <- which(test$log2FoldChange < 0)
+sum.cog <- rownames(test[sum,])
+  # "COG2207" "COG3507" "COG3693" "COG3866" "COG4677" "COG5021" "COG5434"
+win <- which(test$log2FoldChange > 0)
+win.cog <- rownames(test[win,])
+  # "COG3246"
+
+# Spring vs. Summer
+ss.physeq <- subset_samples(cog.physeq, Season != "Winter")
+test <- deSEQ(data=ss.physeq, valuetest= ~Season)
+spr <- which(test$log2FoldChange < 0)
+spr.cog <- rownames(test[spr,])
+  # "COG0183" "COG0395" "COG0411" "COG0444" "COG0448" "COG0559" "COG1070" "COG1080" "COG1126" "COG1129" "COG1172" "COG1173" "COG1175" "COG1307" "COG1609" "COG1744" "COG1775" "COG1802" "COG1879" "COG2972" "COG3077" "COG3958" "COG3959" "COG4166" "COG4608" "COG4905"
+sum <- which(test$log2FoldChange > 0)
+sum.cog <- rownames(test[sum,])
+  # "COG0243" "COG0437" "COG0457" "COG0810" "COG1409" "COG1538" "COG1596" "COG1629" "COG2885"
+
+# Spring vs. Winter
+sw.physeq <- subset_samples(cog.physeq, Season != "Summer")
+test <- deSEQ(data=ss.physeq, valuetest= ~Season)
+spr <- which(test$log2FoldChange < 0)
+spr.cog <- rownames(test[spr,])
+  # "COG0183" "COG0395" "COG0411" "COG0444" "COG0448" "COG0559" "COG1070" "COG1080" "COG1126" "COG1129" "COG1172" "COG1173" "COG1175" "COG1307" "COG1609" "COG1744" "COG1775" "COG1802" "COG1879" "COG2972" "COG3077" "COG3958" "COG3959" "COG4166" "COG4608" "COG4905"
+win <- which(test$log2FoldChange > 0)
+win.cog <- rownames(test[win,])
+  # "COG0243" "COG0437" "COG0457" "COG0810" "COG1409" "COG1538" "COG1596" "COG1629" "COG2885"
+
+# Active vs. Hibernation
+test <- deSEQ(data=sw.physeq, valuetest= ~SubSeason)
+act <- which(test$log2FoldChange < 0)
+act.cog <- rownames(test[act,])
+  # "COG0004" "COG0028" "COG0119" "COG0235" "COG0246" "COG0372" "COG0395" "COG0407" "COG0448" "COG0456" "COG0554" "COG0561" "COG0675" "COG0722" "COG0745" "COG0855" "COG1026" "COG1051" "COG1061" "COG1070" "COG1104" "COG1105" "COG1122" "COG1131" "COG1132" "COG1134" "COG1136" "COG1161" "COG1164" "COG1175" "COG1191" "COG1196" "COG1302" "COG1307" "COG1349" "COG1453" "COG1461" "COG1472" "COG1486" "COG1501" "COG1511" "COG1609" "COG1621" "COG1653" "COG1662" "COG1682" "COG1686" "COG1874" "COG1882" "COG1918" "COG1925" "COG1959" "COG2002" "COG2081" "COG2176" "COG2182" "COG2190" "COG2199" "COG2200" "COG2207" "COG2252" "COG2333" "COG2357" "COG2407" "COG2508" "COG2730" "COG2816" "COG2972" "COG3044" "COG3153" "COG3279" "COG3331" "COG3345" "COG3437" "COG3459" "COG3464" "COG3481" "COG3507" "COG3534" "COG3635" "COG3664" "COG3693" "COG3757" "COG3833" "COG3835" "COG3839" "COG3857" "COG3887" "COG3894" "COG3940" "COG3958" "COG3959" "COG3981" "COG4166" "COG4189" "COG4209" "COG4284" "COG4465" "COG4468" "COG4485" "COG4509" "COG4626" "COG4709" "COG4753" "COG4805" "COG4870" "COG4962" "COG5023" "COG5412" "COG5578"
+hib <- which(test$log2FoldChange > 0)
+hib.cog <- rownames(test[hib,])
+  # "COG0156" "COG0457" "COG0612" "COG0760" "COG0767" "COG0795" "COG0810" "COG0811" "COG0841" "COG0845" "COG0848" "COG1043" "COG1409" "COG1452" "COG1463" "COG1538" "COG1596" "COG1629" "COG1663" "COG2885" "COG2982" "COG3176" "COG3203" "COG3468" "COG3525" "COG3637" "COG3712" "COG4566" "COG4775" "COG4783"
+
+### Identify Overrep COGs
+cog.act.id <- data.frame(act.cog)
+cog.act.id$ID <- NA
+for(i in 1:length(act.cog)){
+  test <- which(act.cog[i] == cog.3715[,1])
+  cog.act.id[i,2] <- cog.3715[test,2]
+}
+#write.csv(cog.act.id, 'COG/cog.act.id.csv')
+cog.hib.id <- data.frame(hib.cog)
+for(i in 1:length(hib.cog)){
+  test <- which(hib.cog[i] == cog.3723[,1])
+  cog.hib.id[i,2] <- cog.3723[test,2]
+}
+#write.csv(cog.hib.id, 'COG/cog.hib.id.csv')
 ```

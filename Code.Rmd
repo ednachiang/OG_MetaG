@@ -844,12 +844,12 @@ row.names(path) <- path[,1]
 path <- path[,-1]
 colnames(path) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 
-meta <- read.csv('KEGG/metadata.csv', fileEncoding="UTF-8-BOM")
+meta <- read.csv('metadata.csv')
 row.names(meta) <- meta[,1]
 
-class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
-row.names(class) <- class[,1]
-class <- class[,-1]
+kegg.class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
+row.names(kegg.class) <- kegg.class[,1]
+kegg.class <- kegg.class[,-1]
 
 ### Normalize
 norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
@@ -866,18 +866,22 @@ for(i in 1:nrow(path.norm)){
 # Prepare phyloseq object
 path.otu <- otu_table(path.norm, taxa_are_rows = T)
 path.samp <- sample_data(meta)
-path.tax <- tax_table(class)
-row.names(path.tax) <- row.names(class)
+path.tax <- tax_table(kegg.class)
+row.names(path.tax) <- row.names(kegg.class)
 path.physeq <- merge_phyloseq(path.otu, path.samp, path.tax)
 
-nmds <- ordinate(physeq=path.physeq, method="NMDS", distance="bray")
+nmds.kegg <- ordinate(physeq=path.physeq, method="NMDS", distance="bray")
   # stress = 0.01481376
 
-plot_ordination(physeq=path.physeq, ordination=nmds, color="Season")
+plot_ordination(physeq=path.physeq, ordination=nmds.kegg, color="Season")
+plot_ordination(physeq=path.physeq, ordination=nmds.kegg, color="Diet")
+plot_ordination(physeq=path.physeq, ordination=nmds.kegg, color="Sex")
 
 ### PERMANOVA
 path.sampdf <- data.frame(sample_data(path.physeq))
 path.bray<- phyloseq::distance(physeq=path.physeq, method="bray")
+
+# Season
 adonis(path.bray~ Season, data=path.sampdf)
   # p-value = 0.333
 beta.tax = betadisper(d=path.bray, group=path.sampdf$Season)
@@ -885,20 +889,44 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.304
 
+# Diet
+adonis(path.bray~ Diet, data=path.sampdf)
+  # p-value = 0.515
+beta.tax = betadisper(d=path.bray, group=path.sampdf$Diet)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.368
+
+# Sex
+adonis(path.bray~ Sex, data=path.sampdf)
+  # p-value = 0.241
+beta.tax = betadisper(d=path.bray, group=path.sampdf$Sex)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.592
+
 ### ANOSIM
 anosim(path.bray, meta$Season, permutations=1000)
   # p-value = 0.13986
+anosim(path.bray, meta$Diet, permutations=1000)
+  # p-value =  0.50849
+anosim(path.bray, meta$Sex, permutations=1000)
+  # p-value = 0.52747
 ```
 
 ### Pathway Jaccard
 ```{r}
-jac <- ordinate(physeq=path.physeq, method="NMDS", distance="jaccard")
+jac.kegg <- ordinate(physeq=path.physeq, method="NMDS", distance="jaccard")
   # stress = 0.02570319
-plot_ordination(physeq=path.physeq, ordination=jac, color="Season")
+plot_ordination(physeq=path.physeq, ordination=jac.kegg, color="Season")
+plot_ordination(physeq=path.physeq, ordination=jac.kegg, color="Diet")
+plot_ordination(physeq=path.physeq, ordination=jac.kegg, color="Sex")
 
 ### PERMANOVA
 path.sampdf <- data.frame(sample_data(path.physeq))
 path.jac <- phyloseq::distance(physeq=path.physeq, method="jaccard")
+
+# Season
 adonis(path.jac~ Season, data=path.sampdf)
   # p-value = 0.235
 beta.tax = betadisper(d=path.jac, group=path.sampdf$Season)
@@ -906,23 +934,37 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.367
 
+# Diet
+adonis(path.jac~ Diet, data=path.sampdf)
+  # p-value = 0.456
+beta.tax = betadisper(d=path.jac, group=path.sampdf$Diet)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.372
+
+# Diet
+adonis(path.jac~ Sex, data=path.sampdf)
+  # p-value = 0.248
+beta.tax = betadisper(d=path.jac, group=path.sampdf$Sex)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.61
+
 ### ANOSIM
 anosim(path.jac, path.sampdf$Season, permutations=1000)
   # p-value = 0.14386
+anosim(path.jac, path.sampdf$Diet, permutations=1000)
+  # p-value = 0.5045
+anosim(path.jac, path.sampdf$Sex, permutations=1000)
+  # 0.52348
 ```
 
 ### Pathway SIMPER
 ```{r}
-### Separate out pairw
-simper(path.norm, path.sampdf$Season, permutations=100)
-
-simper.pretty(path.norm, metrics = meta, interesting = 'Season', perc_cutoff = 0.5, low_cutoff = 'y', low_val = 0.01, 'pathway')
-
-path.simper <- read.csv("pathway_clean_simper.csv")
-
-kruskal.pretty(otu = path.norm, metrics = meta, csv =  path.simper, interesting = 'Season', output_name = 'path.kw')
-
-path.simper.kw <- read.csv("path.kw_krusk_simper.csv")
+simper.pretty(path.norm, metrics = meta, interesting = c('Season','Diet', 'Sex'), perc_cutoff = 0.5, low_cutoff = 'y', low_val = 0.01, 'kegg')
+path.simper <- read.csv("kegg_clean_simper.csv")
+kruskal.pretty(otu = path.norm, metrics = meta, csv =  path.simper, interesting = c('Season','Diet', 'Sex'), output_name = 'kegg')
+path.simper.kw <- read.csv("kegg_krusk_simper.csv")
 ```
 
 ### Pathway DESeq
@@ -932,7 +974,6 @@ path.simper.kw <- read.csv("path.kw_krusk_simper.csv")
 # DESeq accounts for library size!!!
 
 # Prepare physeq object
-# Prepare physeq object
 path <- read.csv('KEGG/kegg_counts.csv', fileEncoding="UTF-8-BOM")
 row.names(path) <- path[,1]
 path <- path[,-1]
@@ -941,14 +982,14 @@ colnames(path) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "377
 meta <- read.csv('metadata.csv')
 row.names(meta) <- meta[,1]
 
-class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
-row.names(class) <- class[,1]
+kegg.class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
+row.names(kegg.class) <- kegg.class[,1]
 
 path.otu <- otu_table(path, taxa_are_rows = T)
-path.otu <- path.otu + 1
+#path.otu <- path.otu + 1
 path.samp <- sample_data(meta)
-path.tax <- tax_table(class)
-row.names(path.tax) <- row.names(class)
+path.tax <- tax_table(kegg.class)
+row.names(path.tax) <- row.names(kegg.class)
 path.physeq <- merge_phyloseq(path.otu, path.samp, path.tax)
 
 # Summer vs. Winter
@@ -956,7 +997,7 @@ sw.physeq <- subset_samples(path.physeq, Season != "Spring")
 test <- deSEQ(data=sw.physeq, valuetest= ~Season)
 sum <- which(test$log2FoldChange < 0)
 sum.path <- rownames(test[sum,])
-  # "ko03040" "ko04010" "ko04370" "ko04144" "ko04145" "ko04810"
+  # "ko04370" "ko04145"
 win <- which(test$log2FoldChange > 0)
 win.path <- rownames(test[win,])
 
@@ -965,27 +1006,62 @@ ss.physeq <- subset_samples(path.physeq, Season != "Winter")
 test <- deSEQ(data=ss.physeq, valuetest= ~Season)
 spr <- which(test$log2FoldChange < 0)
 spr.path <- rownames(test[spr,])
+  # "ko00650" "ko01051" "ko04122" "ko02010"
 sum <- which(test$log2FoldChange > 0)
 sum.path <- rownames(test[sum,])
-  # "ko00540" "ko00130"
+  # "ko00061" "ko00540" "ko00740" "ko00130"
 
 # Spring vs. Winter
 sw.physeq <- subset_samples(path.physeq, Season != "Summer")
 test <- deSEQ(data=ss.physeq, valuetest= ~Season)
 spr <- which(test$log2FoldChange < 0)
 spr.path <- rownames(test[spr,])
+  # "ko00650" "ko01051" "ko04122" "ko02010"
 win <- which(test$log2FoldChange > 0)
 win.path <- rownames(test[win,])
-  # "ko00540" "ko00130"
+  # "ko00061" "ko00540" "ko00740" "ko00130"
 
 # Feed vs Fast
 test <- deSEQ(data=path.physeq, valuetest= ~Diet)
 fast <- which(test$log2FoldChange < 0)
 fast.path <- rownames(test[spr,])
+  # "ko00040"
 feed <- which(test$log2FoldChange > 0)
 feed.path <- rownames(test[win,])
-  # "ko00540" "ko00130"
+  # "ko00190" "ko00940" "ko00405" "ko04145"
 
+### Identify Overrep kegg families
+kegg.feed.id <- data.frame(feed.path)
+for(i in 1:length(feed.path)){
+  test <- which(feed.path[i] == kegg.class[,1])
+  kegg.feed.id[i,2] <- kegg.class[test,2]
+  kegg.feed.id[i,3] <- kegg.class[test,3]
+  kegg.feed.id[i,4] <- kegg.class[test,4]
+}
+#write.csv(kegg.feed.id, 'KEGG/kegg.feed.id.csv')
+kegg.fast.id <- data.frame(fast.path[1])
+test <- which(fast.path[1] == kegg.class[,1])
+kegg.fast.id[1,2] <- kegg.class[test,2]
+kegg.fast.id[1,3] <- kegg.class[test,3]
+kegg.fast.id[1,4] <- kegg.class[test,4]
+#write.csv(kegg.fast.id, 'KEGG/kegg.fast.id.csv')
+  
+# for(i in 1:length(fast.path[1])){
+#   test <- which(fast.path[i] == kegg.class[,1])
+#   kegg.fast.id[i,2] <- kegg.class[test,2]
+#   kegg.fast.id[i,3] <- kegg.class[test,3]
+#   kegg.fast.id[i,4] <- kegg.class[test,4]
+# }
+#write.csv(kegg.fast.id, 'kegg/kegg.fast.id.csv')
+
+# Female vs Male
+test <- deSEQ(data=path.physeq, valuetest= ~Sex)
+fem <- which(test$log2FoldChange < 0)
+fem.path <- rownames(test[fem,])
+  # "ko00232" "ko03040" "ko03013" "ko03015" "ko03008" "ko04141" "ko03460" "ko04014" "ko04015" "ko04010" "ko04011" "ko04310" "ko04340" "ko04390" "ko04392" "ko04371" "ko04064" "ko04668" "ko04068" "ko04020" "ko04072" "ko04071" "ko04024" "ko04022" "ko04150" "ko04144" "ko04145" "ko04139" "ko04110" "ko04111" "ko04113" "ko04210" "ko04810"
+mal <- which(test$log2FoldChange > 0)
+mal.path <- rownames(test[mal,])
+  # "ko00190" "ko00940" "ko00405" "ko04145"
 ```
 
 
@@ -1319,11 +1395,23 @@ fam.nj <- NJ(data.frame(kend.fix))
 # DESeq accounts for library size!!!
 
 # Prepare physeq object
+fam.count <- read.csv("dbcan.fam.counts.csv")
+row.names(fam.count) <- fam.count[,1]
+fam.count <- fam.count[,-1]
+colnames(fam.count) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv')
+row.names(meta) <- meta[,1]
+
+fam.class <- read.csv('dbcan/classification.csv')
+row.names(fam.class) <- fam.class[,1]
+fam.class <- fam.class[,-1]
+
 fam.otu <- otu_table(fam.count, taxa_are_rows = T)
 fam.otu <- fam.otu + 1
 fam.samp <- sample_data(meta)
-fam.tax <- tax_table(class)
-row.names(fam.tax) <- row.names(class)
+fam.tax <- tax_table(fam.class)
+row.names(fam.tax) <- row.names(fam.class)
 fam.physeq <- merge_phyloseq(fam.otu, fam.samp, fam.tax)
 
 # Summer vs. Winter
@@ -1331,12 +1419,10 @@ sw.physeq <- subset_samples(fam.physeq, Season != "Spring")
 test <- deSEQ(data=sw.physeq, valuetest= ~Season)
 sum <- which(test$log2FoldChange < 0)
 sum.fam <- rownames(test[sum,])
-  # CE12
-  # GH115
-  # GH43
-  # PL1
+  # "CBM37" "CE12"  "GH115" "GH28"  "GH43"  "PL1"   "PL11"  "PL9"
 win <- which(test$log2FoldChange > 0)
 win.fam <- rownames(test[win,])
+  # "GH20" "GH33" "GH84"
 
 # Spring vs. Summer
 ss.physeq <- subset_samples(fam.physeq, Season != "Winter")
@@ -1346,8 +1432,6 @@ spr.fam <- rownames(test[spr,])
   # GH1
 sum <- which(test$log2FoldChange > 0)
 sum.fam <- rownames(test[sum,])
-  # ko00540
-  # ko00130
 
 # Spring vs. Winter
 sw.physeq <- subset_samples(fam.physeq, Season != "Summer")
@@ -1357,6 +1441,36 @@ spr.fam <- rownames(test[spr,])
   # GH1
 win <- which(test$log2FoldChange > 0)
 win.fam <- rownames(test[win,])
+
+# Fasting vs Feeding
+test <- deSEQ(data=fam.physeq, valuetest= ~Diet)
+fast <- which(test$log2FoldChange < 0)
+fast.fam <- rownames(test[fast,])
+  # "CBM32" "CBM44" "CE11"  "GH102" "GH103" "GH110" "GH16"  "GH20"  "GH33"  "GH84"  "GH85"  "GH89" 
+feed <- which(test$log2FoldChange > 0)
+feed.fam <- rownames(test[feed,])
+  # "CBM13" "CBM37" "CE12"  "GH105" "GH115" "GH25"  "GH28"  "GH32"  "GH39"  "GH42"  "GH43"  "GH51" "GH78"  "PL1"   "PL11"  "PL26" 
+
+### Identify Overrep dbCAN families
+dbcan.feed.id <- data.frame(feed.fam)
+for(i in 1:length(feed.fam)){
+  test <- which(feed.fam[i] == fam.class[,2])
+  dbcan.feed.id[i,2] <- fam.class[test,1]
+}
+#write.csv(dbcan.feed.id, 'dbcan/dbcan.feed.id.csv')
+dbcan.fast.id <- data.frame(fast.fam)
+for(i in 1:length(fast.fam)){
+  test <- which(fast.fam[i] == fam.class[,2])
+  dbcan.fast.id[i,2] <- fam.class[test,1]
+}
+#write.csv(dbcan.fast.id, 'dbcan/dbcan.fast.id.csv')
+
+# Female vs Male <-- STILL NEED TO RUN!!!
+test <- deSEQ(data=fam.physeq, valuetest= ~Sex)
+fem <- which(test$log2FoldChange < 0)
+fem.fam <- rownames(test[fem,])
+mal <- which(test$log2FoldChange > 0)
+mal.fam <- rownames(test[mal,])
 
 ```
 
@@ -1369,9 +1483,9 @@ fam.count <- fam.count[,-1]
 colnames(fam.count) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 meta <- read.csv('metadata.csv')
 row.names(meta) <- meta[,1]
-class <- read.csv('dbcan/classification.csv')
-row.names(class) <- class[,1]
-class <- class[,-1]
+fam.class <- read.csv('dbcan/classification.csv')
+row.names(fam.class) <- fam.class[,1]
+fam.class <- fam.class[,-1]
 
 ### Normalize
 norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
@@ -1388,19 +1502,22 @@ for(i in 1:nrow(fam.norm)){
 # Prepare phyloseq object
 fam.otu <- otu_table(fam.norm, taxa_are_rows = T)
 fam.samp <- sample_data(meta)
-fam.tax <- tax_table(class)
-row.names(fam.tax) <- row.names(class)
+fam.tax <- tax_table(fam.class)
+row.names(fam.tax) <- row.names(fam.class)
 fam.physeq <- merge_phyloseq(fam.otu, fam.samp, fam.tax)
 
 nmds <- ordinate(physeq=fam.physeq, method="NMDS", distance="bray")
-  # stress = 0.08476465
+  # stress = 0.07162816 
 
 plot_ordination(physeq=fam.physeq, ordination=nmds, color="Season")
+plot_ordination(physeq=fam.physeq, ordination=nmds, color="Diet")
 plot_ordination(physeq=fam.physeq, ordination=nmds, color="Sex")
 
 ### PERMANOVA
 fam.sampdf <- data.frame(sample_data(fam.physeq))
 fam.bray<- phyloseq::distance(physeq=fam.physeq, method="bray")
+
+# Season
 adonis(fam.bray~ Season, data=fam.sampdf)
   # p-value = 0.085
 beta.tax = betadisper(d=fam.bray, group=fam.sampdf$Season)
@@ -1408,9 +1525,27 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.701
 
+# Diet
+adonis(fam.bray~ Diet, data=fam.sampdf)
+  # p-value = 0.044
+beta.tax = betadisper(d=fam.bray, group=fam.sampdf$Diet)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.534
+
+# Sex
+adonis(fam.bray~ Sex, data=fam.sampdf)
+  # p-value = 0.833
+beta.tax = betadisper(d=fam.bray, group=fam.sampdf$Sex)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.313
+
 ### ANOSIM
 anosim(fam.bray, meta$Season, permutations=1000)
   # p-value = 0.014
+anosim(fam.bray, meta$Diet, permutations=1000)
+  # p-value = 0.050949
 anosim(fam.bray, meta$Sex, permutations=1000)
   # p-value = 0.76224
 
@@ -1418,15 +1553,18 @@ anosim(fam.bray, meta$Sex, permutations=1000)
 
 ### dbCAN Jaccard
 ```{r}
-jac <- ordinate(physeq=fam.physeq, method="NMDS", distance="jaccard")
+jac.dbcan <- ordinate(physeq=fam.physeq, method="NMDS", distance="jaccard")
   # stress = 0.08480145
-plot_ordination(physeq=fam.physeq, ordination=jac, color="Season")
-plot_ordination(physeq=fam.physeq, ordination=jac, color="Sex")
+plot_ordination(physeq=fam.physeq, ordination=jac.dbcan, color="Season")
+plot_ordination(physeq=fam.physeq, ordination=jac.dbcan, color="Diet")
+plot_ordination(physeq=fam.physeq, ordination=jac.dbcan, color="Sex")
 
 
 ### PERMANOVA
 fam.sampdf <- data.frame(sample_data(fam.physeq))
 fam.jac <- phyloseq::distance(physeq=fam.physeq, method="jaccard")
+
+# Season
 adonis(fam.jac~ Season, data=fam.sampdf)
   # p-value = 0.053
 beta.tax = betadisper(d=fam.jac, group=fam.sampdf$Season)
@@ -1434,9 +1572,27 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.643
 
+# Diet
+adonis(fam.jac~ Diet, data=fam.sampdf)
+  # p-value = 0.045
+beta.tax = betadisper(d=fam.jac, group=fam.sampdf$Diet)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.536
+
+# Sex
+adonis(fam.jac~ Sex, data=fam.sampdf)
+  # p-value = 0.779
+beta.tax = betadisper(d=fam.jac, group=fam.sampdf$Sex)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.267
+
 ### ANOSIM
 anosim(fam.jac, fam.sampdf$Season, permutations=1000)
   # p-value = 0.012987
+anosim(fam.jac, fam.sampdf$Diet, permutations=1000)
+  # p-value = 0.041958
 anosim(fam.jac, fam.sampdf$Sex, permutations=1000)
   # p-value = 0.78422
 
@@ -1444,14 +1600,13 @@ anosim(fam.jac, fam.sampdf$Sex, permutations=1000)
 
 ### dbCAN SIMPER
 ```{r}
-### Separate out pairw
-simper.pretty(fam.norm, metrics = meta, interesting = 'Season', perc_cutoff = 0.5, low_cutoff = 'y', low_val = 0.01, 'dbcan.fam')
+simper.pretty(fam.norm, metrics = meta, interesting = c('Season', 'Diet', 'Sex'), perc_cutoff = 0.5, low_cutoff = 'y', low_val = 0.01, 'dbcan')
 
-fam.simper <- read.csv("dbcan.fam_clean_simper.csv")
+dbcan.simper <- read.csv("dbcan_clean_simper.csv")
 
-kruskal.pretty(otu = fam.norm, metrics = meta, csv =  fam.simper, interesting = 'Season', output_name = 'fam.kw')
+kruskal.pretty(otu = fam.norm, metrics = meta, csv =  dbcan.simper, interesting = c('Season', 'Diet', 'Sex'), output_name = 'dbcan')
 
-fam.simper.kw <- read.csv("fam.kw_krusk_simper.csv")
+dbcan.simper.kw <- read.csv("dbcan_krusk_simper.csv")
 ```
 
 ### COG Functional Groups
@@ -1861,6 +2016,15 @@ for(i in 1:length(fast.cog)){
   cog.fast.id[i,2] <- cog.3723[test,2]
 }
 #write.csv(cog.fast.id, 'COG/cog.fast.id.csv')
+
+# Female vs Male
+test <- deSEQ(data=cog.physeq, valuetest= ~Sex)
+fem <- which(test$log2FoldChange < 0)
+fem.cog <- rownames(test[fem,])
+  # "COG0639" "COG0724" "COG1025" "COG1224" "COG1643" "COG2319" "COG5049" "COG5077" "COG5078" "COG5099" "COG5206" "COG5207" "COG5272" "COG5307" "COG5647"
+feed <- which(test$log2FoldChange > 0)
+feed.cog <- rownames(test[feed,])
+  # "COG5184" "COG5279"
 ```
 
 
@@ -1878,7 +2042,7 @@ meta <- read.csv('metadata.csv', fileEncoding="UTF-8-BOM")
 row.names(meta) <- meta[,1]
 
 cog.class <- read.csv('COG/cog_classification.csv')
-row.names(cog.class) <- cog.class[,1]
+rownames(cog.class) <- cog.class[,2]
 #class <- class[,-1]
 
 ### Normalize
@@ -1896,9 +2060,8 @@ for(i in 1:nrow(cog.all.norm)){
 # Prepare phyloseq object
 cog.otu <- otu_table(cog.all, taxa_are_rows = T)
 cog.samp <- sample_data(meta)
-rownames(cog.class) <- cog.class[,1]
 cog.tax <- tax_table(cog.class)
-row.names(cog.tax) <- row.names(cog.class)
+rownames(cog.tax) <- rownames(cog.class)
 cog.physeq <- merge_phyloseq(cog.otu, cog.samp, cog.tax)
 
 
@@ -1906,7 +2069,8 @@ nmds.cog <- ordinate(physeq=cog.physeq, method="NMDS", distance="bray")
   # stress = 0.04563243 
 
 plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Season")
-plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="SubSeason")
+plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Diet")
+plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Sex")
 
 ### PERMANOVA
 cog.sampdf <- data.frame(sample_data(cog.physeq))
@@ -1921,18 +2085,28 @@ p$tab
   # p-value = 0.877
 
 ## Diet
-adonis(cog.bray~ SubSeason, data=cog.sampdf)
+adonis(cog.bray~ Diet, data=cog.sampdf)
   # p-value = 0.237
-beta.tax = betadisper(d=cog.bray, group=cog.sampdf$SubSeason)
+beta.tax = betadisper(d=cog.bray, group=cog.sampdf$Diet)
 p <- permutest(beta.tax)
 p$tab
   # p-value = 0.426
 
+## Sex
+adonis(cog.bray~ Sex, data=cog.sampdf)
+  # p-value = 0.372
+beta.tax = betadisper(d=cog.bray, group=cog.sampdf$Sex)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.58
+
 ### ANOSIM
 anosim(cog.bray, meta$Season, permutations=1000)
   # p-value = 0.1852
-anosim(cog.bray, meta$SubSeason, permutations=1000)
+anosim(cog.bray, meta$Diet, permutations=1000)
   # p-value = 0.1049
+anosim(cog.bray, meta$Sex, permutations=1000)
+  # p-value = 0.92308
 ```
 
 ### COG Jaccard
@@ -1940,7 +2114,8 @@ anosim(cog.bray, meta$SubSeason, permutations=1000)
 jac.cog <- ordinate(physeq=cog.physeq, method="NMDS", distance="jaccard")
   # stress = 0.04125187
 plot_ordination(physeq=cog.physeq, ordination=jac.cog, color="Season")
-plot_ordination(physeq=cog.physeq, ordination=jac.cog, color="SubSeason")
+plot_ordination(physeq=cog.physeq, ordination=jac.cog, color="Diet")
+plot_ordination(physeq=cog.physeq, ordination=jac.cog, color="Sex")
 
 ### PERMANOVA
 cog.sampdf <- data.frame(sample_data(cog.physeq))
@@ -1955,29 +2130,38 @@ p$tab
   # p-value = 0.867
 
 ## Diet
-adonis(cog.jac~ SubSeason, data=cog.sampdf)
+adonis(cog.jac~ Diet, data=cog.sampdf)
   # p-value = 0.17
-beta.tax = betadisper(d=cog.jac, group=cog.sampdf$SubSeason)
+beta.tax = betadisper(d=cog.jac, group=cog.sampdf$Diet)
 p <- permutest(beta.tax)
 p$tab
   # p-value = 0.398
 
+## Sex
+adonis(cog.jac~ Sex, data=cog.sampdf)
+  # p-value = 0.509
+beta.tax = betadisper(d=cog.jac, group=cog.sampdf$Sex)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.585
+
 ### ANOSIM
 anosim(cog.jac, cog.sampdf$Season, permutations=1000)
   # p-value = 0.14386
+anosim(cog.jac, cog.sampdf$Diet, permutations=1000)
+  # p-value = 0.25874
+anosim(cog.jac, cog.sampdf$Sex, permutations=1000)
+  # p-value = 0.9001
 ```
 
 ### COG SIMPER
 ```{r}
 ### Separate out pairw
-simper(cog.all.norm, group= meta$SubSeason)
-
-cog.all.norm.t <- data.frame(t(cog.all.norm))
-simper.pretty(cog.all.norm, metrics = meta, interesting = 'Season', perc_cutoff = 0.5, low_cutoff = 'y', low_val = 0.01, 'cog')
+simper.pretty(cog.all.norm, metrics = meta, interesting = c('Season', 'Diet', 'Sex'), perc_cutoff = 0.5, low_cutoff = 'y', low_val = 0.01, 'cog')
 
 cog.simper <- read.csv("cog_clean_simper.csv")
 
-kruskal.pretty(otu = cog.all.norm, metrics = meta, csv = cog.simper, interesting = 'Season', output_name = 'cog.kw')
+kruskal.pretty(otu = cog.all.norm, metrics = meta, csv = cog.simper, interesting = c('Season', 'Diet', 'Sex'), output_name = 'cog.kw')
 
 cog.simper.kw <- read.csv("cog.kw_krusk_simper.csv")
 ```

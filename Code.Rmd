@@ -1531,3 +1531,65 @@ sig <- rownames(cog.fun.pvals)[which(cog.fun.pvals[,1] < 0.06)]
 
 
 ```
+
+
+### COG Counts
+```{r}
+cog.3715 <- read.table("COG/3715.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+cog.3717 <- read.table("COG/3717.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+cog.3723 <- read.table("COG/3723.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+cog.3733 <- read.table("COG/3733.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+cog.3734 <- read.table("COG/3734.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+cog.3744 <- read.table("COG/3744.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+cog.3772 <- read.table("COG/3772.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+cog.3773 <- read.table("COG/3773.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+cog.3775 <- read.table("COG/3775.results/cog_stats.txt", sep="\t", quote="", stringsAsFactors = F)
+
+cog.names <- paste(c(cog.3715[,1], cog.3717[,1], cog.3723[,1], cog.3733[,1], cog.3734[,1], cog.3744[,1], cog.3772[,1], cog.3773[,1], cog.3775[,1]))
+cog.uniq <- unique(cog.names)
+
+cog.all <- data.frame(cog.uniq)
+
+for(i in 1:nrow(cog.3715)){
+  test <- which(cog.all[,1] == cog.3715[i,1])
+  cog.all[test,2] <- cog.3715[i,3]
+}
+for(i in 1:nrow(cog.3717)){
+  test <- which(cog.all[,1] == cog.3717[i,1])
+  cog.all[test,3] <- cog.3717[i,3]
+}
+for(i in 1:nrow(cog.3723)){
+  test <- which(cog.all[,1] == cog.3723[i,1])
+  cog.all[test,4] <- cog.3723[i,3]
+}
+for(i in 1:nrow(cog.3733)){
+  test <- which(cog.all[,1] == cog.3733[i,1])
+  cog.all[test,5] <- cog.3733[i,3]
+}
+for(i in 1:nrow(cog.3734)){
+  test <- which(cog.all[,1] == cog.3734[i,1])
+  cog.all[test,6] <- cog.3734[i,3]
+}
+for(i in 1:nrow(cog.3744)){
+  test <- which(cog.all[,1] == cog.3744[i,1])
+  cog.all[test,7] <- cog.3744[i,3]
+}
+for(i in 1:nrow(cog.3772)){
+  test <- which(cog.all[,1] == cog.3772[i,1])
+  cog.all[test,8] <- cog.3772[i,3]
+}
+for(i in 1:nrow(cog.3773)){
+  test <- which(cog.all[,1] == cog.3773[i,1])
+  cog.all[test,9] <- cog.3773[i,3]
+}
+for(i in 1:nrow(cog.3775)){
+  test <- which(cog.all[,1] == cog.3775[i,1])
+  cog.all[test,10] <- cog.3775[i,3]
+}
+
+rownames(cog.all) <- cog.all[,1]
+cog.all <- cog.all[,-1]
+colnames(cog.all) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+#write.csv(cog.all, "COG/cog_counts.csv")
+```

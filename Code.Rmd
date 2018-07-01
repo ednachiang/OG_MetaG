@@ -1075,7 +1075,7 @@ mal.path <- rownames(test[mal,])
 ```
 
 
-### KEGG Heatmpa
+### KEGG Heatmap
 ```{r}
 # Prepare physeq object
 path <- read.csv('KEGG/kegg_counts.csv', fileEncoding="UTF-8-BOM")
@@ -1199,6 +1199,75 @@ test <- pheatmap(assay(kegg.ntd)[kegg.select,], cluster_rows=F, show_rownames=T,
 test$tree_col$order <- c(1,2,4,5,7,3,6,8,9)
 test
 dev.off()
+
+
+
+
+
+
+
+
+# Prepare phyloseq object
+kegg.size.fac <- estimateSizeFactors(kegg.de)
+kegg.norm.deseq <- counts(kegg.size.fac, normalized=TRUE)
+kegg.otu.deseq <- otu_table(kegg.norm.deseq, taxa_are_rows = T)
+kegg.samp <- sample_data(meta)
+kegg.tax <- tax_table(kegg.class)
+rownames(kegg.tax) <- rownames(kegg.class)
+kegg.deseq <- merge_phyloseq(kegg.otu.deseq, kegg.samp, kegg.tax)
+sample_data(kegg.deseq)$Season <- ordered(sample_data(kegg.deseq)$Season, levels=c("Summer", "Winter", "Spring"))
+
+nmds.kegg.deseq <- ordinate(physeq=kegg.deseq, method="NMDS", distance="bray")
+  # stress = 0.03492425
+
+### SEASON ELLIPSES
+sample_data(kegg.deseq)$Elip <- paste(sample_data(kegg.deseq)$Season)
+kegg.deseq.elip.sum <- data.frame(MDS1 = nmds.kegg.deseq$points[,1], MDS2 = nmds.kegg.deseq$points[,2],
+                           Group = sample_data(kegg.deseq)$Season)
+plot.new()
+kegg.deseq.elip.ord <- ordiellipse(nmds.kegg.deseq, sample_data(kegg.deseq)$Elip, display="sites", kind="se", conf=0.95, label=T)
+kegg.deseq.elip.sum.df <- data.frame()
+for(i in levels(kegg.deseq.elip.sum$Group)){
+  kegg.deseq.elip.sum.df <- rbind(kegg.deseq.elip.sum.df,
+                           cbind(as.data.frame(with(kegg.deseq.elip.sum[kegg.deseq.elip.sum$Group==i,],
+                                                    veganCovEllipse(kegg.deseq.elip.ord[[i]]$cov,
+                                                                    kegg.deseq.elip.ord[[i]]$center,
+                                                                    kegg.deseq.elip.ord[[i]]$scale))), group=i
+                                 ))
+
+}
+
+
+### Plot
+tiff("kegg_NMDS.tiff", width=3.5, height=3.5, units="in", res=600)
+plot_ordination(physeq=kegg.deseq, ordination=nmds.kegg.deseq, color="Season") +
+  geom_path(data=kegg.deseq.elip.sum.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
+  scale_color_manual(values=c("#00cccc", "#008484", "#004f4f")) +
+    theme(axis.title.x = element_text(size=10),
+        axis.title.y = element_text(size=10),
+        legend.text=element_text(size=12),
+        legend.title=element_text(size=14),
+        legend.margin=margin(0,0,0,0),
+        legend.box.margin=margin(-5,-5,-5,-5))
+dev.off()
++
+  theme(axis.title.x = element_text(size=10),
+        axis.title.y = element_text(size=10),
+        legend.text=element_text(size=12),
+        legend.title=element_text(size=14))
+dev.off()
+
+### PERMANOVA
+kegg.deseq.sampdf <- data.frame(sample_data(kegg.deseq))
+kegg.deseq.bray<- phyloseq::distance(physeq=kegg.deseq, method="bray")
+
+## Season
+adonis(kegg.deseq.bray~ Season, data=kegg.deseq.sampdf)
+  # p-value = 0.075
+beta.tax = betadisper(d=kegg.deseq.bray, group=kegg.deseq.sampdf$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.457
 
 ```
 ### dbcan family prep
@@ -2298,6 +2367,29 @@ feed.cog <- rownames(test[feed,])
 
 ### COG Heatmap
 ```{r}
+# Prepare physeq object
+cog.all <- read.csv('COG/cog_counts.csv')
+row.names(cog.all) <- cog.all[,1]
+cog.all <- cog.all[,-1]
+colnames(cog.all) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv')
+row.names(meta) <- meta[,1]
+
+cog.class <- read.csv('COG/cog_classification.csv')
+rownames(cog.class) <- cog.class[,2]
+#class <- class[,-1]
+
+cog.otu <- otu_table(cog.all, taxa_are_rows = T)
+#cog.otu <- cog.otu + 1
+cog.samp <- sample_data(meta)
+rownames(cog.class) <- cog.class[,2]
+cog.tax <- tax_table(cog.class)
+row.names(cog.tax) <- row.names(cog.class)
+cog.physeq <- merge_phyloseq(cog.otu, cog.samp, cog.tax)
+
+
+
 cog.de.data <- phyloseq_to_deseq2(cog.physeq, ~Season)
 cog.de <- DESeq(cog.de.data, test="Wald", fitType="local")
 
@@ -2447,6 +2539,64 @@ ggplot(cog.pca, aes(x=PC1, y=PC2, color=Season)) +
   ylab(paste0("PC2: ", cog.pca.var[2], "% variance")) +
   coord_fixed()
 
+# Prepare phyloseq object
+cog.size.fac <- estimateSizeFactors(cog.de)
+cog.norm.deseq <- counts(cog.size.fac, normalized=TRUE)
+cog.otu.deseq <- otu_table(cog.norm.deseq, taxa_are_rows = T)
+cog.samp <- sample_data(meta)
+cog.tax <- tax_table(cog.class)
+rownames(cog.tax) <- rownames(cog.class)
+cog.deseq <- merge_phyloseq(cog.otu.deseq, cog.samp, cog.tax)
+sample_data(cog.deseq)$Season <- ordered(sample_data(cog.deseq)$Season, levels=c("Summer", "Winter", "Spring"))
+
+nmds.cog.deseq <- ordinate(physeq=cog.deseq, method="NMDS", distance="bray")
+  # Run 20 stress 0.06470567
+
+### SEASON ELLIPSES
+sample_data(cog.deseq)$Elip <- paste(sample_data(cog.deseq)$Season)
+cog.deseq.elip.sum <- data.frame(MDS1 = nmds.cog.deseq$points[,1], MDS2 = nmds.cog.deseq$points[,2],
+                           Group = sample_data(cog.deseq)$Season)
+plot.new()
+cog.deseq.elip.ord <- ordiellipse(nmds.cog.deseq, sample_data(cog.deseq)$Elip, display="sites", kind="se", conf=0.95, label=T)
+cog.deseq.elip.sum.df <- data.frame()
+for(i in levels(cog.deseq.elip.sum$Group)){
+  cog.deseq.elip.sum.df <- rbind(cog.deseq.elip.sum.df,
+                           cbind(as.data.frame(with(cog.deseq.elip.sum[cog.deseq.elip.sum$Group==i,],
+                                                    veganCovEllipse(cog.deseq.elip.ord[[i]]$cov,
+                                                                    cog.deseq.elip.ord[[i]]$center,
+                                                                    cog.deseq.elip.ord[[i]]$scale))), group=i
+                                 ))
+
+}
+
+
+### Plot
+tiff("COG_NMDS.tiff", width=3.5, height=3.5, units="in", res=600)
+plot_ordination(physeq=cog.deseq, ordination=nmds.cog.deseq, color="Season") +
+  geom_path(data=cog.deseq.elip.sum.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
+  scale_color_manual(values=c("#00cccc", "#008484", "#004f4f")) +
+  theme(axis.title.x = element_text(size=10),
+        axis.title.y = element_text(size=10),
+        legend.text=element_text(size=12),
+        legend.title=element_text(size=14),
+        legend.margin=margin(0,0,0,0),
+        legend.box.margin=margin(-5,-5,-5,-5))
+dev.off()
+
+
+
+### PERMANOVA
+cog.deseq.sampdf <- data.frame(sample_data(cog.deseq))
+cog.deseq.bray<- phyloseq::distance(physeq=cog.deseq, method="bray")
+
+## Season
+adonis(cog.deseq.bray~ Season, data=cog.deseq.sampdf)
+  # p-value = 0.003
+beta.tax = betadisper(d=cog.deseq.bray, group=cog.deseq.sampdf$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.721
+
 heatmap.2(plot shit here)
 
 
@@ -2538,23 +2688,7 @@ plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Season") +
   scale_color_manual(values=c("sd", "asdf", "Asdf"))
 
 
-sample_data(sum.physeq)$Elip <- paste(sample_data(sum.physeq)$Diet, sample_data(sum.physeq)$Sample_Type)
-elip.sum.nmds <- data.frame(MDS1 = sum.nmds$points[,1], MDS2 = sum.nmds$points[,2],
-                        Group = sample_data(sum.physeq)$Elip)
-plot.new()
-elip.sum.ord <- ordiellipse(sum.nmds, sample_data(sum.physeq)$Elip, display="sites", kind="se", conf=0.95, label=T)
 
-
-
-elip.sum.df <- data.frame()
-for(i in levels(elip.sum.nmds$Group)){
-  elip.sum.df <- rbind(elip.sum.df, cbind(as.data.frame(with(elip.sum.nmds[elip.sum.nmds$Group==i,],
-                                                     veganCovEllipse(elip.sum.ord[[i]]$cov,
-                                                                     elip.sum.ord[[i]]$center,
-                                                                     elip.sum.ord[[i]]$scale))),
-                                  group=i))
-  
-}
 
 ### PERMANOVA
 cog.sampdf <- data.frame(sample_data(cog.physeq))

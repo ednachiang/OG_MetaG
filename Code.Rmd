@@ -1531,16 +1531,15 @@ dbcan.su.wi.win <- rownames(dbcan.su.wi.sig[dbcan.su.wi.win.sig,])
 # Summer vs. Spring
 dbcan.res.su.sp <- results(dbcan.de, contrast=c("Season", "Spring", "Summer"), pAdjustMethod = "BH")
 dbcan.su.sp.sig <- dbcan.res.su.sp[which(dbcan.res.su.sp$padj < 0.05),]
-dbcan.su.sp.sig.df <- cbind(as(dbcan.su.sp.sig, "data.frame"),
-                          as(tax_table(dbcan.physeq)[rownames(dbcan.su.sp.sig), ], "matrix"))
-dbcan.su.sp.spr.sig <- which(dbcan.su.sp.sig.df$log2FoldChange < 0)
-dbcan.su.sp.spr <- rownames(dbcan.su.sp.sig[dbcan.su.sp.spr.sig,])
-  # Spring
-  # "dbcan0243" "dbcan0437" "dbcan0457" "dbcan0545" "dbcan0810" "dbcan0811" "dbcan1409" "dbcan1452" "dbcan1538" "dbcan1566" "dbcan1596" "dbcan1629" "dbcan2067" "dbcan2814" "dbcan2825" "dbcan2885" "dbcan3176" "dbcan3187" "dbcan4206" "dbcan4235" "dbcan4775"
-dbcan.su.sp.sum.sig <- which(dbcan.su.sp.sig.df$log2FoldChange > 0)
-dbcan.su.sp.sum <- rownames(dbcan.su.sp.sig[dbcan.su.sp.sum.sig,])
-  # Summer
-  # "dbcan0183" "dbcan0395" "dbcan0411" "dbcan0444" "dbcan0448" "dbcan1126" "dbcan1172" "dbcan1175" "dbcan1744" "dbcan1775" "dbcan3958" "dbcan3959" "dbcan4166" "dbcan4905"
+  # No sig!!!
+# dbcan.su.sp.sig.df <- cbind(as(dbcan.su.sp.sig, "data.frame"),
+#                           as(tax_table(dbcan.physeq)[rownames(dbcan.su.sp.sig), ], "matrix"))
+# dbcan.su.sp.spr.sig <- which(dbcan.su.sp.sig.df$log2FoldChange < 0)
+# dbcan.su.sp.spr <- rownames(dbcan.su.sp.sig[dbcan.su.sp.spr.sig,])
+#   # Spring
+# dbcan.su.sp.sum.sig <- which(dbcan.su.sp.sig.df$log2FoldChange > 0)
+# dbcan.su.sp.sum <- rownames(dbcan.su.sp.sig[dbcan.su.sp.sum.sig,])
+#   # Summer
 
 # Spring vs Winter
 dbcan.res.sp.wi <- results(dbcan.de, contrast=c("Season", "Spring", "Winter"), pAdjustMethod = "BH")
@@ -1550,48 +1549,52 @@ dbcan.sp.wi.sig.df <- cbind(as(dbcan.sp.wi.sig, "data.frame"),
 dbcan.sp.wi.spr.sig <- which(dbcan.sp.wi.sig.df$log2FoldChange < 0)
 dbcan.sp.wi.spr <- rownames(dbcan.sp.wi.sig[dbcan.sp.wi.spr.sig,])
   # Spring
-  # "dbcan0156" "dbcan0247" "dbcan0306" "dbcan0457" "dbcan0612" "dbcan0659" "dbcan0760" "dbcan0767" "dbcan0774" "dbcan0795" "dbcan0810" "dbcan0811" "dbcan0841" "dbcan0845" "dbcan0847" "dbcan0848" "dbcan0859" "dbcan1043" "dbcan1127" "dbcan1137" "dbcan1409" "dbcan1452" "dbcan1463" "dbcan1538" "dbcan1596" "dbcan1629" "dbcan1663" "dbcan1678" "dbcan2067" "dbcan2095" "dbcan2151" "dbcan2209" "dbcan2259" "dbcan2825" "dbcan2834" "dbcan2885" "dbcan2911" "dbcan2982" "dbcan3169" "dbcan3176" "dbcan3187" "dbcan3203" "dbcan3468" "dbcan3525" "dbcan3636" "dbcan3637" "dbcan3657" "dbcan4105" "dbcan4232" "dbcan4235" "dbcan4409" "dbcan4566" "dbcan4775" "dbcan4783"
+  # "CBM32" "CBM9"  "CE11"  "GH102" "GH103" "GH16"  "GH20"  "GH23"  "GH24"  "GH33"  "GH57"  "GH84" "GH89"  "GH92"  "PL22" 
 dbcan.sp.wi.win.sig <- which(dbcan.sp.wi.sig.df$log2FoldChange > 0)
 dbcan.sp.wi.win <- rownames(dbcan.sp.wi.sig[dbcan.sp.wi.win.sig,])
   # Winter
-  # "dbcan0004" "dbcan0028" "dbcan0119" "dbcan0246" "dbcan0395" "dbcan0407" "dbcan0554" "dbcan0561" "dbcan0722" "dbcan0745" "dbcan0855" "dbcan1026" "dbcan1051" "dbcan1061" "dbcan1070" "dbcan1104" "dbcan1105" "dbcan1131" "dbcan1132" "dbcan1136" "dbcan1161" "dbcan1172" "dbcan1175" "dbcan1263" "dbcan1302" "dbcan1307" "dbcan1349" "dbcan1472" "dbcan1511" "dbcan1609" "dbcan1621" "dbcan1653" "dbcan1874" "dbcan1879" "dbcan1882" "dbcan1925" "dbcan2182" "dbcan2190" "dbcan2199" "dbcan2207" "dbcan2252" "dbcan2357" "dbcan2407" "dbcan2723" "dbcan2730" "dbcan2816" "dbcan2972" "dbcan3044" "dbcan3153" "dbcan3279" "dbcan3331" "dbcan3345" "dbcan3481" "dbcan3507" "dbcan3534" "dbcan3635" "dbcan3664" "dbcan3693" "dbcan3757" "dbcan3835" "dbcan3857" "dbcan3866" "dbcan3887" "dbcan3894" "dbcan3940" "dbcan3959" "dbcan3973" "dbcan4086" "dbcan4166" "dbcan4189" "dbcan4209" "dbcan4284" "dbcan4465" "dbcan4468" "dbcan4485" "dbcan4509" "dbcan4709" "dbcan4753" "dbcan4805" "dbcan4862" "dbcan4870" "dbcan4962" "dbcan5578"
+  # "CBM37" "CE12"  "GH1"   "GH112" "GH115" "GH129" "GH25"  "GH3"   "GH32"  "GH39"  "GH42"  "GH43"  "GH5"   "GH51"  "GH59"  "GH78"  "PL1"
 
 # http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#heatmap-of-the-count-matrix
 
 ### Pull out top 2 (largest log fold change while sig) for each comparison
 dbcan.su.wi.sum.df <- dbcan.su.wi.sig.df[dbcan.su.wi.sum.sig,]
 dbcan.su.wi.sum.df <- dbcan.su.wi.sum.df[order(dbcan.su.wi.sum.df$log2FoldChange),]
-
 dbcan.su.wi.win.df <- dbcan.su.wi.sig.df[dbcan.su.wi.win.sig,]
 dbcan.su.wi.win.df <- dbcan.su.wi.win.df[order(dbcan.su.wi.win.df$log2FoldChange),]
 
-dbcan.su.sp.spr.df <- dbcan.su.sp.sig.df[dbcan.su.sp.spr.sig,]
-dbcan.su.sp.spr.df <- dbcan.su.sp.spr.df[order(dbcan.su.sp.spr.df$log2FoldChange),]
-dbcan.su.sp.sum.df <- dbcan.su.sp.sig.df[dbcan.su.sp.sum.sig,]
-dbcan.su.sp.sum.df <- dbcan.su.sp.sum.df[order(dbcan.su.sp.sum.df$log2FoldChange),]
+# dbcan.su.sp.spr.df <- dbcan.su.sp.sig.df[dbcan.su.sp.spr.sig,]
+# dbcan.su.sp.spr.df <- dbcan.su.sp.spr.df[order(dbcan.su.sp.spr.df$log2FoldChange),]
+# dbcan.su.sp.sum.df <- dbcan.su.sp.sig.df[dbcan.su.sp.sum.sig,]
+# dbcan.su.sp.sum.df <- dbcan.su.sp.sum.df[order(dbcan.su.sp.sum.df$log2FoldChange),]
 dbcan.sp.wi.spr.df <- dbcan.sp.wi.sig.df[dbcan.sp.wi.spr.sig,]
 dbcan.sp.wi.spr.df <- dbcan.sp.wi.spr.df[order(dbcan.sp.wi.spr.df$log2FoldChange),]
 dbcan.sp.wi.win.df <- dbcan.sp.wi.sig.df[dbcan.sp.wi.win.sig,]
 dbcan.sp.wi.win.df <- dbcan.sp.wi.win.df[order(dbcan.sp.wi.win.df$log2FoldChange),]
 
-dbcan.sig <- rbind(dbcan.su.wi.sum.df, dbcan.su.wi.win.df, dbcan.su.sp.spr.df, dbcan.su.sp.sum.df, dbcan.sp.wi.spr.df, dbcan.sp.wi.win.df)
+dbcan.sig <- rbind(dbcan.su.wi.sum.df, dbcan.su.wi.win.df, dbcan.sp.wi.spr.df, dbcan.sp.wi.win.df)
 dbcan.sig <- dbcan.sig[order(dbcan.sig$log2FoldChange),]
 #dbcan.sig <- dbcan.sig[order(dbcan.sig$padj),]
 dbcan.use <-rownames(dbcan.sig)[1:10] 
+dbcan.use <- dbcan.use[-3]
+dbcan.use[10] <- rownames(dbcan.sig)[12]
+  # Somehow a "1" is being added to some rownames
+  # I will investigate when I have time
 
 
 #select <- order(rowMeans(counts(dbcan.de, normalized=T)), decreasing=T)[1:20]
   # For top 20 dbcans
 dbcan.rows <- rownames(dbcan.de)
-select <- rep(1,10)
+dbcan.select <- rep(1,10)
 for(i in 1:length(dbcan.use)){
   save <- which(dbcan.rows == dbcan.use[i])
-  select[i] <- save
+  dbcan.select[i] <- save
 }
-dbcan.de.df <- as.data.frame(colData(dbcan.de)[,c("Season")])
-rownames(dbcan.de.df) <- meta$X
+dbcan.de.df <- data.frame(c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"))
+rownames(dbcan.de.df) <- c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775")
 colnames(dbcan.de.df) <- "Season"
 dbcan.de.df$Season <- ordered(dbcan.de.df$Season, levels=c("Summer", "Winter", "Spring"))
+dbcan.de$X <- ordered(dbcan.de$X, levels=c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"))
 dbcan.ntd <- normTransform(dbcan.de)
   # DESeq test automatically transforms data
   # To visualize our data, we need to run this step separately
@@ -1599,12 +1602,13 @@ dbcan.ntd <- normTransform(dbcan.de)
       # Local fit does a transformation similar to normTransform
   # Otherwise you should use vst instead
   # See link above for more info
+dbcan.ntd$X <- ordered(dbcan.ntd$X, levels=c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"))
 tiff("dbcan_DESeq.tiff", width=4, height=4, units="in", res=600)
-pheatmap(assay(dbcan.ntd)[select,], cluster_rows=F, show_rownames=T, cluster_cols=T, treeheight_col = 0,
-         labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"), 
-         labels_row = c("Transcription", "Cell membrane biogenesis", "Unknown function", "Signal transduction", "Unknown function", "Cell membrane biogenesis", "Cell membrane biogenesis; Intracellular trafficking", "Posttranslation modification", "Cell wall biogenesis", "Energy production"),
+test <- pheatmap(assay(dbcan.ntd)[dbcan.select,], cluster_rows=F, show_rownames=T, cluster_cols=F, treeheight_col = 5,labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"),
          border_color="gray40", fontsize = 16, width = 4, height=4,
          color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255))
+test$tree_col$order <- c(1,2,4,5,7,3,6,8,9)
+test
 dev.off()
 
 ```

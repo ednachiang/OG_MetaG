@@ -17,6 +17,7 @@ library('phyloseq')
 library('DESeq2')
 library('phangorn')
 library('vegan')
+library('pheatmap')
 theme_set(theme_bw())
 set.seed(1)
 
@@ -207,6 +208,13 @@ kruskal.pretty = function(otu, metrics, csv, interesting, output_name, taxonomy)
   colnames(o_csv)[which(names(o_csv) == "V11")] <- "Right stdev"
   o_csv[,1]=NULL
   write.csv(o_csv, file=paste(output_name,"_krusk_simper.csv", sep=""))
+}
+
+### NMDS Ellipses
+veganCovEllipse <- function(cov, center = c(0, 0), scale = 1, npoints = 100) {
+    theta <- (0:npoints) * 2 * pi/npoints
+    Circle <- cbind(cos(theta), sin(theta))
+    t(center + scale * t(Circle %*% chol(cov)))
 }
 ```
 
@@ -2030,6 +2038,12 @@ feed.cog <- rownames(test[feed,])
 
 
 
+
+### COG Heatmap
+```{r}
+
+```
+
 ### COG Bray-Curtis
 ```{r}
 # Prepare physeq object
@@ -2047,7 +2061,7 @@ rownames(cog.class) <- cog.class[,2]
 
 ### Normalize
 norm.factor <- data.frame(c(0.903, 0.715, 0.936, 0.904, 0.662, 0.902, 1.000, 0.849, 0.826))
-cog.all.norm <- path
+cog.all.norm <- cog.all
 for(i in 1:9){
   cog.all.norm[,i] <- round(cog.all.norm[,i]*norm.factor[i,1])
 }
@@ -2063,14 +2077,75 @@ cog.samp <- sample_data(meta)
 cog.tax <- tax_table(cog.class)
 rownames(cog.tax) <- rownames(cog.class)
 cog.physeq <- merge_phyloseq(cog.otu, cog.samp, cog.tax)
+sample_data(cog.physeq)$Season <- ordered(sample_data(cog.physeq)$Season, levels=c("Summer", "Winter", "Spring"))
 
 
 nmds.cog <- ordinate(physeq=cog.physeq, method="NMDS", distance="bray")
-  # stress = 0.04563243 
+  # stress = 0.05592207 
 
 plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Season")
 plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Diet")
 plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Sex")
+
+### DIET ELLIPSES
+sample_data(cog.physeq)$Elip <- paste(sample_data(cog.physeq)$Diet)
+cog.elip.sum <- data.frame(MDS1 = nmds.cog$points[,1], MDS2 = nmds.cog$points[,2],
+                           Group = sample_data(cog.physeq)$Elip)
+plot.new()
+cog.elip.ord <- ordiellipse(nmds.cog, sample_data(cog.physeq)$Elip, display="sites", kind="se", conf=0.95, label=T)
+cog.elip.sum.df <- data.frame()
+for(i in levels(cog.elip.sum$Group)){
+  cog.elip.sum.df <- rbind(cog.elip.sum.df,
+                           cbind(as.data.frame(with(cog.elip.sum[cog.elip.sum$Group==i,],
+                                                    veganCovEllipse(cog.elip.ord[[i]]$cov,
+                                                                    cog.elip.ord[[i]]$center,
+                                                                    cog.elip.ord[[i]]$scale))), group=i
+                                 ))
+
+}
+
+
+### SEASON ELLIPSES
+sample_data(cog.physeq)$Elip <- paste(sample_data(cog.physeq)$Season)
+cog.elip.sum <- data.frame(MDS1 = nmds.cog$points[,1], MDS2 = nmds.cog$points[,2],
+                           Group = sample_data(cog.physeq)$Season)
+plot.new()
+cog.elip.ord <- ordiellipse(nmds.cog, sample_data(cog.physeq)$Elip, display="sites", kind="se", conf=0.95, label=T)
+cog.elip.sum.df <- data.frame()
+for(i in levels(cog.elip.sum$Group)){
+  cog.elip.sum.df <- rbind(cog.elip.sum.df,
+                           cbind(as.data.frame(with(cog.elip.sum[cog.elip.sum$Group==i,],
+                                                    veganCovEllipse(cog.elip.ord[[i]]$cov,
+                                                                    cog.elip.ord[[i]]$center,
+                                                                    cog.elip.ord[[i]]$scale))), group=i
+                                 ))
+
+}
+
+
+### Plot
+plot_ordination(physeq=cog.physeq, ordination=nmds.cog, color="Season") +
+  geom_path(data=cog.elip.sum.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
+  scale_color_manual(values=c("sd", "asdf", "Asdf"))
+
+
+sample_data(sum.physeq)$Elip <- paste(sample_data(sum.physeq)$Diet, sample_data(sum.physeq)$Sample_Type)
+elip.sum.nmds <- data.frame(MDS1 = sum.nmds$points[,1], MDS2 = sum.nmds$points[,2],
+                        Group = sample_data(sum.physeq)$Elip)
+plot.new()
+elip.sum.ord <- ordiellipse(sum.nmds, sample_data(sum.physeq)$Elip, display="sites", kind="se", conf=0.95, label=T)
+
+
+
+elip.sum.df <- data.frame()
+for(i in levels(elip.sum.nmds$Group)){
+  elip.sum.df <- rbind(elip.sum.df, cbind(as.data.frame(with(elip.sum.nmds[elip.sum.nmds$Group==i,],
+                                                     veganCovEllipse(elip.sum.ord[[i]]$cov,
+                                                                     elip.sum.ord[[i]]$center,
+                                                                     elip.sum.ord[[i]]$scale))),
+                                  group=i))
+  
+}
 
 ### PERMANOVA
 cog.sampdf <- data.frame(sample_data(cog.physeq))

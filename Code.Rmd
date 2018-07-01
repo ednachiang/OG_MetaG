@@ -1484,6 +1484,130 @@ mal.fam <- rownames(test[mal,])
 
 ```
 
+### dbcan Heatmap
+```{r}
+# Prepare physeq object
+fam.count <- read.csv("dbcan.fam.counts.csv")
+row.names(fam.count) <- fam.count[,1]
+fam.count <- fam.count[,-1]
+colnames(fam.count) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv')
+row.names(meta) <- meta[,1]
+
+fam.class <- read.csv('dbcan/classification.csv')
+row.names(fam.class) <- fam.class[,1]
+fam.class <- fam.class[,-1]
+
+fam.otu <- otu_table(fam.count, taxa_are_rows = T)
+fam.samp <- sample_data(meta)
+fam.tax <- tax_table(fam.class)
+row.names(fam.tax) <- row.names(fam.class)
+dbcan.physeq <- merge_phyloseq(fam.otu, fam.samp, fam.tax)
+
+
+
+dbcan.de.data <- phyloseq_to_deseq2(dbcan.physeq, ~Season)
+dbcan.de <- DESeq(dbcan.de.data, test="Wald", fitType="local")
+
+dbcan.res <- results(dbcan.de, pAdjustMethod = "BH")
+
+### Extracting results: https://support.bioconductor.org/p/72765/
+
+# Summer vs. Winter
+dbcan.res.su.wi <- results(dbcan.de, contrast=c("Season", "Summer", "Winter"), pAdjustMethod = "BH")
+dbcan.su.wi.sig <- dbcan.res.su.wi[which(dbcan.res.su.wi$padj < 0.05),]
+dbcan.su.wi.sig.df <- cbind(as(dbcan.su.wi.sig, "data.frame"),
+                          as(tax_table(dbcan.physeq)[rownames(dbcan.su.wi.sig), ], "matrix"))
+dbcan.su.wi.sum.sig <- which(dbcan.su.wi.sig.df$log2FoldChange < 0)
+dbcan.su.wi.sum <- rownames(dbcan.su.wi.sig[dbcan.su.wi.sum.sig,])
+  # Summer
+  # "GH33" "GH84"
+dbcan.su.wi.win.sig <- which(dbcan.su.wi.sig.df$log2FoldChange > 0)
+dbcan.su.wi.win <- rownames(dbcan.su.wi.sig[dbcan.su.wi.win.sig,])
+  # Winter
+  # "CBM37" "CE12"  "GH115" "GH43"  "PL1" 
+
+# Summer vs. Spring
+dbcan.res.su.sp <- results(dbcan.de, contrast=c("Season", "Spring", "Summer"), pAdjustMethod = "BH")
+dbcan.su.sp.sig <- dbcan.res.su.sp[which(dbcan.res.su.sp$padj < 0.05),]
+dbcan.su.sp.sig.df <- cbind(as(dbcan.su.sp.sig, "data.frame"),
+                          as(tax_table(dbcan.physeq)[rownames(dbcan.su.sp.sig), ], "matrix"))
+dbcan.su.sp.spr.sig <- which(dbcan.su.sp.sig.df$log2FoldChange < 0)
+dbcan.su.sp.spr <- rownames(dbcan.su.sp.sig[dbcan.su.sp.spr.sig,])
+  # Spring
+  # "dbcan0243" "dbcan0437" "dbcan0457" "dbcan0545" "dbcan0810" "dbcan0811" "dbcan1409" "dbcan1452" "dbcan1538" "dbcan1566" "dbcan1596" "dbcan1629" "dbcan2067" "dbcan2814" "dbcan2825" "dbcan2885" "dbcan3176" "dbcan3187" "dbcan4206" "dbcan4235" "dbcan4775"
+dbcan.su.sp.sum.sig <- which(dbcan.su.sp.sig.df$log2FoldChange > 0)
+dbcan.su.sp.sum <- rownames(dbcan.su.sp.sig[dbcan.su.sp.sum.sig,])
+  # Summer
+  # "dbcan0183" "dbcan0395" "dbcan0411" "dbcan0444" "dbcan0448" "dbcan1126" "dbcan1172" "dbcan1175" "dbcan1744" "dbcan1775" "dbcan3958" "dbcan3959" "dbcan4166" "dbcan4905"
+
+# Spring vs Winter
+dbcan.res.sp.wi <- results(dbcan.de, contrast=c("Season", "Spring", "Winter"), pAdjustMethod = "BH")
+dbcan.sp.wi.sig <- dbcan.res.sp.wi[which(dbcan.res.sp.wi$padj < 0.05),]
+dbcan.sp.wi.sig.df <- cbind(as(dbcan.sp.wi.sig, "data.frame"),
+                          as(tax_table(dbcan.physeq)[rownames(dbcan.sp.wi.sig), ], "matrix"))
+dbcan.sp.wi.spr.sig <- which(dbcan.sp.wi.sig.df$log2FoldChange < 0)
+dbcan.sp.wi.spr <- rownames(dbcan.sp.wi.sig[dbcan.sp.wi.spr.sig,])
+  # Spring
+  # "dbcan0156" "dbcan0247" "dbcan0306" "dbcan0457" "dbcan0612" "dbcan0659" "dbcan0760" "dbcan0767" "dbcan0774" "dbcan0795" "dbcan0810" "dbcan0811" "dbcan0841" "dbcan0845" "dbcan0847" "dbcan0848" "dbcan0859" "dbcan1043" "dbcan1127" "dbcan1137" "dbcan1409" "dbcan1452" "dbcan1463" "dbcan1538" "dbcan1596" "dbcan1629" "dbcan1663" "dbcan1678" "dbcan2067" "dbcan2095" "dbcan2151" "dbcan2209" "dbcan2259" "dbcan2825" "dbcan2834" "dbcan2885" "dbcan2911" "dbcan2982" "dbcan3169" "dbcan3176" "dbcan3187" "dbcan3203" "dbcan3468" "dbcan3525" "dbcan3636" "dbcan3637" "dbcan3657" "dbcan4105" "dbcan4232" "dbcan4235" "dbcan4409" "dbcan4566" "dbcan4775" "dbcan4783"
+dbcan.sp.wi.win.sig <- which(dbcan.sp.wi.sig.df$log2FoldChange > 0)
+dbcan.sp.wi.win <- rownames(dbcan.sp.wi.sig[dbcan.sp.wi.win.sig,])
+  # Winter
+  # "dbcan0004" "dbcan0028" "dbcan0119" "dbcan0246" "dbcan0395" "dbcan0407" "dbcan0554" "dbcan0561" "dbcan0722" "dbcan0745" "dbcan0855" "dbcan1026" "dbcan1051" "dbcan1061" "dbcan1070" "dbcan1104" "dbcan1105" "dbcan1131" "dbcan1132" "dbcan1136" "dbcan1161" "dbcan1172" "dbcan1175" "dbcan1263" "dbcan1302" "dbcan1307" "dbcan1349" "dbcan1472" "dbcan1511" "dbcan1609" "dbcan1621" "dbcan1653" "dbcan1874" "dbcan1879" "dbcan1882" "dbcan1925" "dbcan2182" "dbcan2190" "dbcan2199" "dbcan2207" "dbcan2252" "dbcan2357" "dbcan2407" "dbcan2723" "dbcan2730" "dbcan2816" "dbcan2972" "dbcan3044" "dbcan3153" "dbcan3279" "dbcan3331" "dbcan3345" "dbcan3481" "dbcan3507" "dbcan3534" "dbcan3635" "dbcan3664" "dbcan3693" "dbcan3757" "dbcan3835" "dbcan3857" "dbcan3866" "dbcan3887" "dbcan3894" "dbcan3940" "dbcan3959" "dbcan3973" "dbcan4086" "dbcan4166" "dbcan4189" "dbcan4209" "dbcan4284" "dbcan4465" "dbcan4468" "dbcan4485" "dbcan4509" "dbcan4709" "dbcan4753" "dbcan4805" "dbcan4862" "dbcan4870" "dbcan4962" "dbcan5578"
+
+# http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#heatmap-of-the-count-matrix
+
+### Pull out top 2 (largest log fold change while sig) for each comparison
+dbcan.su.wi.sum.df <- dbcan.su.wi.sig.df[dbcan.su.wi.sum.sig,]
+dbcan.su.wi.sum.df <- dbcan.su.wi.sum.df[order(dbcan.su.wi.sum.df$log2FoldChange),]
+
+dbcan.su.wi.win.df <- dbcan.su.wi.sig.df[dbcan.su.wi.win.sig,]
+dbcan.su.wi.win.df <- dbcan.su.wi.win.df[order(dbcan.su.wi.win.df$log2FoldChange),]
+
+dbcan.su.sp.spr.df <- dbcan.su.sp.sig.df[dbcan.su.sp.spr.sig,]
+dbcan.su.sp.spr.df <- dbcan.su.sp.spr.df[order(dbcan.su.sp.spr.df$log2FoldChange),]
+dbcan.su.sp.sum.df <- dbcan.su.sp.sig.df[dbcan.su.sp.sum.sig,]
+dbcan.su.sp.sum.df <- dbcan.su.sp.sum.df[order(dbcan.su.sp.sum.df$log2FoldChange),]
+dbcan.sp.wi.spr.df <- dbcan.sp.wi.sig.df[dbcan.sp.wi.spr.sig,]
+dbcan.sp.wi.spr.df <- dbcan.sp.wi.spr.df[order(dbcan.sp.wi.spr.df$log2FoldChange),]
+dbcan.sp.wi.win.df <- dbcan.sp.wi.sig.df[dbcan.sp.wi.win.sig,]
+dbcan.sp.wi.win.df <- dbcan.sp.wi.win.df[order(dbcan.sp.wi.win.df$log2FoldChange),]
+
+dbcan.sig <- rbind(dbcan.su.wi.sum.df, dbcan.su.wi.win.df, dbcan.su.sp.spr.df, dbcan.su.sp.sum.df, dbcan.sp.wi.spr.df, dbcan.sp.wi.win.df)
+dbcan.sig <- dbcan.sig[order(dbcan.sig$log2FoldChange),]
+#dbcan.sig <- dbcan.sig[order(dbcan.sig$padj),]
+dbcan.use <-rownames(dbcan.sig)[1:10] 
+
+
+#select <- order(rowMeans(counts(dbcan.de, normalized=T)), decreasing=T)[1:20]
+  # For top 20 dbcans
+dbcan.rows <- rownames(dbcan.de)
+select <- rep(1,10)
+for(i in 1:length(dbcan.use)){
+  save <- which(dbcan.rows == dbcan.use[i])
+  select[i] <- save
+}
+dbcan.de.df <- as.data.frame(colData(dbcan.de)[,c("Season")])
+rownames(dbcan.de.df) <- meta$X
+colnames(dbcan.de.df) <- "Season"
+dbcan.de.df$Season <- ordered(dbcan.de.df$Season, levels=c("Summer", "Winter", "Spring"))
+dbcan.ntd <- normTransform(dbcan.de)
+  # DESeq test automatically transforms data
+  # To visualize our data, we need to run this step separately
+  # I use normTransform because I run DESeq with local fit
+      # Local fit does a transformation similar to normTransform
+  # Otherwise you should use vst instead
+  # See link above for more info
+tiff("dbcan_DESeq.tiff", width=4, height=4, units="in", res=600)
+pheatmap(assay(dbcan.ntd)[select,], cluster_rows=F, show_rownames=T, cluster_cols=T, treeheight_col = 0,
+         labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"), 
+         labels_row = c("Transcription", "Cell membrane biogenesis", "Unknown function", "Signal transduction", "Unknown function", "Cell membrane biogenesis", "Cell membrane biogenesis; Intracellular trafficking", "Posttranslation modification", "Cell wall biogenesis", "Energy production"),
+         border_color="gray40", fontsize = 16, width = 4, height=4,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255))
+dev.off()
+
+```
 ### dbCAN Bray-Curtis
 ```{r}
 # Prepare physeq object
@@ -2047,55 +2171,84 @@ feed.cog <- rownames(test[feed,])
 cog.de.data <- phyloseq_to_deseq2(cog.physeq, ~Season)
 cog.de <- DESeq(cog.de.data, test="Wald", fitType="local")
 
-cog.res <- results(cog.de)
+cog.res <- results(cog.de, pAdjustMethod = "BH")
 
 ### Extracting results: https://support.bioconductor.org/p/72765/
 
 # Summer vs. Winter
 cog.res.su.wi <- results(cog.de, contrast=c("Season", "Summer", "Winter"), pAdjustMethod = "BH")
-cog.su.wi.sig <- cog.res.su.wi[which(cog.res.su.wi$padj < 0.5),]
+cog.su.wi.sig <- cog.res.su.wi[which(cog.res.su.wi$padj < 0.05),]
 cog.su.wi.sig.df <- cbind(as(cog.su.wi.sig, "data.frame"),
                           as(tax_table(cog.physeq)[rownames(cog.su.wi.sig), ], "matrix"))
 cog.su.wi.sum.sig <- which(cog.su.wi.sig.df$log2FoldChange < 0)
 cog.su.wi.sum <- rownames(cog.su.wi.sig[cog.su.wi.sum.sig,])
   # Summer
-  # "COG0381" "COG0405" "COG0683" "COG0684" "COG0728" "COG1038" "COG1178" "COG1250" "COG1288" "COG1775" "COG1788" "COG1840" "COG2057" "COG2828" "COG2964" "COG3246" "COG3314" "COG4968" "COG5659"
+  # "COG1775" "COG3246"
 cog.su.wi.win.sig <- which(cog.su.wi.sig.df$log2FoldChange > 0)
 cog.su.wi.win <- rownames(cog.su.wi.sig[cog.su.wi.win.sig,])
   # Winter
-  # "COG0004" "COG0134" "COG0135" "COG0159" "COG0243" "COG0246" "COG0417" "COG0547" "COG0722" "COG1051" "COG1061" "COG1070" "COG1105" "COG1132" "COG1204" "COG1472" "COG1501" "COG1511" "COG1609" "COG1621" "COG1653" "COG1835" "COG1874" "COG2182" "COG2207" "COG2703" "COG2730" "COG2755" "COG2816" "COG2972" "COG3153" "COG3250" "COG3345" "COG3464" "COG3507" "COG3533" "COG3534" "COG3561" "COG3635" "COG3661" "COG3693" "COG3757" "COG3866" "COG3940" "COG3973" "COG4086" "COG4209" "COG4225" "COG4284" "COG4585" "COG4642" "COG4677" "COG4806" "COG4870" "COG5021" "COG5077" "COG5272" "COG5434"
+  # "COG1472" "COG1874" "COG2207" "COG2730" "COG3507" "COG3534" "COG3693" "COG3757" "COG3866" "COG3940" "COG4677" "COG5434"
 
 # Summer vs. Spring
 cog.res.su.sp <- results(cog.de, contrast=c("Season", "Spring", "Summer"), pAdjustMethod = "BH")
-cog.su.sp.sig <- cog.res.su.sp[which(cog.res.su.sp$padj < 0.5),]
+cog.su.sp.sig <- cog.res.su.sp[which(cog.res.su.sp$padj < 0.05),]
 cog.su.sp.sig.df <- cbind(as(cog.su.sp.sig, "data.frame"),
                           as(tax_table(cog.physeq)[rownames(cog.su.sp.sig), ], "matrix"))
 cog.su.sp.spr.sig <- which(cog.su.sp.sig.df$log2FoldChange < 0)
 cog.su.sp.spr <- rownames(cog.su.sp.sig[cog.su.sp.spr.sig,])
   # Spring
-  # A shit load
+  # "COG0243" "COG0437" "COG0457" "COG0545" "COG0810" "COG0811" "COG1409" "COG1452" "COG1538" "COG1566" "COG1596" "COG1629" "COG2067" "COG2814" "COG2825" "COG2885" "COG3176" "COG3187" "COG4206" "COG4235" "COG4775"
 cog.su.sp.sum.sig <- which(cog.su.sp.sig.df$log2FoldChange > 0)
 cog.su.sp.sum <- rownames(cog.su.sp.sig[cog.su.sp.sum.sig,])
   # Summer
-  # Also a shitload
+  # "COG0183" "COG0395" "COG0411" "COG0444" "COG0448" "COG1126" "COG1172" "COG1175" "COG1744" "COG1775" "COG3958" "COG3959" "COG4166" "COG4905"
 
 # Spring vs Winter
 cog.res.sp.wi <- results(cog.de, contrast=c("Season", "Spring", "Winter"), pAdjustMethod = "BH")
-cog.sp.wi.sig <- cog.res.su.sp[which(cog.res.sp.wi$padj < 0.5),]
+cog.sp.wi.sig <- cog.res.sp.wi[which(cog.res.sp.wi$padj < 0.05),]
 cog.sp.wi.sig.df <- cbind(as(cog.sp.wi.sig, "data.frame"),
                           as(tax_table(cog.physeq)[rownames(cog.sp.wi.sig), ], "matrix"))
 cog.sp.wi.spr.sig <- which(cog.sp.wi.sig.df$log2FoldChange < 0)
 cog.sp.wi.spr <- rownames(cog.sp.wi.sig[cog.sp.wi.spr.sig,])
   # Spring
-  # A shit load
+  # "COG0156" "COG0247" "COG0306" "COG0457" "COG0612" "COG0659" "COG0760" "COG0767" "COG0774" "COG0795" "COG0810" "COG0811" "COG0841" "COG0845" "COG0847" "COG0848" "COG0859" "COG1043" "COG1127" "COG1137" "COG1409" "COG1452" "COG1463" "COG1538" "COG1596" "COG1629" "COG1663" "COG1678" "COG2067" "COG2095" "COG2151" "COG2209" "COG2259" "COG2825" "COG2834" "COG2885" "COG2911" "COG2982" "COG3169" "COG3176" "COG3187" "COG3203" "COG3468" "COG3525" "COG3636" "COG3637" "COG3657" "COG4105" "COG4232" "COG4235" "COG4409" "COG4566" "COG4775" "COG4783"
 cog.sp.wi.win.sig <- which(cog.sp.wi.sig.df$log2FoldChange > 0)
 cog.sp.wi.win <- rownames(cog.sp.wi.sig[cog.sp.wi.win.sig,])
-  # Summer
-  # Also a shitload
+  # Winter
+  # "COG0004" "COG0028" "COG0119" "COG0246" "COG0395" "COG0407" "COG0554" "COG0561" "COG0722" "COG0745" "COG0855" "COG1026" "COG1051" "COG1061" "COG1070" "COG1104" "COG1105" "COG1131" "COG1132" "COG1136" "COG1161" "COG1172" "COG1175" "COG1263" "COG1302" "COG1307" "COG1349" "COG1472" "COG1511" "COG1609" "COG1621" "COG1653" "COG1874" "COG1879" "COG1882" "COG1925" "COG2182" "COG2190" "COG2199" "COG2207" "COG2252" "COG2357" "COG2407" "COG2723" "COG2730" "COG2816" "COG2972" "COG3044" "COG3153" "COG3279" "COG3331" "COG3345" "COG3481" "COG3507" "COG3534" "COG3635" "COG3664" "COG3693" "COG3757" "COG3835" "COG3857" "COG3866" "COG3887" "COG3894" "COG3940" "COG3959" "COG3973" "COG4086" "COG4166" "COG4189" "COG4209" "COG4284" "COG4465" "COG4468" "COG4485" "COG4509" "COG4709" "COG4753" "COG4805" "COG4862" "COG4870" "COG4962" "COG5578"
 
 # http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#heatmap-of-the-count-matrix
 
-select <- order(rowMeans(counts(cog.de, normalized=T)), decreasing=T)[1:20]
+### Pull out top 2 (largest log fold change while sig) for each comparison
+cog.su.wi.sum.df <- cog.su.wi.sig.df[cog.su.wi.sum.sig,]
+cog.su.wi.sum.df <- cog.su.wi.sum.df[order(cog.su.wi.sum.df$log2FoldChange),]
+
+cog.su.wi.win.df <- cog.su.wi.sig.df[cog.su.wi.win.sig,]
+cog.su.wi.win.df <- cog.su.wi.win.df[order(cog.su.wi.win.df$log2FoldChange),]
+
+cog.su.sp.spr.df <- cog.su.sp.sig.df[cog.su.sp.spr.sig,]
+cog.su.sp.spr.df <- cog.su.sp.spr.df[order(cog.su.sp.spr.df$log2FoldChange),]
+cog.su.sp.sum.df <- cog.su.sp.sig.df[cog.su.sp.sum.sig,]
+cog.su.sp.sum.df <- cog.su.sp.sum.df[order(cog.su.sp.sum.df$log2FoldChange),]
+cog.sp.wi.spr.df <- cog.sp.wi.sig.df[cog.sp.wi.spr.sig,]
+cog.sp.wi.spr.df <- cog.sp.wi.spr.df[order(cog.sp.wi.spr.df$log2FoldChange),]
+cog.sp.wi.win.df <- cog.sp.wi.sig.df[cog.sp.wi.win.sig,]
+cog.sp.wi.win.df <- cog.sp.wi.win.df[order(cog.sp.wi.win.df$log2FoldChange),]
+
+cog.sig <- rbind(cog.su.wi.sum.df, cog.su.wi.win.df, cog.su.sp.spr.df, cog.su.sp.sum.df, cog.sp.wi.spr.df, cog.sp.wi.win.df)
+cog.sig <- cog.sig[order(cog.sig$log2FoldChange),]
+#cog.sig <- cog.sig[order(cog.sig$padj),]
+cog.use <-rownames(cog.sig)[1:10] 
+
+
+#select <- order(rowMeans(counts(cog.de, normalized=T)), decreasing=T)[1:20]
+  # For top 20 COGs
+cog.rows <- rownames(cog.de)
+select <- rep(1,10)
+for(i in 1:length(cog.use)){
+  save <- which(cog.rows == cog.use[i])
+  select[i] <- save
+}
 cog.de.df <- as.data.frame(colData(cog.de)[,c("Season")])
 rownames(cog.de.df) <- meta$X
 colnames(cog.de.df) <- "Season"
@@ -2107,6 +2260,18 @@ cog.ntd <- normTransform(cog.de)
       # Local fit does a transformation similar to normTransform
   # Otherwise you should use vst instead
   # See link above for more info
+tiff("COG_DESeq.tiff", width=4, height=4, units="in", res=600)
+pheatmap(assay(cog.ntd)[select,], cluster_rows=F, show_rownames=T, cluster_cols=T, treeheight_col = 0,
+         labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"), 
+         labels_row = c("Transcription", "Cell membrane biogenesis", "Unknown function", "Signal transduction", "Unknown function", "Cell membrane biogenesis", "Cell membrane biogenesis; Intracellular trafficking", "Posttranslation modification", "Cell wall biogenesis", "Energy production"),
+         border_color="gray40", fontsize = 16, width = 4, height=4,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255))
+dev.off()
+
+
+
+
+
 pheatmap(assay(cog.ntd)[select,], cluster_rows=F, show_rownames=T, cluster_cols=T,
          annotation_col=cog.de.df,
          labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"),
@@ -2139,9 +2304,8 @@ rownames(cog.dist.matrix) <- paste(cog.ntd$Season)
 colnames(cog.dist.matrix) <- NULL
 
 
-colors <- colorRampPalette(rev(brewer.pal(9, "Reds")) )(255)
 pheatmap(cog.dist.matrix, clustering_distance_rows=cog.dist, clustering_distance_cols=cog.dist,
-         col=colors, annotation_rows=T, annotation_cols=T)
+         col=colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(100), annotation_rows=T, annotation_cols=T)
   # Default clustering method = complete
 
 
@@ -2155,15 +2319,6 @@ ggplot(cog.pca, aes(x=PC1, y=PC2, color=Season)) +
 
 heatmap.2(plot shit here)
 
-
-
-pcaData <- plotPCA(vsd, intgroup=c("condition", "type"), returnData=TRUE)
-percentVar <- round(100 * attr(pcaData, "percentVar"))
-ggplot(pcaData, aes(PC1, PC2, color=condition, shape=type)) +
-  geom_point(size=3) +
-  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
-  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
-  coord_fixed()
 
 
 ```

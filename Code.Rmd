@@ -2371,18 +2371,28 @@ feed.cog <- rownames(test[feed,])
 cog.all <- read.csv('COG/cog_counts.csv')
 row.names(cog.all) <- cog.all[,1]
 cog.all <- cog.all[,-1]
-colnames(cog.all) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.all.order <- cog.all
+cog.all.order$X3715 <- cog.all$X3715
+cog.all.order$X3717 <- cog.all$X3717
+cog.all.order$X3744 <- cog.all$X3744
+cog.all.order$X3723 <- cog.all$X3723
+cog.all.order$X3733 <- cog.all$X3733
+cog.all.order$X3772 <- cog.all$X3772
+cog.all.order$X3734 <- cog.all$X3734
+cog.all.order$X3773 <- cog.all$X3773
+cog.all.order$X3775 <- cog.all$X3775
+colnames(cog.all.order) <- c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775")
 
-meta <- read.csv('metadata.csv')
-row.names(meta) <- meta[,1]
+meta.order <- read.csv('metadata.order.csv')
+row.names(meta.order) <- meta.order[,1]
 
 cog.class <- read.csv('COG/cog_classification.csv')
 rownames(cog.class) <- cog.class[,2]
 #class <- class[,-1]
 
-cog.otu <- otu_table(cog.all, taxa_are_rows = T)
+cog.otu <- otu_table(cog.all.order, taxa_are_rows = T)
 #cog.otu <- cog.otu + 1
-cog.samp <- sample_data(meta)
+cog.samp <- sample_data(meta.order)
 rownames(cog.class) <- cog.class[,2]
 cog.tax <- tax_table(cog.class)
 row.names(cog.tax) <- row.names(cog.class)
@@ -2475,6 +2485,15 @@ cog.de.df <- as.data.frame(colData(cog.de)[,c("Season")])
 rownames(cog.de.df) <- meta$X
 colnames(cog.de.df) <- "Season"
 cog.de.df$Season <- ordered(cog.de.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+
+cog.de.df <- data.frame(c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"))
+rownames(cog.de.df) <- c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775")
+colnames(cog.de.df) <- "Season"
+cog.de.df$Season <- ordered(cog.de.df$Season, levels=c("Summer", "Winter", "Spring"))
+cog.de$X <- ordered(cog.de$X, levels=c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"))
+
+
 cog.ntd <- normTransform(cog.de)
   # DESeq test automatically transforms data
   # To visualize our data, we need to run this step separately
@@ -2482,16 +2501,60 @@ cog.ntd <- normTransform(cog.de)
       # Local fit does a transformation similar to normTransform
   # Otherwise you should use vst instead
   # See link above for more info
-tiff("COG_DESeq.tiff", width=4, height=4, units="in", res=600)
-pheatmap(assay(cog.ntd)[select,], cluster_rows=F, show_rownames=T, cluster_cols=T, treeheight_col = 0,
-         labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"), 
-         labels_row = c("Transcription", "Cell membrane biogenesis", "Unknown function", "Signal transduction", "Unknown function", "Cell membrane biogenesis", "Cell membrane biogenesis; Intracellular trafficking", "Posttranslation modification", "Cell wall biogenesis", "Energy production"),
-         border_color="gray40", fontsize = 16, width = 4, height=4,
-         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255))
+
+cog.ntd.assay <- data.frame(assay(cog.ntd)[select,])
+cog.ntd.assay.order <- cog.ntd.assay
+cog.ntd.assay.order[,1] <- cog.ntd.assay$X3715
+cog.ntd.assay.order[,2] <- cog.ntd.assay$X3717
+cog.ntd.assay.order[,3] <- cog.ntd.assay$X3744
+cog.ntd.assay.order[,4] <- cog.ntd.assay$X3723
+cog.ntd.assay.order[,5] <- cog.ntd.assay$X3733
+cog.ntd.assay.order[,6] <- cog.ntd.assay$X3772
+cog.ntd.assay.order[,7] <- cog.ntd.assay$X3734
+cog.ntd.assay.order[,8] <- cog.ntd.assay$X3773
+cog.ntd.assay.order[,9] <- cog.ntd.assay$X3775
+colnames(cog.ntd.assay.order) <- c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775")
+
+tiff("COG_DESeq.tiff", width=6, height=6, units="in", res=600)
+pheatmap(cog.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, treeheight_col = 0, 
+         border_color = "gray40", fontsize = 14, width = 3, height=3,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255),
+         labels_col = c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"),
+         annotation_col=cog.de.df,
+         annotation_colors = list(Season = c(Summer = "#00cccc", Winter = "#008484", Spring = "#004f4f"))
+)
+dev.off()
+
+
+tiff("COG_DESeq1.tiff", width=3, height=3, units="in", res=600)
+pheatmap(cog.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, show_colsnames=F, 
+         border_color = "gray40", fontsize = 14, width = 3, height=3,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255)
+)
+dev.off()
+
+test <- pheatmap(cog.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, treeheight_col = 0, 
+         border_color = "gray40", fontsize = 14, width = 3, height=3,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255),
+         labels_col = c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"),
+         annotation_col=cog.de.df,
+         annotation_colors = list(Season = c(Summer = "#00cccc", Winter = "#008484", Spring = "#004f4f"))
+)
+
+
+tiff("COG_DESeq.tiff", width=3, height=3, units="in", res=600)
+pheatmap(assay(cog.ntd)[select,], cluster_rows=F, show_rownames=F, cluster_cols=F, treeheight_col = 0, 
+         border_color = "gray40", fontsize = 14, width = 3, height=3,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255)
+         )
 dev.off()
 
 
 
+annotation_col=cog.de.df,
+         annotation_colors = list(Season = c(Summer = "#00cccc", Winter = "#008484", Spring = "#004f4f"))
+
+labels_row = c("Transcription", "Cell membrane biogenesis", "Unknown function", "Signal transduction", "Unknown function", "Cell membrane biogenesis", "Cell membrane biogenesis; Intracellular trafficking", "Posttranslation modification", "Cell wall biogenesis", "Energy production")
 
 
 pheatmap(assay(cog.ntd)[select,], cluster_rows=F, show_rownames=T, cluster_cols=T,

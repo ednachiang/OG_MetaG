@@ -1191,6 +1191,64 @@ kegg.ntd <- normTransform(kegg.de)
       # Local fit does a transformation similar to normTransform
   # Otherwise you should use vst instead
   # See link above for more info
+
+
+kegg.ntd.assay <- data.frame(assay(kegg.ntd)[kegg.select,])
+kegg.ntd.assay.order <- kegg.ntd.assay
+kegg.ntd.assay.order[,1] <- kegg.ntd.assay$X3715
+kegg.ntd.assay.order[,2] <- kegg.ntd.assay$X3717
+kegg.ntd.assay.order[,3] <- kegg.ntd.assay$X3744
+kegg.ntd.assay.order[,4] <- kegg.ntd.assay$X3723
+kegg.ntd.assay.order[,5] <- kegg.ntd.assay$X3733
+kegg.ntd.assay.order[,6] <- kegg.ntd.assay$X3772
+kegg.ntd.assay.order[,7] <- kegg.ntd.assay$X3734
+kegg.ntd.assay.order[,8] <- kegg.ntd.assay$X3773
+kegg.ntd.assay.order[,9] <- kegg.ntd.assay$X3775
+colnames(kegg.ntd.assay.order) <- c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775")
+
+tiff("kegg_DESeq.tiff", width=6, height=6, units="in", res=600)
+pheatmap(kegg.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, treeheight_col = 0,
+         show_colsnames=F, border_color = "gray40", fontsize = 14, width = 3, height=3,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255),
+         labels_col = c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"),
+         annotation_col=kegg.de.df,
+         annotation_colors = list(Season = c(Summer = "#00cccc", Winter = "#008484", Spring = "#004f4f"))
+)
+dev.off()
+
+
+tiff("kegg_DESeq1.tiff", width=3, height=3, units="in", res=600)
+pheatmap(kegg.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, show_colsnames=F, 
+         border_color = "gray40", fontsize = 14, width = 3, height=3,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255)
+)
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 kegg.ntd$X <- ordered(kegg.ntd$X, levels=c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"))
 tiff("kegg_DESeq.tiff", width=4, height=4, units="in", res=600)
 test <- pheatmap(assay(kegg.ntd)[kegg.select,], cluster_rows=F, show_rownames=T, cluster_cols=F, treeheight_col = 5,labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"),
@@ -1199,6 +1257,9 @@ test <- pheatmap(assay(kegg.ntd)[kegg.select,], cluster_rows=F, show_rownames=T,
 test$tree_col$order <- c(1,2,4,5,7,3,6,8,9)
 test
 dev.off()
+
+
+
 
 
 

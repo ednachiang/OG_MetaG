@@ -18,6 +18,8 @@ library('DESeq2')
 library('phangorn')
 library('vegan')
 library('pheatmap')
+library('RColorBrewer')
+library('gplots')
 theme_set(theme_bw())
 set.seed(1)
 
@@ -1928,6 +1930,7 @@ cog.kend[9,9] <- cor(cog.all.prop[,9], cog.all.prop[,9], method = "kendall")
 
 ### COG UPGMA
 ```{r}
+cog.kend <- read.table("COG/cog.kendall.txt", sep="\t")
 cog.kend.fix <- cog.kend
 cog.kend.fix[1,1] <- 0
 cog.kend.fix[2,2] <- 0
@@ -2041,6 +2044,127 @@ feed.cog <- rownames(test[feed,])
 
 ### COG Heatmap
 ```{r}
+cog.de.data <- phyloseq_to_deseq2(cog.physeq, ~Season)
+cog.de <- DESeq(cog.de.data, test="Wald", fitType="local")
+
+cog.res <- results(cog.de)
+
+### Extracting results: https://support.bioconductor.org/p/72765/
+
+# Summer vs. Winter
+cog.res.su.wi <- results(cog.de, contrast=c("Season", "Summer", "Winter"), pAdjustMethod = "BH")
+cog.su.wi.sig <- cog.res.su.wi[which(cog.res.su.wi$padj < 0.5),]
+cog.su.wi.sig.df <- cbind(as(cog.su.wi.sig, "data.frame"),
+                          as(tax_table(cog.physeq)[rownames(cog.su.wi.sig), ], "matrix"))
+cog.su.wi.sum.sig <- which(cog.su.wi.sig.df$log2FoldChange < 0)
+cog.su.wi.sum <- rownames(cog.su.wi.sig[cog.su.wi.sum.sig,])
+  # Summer
+  # "COG0381" "COG0405" "COG0683" "COG0684" "COG0728" "COG1038" "COG1178" "COG1250" "COG1288" "COG1775" "COG1788" "COG1840" "COG2057" "COG2828" "COG2964" "COG3246" "COG3314" "COG4968" "COG5659"
+cog.su.wi.win.sig <- which(cog.su.wi.sig.df$log2FoldChange > 0)
+cog.su.wi.win <- rownames(cog.su.wi.sig[cog.su.wi.win.sig,])
+  # Winter
+  # "COG0004" "COG0134" "COG0135" "COG0159" "COG0243" "COG0246" "COG0417" "COG0547" "COG0722" "COG1051" "COG1061" "COG1070" "COG1105" "COG1132" "COG1204" "COG1472" "COG1501" "COG1511" "COG1609" "COG1621" "COG1653" "COG1835" "COG1874" "COG2182" "COG2207" "COG2703" "COG2730" "COG2755" "COG2816" "COG2972" "COG3153" "COG3250" "COG3345" "COG3464" "COG3507" "COG3533" "COG3534" "COG3561" "COG3635" "COG3661" "COG3693" "COG3757" "COG3866" "COG3940" "COG3973" "COG4086" "COG4209" "COG4225" "COG4284" "COG4585" "COG4642" "COG4677" "COG4806" "COG4870" "COG5021" "COG5077" "COG5272" "COG5434"
+
+# Summer vs. Spring
+cog.res.su.sp <- results(cog.de, contrast=c("Season", "Spring", "Summer"), pAdjustMethod = "BH")
+cog.su.sp.sig <- cog.res.su.sp[which(cog.res.su.sp$padj < 0.5),]
+cog.su.sp.sig.df <- cbind(as(cog.su.sp.sig, "data.frame"),
+                          as(tax_table(cog.physeq)[rownames(cog.su.sp.sig), ], "matrix"))
+cog.su.sp.spr.sig <- which(cog.su.sp.sig.df$log2FoldChange < 0)
+cog.su.sp.spr <- rownames(cog.su.sp.sig[cog.su.sp.spr.sig,])
+  # Spring
+  # A shit load
+cog.su.sp.sum.sig <- which(cog.su.sp.sig.df$log2FoldChange > 0)
+cog.su.sp.sum <- rownames(cog.su.sp.sig[cog.su.sp.sum.sig,])
+  # Summer
+  # Also a shitload
+
+# Spring vs Winter
+cog.res.sp.wi <- results(cog.de, contrast=c("Season", "Spring", "Winter"), pAdjustMethod = "BH")
+cog.sp.wi.sig <- cog.res.su.sp[which(cog.res.sp.wi$padj < 0.5),]
+cog.sp.wi.sig.df <- cbind(as(cog.sp.wi.sig, "data.frame"),
+                          as(tax_table(cog.physeq)[rownames(cog.sp.wi.sig), ], "matrix"))
+cog.sp.wi.spr.sig <- which(cog.sp.wi.sig.df$log2FoldChange < 0)
+cog.sp.wi.spr <- rownames(cog.sp.wi.sig[cog.sp.wi.spr.sig,])
+  # Spring
+  # A shit load
+cog.sp.wi.win.sig <- which(cog.sp.wi.sig.df$log2FoldChange > 0)
+cog.sp.wi.win <- rownames(cog.sp.wi.sig[cog.sp.wi.win.sig,])
+  # Summer
+  # Also a shitload
+
+# http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#heatmap-of-the-count-matrix
+
+select <- order(rowMeans(counts(cog.de, normalized=T)), decreasing=T)[1:20]
+cog.de.df <- as.data.frame(colData(cog.de)[,c("Season")])
+rownames(cog.de.df) <- meta$X
+colnames(cog.de.df) <- "Season"
+cog.de.df$Season <- ordered(cog.de.df$Season, levels=c("Summer", "Winter", "Spring"))
+cog.ntd <- normTransform(cog.de)
+  # DESeq test automatically transforms data
+  # To visualize our data, we need to run this step separately
+  # I use normTransform because I run DESeq with local fit
+      # Local fit does a transformation similar to normTransform
+  # Otherwise you should use vst instead
+  # See link above for more info
+pheatmap(assay(cog.ntd)[select,], cluster_rows=F, show_rownames=T, cluster_cols=T,
+         annotation_col=cog.de.df,
+         labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"),
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255),
+         annotation_colors = list(Season = c(Summer = "#8ee3ef", Winter = "#4186a8", Spring = "#254e70")))
+  # assay command does log2 transformation on cog.ntd data
+    # Same exact output as doing log2(counts(cog.de, normalized=T))
+
+
+
+
+### Sample Clustering: http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#heatmap-of-the-count-matrix
+
+cog.kend <- read.table("COG/cog.kendall.txt", sep="\t")
+cog.kend.fix <- cog.kend
+cog.kend.fix[1,1] <- 0
+cog.kend.fix[2,2] <- 0
+cog.kend.fix[3,3] <- 0
+cog.kend.fix[4,4] <- 0
+cog.kend.fix[5,5] <- 0
+cog.kend.fix[6,6] <- 0
+cog.kend.fix[7,7] <- 0
+cog.kend.fix[8,8] <- 0
+cog.kend.fix[9,9] <- 0
+pheatmap(cog.kend.fix, clustering_distance_rows=cog.kend.fix, clustering_distance_cols=cog.kend.fix)
+
+cog.dist <- dist(t(assay(cog.ntd)))
+cog.dist.matrix <- as.matrix(cog.dist)
+rownames(cog.dist.matrix) <- paste(cog.ntd$Season)
+colnames(cog.dist.matrix) <- NULL
+
+
+colors <- colorRampPalette(rev(brewer.pal(9, "Reds")) )(255)
+pheatmap(cog.dist.matrix, clustering_distance_rows=cog.dist, clustering_distance_cols=cog.dist,
+         col=colors, annotation_rows=T, annotation_cols=T)
+  # Default clustering method = complete
+
+
+cog.pca <- plotPCA(cog.ntd, intgroup="Season", returnData=T)
+cog.pca.var <- round(100 * attr(cog.pca, "Percent_Variation"))
+ggplot(cog.pca, aes(x=PC1, y=PC2, color=Season)) +
+  geom_point(size=2) +
+  xlab(paste0("PC1: ", cog.pca.var[1], "% variance")) +
+  ylab(paste0("PC2: ", cog.pca.var[2], "% variance")) +
+  coord_fixed()
+
+heatmap.2(plot shit here)
+
+
+
+pcaData <- plotPCA(vsd, intgroup=c("condition", "type"), returnData=TRUE)
+percentVar <- round(100 * attr(pcaData, "percentVar"))
+ggplot(pcaData, aes(PC1, PC2, color=condition, shape=type)) +
+  geom_point(size=3) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed()
+
 
 ```
 

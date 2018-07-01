@@ -1075,6 +1075,132 @@ mal.path <- rownames(test[mal,])
 ```
 
 
+### KEGG Heatmpa
+```{r}
+# Prepare physeq object
+path <- read.csv('KEGG/kegg_counts.csv', fileEncoding="UTF-8-BOM")
+row.names(path) <- path[,1]
+path <- path[,-1]
+colnames(path) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+meta <- read.csv('metadata.csv')
+row.names(meta) <- meta[,1]
+
+kegg.class <- read.csv('KEGG/classification.csv', fileEncoding="UTF-8-BOM")
+row.names(kegg.class) <- kegg.class[,1]
+
+path.otu <- otu_table(path, taxa_are_rows = T)
+path.samp <- sample_data(meta)
+path.tax <- tax_table(kegg.class)
+row.names(path.tax) <- row.names(kegg.class)
+kegg.physeq <- merge_phyloseq(path.otu, path.samp, path.tax)
+
+
+kegg.de.data <- phyloseq_to_deseq2(kegg.physeq, ~Season)
+kegg.de <- DESeq(kegg.de.data, test="Wald", fitType="local")
+
+kegg.res <- results(kegg.de, pAdjustMethod = "BH")
+
+### Extracting results: https://support.bioconductor.org/p/72765/
+
+# Summer vs. Winter
+kegg.res.su.wi <- results(kegg.de, contrast=c("Season", "Summer", "Winter"), pAdjustMethod = "BH")
+kegg.su.wi.sig <- kegg.res.su.wi[which(kegg.res.su.wi$padj < 0.05),]
+  # No sig!!!
+# kegg.su.wi.sig.df <- cbind(as(kegg.su.wi.sig, "data.frame"),
+#                           as(tax_table(kegg.physeq)[rownames(kegg.su.wi.sig), ], "matrix"))
+# kegg.su.wi.sum.sig <- which(kegg.su.wi.sig.df$log2FoldChange < 0)
+# kegg.su.wi.sum <- rownames(kegg.su.wi.sig[kegg.su.wi.sum.sig,])
+#   # Summer
+# kegg.su.wi.win.sig <- which(kegg.su.wi.sig.df$log2FoldChange > 0)
+# kegg.su.wi.win <- rownames(kegg.su.wi.sig[kegg.su.wi.win.sig,])
+#   # Winter
+
+# Summer vs. Spring
+kegg.res.su.sp <- results(kegg.de, contrast=c("Season", "Spring", "Summer"), pAdjustMethod = "BH")
+kegg.su.sp.sig <- kegg.res.su.sp[which(kegg.res.su.sp$padj < 0.05),]
+kegg.su.sp.sig.df <- cbind(as(kegg.su.sp.sig, "data.frame"),
+                          as(tax_table(kegg.physeq)[rownames(kegg.su.sp.sig), ], "matrix"))
+kegg.su.sp.spr.sig <- which(kegg.su.sp.sig.df$log2FoldChange < 0)
+kegg.su.sp.spr <- rownames(kegg.su.sp.sig[kegg.su.sp.spr.sig,])
+  # Spring
+  # "ko00061" "ko00540" "ko00740" "ko00130"
+kegg.su.sp.sum.sig <- which(kegg.su.sp.sig.df$log2FoldChange > 0)
+kegg.su.sp.sum <- rownames(kegg.su.sp.sig[kegg.su.sp.sum.sig,])
+  # Summer
+  #  "ko00030" "ko00650" "ko01051" "ko04122" "ko02010"
+
+# Spring vs Winter
+kegg.res.sp.wi <- results(kegg.de, contrast=c("Season", "Spring", "Winter"), pAdjustMethod = "BH")
+kegg.sp.wi.sig <- kegg.res.sp.wi[which(kegg.res.sp.wi$padj < 0.05),]
+kegg.sp.wi.sig.df <- cbind(as(kegg.sp.wi.sig, "data.frame"),
+                          as(tax_table(kegg.physeq)[rownames(kegg.sp.wi.sig), ], "matrix"))
+kegg.sp.wi.spr.sig <- which(kegg.sp.wi.sig.df$log2FoldChange < 0)
+kegg.sp.wi.spr <- rownames(kegg.sp.wi.sig[kegg.sp.wi.spr.sig,])
+  # Spring
+  # "ko00190" "ko00410" "ko00531" "ko00604" "ko00540" "ko00780" "ko00790" "ko00130"
+kegg.sp.wi.win.sig <- which(kegg.sp.wi.sig.df$log2FoldChange > 0)
+kegg.sp.wi.win <- rownames(kegg.sp.wi.sig[kegg.sp.wi.win.sig,])
+  # Winter
+  # "ko00040" "ko00051" "ko00500" "ko00660" "ko00290" "ko00460" "ko00940" "ko00405" "ko02010" "ko02060" "ko04145"
+
+# http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#heatmap-of-the-count-matrix
+
+### Pull out top 2 (largest log fold change while sig) for each comparison
+# kegg.su.wi.sum.df <- kegg.su.wi.sig.df[kegg.su.wi.sum.sig,]
+# kegg.su.wi.sum.df <- kegg.su.wi.sum.df[order(kegg.su.wi.sum.df$log2FoldChange),]
+# kegg.su.wi.win.df <- kegg.su.wi.sig.df[kegg.su.wi.win.sig,]
+# kegg.su.wi.win.df <- kegg.su.wi.win.df[order(kegg.su.wi.win.df$log2FoldChange),]
+
+kegg.su.sp.spr.df <- kegg.su.sp.sig.df[kegg.su.sp.spr.sig,]
+kegg.su.sp.spr.df <- kegg.su.sp.spr.df[order(kegg.su.sp.spr.df$log2FoldChange),]
+kegg.su.sp.sum.df <- kegg.su.sp.sig.df[kegg.su.sp.sum.sig,]
+kegg.su.sp.sum.df <- kegg.su.sp.sum.df[order(kegg.su.sp.sum.df$log2FoldChange),]
+kegg.sp.wi.spr.df <- kegg.sp.wi.sig.df[kegg.sp.wi.spr.sig,]
+kegg.sp.wi.spr.df <- kegg.sp.wi.spr.df[order(kegg.sp.wi.spr.df$log2FoldChange),]
+kegg.sp.wi.win.df <- kegg.sp.wi.sig.df[kegg.sp.wi.win.sig,]
+kegg.sp.wi.win.df <- kegg.sp.wi.win.df[order(kegg.sp.wi.win.df$log2FoldChange),]
+
+kegg.sig <- rbind(kegg.su.sp.spr.df, kegg.su.sp.sum.df, kegg.sp.wi.spr.df, kegg.sp.wi.win.df)
+kegg.sig <- kegg.sig[order(kegg.sig$log2FoldChange),]
+#kegg.sig <- kegg.sig[order(kegg.sig$padj),]
+kegg.use <- rownames(kegg.sig)[1:10] 
+kegg.use <- kegg.use[-2:-3]
+kegg.use[9:10] <- rownames(kegg.sig)[11:12]
+test <- kegg.use[3]
+kegg.use[3] <- kegg.use[4]
+kegg.use[4] <- test
+
+#select <- order(rowMeans(counts(kegg.de, normalized=T)), decreasing=T)[1:20]
+  # For top 20 keggs
+kegg.rows <- rownames(kegg.de)
+kegg.select <- rep(1,10)
+for(i in 1:length(kegg.use)){
+  save <- which(kegg.rows == kegg.use[i])
+  kegg.select[i] <- save
+}
+kegg.de.df <- data.frame(c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"))
+rownames(kegg.de.df) <- c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775")
+colnames(kegg.de.df) <- "Season"
+kegg.de.df$Season <- ordered(kegg.de.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg.de$X <- ordered(kegg.de$X, levels=c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"))
+kegg.ntd <- normTransform(kegg.de)
+  # DESeq test automatically transforms data
+  # To visualize our data, we need to run this step separately
+  # I use normTransform because I run DESeq with local fit
+      # Local fit does a transformation similar to normTransform
+  # Otherwise you should use vst instead
+  # See link above for more info
+kegg.ntd$X <- ordered(kegg.ntd$X, levels=c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"))
+tiff("kegg_DESeq.tiff", width=4, height=4, units="in", res=600)
+test <- pheatmap(assay(kegg.ntd)[kegg.select,], cluster_rows=F, show_rownames=T, cluster_cols=F, treeheight_col = 5,labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"),
+         border_color="gray40", fontsize = 16, width = 4, height=4,
+         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255))
+test$tree_col$order <- c(1,2,4,5,7,3,6,8,9)
+test
+dev.off()
+
+```
 ### dbcan family prep
 ```{r}
 ### 3715

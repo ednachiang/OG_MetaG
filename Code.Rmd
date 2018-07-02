@@ -218,6 +218,12 @@ veganCovEllipse <- function(cov, center = c(0, 0), scale = 1, npoints = 100) {
     Circle <- cbind(cos(theta), sin(theta))
     t(center + scale * t(Circle %*% chol(cov)))
 }
+
+g_legend <- function(a.gplot){
+   tmp <- ggplot_gtable(ggplot_build(a.gplot))
+   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+   legend <- tmp$grobs[[leg]]
+   return(legend)}
 ```
 
 ### KEGG Brite
@@ -1162,14 +1168,16 @@ kegg.sp.wi.win.df <- kegg.sp.wi.sig.df[kegg.sp.wi.win.sig,]
 kegg.sp.wi.win.df <- kegg.sp.wi.win.df[order(kegg.sp.wi.win.df$log2FoldChange),]
 
 kegg.sig <- rbind(kegg.su.sp.spr.df, kegg.su.sp.sum.df, kegg.sp.wi.spr.df, kegg.sp.wi.win.df)
-kegg.sig <- kegg.sig[order(kegg.sig$log2FoldChange),]
+kegg.sig$log2FoldChange[which(kegg.sig$log2FoldChange < 0)] <-
+  kegg.sig$log2FoldChange[which(kegg.sig$log2FoldChange < 0)] * -1
+kegg.sig <- kegg.sig[order(kegg.sig$log2FoldChange, decreasing=T),]
 #kegg.sig <- kegg.sig[order(kegg.sig$padj),]
 kegg.use <- rownames(kegg.sig)[1:10] 
-kegg.use <- kegg.use[-2:-3]
+kegg.use[5] <- "ko00540"
+kegg.use <- kegg.use[-6]
+kegg.use <- kegg.use[-7]
 kegg.use[9:10] <- rownames(kegg.sig)[11:12]
-test <- kegg.use[3]
-kegg.use[3] <- kegg.use[4]
-kegg.use[4] <- test
+kegg.use[10] <- rownames(kegg.sig)[13]
 
 #select <- order(rowMeans(counts(kegg.de, normalized=T)), decreasing=T)[1:20]
   # For top 20 keggs
@@ -1206,25 +1214,29 @@ kegg.ntd.assay.order[,8] <- kegg.ntd.assay$X3773
 kegg.ntd.assay.order[,9] <- kegg.ntd.assay$X3775
 colnames(kegg.ntd.assay.order) <- c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775")
 
-tiff("kegg_DESeq.tiff", width=6, height=6, units="in", res=600)
+tiff("kegg_DESeq.tiff", width=6, height=5.5, units="in", res=600)
 pheatmap(kegg.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, treeheight_col = 0,
-         show_colsnames=F, border_color = "gray40", fontsize = 14, width = 3, height=3,
+         show_colnames=F, border_color = "gray40", fontsize = 14, width = 3, height=3,
          color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255),
          labels_col = c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"),
-         annotation_col=kegg.de.df,
+         annotation_col=kegg.de.df, annotation_legend = F,
          annotation_colors = list(Season = c(Summer = "#00cccc", Winter = "#008484", Spring = "#004f4f"))
 )
 dev.off()
 
 
-tiff("kegg_DESeq1.tiff", width=3, height=3, units="in", res=600)
-pheatmap(kegg.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, show_colsnames=F, 
+tiff("kegg_DESeq1.tiff", width=3, height=2.25, units="in", res=600)
+pheatmap(kegg.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, show_colnames=F, 
          border_color = "gray40", fontsize = 14, width = 3, height=3,
          color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255)
 )
 dev.off()
 
 
+pheatmap(counts(cog.de)[kegg.select,], cluster_rows=F, show_rownames=T, cluster_cols=F, show_colnames=T, 
++          border_color = "gray40", fontsize = 14, width = 3, height=3,
++          color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255)
++ )
 
 
 
@@ -1249,14 +1261,6 @@ dev.off()
 
 
 
-kegg.ntd$X <- ordered(kegg.ntd$X, levels=c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"))
-tiff("kegg_DESeq.tiff", width=4, height=4, units="in", res=600)
-test <- pheatmap(assay(kegg.ntd)[kegg.select,], cluster_rows=F, show_rownames=T, cluster_cols=F, treeheight_col = 5,labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"),
-         border_color="gray40", fontsize = 16, width = 4, height=4,
-         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255))
-test$tree_col$order <- c(1,2,4,5,7,3,6,8,9)
-test
-dev.off()
 
 
 
@@ -1311,12 +1315,19 @@ plot_ordination(physeq=kegg.deseq, ordination=nmds.kegg.deseq, color="Season") +
         legend.margin=margin(0,0,0,0),
         legend.box.margin=margin(-5,-5,-5,-5))
 dev.off()
-+
-  theme(axis.title.x = element_text(size=10),
+
+kegg.nmds.plot <- plot_ordination(physeq=kegg.deseq, ordination=nmds.kegg.deseq, color="Season") +
+  geom_path(data=kegg.deseq.elip.sum.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
+  scale_color_manual(values=c("#00cccc", "#008484", "#004f4f")) +
+    theme(axis.title.x = element_text(size=10),
         axis.title.y = element_text(size=10),
         legend.text=element_text(size=12),
-        legend.title=element_text(size=14))
-dev.off()
+        legend.title=element_text(size=14),
+        legend.margin=margin(0,0,0,0),
+        legend.box.margin=margin(-5,-5,-5,-5),
+        plot.margin = unit(c(0.1, 0.1, 0.1, 1), "cm")) +
+  guides(color=F)
+
 
 ### PERMANOVA
 kegg.deseq.sampdf <- data.frame(sample_data(kegg.deseq))
@@ -2576,55 +2587,23 @@ cog.ntd.assay.order[,8] <- cog.ntd.assay$X3773
 cog.ntd.assay.order[,9] <- cog.ntd.assay$X3775
 colnames(cog.ntd.assay.order) <- c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775")
 
-tiff("COG_DESeq.tiff", width=6, height=6, units="in", res=600)
+tiff("COG_DESeq.tiff", width=6.2, height=5.5, units="in", res=600)
 pheatmap(cog.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, treeheight_col = 0, 
          border_color = "gray40", fontsize = 14, width = 3, height=3,
          color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255),
-         labels_col = c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"),
+         labels_col = c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"), annotation_legend = F,
          annotation_col=cog.de.df,
          annotation_colors = list(Season = c(Summer = "#00cccc", Winter = "#008484", Spring = "#004f4f"))
 )
 dev.off()
 
 
-tiff("COG_DESeq1.tiff", width=3, height=3, units="in", res=600)
-pheatmap(cog.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, show_colsnames=F, 
+tiff("COG_DESeq1.tiff", width=3, height=2.25, units="in", res=600)
+pheatmap(cog.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, show_colnames=F, 
          border_color = "gray40", fontsize = 14, width = 3, height=3,
          color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255)
 )
 dev.off()
-
-test <- pheatmap(cog.ntd.assay.order, cluster_rows=F, show_rownames=F, cluster_cols=F, treeheight_col = 0, 
-         border_color = "gray40", fontsize = 14, width = 3, height=3,
-         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255),
-         labels_col = c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring"),
-         annotation_col=cog.de.df,
-         annotation_colors = list(Season = c(Summer = "#00cccc", Winter = "#008484", Spring = "#004f4f"))
-)
-
-
-tiff("COG_DESeq.tiff", width=3, height=3, units="in", res=600)
-pheatmap(assay(cog.ntd)[select,], cluster_rows=F, show_rownames=F, cluster_cols=F, treeheight_col = 0, 
-         border_color = "gray40", fontsize = 14, width = 3, height=3,
-         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255)
-         )
-dev.off()
-
-
-
-annotation_col=cog.de.df,
-         annotation_colors = list(Season = c(Summer = "#00cccc", Winter = "#008484", Spring = "#004f4f"))
-
-labels_row = c("Transcription", "Cell membrane biogenesis", "Unknown function", "Signal transduction", "Unknown function", "Cell membrane biogenesis", "Cell membrane biogenesis; Intracellular trafficking", "Posttranslation modification", "Cell wall biogenesis", "Energy production")
-
-
-pheatmap(assay(cog.ntd)[select,], cluster_rows=F, show_rownames=T, cluster_cols=T,
-         annotation_col=cog.de.df,
-         labels_col = c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring"),
-         color = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(255),
-         annotation_colors = list(Season = c(Summer = "#8ee3ef", Winter = "#4186a8", Spring = "#254e70")))
-  # assay command does log2 transformation on cog.ntd data
-    # Same exact output as doing log2(counts(cog.de, normalized=T))
 
 
 
@@ -2695,7 +2674,7 @@ for(i in levels(cog.deseq.elip.sum$Group)){
 
 
 ### Plot
-tiff("COG_NMDS.tiff", width=3.5, height=3.5, units="in", res=600)
+#tiff("COG_NMDS.tiff", width=3.5, height=3.5, units="in", res=600)
 plot_ordination(physeq=cog.deseq, ordination=nmds.cog.deseq, color="Season") +
   geom_path(data=cog.deseq.elip.sum.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
   scale_color_manual(values=c("#00cccc", "#008484", "#004f4f")) +
@@ -2705,8 +2684,30 @@ plot_ordination(physeq=cog.deseq, ordination=nmds.cog.deseq, color="Season") +
         legend.title=element_text(size=14),
         legend.margin=margin(0,0,0,0),
         legend.box.margin=margin(-5,-5,-5,-5))
-dev.off()
+#dev.off()
 
+
+cog.nmds.plot <- plot_ordination(physeq=cog.deseq, ordination=nmds.cog.deseq, color="Season") +
+  geom_path(data=cog.deseq.elip.sum.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
+  scale_color_manual(values=c("#00cccc", "#008484", "#004f4f")) +
+  theme(axis.title.x = element_text(size=10),
+        axis.title.y = element_text(size=10),
+        legend.text=element_text(size=12),
+        legend.title=element_text(size=14),
+        legend.margin=margin(0,0,0,0),
+        legend.box.margin=margin(-5,-5,-5,-5))
+cog.nmds.legend <- g_legend(cog.nmds.plot)
+cog.nmds.plot <- plot_ordination(physeq=cog.deseq, ordination=nmds.cog.deseq, color="Season") +
+  geom_path(data=cog.deseq.elip.sum.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
+  scale_color_manual(values=c("#00cccc", "#008484", "#004f4f")) +
+  theme(axis.title.x = element_text(size=10),
+        axis.title.y = element_text(size=10),
+        legend.text=element_text(size=12),
+        legend.title=element_text(size=14),
+        legend.margin=margin(0,0,0,0),
+        legend.box.margin=margin(-5,-5,-5,-5),
+        plot.margin = unit(c(0.1, 1, 0.1, 0.1), "cm")) +
+  guides(color=F)
 
 
 ### PERMANOVA
@@ -2906,4 +2907,18 @@ cog.simper <- read.csv("cog_clean_simper.csv")
 kruskal.pretty(otu = cog.all.norm, metrics = meta, csv = cog.simper, interesting = c('Season', 'Diet', 'Sex'), output_name = 'cog.kw')
 
 cog.simper.kw <- read.csv("cog.kw_krusk_simper.csv")
+```
+
+
+
+### Poster combined NMDS (COG & KEGG)
+```{r}
+tiff("NMDS_cog_kegg.tiff", width = 7.5, height = 3, units = "in", res = 600)
+grid.newpage()
+pushViewport(viewport(layout=(grid.layout(1,3, widths=c(1,1,0.3)))))
+print(cog.nmds.plot, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(kegg.nmds.plot, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+cog.nmds.legend$vp <- viewport(layout.pos.row = 1, layout.pos.col = 3)
+grid.draw(cog.nmds.legend)
+dev.off()
 ```

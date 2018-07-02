@@ -1178,6 +1178,8 @@ kegg.use <- kegg.use[-6]
 kegg.use <- kegg.use[-7]
 kegg.use[9:10] <- rownames(kegg.sig)[11:12]
 kegg.use[10] <- rownames(kegg.sig)[13]
+kegg.use <- kegg.use[-9]
+kegg.use[10] <- rownames(kegg.sig)[14]
 
 #select <- order(rowMeans(counts(kegg.de, normalized=T)), decreasing=T)[1:20]
   # For top 20 keggs

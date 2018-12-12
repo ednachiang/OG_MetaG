@@ -1343,6 +1343,14 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.457
 
+## Diet
+adonis(kegg.deseq.bray~ Diet, data=kegg.deseq.sampdf)
+  # p-value = 0.371
+beta.tax = betadisper(d=kegg.deseq.bray, group=kegg.deseq.sampdf$Diet)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.052
+
 ```
 ### dbcan family prep
 ```{r}

@@ -2733,7 +2733,15 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.721
 
-heatmap.2(plot shit here)
+
+## Diet
+adonis(cog.deseq.bray~ Diet, data=cog.deseq.sampdf)
+  # p-value = 0.137
+beta.tax = betadisper(d=cog.deseq.bray, group=cog.deseq.sampdf$Diet)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.12
+
 
 
 

@@ -20,13 +20,17 @@ library('vegan')
 library('pheatmap')
 library('RColorBrewer')
 library('gplots')
+library('tidyr')
+library('dplyr')
+source('Scripts/misc.r')
 theme_set(theme_bw())
 set.seed(1)
-
 ```
 
 ### Load Functions
 ```{r}
+source('Scripts/misc.R')
+
 ### DESeq2
 deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.05){
   data_pruned <- prune_taxa(taxa_sums(data) > cutoff, data)
@@ -219,13 +223,148 @@ veganCovEllipse <- function(cov, center = c(0, 0), scale = 1, npoints = 100) {
     t(center + scale * t(Circle %*% chol(cov)))
 }
 
-g_legend <- function(a.gplot){
-   tmp <- ggplot_gtable(ggplot_build(a.gplot))
-   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-   legend <- tmp$grobs[[leg]]
-   return(legend)}
 ```
 
+### Kaiju - Taxonomic Classification
+```{r}
+########## Domain ##########
+# Load files
+domain <- read.csv('kaiju/nohost/domain.csv', header=T)
+domain$Season <- ordered(domain$Season, levels=c("Summer", "Winter", "Spring"))
+meta <- read.csv('metadata.csv', header=T)
+meta$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Calculate relative abundance for total sequences
+domain.ra <- domain
+domain.ra$Archaea <- (domain.ra$Archaea / domain.ra$Total_Sequences)
+domain.ra$Bacteria <- (domain.ra$Bacteria / domain.ra$Total_Sequences)
+domain.ra$Eukaryota <- (domain.ra$Eukaryota / domain.ra$Total_Sequences)
+domain.ra$Viruses <- (domain.ra$Viruses / domain.ra$Total_Sequences)
+domain.ra$Unclassified <- (domain.ra$Total_Unclassified / domain.ra$Total_Sequences)
+
+# Calculate relative abundance for classified sequences
+domain.clas.ra <- domain
+domain.clas.ra$Archaea <- (domain.clas.ra$Archaea / domain.clas.ra$Total_Classified)
+domain.clas.ra$Bacteria <- (domain.clas.ra$Bacteria / domain.clas.ra$Total_Classified)
+domain.clas.ra$Eukaryota <- (domain.clas.ra$Eukaryota / domain.clas.ra$Total_Classified)
+domain.clas.ra$Viruses <- (domain.clas.ra$Viruses / domain.clas.ra$Total_Classified)
+
+# Summarize all sequences
+domain.sum <- domain.ra %>%
+  group_by(Season) %>%
+  summarize(Archaea_Mean = mean(Archaea)*100,
+            Bacteria_Mean = mean(Bacteria)*100,
+            Eukaryota_Mean = mean(Eukaryota)*100,
+            Viruses_Mean = mean(Viruses)*100,
+            Unclassified_Mean = mean(Unclassified)*100,
+            Archaea_SD = sd(Archaea)*100,
+            Bacteria_SD = sd(Bacteria)*100,
+            Eukaryota_SD = sd(Eukaryota)*100,
+            Viruses_SD = sd(Viruses)*100,
+            Unclassified_SD = sd(Unclassified)*100,
+            Archaea_SE = se(Archaea)*100,
+            Bacteria_SE = se(Bacteria)*100,
+            Eukaryota_SE = se(Eukaryota)*100,
+            Viruses_SE = se(Viruses)*100,
+            Unclassified_SE = se(Unclassified)*100)
+
+# Summarize only classified sequences
+domain.clas.sum <- domain.clas.ra %>%
+  group_by(Season) %>%
+  summarize(Archaea_Mean = mean(Archaea)*100,
+            Bacteria_Mean = mean(Bacteria)*100,
+            Eukaryota_Mean = mean(Eukaryota)*100,
+            Viruses_Mean = mean(Viruses)*100,
+            Archaea_SD = sd(Archaea)*100,
+            Bacteria_SD = sd(Bacteria)*100,
+            Eukaryota_SD = sd(Eukaryota)*100,
+            Viruses_SD = sd(Viruses)*100,
+            Archaea_SE = se(Archaea)*100,
+            Bacteria_SE = se(Bacteria)*100,
+            Eukaryota_SE = se(Eukaryota)*100,
+            Viruses_SE = se(Viruses)*100)
+
+# Create domain all seqs dataframe for plotting
+domain.df <- data.frame(matrix(NA, nrow=15, ncol=5))
+colnames(domain.df) <- c("Season", "Domain", "Mean", "SD", "SE")
+domain.df$Season <- c(rep("Summer", 5), rep("Winter", 5), rep("Spring", 5))
+domain.df$Season <- ordered(domain.df$Season, levels=c("Summer", "Winter", "Spring"))
+domain.df$Domain <- c(rep(c("Archaea", "Bacteria", "Eukaryota", "Viruses", "Unclassified"), 3))
+domain.df$Domain <- ordered(domain.df$Domain, levels=c("Archaea", "Bacteria", "Eukaryota", "Viruses",
+                                                       "Unclassified"))
+domain.df$Mean <- as.numeric(c(domain.sum[1,2:6], domain.sum[2, 2:6], domain.sum[3, 2:6]))
+domain.df$SD <- as.numeric(c(domain.sum[1, 7:11], domain.sum[2, 7:11], domain.sum[3, 7:11]))
+domain.df$SE <- as.numeric(c(domain.sum[1, 12:16], domain.sum[2, 12:16], domain.sum[3, 12:16]))
+
+# Create domain classified seqs dataframe for plotting
+domain.clas.df <- data.frame(matrix(NA, nrow=12, ncol=5))
+colnames(domain.clas.df) <- c("Season", "Domain", "Mean", "SD", "SE")
+domain.clas.df$Season <- c(rep("Summer", 4), rep("Winter", 4), rep("Spring", 4))
+domain.clas.df$Season <- ordered(domain.clas.df$Season, levels=c("Summer", "Winter", "Spring"))
+domain.clas.df$Domain <- c(rep(c("Archaea", "Bacteria", "Eukaryota", "Viruses"), 3))
+domain.clas.df$Domain <- ordered(domain.clas.df$Domain, levels=c("Archaea", "Bacteria", "Eukaryota",
+                                                                "Viruses"))
+domain.clas.df$Mean <- as.numeric(c(domain.clas.sum[1,2:5], domain.clas.sum[2, 2:5],
+                                    domain.clas.sum[3, 2:5]))
+domain.clas.df$SD <- as.numeric(c(domain.clas.sum[1, 6:9], domain.clas.sum[2, 6:9],
+                                  domain.clas.sum[3, 6:9]))
+domain.clas.df$SE <- as.numeric(c(domain.clas.sum[1, 10:13], domain.clas.sum[2, 10:13],
+                                  domain.clas.sum[3, 10:13]))
+
+# Barplot for all sequences
+ggplot(domain.df, aes(x=Domain, y=Mean, fill=Domain)) +
+  geom_bar(stat="identity") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  scale_y_continuous(limits=c(-0.5,60)) +
+  facet_grid(Season ~ .) +
+  scale_fill_brewer(palette="Set1") +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+# Barplot for classified sequences
+ggplot(domain.clas.df, aes(x=Domain, y=Mean, fill=Domain)) +
+  geom_bar(stat="identity") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  scale_y_continuous(limits=c(-0.5,100)) +
+  facet_grid(Season ~ .) +
+  scale_fill_brewer(palette="Set1") +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+
+
+
+
+test <- read.table("kaiju/3715.kaiju.table", sep="\t", header=T)
+test1 <- separate(test, col=taxon_name, into=c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species", "Empty"), sep=";", remove=T)
+  # Last 3 rows will have missing pieces because these are Viruses + unclassified seq's
+test1 <- test1[,-1]
+test1 <- test1[,-3]
+test1 <- test1[,-10]
+```
+
+
+
+
+
+
+
+
+
+###### EVERYTHING BELOW HERE IS OLD CODE ######
 ### KEGG Brite
 ```{r}
 ko.comp <- read.csv('KEGG/ko_comp.csv', fileEncoding="UTF-8-BOM")

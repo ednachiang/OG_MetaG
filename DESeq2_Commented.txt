@@ -1,0 +1,51 @@
+# In my analysis, I want to do pairwise comparisons between seasons (Summer, Winter, Spring) to identify overrepresented/underrepresented OTUs in each season
+# The order of your variables of interest is extremely important because that's how you pull out significant OTUs
+# The order of my seasons = Summer, Winter, Spring
+
+# path.physeq = my phyloseq object with all of my data
+
+# DESeq function that I use
+# Source: https://github.com/ednachiang/Verruco/blob/master/analysis/verruco-analysis.Rmd
+deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.05){
+  data_pruned <- prune_taxa(taxa_sums(data) > cutoff, data)
+  de_data <- phyloseq_to_deseq2(data_pruned, valuetest)
+  de_data2 <- DESeq(de_data, test="Wald", fitType="local")
+  res_data <- results(de_data2, cooksCutoff = FALSE, pAdjustMethod = "BH")
+  sig_data <- res_data[which(res_data$padj < alpha), ]
+  sigtab_sherm <- cbind(as(sig_data, "data.frame"), as(tax_table(data_pruned)[rownames(sig_data), ], "matrix"))
+}
+
+# Summer vs. Winter
+sw.physeq <- subset_samples(path.physeq, Season != "Spring")
+	# Removing Spring samples so I can do a pairwise comparison between Summer and Winter
+test <- deSEQ(data=sw.physeq, valuetest= ~Season)
+	# Part of the test output will be "log2FoldChange"
+	# Negative log2FoldChange = increase in Summer relative to Winter (first variable > second variable)
+	# Positive log2FoldChange = increase in Winter relative to Summer (second variable > first variable)
+sum <- which(test$log2FoldChange < 0)
+	# Pulling out all significant Summer OTUs
+sum.path <- rownames(test[sum,])
+	# This lists the OTUs
+win <- which(test$log2FoldChange > 0)
+	# Pulling out all significant Winter OTUs
+win.path <- rownames(test[win,])
+	# This lists the OTUs
+	
+# Spring vs. Summer
+ss.physeq <- subset_samples(path.physeq, Season != "Winter")
+test <- deSEQ(data=ss.physeq, valuetest= ~Season)
+spr <- which(test$log2FoldChange < 0)
+spr.path <- rownames(test[spr,])
+sum <- which(test$log2FoldChange > 0)
+sum.path <- rownames(test[sum,])
+
+# Spring vs. Winter
+sw.physeq <- subset_samples(path.physeq, Season != "Summer")
+	# Note that this has the same name as the subsetted phyloseq object I made when comparing Summer vs. Winter. This is bad computing practice. Don't be like me. Be better.
+test <- deSEQ(data=ss.physeq, valuetest= ~Season)
+spr <- which(test$log2FoldChange < 0)
+spr.path <- rownames(test[spr,])
+win <- which(test$log2FoldChange > 0)
+win.path <- rownames(test[win,])
+
+# To display all of this data, I use a heatmap of relative abundances. 1 column for each season, 1 row for each OTU. List the relative abundance for each OTU in each season, and then throw in a/b/c/d/etc. significance marks for which comparison is significant. E.g. A = Summer vs. Winter, B = Summer vs. Spring, C = Winter vs. Spring.

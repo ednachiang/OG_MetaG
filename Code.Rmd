@@ -22,14 +22,15 @@ library('RColorBrewer')
 library('gplots')
 library('tidyr')
 library('dplyr')
-source('Scripts/misc.r')
 theme_set(theme_bw())
 set.seed(1)
 ```
 
 ### Load Functions
 ```{r}
-source('Scripts/misc.R')
+source('scripts/misc.R')
+source('scripts/import.phylum.R')
+source('scripts/import.phylum.sum.R')
 
 ### DESeq2
 deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.05){
@@ -229,7 +230,7 @@ veganCovEllipse <- function(cov, center = c(0, 0), scale = 1, npoints = 100) {
 ```{r}
 ########## Domain ##########
 # Load files
-domain <- read.csv('kaiju/nohost/domain.csv', header=T)
+domain <- read.csv('kaiju/nohost/domain/domain.csv', header=T)
 domain$Season <- ordered(domain$Season, levels=c("Summer", "Winter", "Spring"))
 meta <- read.csv('metadata.csv', header=T)
 meta$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
@@ -343,17 +344,55 @@ ggplot(domain.clas.df, aes(x=Domain, y=Mean, fill=Domain)) +
 
 
 
+########## Phylum ##########
+phy.sum <- import.phylum.sum('kaiju/nohost/phylum')
+
+# Summarize phyla to get top 10
+phy.sum.sum <- phy.sum %>%
+  group_by(Phylum) %>%
+  summarize(Total_Mean = mean(Total_Mean),
+            Classified_Mean = mean(Classified_Mean))
+  # Top 10 phyla = Unclassified, Bacteroidetes, Firmicutes, Verrucomicrobia, Proteobacteria, Actinobacteria, Candidatus Melainabacteria, Spirochaetes, Tenericutes, Elusimicrobia (and Fusobacteria)
+
+# Only look at top 10 phyla
+top.total <- c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia")
+clas.total <- c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria")
+
+# Pull out top 10 phyla
+phy.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(phy.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
+for (i in 1:length(top.total)){
+  top <- which(phy.sum$Phylum == top.total[i])
+  for (j in 1:length(top)){
+    phy.total$Season <- phy.sum$Season[top[j]]
+    phy.total$Phylum <- 
+  }
+  phy.total <- 
+}
 
 
+phy.total.trim <- phy.sum[which(phy.sum$Total_Mean > 0.01), 1:5]
+phy.clas.trim <- phy.sum[which(phy.sum$Classified_Mean > 0.01),]
+phy.clas.trim <- phy.clas.trim[,-3:-5]
+phy.clas.trim <- phy.clas.trim[-which(phy.clas.trim$Phylum == "Unclassified"),]
+phy.total.trim$Phylum <- ordered(phy.total.trim$Phylum, levels=c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria", "Preaxostyla", "Chloroflexi", "Fibrobacteres", "Synergistetes", "Virus", "Planctomycetes", "Euryarchaeota"))
+phy.clas.trim$Phylum <- ordered(phy.clas.trim$Phylum, levels=c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria", "Preaxostyla", "Chloroflexi", "Fibrobacteres", "Synergistetes", "Virus", "Planctomycetes", "Euryarchaeota", "Parabasalia", "Cyanobacteria", "Lentisphaerae", "Acidobacteria"))
 
 
-
-test <- read.table("kaiju/3715.kaiju.table", sep="\t", header=T)
-test1 <- separate(test, col=taxon_name, into=c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species", "Empty"), sep=";", remove=T)
-  # Last 3 rows will have missing pieces because these are Viruses + unclassified seq's
-test1 <- test1[,-1]
-test1 <- test1[,-3]
-test1 <- test1[,-10]
+# Barplot for all sequences
+ggplot(phy.total.trim, aes(x=Phylum, y=Total_Mean, fill=Phylum)) +
+  geom_bar(stat="identity") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Total_Mean+Total_SE, ymin=Total_Mean-Total_SD), width=0.25) +
+  scale_y_continuous(limits=c(-0.5,60)) +
+  facet_grid(Season ~ .) +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
 ```
 
 

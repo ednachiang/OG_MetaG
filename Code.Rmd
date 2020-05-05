@@ -358,34 +358,64 @@ phy.sum.sum <- phy.sum %>%
 top.total <- c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia")
 clas.total <- c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria")
 
-# Pull out top 10 phyla
+# Pull out top 10 phyla - Including Unclassified
 phy.total <- data.frame(matrix(nrow=30, ncol=5))
 colnames(phy.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
 for (i in 1:length(top.total)){
   top <- which(phy.sum$Phylum == top.total[i])
   for (j in 1:length(top)){
-    phy.total$Season <- phy.sum$Season[top[j]]
-    phy.total$Phylum <- 
+    phy.total$Season[(j + 3*(i-1))] <- as.character(phy.sum$Season[top[j]])
+    phy.total$Phylum[(j + 3*(i-1))] <- phy.sum$Phylum[top[j]]
+    phy.total$Mean[(j + 3*(i-1))] <- phy.sum$Total_Mean[top[j]]
+    phy.total$SD[(j + 3*(i-1))] <- phy.sum$Total_SD[top[j]]
+    phy.total$SE[(j + 3*(i-1))] <- phy.sum$Total_SE[top[j]]
   }
-  phy.total <- 
 }
+phy.total$Phylum <- ordered(phy.total$Phylum, levels=c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia"))
+phy.total$Season <- ordered(phy.total$Season, levels=c("Summer", "Winter", "Spring"))
 
-
-phy.total.trim <- phy.sum[which(phy.sum$Total_Mean > 0.01), 1:5]
-phy.clas.trim <- phy.sum[which(phy.sum$Classified_Mean > 0.01),]
-phy.clas.trim <- phy.clas.trim[,-3:-5]
-phy.clas.trim <- phy.clas.trim[-which(phy.clas.trim$Phylum == "Unclassified"),]
-phy.total.trim$Phylum <- ordered(phy.total.trim$Phylum, levels=c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria", "Preaxostyla", "Chloroflexi", "Fibrobacteres", "Synergistetes", "Virus", "Planctomycetes", "Euryarchaeota"))
-phy.clas.trim$Phylum <- ordered(phy.clas.trim$Phylum, levels=c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria", "Preaxostyla", "Chloroflexi", "Fibrobacteres", "Synergistetes", "Virus", "Planctomycetes", "Euryarchaeota", "Parabasalia", "Cyanobacteria", "Lentisphaerae", "Acidobacteria"))
-
-
-# Barplot for all sequences
-ggplot(phy.total.trim, aes(x=Phylum, y=Total_Mean, fill=Phylum)) +
-  geom_bar(stat="identity") +
+# Barplot for top 10 phyla (including unclassified)
+ggplot(phy.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
+  geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Total_Mean+Total_SE, ymin=Total_Mean-Total_SD), width=0.25) +
-  scale_y_continuous(limits=c(-0.5,60)) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,60)) +
   facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+# Pull out top 10 phyla (Only classified)
+phy.clas.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(phy.clas.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
+for (i in 1:length(clas.total)){
+  top <- which(phy.sum$Phylum == clas.total[i])
+  for (j in 1:length(top)){
+    phy.clas.total$Season[(j + 3*(i-1))] <- as.character(phy.sum$Season[top[j]])
+    phy.clas.total$Phylum[(j + 3*(i-1))] <- phy.sum$Phylum[top[j]]
+    phy.clas.total$Mean[(j + 3*(i-1))] <- phy.sum$Total_Mean[top[j]]
+    phy.clas.total$SD[(j + 3*(i-1))] <- phy.sum$Total_SD[top[j]]
+    phy.clas.total$SE[(j + 3*(i-1))] <- phy.sum$Total_SE[top[j]]
+  }
+}
+phy.clas.total$Phylum <- ordered(phy.clas.total$Phylum, levels=c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria"))
+phy.clas.total$Season <- ordered(phy.clas.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+
+# Barplot for top 10 phyla (only classified)
+ggplot(phy.clas.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,45)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
   xlab("Phyla") +
   ylab("Mean Relative Abundance") +
   theme(panel.grid.major = element_blank(),

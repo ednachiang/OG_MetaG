@@ -41,20 +41,9 @@ import.phylum.sum <- function(x) {
     }
   }
   
-  # Replace NA's in read column with 0  
-  phylum$Reads_3715 <- replace_na(phylum$Reads_3715, replace=0)
-  phylum$Reads_3717 <- replace_na(phylum$Reads_3717, replace=0)
-  phylum$Reads_3723 <- replace_na(phylum$Reads_3723, replace=0)
-  phylum$Reads_3733 <- replace_na(phylum$Reads_3733, replace=0)
-  phylum$Reads_3734 <- replace_na(phylum$Reads_3734, replace=0)
-  phylum$Reads_3744 <- replace_na(phylum$Reads_3744, replace=0)
-  phylum$Reads_3772 <- replace_na(phylum$Reads_3772, replace=0)
-  phylum$Reads_3773 <- replace_na(phylum$Reads_3773, replace=0)
-  phylum$Reads_3775 <- replace_na(phylum$Reads_3775, replace=0)
-  
-  # Update unclassified sequences based on domain count total unclassified
-  phylum[which(phylum$Domain == "unclassified",),3:20] <- c(0, 4515088, 0, 7511409, 0, 5341407, 0, 5784901, 0, 8807662, 0, 6258991, 0, 4868461, 0, 7159963, 0, 6928969)
-  
+  # Update unclassified sequenced by combining "unclassified" + "cannot be assigned to a (non-viral) phylum"
+  phylum[which(phylum$Domain == "unclassified"), 3:20] <- (phylum[which(phylum$Domain == "unclassified"), 3:20] + phylum[which(phylum$Domain == "cannot be assigned to a (non-viral) phylum"), 3:20])
+
   # Add phylum name for Viruses/Unclassified sequences
   phylum$Phylum[which(phylum$Domain == "unclassified")] <- "Unclassified"
   phylum$Phylum[which(phylum$Domain == "Viruses")] <- "Virus"
@@ -62,27 +51,16 @@ import.phylum.sum <- function(x) {
   # Remove misc unclassified row
   phylum <- phylum[-which(phylum$Domain == "cannot be assigned to a (non-viral) phylum"),]
   
-  # Recalculate total relative abundances (RA) (divided by total reads)
-  phylum$RA_Total_3715 <- as.numeric((phylum$Reads_3715/11754963)*100)
-  phylum$RA_Total_3717 <- as.numeric((phylum$Reads_3717/14842572)*100)
-  phylum$RA_Total_3723 <- as.numeric((phylum$Reads_3723/11337484)*100)
-  phylum$RA_Total_3733 <- as.numeric((phylum$Reads_3733/11744317)*100)
-  phylum$RA_Total_3734 <- as.numeric((phylum$Reads_3734/16029927)*100)
-  phylum$RA_Total_3744 <- as.numeric((phylum$Reads_3744/11768188)*100)
-  phylum$RA_Total_3772 <- as.numeric((phylum$Reads_3772/10611480)*100)
-  phylum$RA_Total_3773 <- as.numeric((phylum$Reads_3773/12495850)*100)
-  phylum$RA_Total_3775 <- as.numeric((phylum$Reads_3775/12974479)*100)
-  
-  # Recalculate classified relative abundances (RA) (divided by classified reads)
-  phylum$RA_Classified_3715 <- as.numeric((phylum$Reads_3715/7239875)*100)
-  phylum$RA_Classified_3717 <- as.numeric((phylum$Reads_3717/7331163)*100)
-  phylum$RA_Classified_3723 <- as.numeric((phylum$Reads_3723/5996077)*100)
-  phylum$RA_Classified_3733 <- as.numeric((phylum$Reads_3733/5959416)*100)
-  phylum$RA_Classified_3734 <- as.numeric((phylum$Reads_3734/7222265)*100)
-  phylum$RA_Classified_3744 <- as.numeric((phylum$Reads_3744/5509197)*100)
-  phylum$RA_Classified_3772 <- as.numeric((phylum$Reads_3772/5743019)*100)
-  phylum$RA_Classified_3773 <- as.numeric((phylum$Reads_3773/5335887)*100)
-  phylum$RA_Classified_3775 <- as.numeric((phylum$Reads_3775/6045510)*100)
+  # Recalculate classified relative abundances (RA) (divided by reads classified at phylum level)
+  phylum$RA_Classified_3715 <- as.numeric((phylum$Reads_3715/ (sum(phylum$Reads_3715) - phylum$Reads_3715[which(phylum$Phylum == "Unclassified")]) *100))
+  phylum$RA_Classified_3717 <- as.numeric((phylum$Reads_3717/ (sum(phylum$Reads_3717) - phylum$Reads_3717[which(phylum$Phylum == "Unclassified")]) *100))
+  phylum$RA_Classified_3723 <- as.numeric((phylum$Reads_3723/ (sum(phylum$Reads_3723) - phylum$Reads_3723[which(phylum$Phylum == "Unclassified")]) *100))
+  phylum$RA_Classified_3733 <- as.numeric((phylum$Reads_3733/ (sum(phylum$Reads_3733) - phylum$Reads_3733[which(phylum$Phylum == "Unclassified")]) *100))
+  phylum$RA_Classified_3734 <- as.numeric((phylum$Reads_3734/ (sum(phylum$Reads_3734) - phylum$Reads_3734[which(phylum$Phylum == "Unclassified")]) *100))
+  phylum$RA_Classified_3744 <- as.numeric((phylum$Reads_3744/ (sum(phylum$Reads_3744) - phylum$Reads_3744[which(phylum$Phylum == "Unclassified")]) *100))
+  phylum$RA_Classified_3772 <- as.numeric((phylum$Reads_3772/ (sum(phylum$Reads_3772) - phylum$Reads_3772[which(phylum$Phylum == "Unclassified")]) *100))
+  phylum$RA_Classified_3773 <- as.numeric((phylum$Reads_3773/ (sum(phylum$Reads_3773) - phylum$Reads_3773[which(phylum$Phylum == "Unclassified")]) *100))
+  phylum$RA_Classified_3775 <- as.numeric((phylum$Reads_3775/ (sum(phylum$Reads_3775) - phylum$Reads_3775[which(phylum$Phylum == "Unclassified")]) *100))
 
   
   # Create new dataframe to prepare for summary
@@ -166,6 +144,14 @@ import.phylum.sum <- function(x) {
               Classified_Mean = mean(Classified_Relative_Abundance),
               Classified_SD= sd(Classified_Relative_Abundance),
               Classified_SE = se(Classified_Relative_Abundance))
+  
+  # Replace NA's in read column with 0
+  phylum.sum$Total_Mean <- replace_na(phylum.sum$Total_Mean, replace=0)
+  phylum.sum$Total_SD <- replace_na(phylum.sum$Total_SD, replace=0)
+  phylum.sum$Total_SE <- replace_na(phylum.sum$Total_SE, replace=0)
+  phylum.sum$Classified_Mean <- replace_na(phylum.sum$Classified_Mean, replace=0)
+  phylum.sum$Classified_SD <- replace_na(phylum.sum$Classified_SD, replace=0)
+  phylum.sum$Classified_SE <- replace_na(phylum.sum$Classified_SE, replace=0)
   
   return(phylum.sum)  
 }

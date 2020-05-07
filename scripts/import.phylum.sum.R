@@ -12,20 +12,20 @@ import.phylum.sum <- function(x) {
   for (i in 1:n) {
     filename <- list.files(x)[i]
     id <- substr(filename, 1,4)
-    # Pull out squirrel ID
+      # Pull out squirrel ID
     wd <- paste0(x,"/",filename)
-    # Path to each csv file
+      # Path to each csv file
     df <- assign(paste0("phylum.", id), read.table(wd, sep="\t", header=T))
-    # Save each tsv file as a dataframe
+      # Save each tsv file as a dataframe
     df <- separate(df, col=taxon_name, int=c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species", "Empty"), sep=";", remove=T)
-    # Separate taxon name by ";" to split into taxonomic levels
-    # Last 3 rows will have missing pieces because these are Viruses + unclassified seq's
+     # Separate taxon name by ";" to split into taxonomic levels
+      # Last 3 rows will have missing pieces because these are Viruses + unclassified seq's
     df <- df[,-1]
-    # Remove first column (file path)
+     # Remove first column (file path)
     df <- df[,-3]
-    # Remove third column (taxon id)
+      # Remove third column (taxon id)
     df <- df[,-5:-10]
-    # remove all taxonomic levels after phylum
+      # remove all taxonomic levels after phylum
     
     if (i < 2){
       # Fill in output dataframe with 3715 info
@@ -35,11 +35,22 @@ import.phylum.sum <- function(x) {
       phylum$Reads_3715 <- df$reads
     } else {
       colnames(df) <- c(paste0("RA_Total_",id), paste0("Reads_",id), "Domain", "Phylum")
-      # Rename relative abundance and read columns for inclusion in output dataframe
+       # Rename relative abundance and read columns for inclusion in output dataframe
       phylum <- full_join(phylum, df, by=c("Domain", "Phylum"))
-      # This joins the output dataframe and sample dataframe by matching the Domain and Phylum columns
+        # This joins the output dataframe and sample dataframe by matching the Domain and Phylum columns
     }
   }
+  
+  # Replace NA's in read column with 0  
+  phylum$Reads_3715 <- replace_na(phylum$Reads_3715, replace=0)
+  phylum$Reads_3717 <- replace_na(phylum$Reads_3717, replace=0)
+  phylum$Reads_3723 <- replace_na(phylum$Reads_3723, replace=0)
+  phylum$Reads_3733 <- replace_na(phylum$Reads_3733, replace=0)
+  phylum$Reads_3734 <- replace_na(phylum$Reads_3734, replace=0)
+  phylum$Reads_3744 <- replace_na(phylum$Reads_3744, replace=0)
+  phylum$Reads_3772 <- replace_na(phylum$Reads_3772, replace=0)
+  phylum$Reads_3773 <- replace_na(phylum$Reads_3773, replace=0)
+  phylum$Reads_3775 <- replace_na(phylum$Reads_3775, replace=0)
   
   # Update unclassified sequenced by combining "unclassified" + "cannot be assigned to a (non-viral) phylum"
   phylum[which(phylum$Domain == "unclassified"), 3:20] <- (phylum[which(phylum$Domain == "unclassified"), 3:20] + phylum[which(phylum$Domain == "cannot be assigned to a (non-viral) phylum"), 3:20])

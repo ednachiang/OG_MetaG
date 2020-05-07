@@ -6,8 +6,10 @@ import.phylum.sum <- function(x) {
   n <- as.numeric(length(list.files(x)))
   # Initialize output dataframe
   phylum <- data.frame(matrix(ncol=4, nrow=170))
+    # nrow is based on number of classes in sample 3715 because this is the first sample used to populate the dataframe
+    # nrow will change as we populate the dataframe with all samples
   colnames(phylum) <- c("Domain", "Phylum", "RA_Total_3715", "Reads_3715")
-  # I'll populate the dataframe sample-by-sample, so I'm only naming the colnames for the first sample
+    # I'll populate the dataframe sample-by-sample, so I'm only naming the colnames for the first sample
   
   for (i in 1:n) {
     filename <- list.files(x)[i]

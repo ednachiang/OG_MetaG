@@ -38,13 +38,13 @@ import.class.sum <- function(x) {
       class$Reads_3715 <- df$reads
     } else {
       colnames(df) <- c(paste0("RA_Total_",id), paste0("Reads_",id), "Domain", "Phylum", "Class")
-      # Rename relative abundance and read columns for inclusion in output dataframe
+        # Rename relative abundance and read columns for inclusion in output dataframe
       class <- full_join(class, df, by=c("Domain", "Phylum", "Class"))
-      # This joins the output dataframe and sample dataframe by matching the Domain, Phylum, & Class columns
+        # This joins the output dataframe and sample dataframe by matching the Domain, Phylum, & Class columns
     }
   }
   
-# Replace NA's in read column with 0  
+  # Replace NA's in read column with 0  
   class$Reads_3715 <- replace_na(class$Reads_3715, replace=0)
   class$Reads_3717 <- replace_na(class$Reads_3717, replace=0)
   class$Reads_3723 <- replace_na(class$Reads_3723, replace=0)
@@ -55,9 +55,10 @@ import.class.sum <- function(x) {
   class$Reads_3773 <- replace_na(class$Reads_3773, replace=0)
   class$Reads_3775 <- replace_na(class$Reads_3775, replace=0)
   
-  # Update unclassified sequences based on domain count total unclassified
-  class[which(class$Domain == "unclassified"),3:20] <- c(0, 4515088, 0, 7511409, 0, 5341407, 0, 5784901, 0, 8807662, 0, 6258991, 0, 4868461, 0, 7159963, 0, 6928969)
+  # Update unclassified sequenced by combining "unclassified" + "cannot be assigned to a (non-viral) class"
+  class[which(class$Domain == "unclassified"), 4:21] <- (class[which(class$Domain == "unclassified"), 4:21] + class[which(class$Domain == "cannot be assigned to a (non-viral) class"), 4:21])
   
+
   # Add phylum name for Viruses/Unclassified sequences
   class$Phylum[which(class$Domain == "unclassified")] <- "Unclassified"
   class$Phylum[which(class$Domain == "Viruses")] <- "Virus"
@@ -69,27 +70,16 @@ import.class.sum <- function(x) {
   # Remove misc unclassified row
   class <- class[-which(class$Domain == "cannot be assigned to a (non-viral) class"),]
   
-  # Recalculate total relative abundances (RA) (divided by total reads)
-  class$RA_Total_3715 <- as.numeric((class$Reads_3715/11754963)*100)
-  class$RA_Total_3717 <- as.numeric((class$Reads_3717/14842572)*100)
-  class$RA_Total_3723 <- as.numeric((class$Reads_3723/11337484)*100)
-  class$RA_Total_3733 <- as.numeric((class$Reads_3733/11744317)*100)
-  class$RA_Total_3734 <- as.numeric((class$Reads_3734/16029927)*100)
-  class$RA_Total_3744 <- as.numeric((class$Reads_3744/11768188)*100)
-  class$RA_Total_3772 <- as.numeric((class$Reads_3772/10611480)*100)
-  class$RA_Total_3773 <- as.numeric((class$Reads_3773/12495850)*100)
-  class$RA_Total_3775 <- as.numeric((class$Reads_3775/12974479)*100)
-  
-  # Recalculate classified relative abundances (RA) (divided by classified reads)
-  class$RA_Classified_3715 <- as.numeric((class$Reads_3715/7239875)*100)
-  class$RA_Classified_3717 <- as.numeric((class$Reads_3717/7331163)*100)
-  class$RA_Classified_3723 <- as.numeric((class$Reads_3723/5996077)*100)
-  class$RA_Classified_3733 <- as.numeric((class$Reads_3733/5959416)*100)
-  class$RA_Classified_3734 <- as.numeric((class$Reads_3734/7222265)*100)
-  class$RA_Classified_3744 <- as.numeric((class$Reads_3744/5509197)*100)
-  class$RA_Classified_3772 <- as.numeric((class$Reads_3772/5743019)*100)
-  class$RA_Classified_3773 <- as.numeric((class$Reads_3773/5335887)*100)
-  class$RA_Classified_3775 <- as.numeric((class$Reads_3775/6045510)*100)
+  # Recalculate classified relative abundances (RA) (divided by reads classified at class level)
+  class$RA_Classified_3715 <- as.numeric((class$Reads_3715/ (sum(class$Reads_3715) - class$Reads_3715[which(class$Class == "Unclassified")]) *100))
+  class$RA_Classified_3717 <- as.numeric((class$Reads_3717/ (sum(class$Reads_3717) - class$Reads_3717[which(class$Class == "Unclassified")]) *100))
+  class$RA_Classified_3723 <- as.numeric((class$Reads_3723/ (sum(class$Reads_3723) - class$Reads_3723[which(class$Class == "Unclassified")]) *100))
+  class$RA_Classified_3733 <- as.numeric((class$Reads_3733/ (sum(class$Reads_3733) - class$Reads_3733[which(class$Class == "Unclassified")]) *100))
+  class$RA_Classified_3734 <- as.numeric((class$Reads_3734/ (sum(class$Reads_3734) - class$Reads_3734[which(class$Class == "Unclassified")]) *100))
+  class$RA_Classified_3744 <- as.numeric((class$Reads_3744/ (sum(class$Reads_3744) - class$Reads_3744[which(class$Class == "Unclassified")]) *100))
+  class$RA_Classified_3772 <- as.numeric((class$Reads_3772/ (sum(class$Reads_3772) - class$Reads_3772[which(class$Class == "Unclassified")]) *100))
+  class$RA_Classified_3773 <- as.numeric((class$Reads_3773/ (sum(class$Reads_3773) - class$Reads_3773[which(class$Class == "Unclassified")]) *100))
+  class$RA_Classified_3775 <- as.numeric((class$Reads_3775/ (sum(class$Reads_3775) - class$Reads_3775[which(class$Class == "Unclassified")]) *100))
 
   
   # Create new dataframe to prepare for summary
@@ -174,6 +164,14 @@ import.class.sum <- function(x) {
               Classified_Mean = mean(Classified_Relative_Abundance),
               Classified_SD= sd(Classified_Relative_Abundance),
               Classified_SE = se(Classified_Relative_Abundance))
+  
+  # Replace NA's in read column with 0
+  class.sum$Total_Mean <- replace_na(class.sum$Total_Mean, replace=0)
+  class.sum$Total_SD <- replace_na(class.sum$Total_SD, replace=0)
+  class.sum$Total_SE <- replace_na(class.sum$Total_SE, replace=0)
+  class.sum$Classified_Mean <- replace_na(class.sum$Classified_Mean, replace=0)
+  class.sum$Classified_SD <- replace_na(class.sum$Classified_SD, replace=0)
+  class.sum$Classified_SE <- replace_na(class.sum$Classified_SE, replace=0)
   
   return(class.sum)  
 }

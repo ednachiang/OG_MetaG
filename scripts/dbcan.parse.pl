@@ -1,3 +1,5 @@
+# Script by Andrew Steinberger (https://github.com/asteinberger9)
+
 open (FILE, "3715.idba.txt");
 open (TBL, "3715.idba.tbl");
 open (output, ">", "3715.idba.dbCAN.parsed");

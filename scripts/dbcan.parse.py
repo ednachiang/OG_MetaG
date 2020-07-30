@@ -1,3 +1,5 @@
+# Script by Andrew Steinberger (https://github.com/asteinberger9)
+
 import os
 import sys
 import pandas as pd

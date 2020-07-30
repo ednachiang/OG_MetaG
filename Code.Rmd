@@ -682,13 +682,25 @@ dbcan.sp <- subset_samples(dbcan99, Season != "Winter")
 dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
   # Winter & Spring
 ```
-### dbCAN - Family NMDS
+
+### dbCAN - Family Bray-Curtis NMDS
 ```{r}
 # Families w/ avg rel abund > 0.1%
 dbcan.nmds <- ordinate(physeq = dbcan99, method = "NMDS", distance = "bray")
   # stress = 0.02657713
 plot_ordination(physeq = dbcan99, ordination = dbcan.nmds, color = "Season")
 ```
+
+### dbCAN - Family Bray-Curtis PCoA
+```{r}
+# Families w/ avg rel abund > 0.1%
+dbcan.pcoa <- ordinate(physeq = dbcan99, method="PCoA", distance="bray")
+plot_ordination(physeq = dbcan99, ordination = dbcan.pcoa, axes = c(1,2),
+              color = "Season")
+  # Axis 1 + 2 = 72.6%
+
+```
+
 
 ### dbCAN - Family Bray-Curtis PERMANOVA
 ```{r}
@@ -724,60 +736,82 @@ p$tab
 
 
 ### Pairwise PERMANOVA
-
-# Summer vs. Winter
-dbcan.sw.bray <- phyloseq::distance(dbcan.sw, method="bray")
-# Season
-adonis(dbcan.sw.bray~Season, data=data.frame(sample_data(dbcan.sw)), permutations = 99999)
-  # p-value = 0.1
-beta.tax = betadisper(d=dbcan.sw.bray, group=data.frame(sample_data(dbcan.sw))$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.6013889
-
-# Summer vs. Spring
-dbcan.sp.bray <- phyloseq::distance(dbcan.sp, method="bray")
-# Season
-adonis(dbcan.sp.bray~Season, data=data.frame(sample_data(dbcan.sp)), permutations = 99999)
-  # p-value = 0.1
-beta.tax = betadisper(d=dbcan.sp.bray, group=data.frame(sample_data(dbcan.sp))$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.9013889
-
-# Winter vs. Spring
-dbcan.wp.bray <- phyloseq::distance(dbcan.wp, method="bray")
-# Season
-adonis(dbcan.wp.bray~Season, data=data.frame(sample_data(dbcan.wp)), permutations = 99999)
-  # p-value = 0.1
-beta.tax = betadisper(d=dbcan.wp.bray, group=data.frame(sample_data(dbcan.wp))$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.1013889
-
-
 pairwise.adonis(as.matrix(t(otu_table(dbcan99))), meta$Season, sim.method="bray", p.adjust.m="fdr")
+  # Summer-Winter: adj-pval=0.1, R2 = 0.4589260
+  # Summer-Spring: adj-pval=0.1, R2 = 0.3684097
+  # Winter-Spring: adj-pval=0.1, R2 = 0.6064905
 
 
-
+### Global PERMANOVA is sign, but not pairwise PERMANOVA-- why?
+# https://help.xlstat.com/s/article/how-to-interpret-contradictory-results-between-anova-and-multiple-pairwise-comparisons?language=en_US
+# Likely due to lack of statistical power (small n)
 ```
 
 
-### dbCAN - Family PCoA
+## dbCAN - Family Jaccard NMDS
+```{r}
+dbcan.jac.nmds <- ordinate(physeq=dbcan99, method="NMDS", distance="jaccard")
+  # stress = 0.02657695
+
+plot_ordination(physeq=dbcan99, ordination=dbcan.jac.nmds, color="Season")
+```
+
+
+### dbCAN - Family Jaccard PCoA
 ```{r}
 # Families w/ avg rel abund > 0.1%
-dbcan.pcoa <- ordinate(physeq = dbcan99, method="PCoA", distance="bray")
-plot_ordination(physeq = dbcan99, ordination = dbcan.pcoa, axes = c(1,2),
+dbcan.jac.pcoa <- ordinate(physeq = dbcan99, method="PCoA", distance="jaccard")
+plot_ordination(physeq = dbcan99, ordination = dbcan.jac.pcoa, axes = c(1,2),
               color = "Season")
-
+  # Axis 1 + 2 = 68.5
+  # Bray PCoA explains more variability than Jaccard PCoA
 ```
 
 
+### dbCAN - Family Jaccard PERMANOVA
+```{r}
+### PERMANOVA
+dbcan.jac <- phyloseq::distance(dbcan99, method="jaccard")
+
+# Season
+adonis(dbcan.jac~Season, data=meta, permutations = 99999)
+  # p-value = 0.00356
+beta.tax = betadisper(d=dbcan.jac, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.594
+
+
+# Diet
+adonis(dbcan.jac~Diet, data=meta, permutations = 99999)
+  # p-value = 0.01215
+beta.tax = betadisper(d=dbcan.jac, group=meta$Diet)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.113
+
+
+# Sex
+adonis(dbcan.jac~Sex, data=meta, permutations = 99999)
+  # p-value = 0.4288
+beta.tax = betadisper(d=dbcan.jac, group=meta$Sex)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.779
 
 
 
+### Pairwise PERMANOVA
+pairwise.adonis(as.matrix(t(otu_table(dbcan99))), meta$Season, sim.method="jaccard", p.adjust.m="fdr")
+  # Summer-Winter: adj-pval=0.1, R2 = 0.4432689
+  # Summer-Spring: adj-pval=0.1, R2 = 0.3477866
+  # Winter-Spring: adj-pval=0.1, R2 = 0.5800833
 
 
+### Global PERMANOVA is sign, but not pairwise PERMANOVA-- why?
+# https://help.xlstat.com/s/article/how-to-interpret-contradictory-results-between-anova-and-multiple-pairwise-comparisons?language=en_US
+# Likely due to lack of statistical power (small n)
+```
 
 
 

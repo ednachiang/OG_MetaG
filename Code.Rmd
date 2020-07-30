@@ -21,6 +21,7 @@ library('tidyr')
 library('dplyr')
 library('stringr')
 library('lme4')
+library('picante')
 theme_set(theme_bw())
 set.seed(1)
 ```
@@ -748,6 +749,23 @@ pairwise.adonis(as.matrix(t(otu_table(dbcan99))), meta$Season, sim.method="bray"
 ```
 
 
+# dbCAN - Family UPGMA
+```{r}
+### Create Kendall's Tau Correlation Matrix
+# Using Kendall's instead of Spearman's because Kendall is more accurate w/ smaller n's
+# https://www.statisticssolutions.com/kendalls-tau-and-spearmans-rank-correlation-coefficient/
+# http://www.r-tutor.com/gpu-computing/correlation/kendall-rank-coefficient
+dbcan.cor <- cor(data.frame(otu_table(dbcan99)), method = "kendall", use="pairwise")
+
+### UPGMA
+dbcan.upgma <- upgma(dbcan.cor)
+# Rename sample names to make interpreting tree easier
+dbcan.upgma$tip.label <- c("Summer_F", "Summer_F", "Winter_M", "Winter_F", "Spring_M", "Summer_M", "Winter_M", "Spring_F", "Spring_M")
+
+### Plot
+# http://www.phytools.org/Cordoba2017/ex/2/Intro-to-phylogenies.html
+plot(dbcan.upgma, edge.width=2, type="cladogram")
+```
 
 
 

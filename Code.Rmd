@@ -471,10 +471,19 @@ summary(aov(Abundance ~ Assembler, data = dbcan.melt))
 
 ### Create dbCAN phyloseq object
 ```{r}
+# Load data
+otu <- read.csv('dbcan/dbcan_otu_table.csv', row.names=1)
+colnames(otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+otu <- otu_table(otu, taxa_are_rows=T)
+tax <- read.csv('dbcan/dbcan_tax_table.csv', row.names=1)
+tax <- tax_table(tax)
+colnames(tax) <- c("Class", "Family")
+taxa_names(tax) <- tax[,2]
+meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
+meta$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
 
-
-
-
+# Create phyloseq object
+dbcan.phy <- merge_phyloseq(otu, tax, sample_data(meta))
 ```
 
 # dbCAN - class-level bar plot

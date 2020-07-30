@@ -35,7 +35,7 @@ source('scripts/import.family.sum.R')
 source('scripts/import.genus.sum.R')
 source('scripts/import.species.sum.R')
 source('scripts/simper.R')
-
+source('scripts/pairwise.adonis.R')
 ```
 
 ### Kaiju - Taxonomic Classification
@@ -432,7 +432,7 @@ ggplot(gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
 
 
 ###### EVERYTHING BELOW HERE IS OLD CODE ######
-### Test assembler effect on dbCAN class-level results
+### dbCAN - Test assembler effect on class-level results
 ```{r}
 # Load dbcan class-level rel abund
 dbcan <- read.csv('dbcan/idba.spades.comparison.csv', row.names=1)
@@ -469,24 +469,7 @@ summary(aov(Abundance ~ Assembler, data = dbcan.melt))
   # Aka it doesn't matter if you use IDBA or metaSPADes -- the class-level dbcan results will be the same
 ```
 
-### Create dbCAN phyloseq object
-```{r}
-# Load data
-otu <- read.csv('dbcan/dbcan_otu_table.csv', row.names=1)
-colnames(otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-otu <- otu_table(otu, taxa_are_rows=T)
-tax <- read.csv('dbcan/dbcan_tax_table.csv', row.names=1)
-tax <- tax_table(tax)
-colnames(tax) <- c("Class", "Family")
-taxa_names(tax) <- tax[,2]
-meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
-meta$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
-
-# Create phyloseq object
-dbcan.phy <- merge_phyloseq(otu, tax, sample_data(meta))
-```
-
-# dbCAN - class-level bar plot
+### dbCAN - Class-level bar plot
 ```{r}
 # Load dbcan class-level rel abund
 dbcan <- read.csv('dbcan/spades.dbcan.csv', row.names=1)
@@ -523,7 +506,7 @@ ggplot(dbcan.sum, aes(x=Season, y=Mean, fill=Season)) +
         legend.title = element_text(face="bold"))
 ```
 
-# dbCAN - Test class-level
+### dbCAN - Test class-level
 ```{r}
 ### AA
 aa <- dbcan.melt[which(dbcan.melt$OTU == "AA"),]
@@ -588,6 +571,12 @@ shapiro.test(gh$Abundance)
 summary(aov(Abundance ~ Season, data = gh))
   # p-value = 0.00376
 
+# Test GH w/ Tukey's
+TukeyHSD(aov(Abundance ~ Season, data = gh))
+  # Winter-Summer = 0.0169264*
+  # Spring-Summer = 0.3384504
+  # Spring-Winter = 0.0035475*
+
 
 ### GT
 gt <- dbcan.melt[which(dbcan.melt$OTU == "GT"),]
@@ -603,6 +592,12 @@ shapiro.test(gt$Abundance)
 # Test GT w/ ANOVA
 summary(aov(Abundance ~ Season, data = gt))
   # p-value = 0.012
+
+# Test GT w/ Tukey's
+TukeyHSD(aov(Abundance ~ Season, data = gt))
+  # Winter-Summer = 0.2800447
+  # Spring-Summer = 0.0737956
+  # Spring-Winter = 0.0102155*
 
 
 ### PL
@@ -647,6 +642,139 @@ p.adjust(c(0.208, 0.484, 0.831, 0.00376, 0.012, 0.0829, 0.16), method="BH")
   # PL = 0.1934333
   # SLH = 0.28
 ```
+
+
+
+
+
+
+
+
+
+
+### dbCAN - Create phyloseq object to prep for family-level & b-div
+```{r}
+# Load data
+otu <- read.csv('dbcan/dbcan_otu_table.csv', row.names=1)
+colnames(otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+otu <- otu_table(otu, taxa_are_rows=T)
+tax <- read.csv('dbcan/dbcan_tax_table.csv', row.names=1)
+tax <- tax_table(tax)
+colnames(tax) <- c("Class", "Family")
+taxa_names(tax) <- tax[,2]
+meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
+meta$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Create phyloseq object
+dbcan.phy <- merge_phyloseq(otu, tax, sample_data(meta))
+
+# Calculate rel abund
+dbcan99 <- transform_sample_counts(dbcan.phy, function(x){(x/sum(x))*100})
+
+# Remove families w/ < 0.1% avg rel abund
+dbcan99 <- prune_taxa(((taxa_sums(dbcan99)) / nsamples(dbcan99)) > 0.1, dbcan99)
+
+# Pairwise season physeq objects
+dbcan.sw <- subset_samples(dbcan99, Season != "Spring")
+  # Summer & Winter
+dbcan.sp <- subset_samples(dbcan99, Season != "Winter")
+  # Summer & Spring
+dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
+  # Winter & Spring
+```
+### dbCAN - Family NMDS
+```{r}
+# Families w/ avg rel abund > 0.1%
+dbcan.nmds <- ordinate(physeq = dbcan99, method = "NMDS", distance = "bray")
+  # stress = 0.02657713
+plot_ordination(physeq = dbcan99, ordination = dbcan.nmds, color = "Season")
+```
+
+### dbCAN - Family Bray-Curtis PERMANOVA
+```{r}
+### PERMANOVA
+dbcan.bray <- phyloseq::distance(dbcan99, method="bray")
+
+# Season
+adonis(dbcan.bray~Season, data=meta, permutations = 99999)
+  # p-value = 0.00362
+beta.tax = betadisper(d=dbcan.bray, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.6
+
+
+# Diet
+adonis(dbcan.bray~Diet, data=meta, permutations = 99999)
+  # p-value = 0.0126
+beta.tax = betadisper(d=dbcan.bray, group=meta$Diet)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.156
+
+
+# Sex
+adonis(dbcan.bray~Sex, data=meta, permutations = 99999)
+  # p-value = 0.4267
+beta.tax = betadisper(d=dbcan.bray, group=meta$Sex)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.781
+
+
+
+### Pairwise PERMANOVA
+
+# Summer vs. Winter
+dbcan.sw.bray <- phyloseq::distance(dbcan.sw, method="bray")
+# Season
+adonis(dbcan.sw.bray~Season, data=data.frame(sample_data(dbcan.sw)), permutations = 99999)
+  # p-value = 0.1
+beta.tax = betadisper(d=dbcan.sw.bray, group=data.frame(sample_data(dbcan.sw))$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.6013889
+
+# Summer vs. Spring
+dbcan.sp.bray <- phyloseq::distance(dbcan.sp, method="bray")
+# Season
+adonis(dbcan.sp.bray~Season, data=data.frame(sample_data(dbcan.sp)), permutations = 99999)
+  # p-value = 0.1
+beta.tax = betadisper(d=dbcan.sp.bray, group=data.frame(sample_data(dbcan.sp))$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.9013889
+
+# Winter vs. Spring
+dbcan.wp.bray <- phyloseq::distance(dbcan.wp, method="bray")
+# Season
+adonis(dbcan.wp.bray~Season, data=data.frame(sample_data(dbcan.wp)), permutations = 99999)
+  # p-value = 0.1
+beta.tax = betadisper(d=dbcan.wp.bray, group=data.frame(sample_data(dbcan.wp))$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.1013889
+
+
+pairwise.adonis(as.matrix(t(otu_table(dbcan99))), meta$Season, sim.method="bray", p.adjust.m="fdr")
+
+
+
+```
+
+
+### dbCAN - Family PCoA
+```{r}
+# Families w/ avg rel abund > 0.1%
+dbcan.pcoa <- ordinate(physeq = dbcan99, method="PCoA", distance="bray")
+plot_ordination(physeq = dbcan99, ordination = dbcan.pcoa, axes = c(1,2),
+              color = "Season")
+
+```
+
+
+
+
 
 
 

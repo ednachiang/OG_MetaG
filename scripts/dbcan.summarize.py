@@ -1,68 +1,89 @@
-import csv
-	# To convert dictionary into csv output
-import sys
-	# To format csv output
+import os
+	# Import os to iterate over files in a directory
 import pandas as pd
-from pandas import DataFrame
+    # Import pandas to use dataframes
 
 
-dbcanOutput = 'test.txt'
-dbcan = open(dbcanOutput, mode='r')
-#outputFile = open('test.summary.csv', 'w')
-#output = csv.writer(outputFile, sys.stdout, lineterminator="\n")
-	# Creates csv file and ensures correct formatting (no extra new line character)
+
+##### CHANGE THESE PARAMETERS ACCORDINGLY
+directory = '../dbcan/spades/'
+otuPath = '../dbcan/dbcan_OTU_table.csv'
+    # Path to output "OTU table"
+taxPath = '../dbcan/dbcan_tax_table.csv'
+    # Path to output "taxonomy table"
+
+
+
 char1 = '.'
 char2 = "_"
-dbcanDict = { }
+dbcanDictFinal = { }
 
+# Define function
+def dbcanParse(inputFilePath):
+    dbcanDict = { }
+        # Create dictionary to be populated in this command
+    
+    input = open(inputFilePath, mode='r')
+        # Open input file
 
-for line1 in dbcan.readlines():
-# Read file line-by-line
+    for line1 in input.readlines():
+    # Read file line-by-line
 
-	col = line1.split('\t')
-	# Split the row by tabs
+        col = line1.split('\t')
+            # Split the row by tabs
 
-	if 'hmm' in col[1]:
-	# Pull out only lines that specify dbCAN classification in col 2. The last 7 lines summarize each class and don't contain hmm, so we want to exclude them.
-		print(col[1])
-		split1 = col[1].split(char1, 1)[0]
-			# Pull out everything before the ".hmm"
-		print(split1)
-		split2 = split1.split(char2, 1)[0]
-			# Pull out everything before subfamily classification-- right now I only care about the family-level classification
-		print(split2)
+        if 'hmm' in col[1]:
+        # Pull out only lines that specify dbCAN classification in col 2. The last 7 lines summarize each class and don't contain hmm, so we want to exclude them.
+            split1 = col[1].split(char1, 1)[0]
+                # Pull out everything before the ".hmm"
+            split2 = split1.split(char2, 1)[0]
+                # Pull out everything before subfamily classification-- right now I only care about the family-level classification
 
-		if split2 in dbcanDict:
-		# For CAZyme family that's already in the dictionary
-			dbcanDict[split2] = dbcanDict[split2] + 1
-			# Add one to the family counter
-			print(dbcanDict[split2])
-		else:
-		# For CAZyme family that's not in the dictionary yet
-			dbcanDict[split2] = 1
-			# Add family to dictionary and start counter
-			print(dbcanDict[split2])
-
-print(dbcanDict)
-
-df = DataFrame(list(dbcanDict.items()), columns=['Family', 'Count'])
-	# Convert dictionary to dataframe so I can add a class-level classification column
-df['Class'] = df['Family'].str[:2]
-df = df.set_index('Family')
-print(df)
-
-#df.to_csv(r'test.csv')
-
-# Convert dictionary into csv file
-#for key, val in dbcanDict.items():
-#	output.writerow([key,val])
-
-#for line2 in output:
-#	output["Class"] = line2[1:3]
-#	print(line2)
+            if split2 in dbcanDict:
+            # For CAZyme family that's already in the dictionary
+                dbcanDict[split2] = dbcanDict[split2] + 1
+                    # Add one to the family counter
+            else:
+            # For CAZyme family that's not in the dictionary yet
+                dbcanDict[split2] = 1
+                    # Add familly to dictionary and start counter
+    return(dbcanDict)
 
 
 
+# Create dictionary
+for file in os.listdir(directory):
+# Iterate for all files in the directory
+    filePath = directory + file
+    sample = str(file[:4])
+        # Pulls out sample ID #
+    dbcanDictFinal[sample] = dbcanParse(filePath)
 
-dbcan.close()
-#outputFile.close()
+
+
+# Create dbcan "OTU table"
+dbcanOTU = pd.DataFrame.from_dict(dbcanDictFinal)
+
+# Format "OTU table"
+dbcanOTU = dbcanOTU.fillna(0)
+    # Fill NA's with 0 (otherwise they get saved as blanks)
+dbcanOTU = dbcanOTU.drop(['cohesin', 'dockerin', 'SLH'])
+    # Remove cohesin, dockerin, and SLH-- these are a domain modules added by dbCAN that's not in the CAZy database
+
+
+# Create dbcan "taxonomy table"
+dbcanNames = dbcanOTU.index.values
+dbcanTax = pd.DataFrame(dbcanNames, index = dbcanNames, columns = ['Family'])
+dbcanTax['Class'] = dbcanTax['Family'].str[:2]
+cols = dbcanTax.columns.tolist()
+    # Convert column names to list because I want to reorder the columns so Class is first and Family is second
+cols = cols[-1:] + cols[:-1]
+    # Moves last col (Class) to the first position and moves first col (Family) to the second position
+dbcanTax = dbcanTax[cols]
+    # Reorder dataframe according to the new col positions
+
+
+
+# Save dbcan OTU table and taxonomy table as .csv files
+dbcanOTU.to_csv(otuPath)
+dbcanTax.to_csv(taxPath)

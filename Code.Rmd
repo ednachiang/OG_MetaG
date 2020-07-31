@@ -669,18 +669,24 @@ meta$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
 # Create phyloseq object
 dbcan.phy <- merge_phyloseq(otu, tax, sample_data(meta))
 
+# Remove singletons
+dbcan.1 <- prune_taxa(taxa_sums(dbcan.phy) > 1, dbcan.phy)
+
+# Remove 5-tons
+dbcan.5 <- prune_taxa(taxa_sums(dbcan.phy) > 5, dbcan.phy)
+
 # Calculate rel abund
-dbcan99 <- transform_sample_counts(dbcan.phy, function(x){(x/sum(x))*100})
+#dbcan99 <- transform_sample_counts(dbcan.phy, function(x){(x/sum(x))*100})
 
 # Remove families w/ < 0.1% avg rel abund
-dbcan99 <- prune_taxa(((taxa_sums(dbcan99)) / nsamples(dbcan99)) > 0.1, dbcan99)
+#dbcan99 <- prune_taxa(((taxa_sums(dbcan99)) / nsamples(dbcan99)) > 0.1, dbcan99)
 
 # Pairwise season physeq objects
-dbcan.sw <- subset_samples(dbcan99, Season != "Spring")
+#dbcan.sw <- subset_samples(dbcan99, Season != "Spring")
   # Summer & Winter
-dbcan.sp <- subset_samples(dbcan99, Season != "Winter")
+#dbcan.sp <- subset_samples(dbcan99, Season != "Winter")
   # Summer & Spring
-dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
+#dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
   # Winter & Spring
 ```
 
@@ -749,7 +755,7 @@ pairwise.adonis(as.matrix(t(otu_table(dbcan99))), meta$Season, sim.method="bray"
 ```
 
 
-# dbCAN - Family UPGMA
+### dbCAN - Family UPGMA
 ```{r}
 ### Create Kendall's Tau Correlation Matrix
 # Using Kendall's instead of Spearman's because Kendall is more accurate w/ smaller n's
@@ -760,13 +766,47 @@ dbcan.cor <- cor(data.frame(otu_table(dbcan99)), method = "kendall", use="pairwi
 ### UPGMA
 dbcan.upgma <- upgma(dbcan.cor)
 # Rename sample names to make interpreting tree easier
-dbcan.upgma$tip.label <- c("Summer_F", "Summer_F", "Winter_M", "Winter_F", "Spring_M", "Summer_M", "Winter_M", "Spring_F", "Spring_M")
+dbcan.upgma$tip.label <- c("Summer_F_1", "Summer_F_1", "Winter_M_2", "Winter_F_3", "Spring_M_3", "Summer_M_4", "Winter_M_5", "Spring_F_5", "Spring_M_5")
+  # Last number refers to litter
 
 ### Plot
 # http://www.phytools.org/Cordoba2017/ex/2/Intro-to-phylogenies.html
 plot(dbcan.upgma, edge.width=2, type="cladogram")
 ```
 
+
+### dbCAN DESeq
+```{r}
+# Use UN-NORMALIZED data!!!
+  # DESeq accounts for library size
+
+### Prepare physeq objects
+# Pull out just OTUs that have rel abund > 0.1% (to ensure the OTU analyses remain consistent)
+pick <- rownames(otu_table(dbcan99))
+dbcan.pick <- prune_taxa(names(taxa_sums(dbcan.phy)) %in% pick, x=dbcan.phy)
+
+# Subset out pairwise seasons
+sw.dbcan <- subset_samples(dbcan.1, Season != "Spring")
+sp.dbcan <- subset_samples(dbcan.pick, Season != "Winter")
+wp.dbcan <- subset_samples(dbcan.pick, Season != "Summer")
+
+# For some reason DESeq2 isn't recognizing the different Season factors, so I'm resetting them
+sample_data(sw.dbcan)$Season <- c("Summer", "Summer", "Winter", "Winter", "Summer", "Winter")
+sample_data(sp.dbcan)$Season <- c("Summer", "Summer", "Spring", "Summer", "Spring", "Spring")
+sample_data(wp.dbcan)$Season <- c("Winter", "Winter", "Spring", "Winter", "Spring", "Spring")
+
+
+### Summer vs. Winter
+dseq <- deSEQ(data = sw.dbcan, valuetest= ~Season, alpha=0.05)
+
+
+
+
+sum <- which(dseq$log2FoldChange < 0)
+sum.fam <- rownames(dseq[sum,])
+win <- which(dseq$log2GoldChange > 0)
+win.fam <- rownames(dseq[win,])
+```
 
 
 
@@ -3486,3 +3526,5 @@ cog.nmds.legend$vp <- viewport(layout.pos.row = 1, layout.pos.col = 3)
 grid.draw(cog.nmds.legend)
 dev.off()
 ```
+
+

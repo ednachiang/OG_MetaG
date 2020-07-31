@@ -686,9 +686,8 @@ dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
 
 ### dbCAN - Family Bray-Curtis NMDS
 ```{r}
-# Families w/ avg rel abund > 0.1%
 dbcan.nmds <- ordinate(physeq = dbcan99, method = "NMDS", distance = "bray")
-  # stress = 0.02657713
+  # stress = 0.09991577
 plot_ordination(physeq = dbcan99, ordination = dbcan.nmds, color = "Season")
 ```
 
@@ -710,37 +709,40 @@ dbcan.bray <- phyloseq::distance(dbcan99, method="bray")
 
 # Season
 adonis(dbcan.bray~Season, data=meta, permutations = 99999)
-  # p-value = 0.00362
+  # p-value = 0.00726
+  # R2 = 0.53196
 beta.tax = betadisper(d=dbcan.bray, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.6
+  # p-value = 0.663
 
 
 # Diet
 adonis(dbcan.bray~Diet, data=meta, permutations = 99999)
-  # p-value = 0.0126
+  # p-value = 0.0125
+  # R2 = 0.33155
 beta.tax = betadisper(d=dbcan.bray, group=meta$Diet)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.156
+  # p-value = 0.135
 
 
 # Sex
 adonis(dbcan.bray~Sex, data=meta, permutations = 99999)
-  # p-value = 0.4267
+  # p-value = 0.3895
+  # R2 = 0.12325
 beta.tax = betadisper(d=dbcan.bray, group=meta$Sex)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.781
+  # p-value = 0.763
 
 
 
 ### Pairwise PERMANOVA
 pairwise.adonis(as.matrix(t(otu_table(dbcan99))), meta$Season, sim.method="bray", p.adjust.m="fdr")
-  # Summer-Winter: adj-pval=0.1, R2 = 0.4589260
-  # Summer-Spring: adj-pval=0.1, R2 = 0.3684097
-  # Winter-Spring: adj-pval=0.1, R2 = 0.6064905
+  # Summer-Winter: adj-pval=0.15, R2 = 0.4418498
+  # Summer-Spring: adj-pval=0.2, R2 = 0.3490680
+  # Winter-Spring: adj-pval=0.15, R2 = 0.5788924
 
 
 ### Global PERMANOVA is sign, but not pairwise PERMANOVA-- why?
@@ -794,10 +796,10 @@ sample_data(wp.dbcan)$Season <- c("Winter", "Winter", "Spring", "Winter", "Sprin
 dseq <- deSEQ(data = sw.dbcan, valuetest= ~Season, alpha=0.05)
 sw.sum <- which(dseq$log2FoldChange < 0)
 sw.sum.fam <- rownames(dseq[sw.sum,])
-  # "GT101" "PL1"   "GH43"  "PL11"  "GH115" "CE8"   "PL9"   "CE12"  "GH10"  "GH39"  "CBM37"
+  # "GT101" "PL1"   "GH43"  "PL11"  "GH115" "PL9"   "CE12"  "GH10"  "CBM37"
 sw.win <- which(dseq$log2FoldChange > 0)
 sw.win.fam <- rownames(dseq[sw.win,])
-  # "CE9"  "GH84"
+  # NA
 
 ### Summer vs. Spring
 dseq <- deSEQ(data = sp.dbcan, valuetest= ~Season, alpha=0.05)
@@ -812,12 +814,10 @@ sp.sum.fam <- rownames(dseq[sp.sum,])
 dseq <- deSEQ(data = wp.dbcan, valuetest= ~Season, alpha=0.05)
 wp.spr <- which(dseq$log2FoldChange < 0)
 wp.spr.fam <- rownames(dseq[wp.spr,])
-  # "GH3"   "PL1"   "GH32"  "GH43"  "GH5"   "GH51"  "GH36"  "GH25"  "GH78"  "GH115" "GH42"  "CE12"  
-  # "GH106" "GH10"  "GH39"  "CBM37" "CBM13"
+  # "GH3"   "PL1"   "GH32"  "GH43"  "GH5"   "GH51"  "GH36"  "GH25"  "GH78"  "GH115" "GH42"  "GH129" "CE12"   "GH106" "GH10"  "GH39"  "CBM37" "GH59"  "CBM13" "GH14"  "CBM2" 
 wp.win <- which(dseq$log2FoldChange > 0)
 wp.win.fam <- rownames(dseq[wp.win,])
-  # "PL22" "GT41" "GH33" "GH20" "GT4"  "GT19" "GH92" "GH16" "GT9"  "GT30" "GH23" "CE11" "GH24" "GH57"
-  # "GT3" "GH84"
+  # "PL22" "GT41" "GH20" "GT4"  "GH92" "GT9"  "GT30" "CE11" "GH57" "GT3"  "GH84"
 ```
 
 

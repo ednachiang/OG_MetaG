@@ -530,7 +530,8 @@ dbcan.class.sum$ClassName <- ordered(dbcan.class.sum$ClassName, c("Glycoside Hyd
                                                                   "Polysaccharide Lyase"))
 
 # Plot barplot
-class.plot <- ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
+#tiff("dbcan.class.tiff", width=10, height=3.5, units="in", res= 300)
+ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
   geom_bar(stat="identity", color="black") +
   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
   scale_y_continuous(limits=c(0,58)) +
@@ -546,11 +547,9 @@ class.plot <- ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
         legend.title = element_text(face="bold"),
         panel.spacing = unit(0.5, "lines"),
         axis.title.x = element_text(margin = margin(t = 15)))
+#dev.off()
 
-### Save Class-level barplot
-tiff("dbcan.class.tiff", width=10, height=3.5, units="in", res= 300)
-class.plot
-dev.off()
+
 ```
 
 ### dbCAN - Test class-level
@@ -654,9 +653,46 @@ p.adjust(c(0.531, 0.00269, 0.00803, 0.1143), method="BH")
 
 ### dbCAN - Family Bray-Curtis NMDS
 ```{r}
-dbcan.nmds <- ordinate(physeq = dbcan99, method = "NMDS", distance = "bray")
-  # stress = 0.1357
-plot_ordination(physeq = dbcan99, ordination = dbcan.nmds, color = "Season")
+#dbcan.nmds <- ordinate(physeq = dbcan99, method = "NMDS", distance = "bray")
+  # stress = 0.07812
+#save(dbcan.nmds, file="dbcan.nmds.RData")
+load("dbcan.nmds.RData")
+
+### NMDS Ellipses
+sample_data(dbcan99)$Elip <- paste(sample_data(dbcan99)$Season)
+dbcan99.elip <- data.frame(MDS1 = dbcan.nmds$points[,1], MDS2 = dbcan.nmds$points[,2],
+                           Group = sample_data(dbcan99)$Season)
+plot.new()
+dbcan99.elip.ord <- ordiellipse(dbcan.nmds, sample_data(dbcan99)$Elip, display="sites", kind="se", conf=0.95, label=T)
+dbcan99.elip.df <- data.frame()
+for(i in levels(dbcan99.elip$Group)){
+  dbcan99.elip.df <- rbind(dbcan99.elip.df,
+                           cbind(as.data.frame(with(dbcan99.elip[dbcan99.elip$Group==i,],
+                                                    veganCovEllipse(dbcan99.elip.ord[[i]]$cov,
+                                                                    dbcan99.elip.ord[[i]]$center,
+                                                                    dbcan99.elip.ord[[i]]$scale))), group=i
+                                 ))
+}
+
+
+### NMDS Ordination
+#tiff("dbcan.nmds.tiff", width=8, height=6, units="in", res=300)
+plot_ordination(physeq = dbcan99, ordination = dbcan.nmds, color = "Season") +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  geom_path(data=dbcan99.elip.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
+  ggtitle("CAZyme Composition") +
+  geom_point(size=3) +
+  theme(plot.title=element_text(hjust=0.5, size=20),
+        axis.text.x = element_text(size=20),
+        axis.text.y = element_text(size=20),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()
+        )
+#dev.off()
 ```
 
 ### dbCAN - Family Bray-Curtis PCoA
@@ -677,42 +713,42 @@ dbcan.bray <- phyloseq::distance(dbcan99, method="bray")
 # Season
 adonis(dbcan.bray~Season, data=meta, permutations = 99999)
   # p-value = 0.00726
-  # R2 = 0.53196
+  # R2 = 0.54599
 beta.tax = betadisper(d=dbcan.bray, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.663
+  # p-value = 0.612
 
 
 # Diet
 adonis(dbcan.bray~Diet, data=meta, permutations = 99999)
-  # p-value = 0.0125
-  # R2 = 0.33155
+  # p-value = 0.01254
+  # R2 = 0.33814
 beta.tax = betadisper(d=dbcan.bray, group=meta$Diet)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.135
+  # p-value = 0.128
 
 
 # Sex
 adonis(dbcan.bray~Sex, data=meta, permutations = 99999)
-  # p-value = 0.3895
-  # R2 = 0.12325
+  # p-value = 0.3971
+  # R2 = 0.12235
 beta.tax = betadisper(d=dbcan.bray, group=meta$Sex)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.763
+  # p-value = 0.867
 
 
 
-### Pairwise PERMANOVA
+### Pairwise PERMANOVA - Season
 pairwise.adonis(as.matrix(t(otu_table(dbcan99))), meta$Season, sim.method="bray", p.adjust.m="fdr")
-  # Summer-Winter: adj-pval=0.15, R2 = 0.4418498
-  # Summer-Spring: adj-pval=0.2, R2 = 0.3490680
-  # Winter-Spring: adj-pval=0.15, R2 = 0.5788924
+  # Summer-Winter: adj-pval=0.1, R2 = 0.15
+  # Summer-Spring: adj-pval=0.2, R2 = 0.20
+  # Winter-Spring: adj-pval=0.1, R2 = 0.15
 
 
-### Global PERMANOVA is sign, but not pairwise PERMANOVA-- why?
+### Global PERMANOVA is sig, but not pairwise PERMANOVA-- why?
 # https://help.xlstat.com/s/article/how-to-interpret-contradictory-results-between-anova-and-multiple-pairwise-comparisons?language=en_US
 # Likely due to lack of statistical power (small n)
 ```

@@ -470,190 +470,8 @@ summary(aov(Abundance ~ Assembler, data = dbcan.melt))
   # Aka it doesn't matter if you use IDBA or metaSPADes -- the class-level dbcan results will be the same
 ```
 
-### dbCAN - Class-level bar plot
-```{r}
-# Load dbcan class-level rel abund
-dbcan <- read.csv('dbcan/spades.dbcan.csv', row.names=1)
-colnames(dbcan) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 
-# Load metadata
-dbcan.meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
-dbcan.meta$Season <- ordered(dbcan.meta$Season, levels=c("Summer", "Winter", "Spring"))
-
-# Create physeq object
-dbcan.physeq <- merge_phyloseq(otu_table(dbcan, taxa_are_rows=T), sample_data(dbcan.meta))
-
-# Summarize
-dbcan.melt <- psmelt(dbcan.physeq)
-dbcan.melt$OTU <- ordered(dbcan.melt$OTU, levels=c("AA", "CBM", "CE", "GH", "GT", "PL", "SLH"))
-dbcan.sum <- dbcan.melt %>%
-  group_by(Season, OTU) %>%
-  summarize(Mean = mean(Abundance),
-            SD = sd(Abundance),
-            SE = se(Abundance))
-
-# Plot barplot
-ggplot(dbcan.sum, aes(x=Season, y=Mean, fill=Season)) +
-  geom_bar(stat="identity", color="black") +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
-  scale_y_continuous(limits=c(0,50)) +
-  facet_grid(. ~ OTU) +
-  xlab("dbCAN Classes") +
-  ylab("Mean Relative Abundance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.background = element_blank(),
-        strip.text = element_text(face="bold"),
-        legend.title = element_text(face="bold"))
-```
-
-### dbCAN - Test class-level
-```{r}
-### AA
-aa <- dbcan.melt[which(dbcan.melt$OTU == "AA"),]
-
-# Test normality
-hist(aa$Abundance)
-qqnorm(aa$Abundance)
-qqline(aa$Abundance)
-shapiro.test(aa$Abundance)
-  # p-value = 0.8563
-
-# Test AA w/ ANOVA
-summary(aov(Abundance ~ Season, data = aa))
-  # p-value = 0.208
-  # Normal
-
-
-### CBM
-cbm <- dbcan.melt[which(dbcan.melt$OTU == "CBM"),]
-
-# Test normality
-hist(cbm$Abundance)
-qqnorm(cbm$Abundance)
-qqline(cbm$Abundance)
-shapiro.test(cbm$Abundance)
-  # p-value = 0.07196
-  # Normal
-
-# Test CBM w/ ANOVA
-summary(aov(Abundance ~ Season, data = cbm))
-  # p-value = 0.484
-
-
-### CE
-ce <- dbcan.melt[which(dbcan.melt$OTU == "CE"),]
-
-# Test normality
-hist(ce$Abundance)
-qqnorm(ce$Abundance)
-qqline(ce$Abundance)
-shapiro.test(ce$Abundance)
-  # p-value = 0.7817
-  # Normal
-
-# Test CE w/ ANOVA
-summary(aov(Abundance ~ Season, data = ce))
-  # p-value = 0.831
-
-
-### GH
-gh <- dbcan.melt[which(dbcan.melt$OTU == "GH"),]
-
-# Test normality
-hist(gh$Abundance)
-qqnorm(gh$Abundance)
-qqline(gh$Abundance)
-shapiro.test(gh$Abundance)
-  # p-value = 0.2248
-  # Normal
-
-# Test GH w/ ANOVA
-summary(aov(Abundance ~ Season, data = gh))
-  # p-value = 0.00376
-
-# Test GH w/ Tukey's
-TukeyHSD(aov(Abundance ~ Season, data = gh))
-  # Winter-Summer = 0.0169264*
-  # Spring-Summer = 0.3384504
-  # Spring-Winter = 0.0035475*
-
-
-### GT
-gt <- dbcan.melt[which(dbcan.melt$OTU == "GT"),]
-
-# Test normality
-hist(gt$Abundance)
-qqnorm(gt$Abundance)
-qqline(gt$Abundance)
-shapiro.test(gt$Abundance)
-  # p-value = 0.7983
-  # Normal
-
-# Test GT w/ ANOVA
-summary(aov(Abundance ~ Season, data = gt))
-  # p-value = 0.012
-
-# Test GT w/ Tukey's
-TukeyHSD(aov(Abundance ~ Season, data = gt))
-  # Winter-Summer = 0.2800447
-  # Spring-Summer = 0.0737956
-  # Spring-Winter = 0.0102155*
-
-
-### PL
-pl <- dbcan.melt[which(dbcan.melt$OTU == "PL"),]
-
-# Test normality
-hist(pl$Abundance)
-qqnorm(pl$Abundance)
-qqline(pl$Abundance)
-shapiro.test(pl$Abundance)
-  # p-value = 0.08426
-  # Normal
-
-# Test PL w/ ANOVA
-summary(aov(Abundance ~ Season, data = pl))
-  # p-value = 0.0829
-
-
-### SLH
-slh <- dbcan.melt[which(dbcan.melt$OTU == "SLH"),]
-
-# Test normality
-hist(slh$Abundance)
-qqnorm(slh$Abundance)
-qqline(slh$Abundance)
-shapiro.test(slh$Abundance)
-  # p-value = 0.358
-  # Normal
-
-# Test SLH w/ ANOVA
-summary(aov(Abundance ~ Season, data = slh))
-  # p-value = 0.16
-
-
-### Adjust Pvals
-p.adjust(c(0.208, 0.484, 0.831, 0.00376, 0.012, 0.0829, 0.16), method="BH")
-  # AA = 0.2912
-  # CBM = 0.5646667
-  # CE = 0.831
-  # GH = 0.02632 *
-  # GT = 0.042 *
-  # PL = 0.1934333
-  # SLH = 0.28
-```
-
-
-
-
-
-
-
-
-
-
-### dbCAN - Create phyloseq object to prep for family-level & b-div
+### dbCAN - Create phyloseq object
 ```{r}
 # Load data
 otu <- read.csv('dbcan/dbcan_otu_table.csv', row.names=1)
@@ -683,6 +501,156 @@ dbcan.sp <- subset_samples(dbcan99, Season != "Winter")
 dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
   # Winter & Spring
 ```
+
+
+### dbCAN - Class-level bar plot
+```{r}
+# Combine to class-level
+dbcan.class <- tax_glom(dbcan.phy, taxrank="Class")
+
+# Transform each merged class count to rel abund
+dbcan.class99 <- transform_sample_counts(dbcan.class, function(x){(x/sum(x))*100})
+
+# Summarize data
+dbcan.class.df <- psmelt(dbcan.class99)
+dbcan.class.sum <- dbcan.class.df %>%
+  group_by(Class, Season) %>%
+  summarize(Mean = mean(Abundance),
+            SD = sd(Abundance),
+            SE = se(Abundance))
+dbcan.class.sum$ClassName <- c("Carbohydrate Esterase", "Carbohydrate Esterase",
+                               "Carbohydrate Esterase", "Glycoside Hydrolase", "Glycoside Hydrolase",
+                               "Glycoside Hydrolase", "Glycosyltransferase", "Glycosyltransferase",
+                               "Glycosyltransferase", "Polysaccharide Lyase", "Polysaccharide Lyase",
+                               "Polysaccharide Lyase")
+dbcan.class.sum <- dbcan.class.sum[,-1]
+dbcan.class.sum$ClassName <- ordered(dbcan.class.sum$ClassName, c("Glycoside Hydrolase",
+                                                                  "Glycosyltransferase",
+                                                                  "Carbohydrate Esterase",
+                                                                  "Polysaccharide Lyase"))
+
+# Plot barplot
+class.plot <- ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  scale_y_continuous(limits=c(0,58)) +
+  facet_grid(. ~ ClassName) +
+  scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  xlab("CAZyme Class") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 15)))
+
+### Save Class-level barplot
+tiff("dbcan.class.tiff", width=10, height=3.5, units="in", res= 300)
+class.plot
+dev.off()
+```
+
+### dbCAN - Test class-level
+```{r}
+### CE
+ce <- dbcan.class.df[which(dbcan.class.df$Class == "CE"),]
+
+# Test normality
+hist(ce$Abundance)
+qqnorm(ce$Abundance)
+qqline(ce$Abundance)
+shapiro.test(ce$Abundance)
+  # p-value = 0.9686
+  # Normal
+
+# Test CE w/ ANOVA
+summary(aov(Abundance ~ Season, data = ce))
+  # p-value = 0.531
+
+
+### GH
+gh <- dbcan.class.df[which(dbcan.class.df$Class == "GH"),]
+
+# Test normality
+hist(gh$Abundance)
+qqnorm(gh$Abundance)
+qqline(gh$Abundance)
+shapiro.test(gh$Abundance)
+  # p-value = 0.4601
+  # Normal
+
+# Test GH w/ ANOVA
+summary(aov(Abundance ~ Season, data = gh))
+  # p-value = 0.00269
+
+# GH posthoc test w/ Tukey's
+TukeyHSD(aov(Abundance ~ Season, data = gh))
+  # Winter-Summer = 0.0563933*
+  # Spring-Summer = 0.0467118**
+  # Spring-Winter = 0.0021542**
+
+
+### GT
+gt <- dbcan.class.df[which(dbcan.class.df$Class == "GT"),]
+
+# Test normality
+hist(gt$Abundance)
+qqnorm(gt$Abundance)
+qqline(gt$Abundance)
+shapiro.test(gt$Abundance)
+  # p-value = 0.6001
+  # Normal
+
+# Test GT w/ ANOVA
+summary(aov(Abundance ~ Season, data = gt))
+  # p-value = 0.00803
+
+# GT posthoc test w/ Tukey's
+TukeyHSD(aov(Abundance ~ Season, data = gt))
+  # Winter-Summer = 0.0853943
+  # Spring-Summer = 0.1406192
+  # Spring-Winter = 0.0065558*
+
+
+### PL
+pl <- dbcan.class.df[which(dbcan.class.df$Class == "PL"),]
+
+# Test normality
+hist(pl$Abundance)
+qqnorm(pl$Abundance)
+qqline(pl$Abundance)
+shapiro.test(pl$Abundance)
+  # p-value = 0.1143
+  # Normal
+
+# Test PL w/ ANOVA
+summary(aov(Abundance ~ Season, data = pl))
+  # p-value = 0.0888
+
+
+
+### Adjust Pvals
+p.adjust(c(0.531, 0.00269, 0.00803, 0.1143), method="BH")
+  # CE = 0.53100
+  # GH = 0.01076 *
+  # GT = 0.01606 *
+  # PL = 0.15240
+
+```
+
+
+
+
+
+
+
+
+
+
+
 
 ### dbCAN - Family Bray-Curtis NMDS
 ```{r}

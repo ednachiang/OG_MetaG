@@ -28,7 +28,7 @@ deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.05){
 
 
 # ### DESeq2
-# # Use this version is data has too many 0's (meaning the code above will result in an error)
+# Use this version is data has too many 0's (meaning the code above will result in an error)
 # deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.05){
 #   data_pruned <- prune_taxa(taxa_sums(data) > cutoff, data)
 #   de_data <- phyloseq_to_deseq2(data_pruned, valuetest)
@@ -39,7 +39,7 @@ deSEQ <- function(data, valuetest, cutoff = 0, alpha = 0.05){
 #   sig_data <- res_data[which(res_data$padj < alpha), ]
 #   sigtab_sherm <- cbind(as(sig_data, "data.frame"), as(tax_table(data_pruned)[rownames(sig_data), ], "matrix"))
 # }
-# 
+
 
 
 ### NMDS Ellipses

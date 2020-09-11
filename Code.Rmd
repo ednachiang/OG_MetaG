@@ -655,17 +655,16 @@ p.adjust(c(0.531, 0.00269, 0.00803, 0.1143), method="BH")
 ### dbCAN - Family Bray-Curtis NMDS
 ```{r}
 dbcan.nmds <- ordinate(physeq = dbcan99, method = "NMDS", distance = "bray")
-  # stress = 0.09991577
+  # stress = 0.1357
 plot_ordination(physeq = dbcan99, ordination = dbcan.nmds, color = "Season")
 ```
 
 ### dbCAN - Family Bray-Curtis PCoA
 ```{r}
-# Families w/ avg rel abund > 0.1%
 dbcan.pcoa <- ordinate(physeq = dbcan99, method="PCoA", distance="bray")
 plot_ordination(physeq = dbcan99, ordination = dbcan.pcoa, axes = c(1,2),
               color = "Season")
-  # Axis 1 + 2 = 72.6%
+  # Axis 1 + 2 = 70.9%
 
 ```
 
@@ -764,25 +763,27 @@ sample_data(wp.dbcan)$Season <- c("Winter", "Winter", "Spring", "Winter", "Sprin
 dseq <- deSEQ(data = sw.dbcan, valuetest= ~Season, alpha=0.05)
 sw.sum <- which(dseq$log2FoldChange < 0)
 sw.sum.fam <- rownames(dseq[sw.sum,])
-  # "GT101" "PL1"   "GH43"  "PL11"  "GH115" "PL9"   "CE12"  "GH10"  "CBM37"
+  # "PL1"   "GH43"  "GH115" "PL9"   "CE12"  "GH10" 
 sw.win <- which(dseq$log2FoldChange > 0)
 sw.win.fam <- rownames(dseq[sw.win,])
   # NA
 
 ### Summer vs. Spring
 dseq <- deSEQ(data = sp.dbcan, valuetest= ~Season, alpha=0.05)
-sp.spr <- which(dseq$log2FoldChange < 0)
-sp.spr.fam <- rownames(dseq[sp.spr,])
+  # Error from function is due to there being no significant families
+    # dimnames doesn't match because there are no dimnames due to no sig families
+# sp.spr <- which(dseq$log2FoldChange < 0)
+# sp.spr.fam <- rownames(dseq[sp.spr,])
   # NA
-sp.sum <- which(dseq$log2FoldChange > 0)
-sp.sum.fam <- rownames(dseq[sp.sum,])
-  # "GT41"  "GT101" "GT32"
+# sp.sum <- which(dseq$log2FoldChange > 0)
+# sp.sum.fam <- rownames(dseq[sp.sum,])
+
 
 ### Winter vs. Spring
 dseq <- deSEQ(data = wp.dbcan, valuetest= ~Season, alpha=0.05)
 wp.spr <- which(dseq$log2FoldChange < 0)
 wp.spr.fam <- rownames(dseq[wp.spr,])
-  # "GH3"   "PL1"   "GH32"  "GH43"  "GH5"   "GH51"  "GH36"  "GH25"  "GH78"  "GH115" "GH42"  "GH129" "CE12"   "GH106" "GH10"  "GH39"  "CBM37" "GH59"  "CBM13" "GH14"  "CBM2" 
+  # "GH3"   "PL1"   "GH32"  "GH43"  "GH5"   "GH51"  "GH36"  "GH25"  "GH78"  "GH115" "GH42"  "GH129" "CE12"  "GH106" "GH10"  "GH39"  "GH59"  "GH14" 
 wp.win <- which(dseq$log2FoldChange > 0)
 wp.win.fam <- rownames(dseq[wp.win,])
   # "PL22" "GT41" "GH20" "GT4"  "GH92" "GT9"  "GT30" "CE11" "GH57" "GT3"  "GH84"

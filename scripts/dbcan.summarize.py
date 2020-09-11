@@ -2,6 +2,8 @@ import os
 	# Import os to iterate over files in a directory
 import pandas as pd
     # Import pandas to use dataframes
+import numpy as np
+    # Import numpy to use arrays
 
 
 
@@ -69,6 +71,13 @@ dbcanOTU = dbcanOTU.fillna(0)
     # Fill NA's with 0 (otherwise they get saved as blanks)
 dbcanOTU = dbcanOTU.drop(['cohesin', 'dockerin', 'SLH'])
     # Remove cohesin, dockerin, and SLH-- these are a domain modules added by dbCAN that's not in the CAZy database
+for row in dbcanOTU.index:
+    if 'AA' in row:
+        dbcanOTU = dbcanOTU.drop(index=row)
+            # Remove AA because they aren't relevant for me-- they're mostly lignose-degrading enzymes
+    if 'CBM' in row:
+        dbcanOTU = dbcanOTU.drop(index=row)
+            # Remove CBM because they aren't enzymes
 
 
 # Create dbcan "taxonomy table"

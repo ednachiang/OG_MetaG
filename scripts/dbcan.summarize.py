@@ -2,8 +2,6 @@ import os
 	# Import os to iterate over files in a directory
 import pandas as pd
     # Import pandas to use dataframes
-import numpy as np
-    # Import numpy to use arrays
 
 
 

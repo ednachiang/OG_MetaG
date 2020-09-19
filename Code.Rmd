@@ -844,8 +844,8 @@ dbcan99.sig <- subset_taxa(dbcan99, Family == "PL1" | Family == "GH43" | Family 
 plot_heatmap(dbcan99.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("PL22", "CE11", "GT41", "GT30", "GT9", "GT4", "GT3", "GH92", "GH84", "GH57", "GH20", "GH129", "GH106", "GH78", "GH59", "GH51", "GH42", "GH39", "GH36", "GH32", "GH25", "GH14", "GH5", "GH3", "PL9", "PL1", "CE12", "GH115", "GH43", "GH10")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
-  xlab("Season\n") +
-  ylab("CAZyme Family\n") +
+  xlab("Season\n\n") +
+  ylab("CAZyme Family\n\n") +
   scale_fill_gradientn(name=expression("Mean Relative\nAbundance\n(%)"), limits=c(0,7.5),
                        breaks=c(0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0), 
                        labels=c("0", "1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0"),

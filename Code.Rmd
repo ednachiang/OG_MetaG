@@ -825,6 +825,50 @@ wp.win.fam <- rownames(dseq[wp.win,])
   # "PL22" "GT41" "GH20" "GT4"  "GH92" "GT9"  "GT30" "CE11" "GH57" "GT3"  "GH84"
 ```
 
+### dbCAN - DESeq Heatmap
+```{r}
+# Note: I tried merging the samples by season so the heatmap only displays Summer, Winter, and Spring, but I get an error that say I have insufficient data. Therefore, I display each sample separately.
+
+dbcan99.sig <- subset_taxa(dbcan99, Family == "PL1" | Family == "GH43" | Family == "GH115" | 
+                             Family == "PL9" | Family == "CE12" | Family == "GH10" | Family == "GH3" |
+                             Family == "GH32" | Family == "GH5" | Family == "GH51" | Family == "GH36" |
+                             Family == "GH25" | Family == "GH78" | Family == "GH42" |
+                             Family == "GH129" | Family == "GH106" | Family == "GH39" |
+                             Family == "GH59" | Family == "GH14" | Family == "PL22" | Family == "GH41" |
+                             Family == "GH20" | Family == "GT4" | Family == "GH92" | Family == "GT9" |
+                             Family == "GT30" | Family == "CE11" | Family == "GH57" | Family == "GT3" |
+                             Family == "GH84")
+
+
+#tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
+plot_heatmap(dbcan99.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("PL22", "CE11", "GT41", "GT30", "GT9", "GT4", "GT3", "GH92", "GH84", "GH57", "GH20", "GH129", "GH106", "GH78", "GH59", "GH51", "GH42", "GH39", "GH36", "GH32", "GH25", "GH14", "GH5", "GH3", "PL9", "PL1", "CE12", "GH115", "GH43", "GH10")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n") +
+  ylab("CAZyme Family\n") +
+  scale_fill_gradientn(name=expression("Mean Relative\nAbundance\n(%)"), limits=c(0,7.5),
+                       breaks=c(0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0), 
+                       labels=c("0", "1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
+                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+#dev.off()
+
+
+
+
+```
 
 
 

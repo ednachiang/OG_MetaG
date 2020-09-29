@@ -482,6 +482,7 @@ tax <- tax_table(tax)
 colnames(tax) <- c("Class", "Family")
 taxa_names(tax) <- tax[,2]
 meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
+meta.ord <- meta
 meta.ord$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
 
 # Create phyloseq object
@@ -503,6 +504,7 @@ dbcan.fam.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Family.csv', row.names
 #dbcan.norm <- counts(dbcan.dds, normalized=T)
 #write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.Class.csv")
 dbcan.class.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Class.csv', row.names=1)
+rownames(dbcan.class.norm) <- c("Polysaccharide Lyase", "Glycosyltransferase", "Glycoside Hydrolase", "Carbohydrate Esterase")
 
 # Pairwise season physeq objects
 #dbcan.sw <- subset_samples(dbcan99, Season != "Spring")
@@ -516,26 +518,25 @@ dbcan.class.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Class.csv', row.name
 
 ### dbCAN - Class-level bar plot
 ```{r}
-# Combine to class-level
-dbcan.class <- tax_glom(dbcan.norm, taxrank="Class")
-
-# Transform each merged class count to rel abund
-dbcan.class99 <- transform_sample_counts(dbcan.class, function(x){(x/sum(x))*100})
+# Create phyloseq object to summarize data
+dbcan.class.phy <- merge_phyloseq(otu_table(dbcan.class.norm), tax, sample_data(meta.ord))
+class.tax <- data.frame(c("Carbohydrate Esterase", "Glycoside Hydrolase", "Glycosyltransferase", 
+                          "Polysaccharide Lyase"))
+class.tax <- tax_table(class.tax)
+row.names(class.tax) <- class.tax[,1]
+colnames(class.tax) <- "Class"
+dbcan.class.norm.otu <- otu_table(dbcan.class.norm, taxa_are_rows=T)
+colnames(dbcan.class.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+dbcan.class.phy <- merge_phyloseq(dbcan.class.norm.otu, class.tax, sample_data(meta.ord))
 
 # Summarize data
-dbcan.class.df <- psmelt(dbcan.class99)
+dbcan.class.df <- psmelt(dbcan.class.phy)
 dbcan.class.sum <- dbcan.class.df %>%
   group_by(Class, Season) %>%
   summarize(Mean = mean(Abundance),
             SD = sd(Abundance),
             SE = se(Abundance))
-dbcan.class.sum$ClassName <- c("Carbohydrate Esterase", "Carbohydrate Esterase",
-                               "Carbohydrate Esterase", "Glycoside Hydrolase", "Glycoside Hydrolase",
-                               "Glycoside Hydrolase", "Glycosyltransferase", "Glycosyltransferase",
-                               "Glycosyltransferase", "Polysaccharide Lyase", "Polysaccharide Lyase",
-                               "Polysaccharide Lyase")
-dbcan.class.sum <- dbcan.class.sum[,-1]
-dbcan.class.sum$ClassName <- ordered(dbcan.class.sum$ClassName, c("Glycoside Hydrolase",
+dbcan.class.sum$Class <- ordered(dbcan.class.sum$Class, c("Glycoside Hydrolase",
                                                                   "Glycosyltransferase",
                                                                   "Carbohydrate Esterase",
                                                                   "Polysaccharide Lyase"))
@@ -545,11 +546,11 @@ dbcan.class.sum$ClassName <- ordered(dbcan.class.sum$ClassName, c("Glycoside Hyd
 ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
   geom_bar(stat="identity", color="black") +
   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
-  scale_y_continuous(limits=c(0,58)) +
-  facet_grid(. ~ ClassName) +
+  scale_y_continuous(limits=c(0,9500)) +
+  facet_grid(. ~ Class) +
   scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   xlab("CAZyme Class") +
-  ylab("Mean Relative Abundance") +
+  ylab("Mean Normalized Counts") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         strip.background = element_blank(),
@@ -566,89 +567,88 @@ ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
 ### dbCAN - Test class-level
 ```{r}
 ### CE
-ce <- dbcan.class.df[which(dbcan.class.df$Class == "CE"),]
+ce <- dbcan.class.df[which(dbcan.class.df$Class == "Carbohydrate Esterase"),]
 
 # Test normality
 hist(ce$Abundance)
 qqnorm(ce$Abundance)
 qqline(ce$Abundance)
 shapiro.test(ce$Abundance)
-  # p-value = 0.9686
+  # p-value = 0.9632
   # Normal
 
 # Test CE w/ ANOVA
 summary(aov(Abundance ~ Season, data = ce))
-  # p-value = 0.531
+  # p-value = 0.33
 
 
 ### GH
-gh <- dbcan.class.df[which(dbcan.class.df$Class == "GH"),]
+gh <- dbcan.class.df[which(dbcan.class.df$Class == "Glycoside Hydrolase"),]
 
 # Test normality
 hist(gh$Abundance)
 qqnorm(gh$Abundance)
 qqline(gh$Abundance)
 shapiro.test(gh$Abundance)
-  # p-value = 0.4601
+  # p-value = 0.484
   # Normal
 
 # Test GH w/ ANOVA
 summary(aov(Abundance ~ Season, data = gh))
-  # p-value = 0.00269
+  # p-value = 0.00786
 
 # GH posthoc test w/ Tukey's
 TukeyHSD(aov(Abundance ~ Season, data = gh))
-  # Winter-Summer = 0.0563933*
-  # Spring-Summer = 0.0467118**
-  # Spring-Winter = 0.0021542**
+  # Winter-Summer = 0.4784312
+  # Spring-Summer = 0.0295220*
+  # Spring-Winter = 0.0076309**
 
 
 ### GT
-gt <- dbcan.class.df[which(dbcan.class.df$Class == "GT"),]
+gt <- dbcan.class.df[which(dbcan.class.df$Class == "Glycosyltransferase"),]
 
 # Test normality
 hist(gt$Abundance)
 qqnorm(gt$Abundance)
 qqline(gt$Abundance)
 shapiro.test(gt$Abundance)
-  # p-value = 0.6001
+  # p-value = 0.4416
   # Normal
 
 # Test GT w/ ANOVA
 summary(aov(Abundance ~ Season, data = gt))
-  # p-value = 0.00803
+  # p-value = 0.00713
 
 # GT posthoc test w/ Tukey's
 TukeyHSD(aov(Abundance ~ Season, data = gt))
-  # Winter-Summer = 0.0853943
-  # Spring-Summer = 0.1406192
-  # Spring-Winter = 0.0065558*
+  # Winter-Summer = 0.0336456*
+  # Spring-Summer = 0.3545968
+  # Spring-Winter = 0.0065067*
 
 
 ### PL
-pl <- dbcan.class.df[which(dbcan.class.df$Class == "PL"),]
+pl <- dbcan.class.df[which(dbcan.class.df$Class == "Polysaccharide Lyase"),]
 
 # Test normality
 hist(pl$Abundance)
 qqnorm(pl$Abundance)
 qqline(pl$Abundance)
 shapiro.test(pl$Abundance)
-  # p-value = 0.1143
+  # p-value = 0.08817
   # Normal
 
 # Test PL w/ ANOVA
 summary(aov(Abundance ~ Season, data = pl))
-  # p-value = 0.0888
+  # p-value = 0.115
 
 
 
 ### Adjust Pvals
-p.adjust(c(0.531, 0.00269, 0.00803, 0.1143), method="BH")
-  # CE = 0.53100
-  # GH = 0.01076 *
-  # GT = 0.01606 *
-  # PL = 0.15240
-
+p.adjust(c(0.33, 0.00786, 0.00713, 0.115), method="BH")
+  # CE = 0.33000
+  # GH = 0.01572 *
+  # GT = 0.01572 *
+  # PL = 0.15333
 ```
 
 

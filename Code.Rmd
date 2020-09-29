@@ -487,26 +487,29 @@ meta.ord$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
 # Create phyloseq object
 dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 
-# Normalize Counts
+# Normalize Counts To Family-level
 # https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
-dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
-dbcan.dds <- estimateSizeFactors(dbcan.dds)
-dbcan.norm <- counts(dbcan.dds, normalized=T)
-#write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.csv")
+#dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
+#dbcan.dds <- estimateSizeFactors(dbcan.dds)
+#dbcan.norm <- counts(dbcan.dds, normalized=T)
+#write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.Family.csv")
+dbcan.fam.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Family.csv', row.names=1)
 
-
-# Calculate rel abund
-dbcan99 <- transform_sample_counts(dbcan.phy, function(x){(x/sum(x))*100})
-
-# Remove families w/ < 0.01% avg rel abund
-dbcan99 <- prune_taxa(((taxa_sums(dbcan99)) / nsamples(dbcan99)) > 0.01, dbcan99)
+# Normalize Counts to Class-Level
+#dbcan.class <- tax_glom(dbcan.phy, taxrank="Class")
+#dbcan.class.otu <- data.frame(otu_table(dbcan.class))
+#dbcan.dds <- DESeqDataSetFromMatrix(countData = dbcan.class.otu, colData = meta, design = ~ Season)
+#dbcan.dds <- estimateSizeFactors(dbcan.dds)
+#dbcan.norm <- counts(dbcan.dds, normalized=T)
+#write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.Class.csv")
+dbcan.class.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Class.csv', row.names=1)
 
 # Pairwise season physeq objects
-dbcan.sw <- subset_samples(dbcan99, Season != "Spring")
+#dbcan.sw <- subset_samples(dbcan99, Season != "Spring")
   # Summer & Winter
-dbcan.sp <- subset_samples(dbcan99, Season != "Winter")
+#dbcan.sp <- subset_samples(dbcan99, Season != "Winter")
   # Summer & Spring
-dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
+#dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
   # Winter & Spring
 ```
 
@@ -514,7 +517,7 @@ dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
 ### dbCAN - Class-level bar plot
 ```{r}
 # Combine to class-level
-dbcan.class <- tax_glom(dbcan.phy, taxrank="Class")
+dbcan.class <- tax_glom(dbcan.norm, taxrank="Class")
 
 # Transform each merged class count to rel abund
 dbcan.class99 <- transform_sample_counts(dbcan.class, function(x){(x/sum(x))*100})

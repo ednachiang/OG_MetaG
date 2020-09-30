@@ -471,6 +471,52 @@ summary(aov(Abundance ~ Assembler, data = dbcan.melt))
 ```
 
 
+
+### dbCAN - Proportion CAZymes from ORFs
+```{r}
+prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
+prodigalCounts <- as.matrix(prodigalCounts)
+
+# Test normality
+hist(prodigalCounts[3,])
+qqnorm(prodigalCounts[3,])
+qqline(prodigalCounts[3,])
+shapiro.test(prodigalCounts[3,])
+  # p-value = 0.5424
+  # Normal
+
+# Format for ANOVA
+prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
+prodigalCounts <- t(prodigalCounts)
+prodigalCounts <- data.frame(prodigalCounts)
+prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Test w/ ANOVA
+summary(aov(PropCAZyme ~ Season, data = prodigalCounts))
+  # p-value = 0.0184
+
+# Posthoc test w/ Tukey's
+TukeyHSD(aov(PropCAZyme ~ Season, data = prodigalCounts))
+  # Winter-Summer = 0.0422137*
+  # Spring-Summer = 0.0208430*
+  # Spring-Winter = 0.8259681
+  
+
+
+
+### Boxplot
+ggplot(prodigalCounts, aes(x=Season, y=PropCAZyme, fill=Season)) +
+  geom_boxplot(position=position_dodge(1)) +
+  geom_point(position=position_dodge(width = 0.2), size=2) +
+  ylab("CAZyme Proportion (%)") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9), limits=c(3.1, 3.9)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+```
+
 ### dbCAN - Create phyloseq object
 ```{r}
 # Load data
@@ -601,6 +647,8 @@ TukeyHSD(aov(Abundance ~ Season, data = gh))
   # Winter-Summer = 0.4784312
   # Spring-Summer = 0.0295220*
   # Spring-Winter = 0.0076309**
+
+
 
 
 ### GT

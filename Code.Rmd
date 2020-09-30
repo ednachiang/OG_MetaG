@@ -456,47 +456,7 @@ mc$Season <- ordered(mc$Season, levels=c("Summer", "Winter", "Spring"))
 # Kruskal-Wallis
 kruskal.test(formula = AGS ~ Season, data = mc)
   # p-value = 0.4298
-
 ```
-
-### dbCAN - Test assembler effect on class-level results
-```{r}
-# Load dbcan class-level rel abund
-dbcan <- read.csv('dbcan/idba.spades.comparison.csv', row.names=1)
-colnames(dbcan) <- c("3715_idba", "3715_spades", "3717_idba", "3717_spades", "3723_idba", "3723_spades", "3733_idba", "3733_spades", "3734_idba", "3734_spades", "3744_idba", "3744_spades", "3772_idba", "3772_spades", "3773_idba", "3773_spades", "3775_idba", "3775_spades")
-
-# Load metadata
-dbcan.meta <- read.csv('dbcan/dbcan.metadata.csv', row.names=1)
-dbcan.meta$Season <- ordered(dbcan.meta$Season, levels=c("Summer", "Winter", "Spring"))
-dbcan.meta$Squirrel <- ordered(dbcan.meta$Squirrel, levels=c("3715", "3717", "3723", "3733", "3734",
-                                                             "3744", "3772", "3773", "3775"))
-
-# Create physeq object
-dbcan.physeq <- merge_phyloseq(otu_table(dbcan, taxa_are_rows=T), sample_data(dbcan.meta))
-
-# Melt data together
-dbcan.melt <- psmelt(dbcan.physeq)
-dbcan.melt$OTU <- ordered(dbcan.melt$OTU, levels=c("AA", "CBM", "CE", "GH", "GT", "PL", "SLH"))
-dbcan.melt$Sample <- ordered(dbcan.melt$Sample, levels=c("3715_idba", "3715_spades", "3717_idba",
-                                                         "3717_spades", "3723_idba", "3723_spades",
-                                                         "3733_idba", "3733_spades", "3734_idba",
-                                                         "3734_spades", "3744_idba", "3744_spades",
-                                                         "3772_idba", "3772_spades", "3773_idba",
-                                                         "3773_spades", "3775_idba", "3775_spades"))
-
-# Examine repeated measures
-summary(lmer(Abundance ~ Assembler + (1|Squirrel), data = dbcan.melt))
-  # Little variance in data is explained by individual squirrel random effects (5.207e-19)
-  # That means we don't have to account for individual squirrels when we test whether abundance is sig influenced by assembler
-
-# Test Assembler
-summary(aov(Abundance ~ Assembler, data = dbcan.melt))
-  # p-value = 1
-  # Abundance isn't sig diff btwn assemblers
-  # Aka it doesn't matter if you use IDBA or metaSPADes -- the class-level dbcan results will be the same
-```
-
-
 
 ### dbCAN - Proportion CAZymes from ORFs
 ```{r}

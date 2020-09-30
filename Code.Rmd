@@ -433,6 +433,32 @@ ggplot(gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
 
 
 ###### EVERYTHING BELOW HERE IS OLD CODE ######
+### MicrobeCensus - Average Genome Size
+```{r}
+# Load data
+mc <- read.csv('MicrobeCensus/Summary.csv', row.names = 1)
+mc.ma <- as.matrix(mc)
+
+# Test normality
+hist(mc.ma[2,])
+qqnorm(mc.ma[2,])
+qqline(mc.ma[2,])
+shapiro.test(mc.ma[2,])
+  # p-value = 0.03487
+  # Not Normal
+
+# Format for Kruskal-Wallis
+mc <- t(mc)
+mc <- data.frame(mc)
+mc$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+mc$Season <- ordered(mc$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Kruskal-Wallis
+kruskal.test(formula = AGS ~ Season, data = mc)
+  # p-value = 0.4298
+
+```
+
 ### dbCAN - Test assembler effect on class-level results
 ```{r}
 # Load dbcan class-level rel abund
@@ -714,7 +740,6 @@ p.adjust(c(0.33, 0.00786, 0.00713, 0.115), method="BH")
 # Create family-level physeq object
 colnames(dbcan.fam.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 dbcan.fam.phy <- merge_phyloseq(otu_table(dbcan.fam.norm, taxa_are_rows=T), tax, sample_data(meta.ord))
-
 
 
 dbcan.nmds <- ordinate(physeq = dbcan.fam.phy, method = "NMDS", distance = "bray")

@@ -1,0 +1,13 @@
+Parameters
+metagenome:	/home/glbrc.org/echiang3/OG_metaG/spades/3734/3734.output/contigs.fasta
+reads_sampled:	483585
+trimmed_length:	150
+min_quality:	-5
+mean_quality:	-5
+filter_dups:	False
+max_unknown:	100
+
+Results
+average_genome_size:	3661149.181473957
+total_bases:	394813751
+genome_equivalents:	107.83874991978621

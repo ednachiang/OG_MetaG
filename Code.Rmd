@@ -527,6 +527,9 @@ dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 #dbcan.norm <- counts(dbcan.dds, normalized=T)
 #write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.Family.csv")
 dbcan.fam.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Family.csv', row.names=1)
+dbcan.fam.norm.otu <- otu_table(dbcan.fam.norm, taxa_are_rows=T)
+sample_names(dbcan.fam.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+dbcan.fam.norm.phy <- merge_phyloseq(dbcan.fam.norm.otu, sample_data(dbcan.phy), tax_table(dbcan.phy))
 
 # Normalize Counts to Class-Level
 #dbcan.class <- tax_glom(dbcan.phy, taxrank="Class")
@@ -546,7 +549,65 @@ rownames(dbcan.class.norm) <- c("Polysaccharide Lyase", "Glycosyltransferase", "
 #dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
   # Winter & Spring
 ```
+### dbCAN - Count CAZyme families
+```{r}
+# Subset out samples by season
+phy.sum <- subset_samples(dbcan.phy, Season == "Summer")
+phy.win <- subset_samples(dbcan.phy, Season == "Winter")
+phy.spr <- subset_samples(dbcan.phy, Season == "Spring")
 
+# Remove CAZyme families with no counts
+phy.sum <- prune_taxa(taxa_sums(phy.sum) > 0, phy.sum)
+phy.win <- prune_taxa(taxa_sums(phy.win) > 0, phy.win)
+phy.spr <- prune_taxa(taxa_sums(phy.spr) > 0, phy.spr)
+
+
+# Pull out unique CAZyme families in each season and order alphabetically
+sum.fam <- get_taxa_unique(phy.sum, "Family")
+sum.fam <- sort(sum.fam)
+win.fam <- get_taxa_unique(phy.win, "Family")
+win.fam <- sort(win.fam)
+spr.fam <- get_taxa_unique(phy.spr, "Family")
+spr.fam <- sort(spr.fam)
+
+
+# Summer - Count # of CAZymes in each class
+class <- substr(sum.fam,1,2)
+length(which(class == "GH"))
+  # 128
+length(which(class == "GT"))
+  # 66
+length(which(class == "CE"))
+  # 14
+length(which(class == "PL"))
+  # 27
+
+
+# Winter - Count # of CAZymes in each class
+class <- substr(win.fam,1,2)
+length(which(class == "GH"))
+  # 121
+length(which(class == "GT"))
+  # 66
+length(which(class == "CE"))
+  # 14
+length(which(class == "PL"))
+  # 25
+
+
+# Spring - Count # of CAZymes in each class
+class <- substr(spr.fam,1,2)
+length(which(class == "GH"))
+  # 128
+length(which(class == "GT"))
+  # 68
+length(which(class == "CE"))
+  # 15
+length(which(class == "PL"))
+  # 31
+
+
+```
 
 ### dbCAN - Class-level bar plot
 ```{r}
@@ -825,6 +886,7 @@ plot(dbcan.upgma, edge.width=2, type="cladogram")
 
 ### dbCAN DESeq
 ```{r}
+# https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 # Use UN-NORMALIZED data!!!
   # DESeq accounts for library size
 
@@ -873,25 +935,27 @@ wp.win.fam <- rownames(dseq[wp.win,])
 ```{r}
 # Note: I tried merging the samples by season so the heatmap only displays Summer, Winter, and Spring, but I get an error that say I have insufficient data. Therefore, I display each sample separately.
 
-dbcan.sig <- subset_taxa(dbcan.phy, Family == "GH101" | Family == "PL1" | Family == "GH43" | 
+# Excluding GT4 because it has such high counts that it makes the heatmap hard to interpret visually
+# I'll make a separate plot for just GT4
+dbcan.sig <- subset_taxa(dbcan.fam.norm.phy, Family == "GH101" | Family == "PL1" | Family == "GH43" | 
                            Family == "GH115" | Family == "PL9" | Family == "CE12" | Family == "GH10" |
                            Family == "GH3" | Family == "GH32" | Family == "GH5" | Family == "GH51" |
                            Family == "GH36" | Family == "GH25" | Family == "GH78" | Family == "GH42" |
                            Family == "GH129" | Family == "GH106" | Family == "GH39" | Family == "GH59" |
                            Family == "GH14" | Family == "PL22" | Family == "GH41" | Family == "GH20" |
-                           Family == "GT4" | Family == "GH92" | Family == "GT9" | Family == "GT30" |
-                           Family == "CE11" | Family == "GH57" | Family == "GT3" | Family == "GH84")
+                           Family == "GH92" | Family == "GT9" | Family == "GT30" | Family == "CE11" |
+                           Family == "GH57" | Family == "GT3" | Family == "GH84")
 
 
 #tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
-plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("PL22", "CE11", "GT41", "GT30", "GT9", "GT4", "GT3", "GH92", "GH84", "GH57", "GH20", "GH129", "GH106", "GH78", "GH59", "GH51", "GH42", "GH39", "GH36", "GH32", "GH25", "GH14", "GH5", "GH3", "PL9", "PL1", "CE12", "GH115", "GH43", "GH10", "GH101")) +
+plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("PL22", "CE11", "GT41", "GT30", "GT9", "GT3", "GH92", "GH84", "GH57", "GH20", "GH129", "GH106", "GH78", "GH59", "GH51", "GH42", "GH39", "GH36", "GH32", "GH25", "GH14", "GH5", "GH3", "PL9", "PL1", "CE12", "GH115", "GH43", "GH10", "GH101")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Mean Normalized Counts"), limits=c(0,1400),
-                       breaks=c(0, 200, 400, 600, 800, 1000, 1200, 1400), 
-                       labels=c("0", "200", "400", "600", "800", "1000", "1200", "1400"),
+  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0,610),
+                       breaks=c(0, 200, 400, 600), 
+                       labels=c("0", "200", "400", "600"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
                                    "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
   theme(axis.text.x = element_blank(),
@@ -909,7 +973,57 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
 #dev.off()
 
 
+
+### GT4 plot
+dbcan.GT4 <- subset_taxa(dbcan.fam.norm.phy, Family == "GT4" | Family=="GH101")
+  # plot_heatmap doesn't work on just 1 group, so I added GH101
+  # Remove GH101 after running code
+#tiff("dbcan.GT4.heatmap.tiff", width=9, height=2, units="in", res=300)
+plot_heatmap(dbcan.GT4, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH101", "GT4")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  geom_text(size=4, aes(label=sprintf("%0.2f", round(Abundance, digits=2))))+
+  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(850,1200),
+                       breaks=c(850, 1025, 1200), 
+                       labels=c("850", "1025", "1200"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
+                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
+   theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_blank(),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20),
+        legend.position="none")
+#dev.off()
+
 ```
+
+
+
+### dbCAN - Mucin-degrading CAZymes
+```{r}
+muc.enz <- c("GH2", "GH3", "GH16", "GH18", "GH20", "GH27", "GH29", "GH31", "GH33", "GH35", "GH36", "GH38", "GH42", "GH84", "GH85", "GH89", "GH92", "GH95", "GH101", "GH109", "GH123", "GH125", "GH129", "GH163")
+
+for (i in 1:length(muc.enz)){
+  
+  if (i == 1){
+    enz <- which(rownames(dbcan.fam.norm) == muc.enz[i])
+    muc.df <- dbcan.fam.norm[enz,]
+  }
+  
+  enz <- which(rownames(dbcan.fam.norm) == muc.enz[i])
+  muc.df[i,] <- dbcan.fam.norm[enz,]
+}
+
+
+
+```
+
 
 
 

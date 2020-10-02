@@ -432,7 +432,6 @@ ggplot(gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
 
 
 
-###### EVERYTHING BELOW HERE IS OLD CODE ######
 ### MicrobeCensus - Average Genome Size
 ```{r}
 # Load data
@@ -520,11 +519,20 @@ meta.ord$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
 # Create phyloseq object
 dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 
-# Normalize Counts To Family-level
+# Normalized + Rlog Transformed Counts At Family-level
 # https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
-#dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
+
+
+
+
+
+dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
 #dbcan.dds <- estimateSizeFactors(dbcan.dds)
 #dbcan.norm <- counts(dbcan.dds, normalized=T)
+rld <- rlog(dds, blind=FALSE)
+
+
+
 #write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.Family.csv")
 dbcan.fam.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Family.csv', row.names=1)
 dbcan.fam.norm.otu <- otu_table(dbcan.fam.norm, taxa_are_rows=T)
@@ -887,8 +895,35 @@ plot(dbcan.upgma, edge.width=2, type="cladogram")
 ### dbCAN DESeq
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
+# https://compbiocore.github.io/deseq-workshop-1/assets/deseq_workshop_1.html
 # Use UN-NORMALIZED data!!!
   # DESeq accounts for library size
+
+
+### Test DESeq2 to determine fit type
+# https://support.bioconductor.org/p/81094/
+dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
+dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
+dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 1,]
+dbcan.local <- DESeq(dbcan.dds, fitType = "local")
+dbcan.par <- DESeq(dbcan.dds, fitType = "parametric")
+mad(log(mcols(dbcan.local)$dispGeneEst) - log(mcols(dbcan.local)$dispFit))
+  # 10.15852
+mad(log(mcols(dbcan.par)$dispGeneEst) - log(mcols(dbcan.par)$dispFit))
+  # 7.565014
+# Parametric fit is less spread out (small residual) compared to local fit
+# I'll stick with the DESeq2 defaults (test = Wald, fitType = Parametric)
+
+
+
+# Pull out results from pairwise comparison
+dbcan.sw <- results(dbcan.dds, contrast=c("Season", "Summer", "Winter"))
+dbcan.sw.sig <- dbcan.sw[which(dbcan.sw$padj < 0.05),]
+dbcan.sp <- results(dbcan.dds, contrast=c("Season", "Summer", "Spring"))
+dbcan.sp.sig <- dbcan.sp[which(dbcan.sp$padj < 0.05),]
+dbcan.wp <- results(dbcan.dds, contrast=c("Season", "Winter", "Spring"))
+dbcan.wp.sig <- dbcan.wp[which(dbcan.wp$padj < 0.05),]
+
 
 ### Prepare physeq objects
 
@@ -929,6 +964,8 @@ wp.spr.fam <- rownames(dseq[wp.spr,])
 wp.win <- which(dseq$log2FoldChange > 0)
 wp.win.fam <- rownames(dseq[wp.win,])
   # "PL22" "GT41" "GH20" "GT4"  "GH92" "GT9"  "GT30" "CE11" "GH57" "GT3"  "GH84"
+
+
 ```
 
 ### dbCAN - DESeq Heatmap
@@ -1007,8 +1044,10 @@ plot_heatmap(dbcan.GT4, sample.label = "Season", sample.order = c("3715", "3717"
 
 ### dbCAN - Mucin-degrading CAZymes
 ```{r}
+# List of mucin-degrading CAZymes
 muc.enz <- c("GH2", "GH3", "GH16", "GH18", "GH20", "GH27", "GH29", "GH31", "GH33", "GH35", "GH36", "GH38", "GH42", "GH84", "GH85", "GH89", "GH92", "GH95", "GH101", "GH109", "GH123", "GH125", "GH129", "GH163")
 
+# Pull out mucin-degrading CAZymes
 for (i in 1:length(muc.enz)){
   
   if (i == 1){
@@ -1019,8 +1058,53 @@ for (i in 1:length(muc.enz)){
   enz <- which(rownames(dbcan.fam.norm) == muc.enz[i])
   muc.df[i,] <- dbcan.fam.norm[enz,]
 }
+colnames(muc.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+# Sum of mucin-degrading CAZymes
+for (i in 1:ncol(muc.df)) {
+  if (i == 1){
+    muc.sum <- sum(muc.df[,i])
+    muc.sum.df <- data.frame(muc.sum)
+    colnames(muc.sum.df)[i] <- colnames(muc.df)[i]
+  }
+  muc.sum <- sum(muc.df[,i])
+  muc.sum.df[,i] <- muc.sum
+  colnames(muc.sum.df)[i] <- colnames(muc.df)[i]
+}
+muc.sum.df <- data.frame(t(muc.sum.df))
+colnames(muc.sum.df) <- "Total_MucinDeg"
+muc.sum.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+muc.sum.df$Season <- ordered(muc.sum.df$Season, levels=c("Summer", "Winter", "Spring"))
 
 
+# Test normality
+hist(muc.sum.df[,1])
+qqnorm(muc.sum.df[,1])
+qqline(muc.sum.df[,1])
+shapiro.test(muc.sum.df[,1])
+  # p-value = 0.6955
+  # Normal
+
+# Test w/ ANOVA
+summary(aov(Total_MucinDeg ~ Season, data = muc.sum.df))
+  # p-value = 0.00454
+
+# Posthoc test w/ Tukey's
+TukeyHSD(aov(Total_MucinDeg ~ Season, data = muc.sum.df))
+  # Winter-Summer = 0.2278598
+  # Spring-Summer = 0.0039594*
+  # Spring-Winter = 0.0281509*
+
+
+### Boxplot
+ggplot(muc.sum.df, aes(x=Season, y=Total_MucinDeg, fill=Season)) +
+  geom_boxplot(position=position_dodge(1)) +
+  geom_point(position=position_dodge(width = 0.2), size=2) +
+  ylab("Normalized Counts of Mucin-degrading CAZymes") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9), limits=c(3.1, 3.9)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
 
 ```
 

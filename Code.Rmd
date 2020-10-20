@@ -931,87 +931,24 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 # Note: I tried merging the samples by season so the heatmap only displays Summer, Winter, and Spring, but I get an error that say I have insufficient data. Therefore, I display each sample separately.
 
 # Excluding some families because they has such high counts that it makes the heatmap hard to interpret visually
-# I'll make a separate plot for just GT4, GT41, GH43, GH3
-dbcan.sig <- subset_taxa(dbcan.fam.norm.phy, Family == "GH101" | Family == "PL1" | Family == "GH115" |
-                           Family == "PL9" | Family == "CE12" | Family == "GH10" | Family == "GH32" |
-                           Family == "GH5" | Family == "GH51" | Family == "GH36" | Family == "GH25" |
-                           Family == "GH78" | Family == "GH42" | Family == "GH129" | Family == "GH106" |
-                           Family == "GH39" | Family == "GH59" | Family == "GH14" | Family == "PL22" |
-                           Family == "GH41" | Family == "GH20" | Family == "GH92" | Family == "GT9" |
-                           Family == "GT30" | Family == "CE11" | Family == "GH57" | Family == "GT3" |
-                           Family == "GH84")
+# I'll make a separate plot for just GH43, GH3, GT4, and GT41
 
 
-plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("PL22", "CE11", "GT41", "GT30", "GT9", "GT3", "GH92", "GH84", "GH57", "GH20", "GH129", "GH106", "GH78", "GH59", "GH51", "GH42", "GH39", "GH36", "GH32", "GH25", "GH14", "GH5", "GH3", "PL9", "PL1", "CE12", "GH115", "GH43", "GH10", "GH101")) +
-  geom_tile(colour="gray40") +
-  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
-  xlab("Season\n\n") +
-  ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0,610),
-                       breaks=c(0, 200, 400, 600), 
-                       labels=c("0", "200", "400", "600"),
-                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
-                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_text(size=20),
-        axis.ticks.x = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.border=element_blank(),
-        axis.title.x = element_text(size=20, face="bold"),
-        axis.title.y = element_text(size=20, face="bold"),
-        legend.title = element_text(size=20, face="bold"),
-        legend.text = element_text(size=20)) +
-  guides(fill = guide_colorbar(barheight = unit(7,"in"),
-                               frame.colour="black",
-                               frame.linewidth=1))
-
-
-
-
-
-
-
-
-
-
-sig <- c("GT101", "GH10", "GH43", "GH59", "GH115", "CE12", "PL1", "GH3", "GH5", "GH32", "GH39", "GH42", "GH78", "GH106", "GH20", "GH84", "GT3", "GT4", "GT9", "GT41", "CE11")
-dbcan.rl.use <- assay(dbcan.rl)
-
-
-for (i in 1:length(sig)){
-  
-  if (i == 1){
-    num <- which(rownames(dbcan.rl.use) == sig[i])
-    dbcan.sig <- t(data.frame(dbcan.rl.use[num,]))
-    dbcan.sig <- data.frame(dbcan.sig)
-    rownames(dbcan.sig)[i] = sig[i]
-  }
-  
-  num <- which(rownames(dbcan.rl.use) == sig[i])
-  dbcan.sig[i,] <- dbcan.rl.use[num,]
-  rownames(dbcan.sig)[i] = sig[i]
-}
-colnames(dbcan.sig) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-dbcan.sig.phy <- merge_phyloseq(otu_table(dbcan.sig, taxa_are_rows = T), tax, sample_data(meta.ord))
-
-
-
-
-
-
-                
-
-"CE11", "GT41", "GT9", "GT4", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "GH3", "PL1", "CE12", "GH115", "GH59", "GH43", "GH10", "GT101"
+dbcan.sig <- subset_taxa(dbcan.fam.norm.phy, Family == "GT101" | Family == "GH10" | Family == "GH59" |
+                           Family == "GH115" | Family == "PL1" | Family == "CE12" | Family == "GH5" |
+                           Family == "GH32" | Family == "GH39" | Family == "GH42" | Family == "GH78" |
+                           Family == "GH106" | Family == "GH20" | Family == "GH84" | Family == "GT3" | 
+                           Family == "GH9" | Family == "CE11")
 
 #tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
-plot_heatmap(dbcan.sig.phy, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GT41", "GT9", "GT4", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "GH3", "PL1", "CE12", "GH115", "GH59", "GH43", "GH10", "GT101")) +
+plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GH9", "GT3", "GH84", "GH20", "CE12", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "PL1", "GH115", "GH59", "GH10", "GT101")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0,10.2),
-                       breaks=c(0, 2, 4, 6, 8, 10), 
-                       labels=c("0", "2", "4", "6", "8", "10"),
+  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0,300),
+                       breaks=c(0, 100, 200, 300), 
+                       labels=c("0", "100", "200", "300"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
                                    "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
   theme(axis.text.x = element_blank(),
@@ -1028,21 +965,18 @@ plot_heatmap(dbcan.sig.phy, sample.label = "Season", sample.order = c("3715", "3
                                frame.linewidth=1))
 #dev.off()
 
-
-
-### GT4 plot
-dbcan.GT4 <- subset_taxa(dbcan.fam.norm.phy, Family == "GT4" | Family=="GH101")
-  # plot_heatmap doesn't work on just 1 group, so I added GH101
-  # Remove GH101 after running code
-#tiff("dbcan.GT4.heatmap.tiff", width=9, height=2, units="in", res=300)
-plot_heatmap(dbcan.GT4, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH101", "GT4")) +
+### GH43, GH3, GT4, and GT41 plot
+dbcan.high <- subset_taxa(dbcan.fam.norm.phy, Family == "GH43" | Family == "GH3" | Family == "GT4" |
+                            Family == "GT41")
+tiff("dbcan.high.heatmap.tiff", width=9, height=4, units="in", res=300)
+plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH43", "GH3", "GT4", "GT41")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
-  geom_text(size=4, aes(label=sprintf("%0.2f", round(Abundance, digits=2))))+
-  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(850,1200),
-                       breaks=c(850, 1025, 1200), 
-                       labels=c("850", "1025", "1200"),
+  ylab("CAZyme Family\n\n") +
+  scale_fill_gradientn(name=expression("Normalized Counts\n"), limits=c(300,1200),
+                       breaks=c(300, 600, 900, 1200), 
+                       labels=c("300", "600", "900", "1200"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
                                    "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
    theme(axis.text.x = element_blank(),
@@ -1051,11 +985,13 @@ plot_heatmap(dbcan.GT4, sample.label = "Season", sample.order = c("3715", "3717"
         axis.ticks.y = element_blank(),
         panel.border=element_blank(),
         axis.title.x = element_text(size=20, face="bold"),
-        axis.title.y = element_blank(),
+        axis.title.y = element_text(size=20, face="bold"),
         legend.title = element_text(size=20, face="bold"),
-        legend.text = element_text(size=20),
-        legend.position="none")
-#dev.off()
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(2,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+dev.off()
 
 ```
 

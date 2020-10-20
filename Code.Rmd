@@ -514,22 +514,15 @@ colnames(tax) <- c("Class", "Family")
 taxa_names(tax) <- tax[,2]
 meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
 meta.ord <- meta
-meta.ord$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
 
 # Create phyloseq object
 dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 
 # Normalized + Rlog Transformed Counts At Family-level
 # https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
-
-
-
-
-
-dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
+#dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
 #dbcan.dds <- estimateSizeFactors(dbcan.dds)
 #dbcan.norm <- counts(dbcan.dds, normalized=T)
-rld <- rlog(dds, blind=FALSE)
 
 
 
@@ -771,7 +764,7 @@ colnames(dbcan.fam.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3
 dbcan.fam.phy <- merge_phyloseq(otu_table(dbcan.fam.norm, taxa_are_rows=T), tax, sample_data(meta.ord))
 
 
-dbcan.nmds <- ordinate(physeq = dbcan.fam.phy, method = "NMDS", distance = "bray")
+#dbcan.nmds <- ordinate(physeq = dbcan.fam.phy, method = "NMDS", distance = "bray")
   # stress = 0.0627683
 #save(dbcan.nmds, file="dbcan.nmds.RData")
 load("dbcan.nmds.RData")
@@ -902,11 +895,16 @@ plot(dbcan.upgma, edge.width=2, type="cladogram")
 
 ### Test DESeq2 to determine fit type
 # https://support.bioconductor.org/p/81094/
+
+### Convert phyloseq object to deseq2 object
 dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
+  # Design variable must be unordered otherwise you get an error
 dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
 dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 1,]
-dbcan.dds <- DESeq(dbcan.dds)
 
+# DESeq DataStructure for analyses; rlog-transformed
+dbcan.dds <- DESeq(dbcan.dds)
+dbcan.rl <- rlog(dbcan.dds, blind=F)
 
 # Pull out results from pairwise comparison
 dbcan.sw <- results(dbcan.dds, contrast=c("Season", "Summer", "Winter"))
@@ -932,19 +930,18 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 ```{r}
 # Note: I tried merging the samples by season so the heatmap only displays Summer, Winter, and Spring, but I get an error that say I have insufficient data. Therefore, I display each sample separately.
 
-# Excluding GT4 because it has such high counts that it makes the heatmap hard to interpret visually
-# I'll make a separate plot for just GT4
-dbcan.sig <- subset_taxa(dbcan.fam.norm.phy, Family == "GH101" | Family == "PL1" | Family == "GH43" | 
-                           Family == "GH115" | Family == "PL9" | Family == "CE12" | Family == "GH10" |
-                           Family == "GH3" | Family == "GH32" | Family == "GH5" | Family == "GH51" |
-                           Family == "GH36" | Family == "GH25" | Family == "GH78" | Family == "GH42" |
-                           Family == "GH129" | Family == "GH106" | Family == "GH39" | Family == "GH59" |
-                           Family == "GH14" | Family == "PL22" | Family == "GH41" | Family == "GH20" |
-                           Family == "GH92" | Family == "GT9" | Family == "GT30" | Family == "CE11" |
-                           Family == "GH57" | Family == "GT3" | Family == "GH84")
+# Excluding some families because they has such high counts that it makes the heatmap hard to interpret visually
+# I'll make a separate plot for just GT4, GT41, GH43, GH3
+dbcan.sig <- subset_taxa(dbcan.fam.norm.phy, Family == "GH101" | Family == "PL1" | Family == "GH115" |
+                           Family == "PL9" | Family == "CE12" | Family == "GH10" | Family == "GH32" |
+                           Family == "GH5" | Family == "GH51" | Family == "GH36" | Family == "GH25" |
+                           Family == "GH78" | Family == "GH42" | Family == "GH129" | Family == "GH106" |
+                           Family == "GH39" | Family == "GH59" | Family == "GH14" | Family == "PL22" |
+                           Family == "GH41" | Family == "GH20" | Family == "GH92" | Family == "GT9" |
+                           Family == "GT30" | Family == "CE11" | Family == "GH57" | Family == "GT3" |
+                           Family == "GH84")
 
 
-#tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
 plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("PL22", "CE11", "GT41", "GT30", "GT9", "GT3", "GH92", "GH84", "GH57", "GH20", "GH129", "GH106", "GH78", "GH59", "GH51", "GH42", "GH39", "GH36", "GH32", "GH25", "GH14", "GH5", "GH3", "PL9", "PL1", "CE12", "GH115", "GH43", "GH10", "GH101")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
@@ -953,6 +950,68 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
   scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0,610),
                        breaks=c(0, 200, 400, 600), 
                        labels=c("0", "200", "400", "600"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
+                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+
+
+
+
+
+
+
+
+
+
+sig <- c("GT101", "GH10", "GH43", "GH59", "GH115", "CE12", "PL1", "GH3", "GH5", "GH32", "GH39", "GH42", "GH78", "GH106", "GH20", "GH84", "GT3", "GT4", "GT9", "GT41", "CE11")
+dbcan.rl.use <- assay(dbcan.rl)
+
+
+for (i in 1:length(sig)){
+  
+  if (i == 1){
+    num <- which(rownames(dbcan.rl.use) == sig[i])
+    dbcan.sig <- t(data.frame(dbcan.rl.use[num,]))
+    dbcan.sig <- data.frame(dbcan.sig)
+    rownames(dbcan.sig)[i] = sig[i]
+  }
+  
+  num <- which(rownames(dbcan.rl.use) == sig[i])
+  dbcan.sig[i,] <- dbcan.rl.use[num,]
+  rownames(dbcan.sig)[i] = sig[i]
+}
+colnames(dbcan.sig) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+dbcan.sig.phy <- merge_phyloseq(otu_table(dbcan.sig, taxa_are_rows = T), tax, sample_data(meta.ord))
+
+
+
+
+
+
+                
+
+"CE11", "GT41", "GT9", "GT4", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "GH3", "PL1", "CE12", "GH115", "GH59", "GH43", "GH10", "GT101"
+
+#tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
+plot_heatmap(dbcan.sig.phy, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GT41", "GT9", "GT4", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "GH3", "PL1", "CE12", "GH115", "GH59", "GH43", "GH10", "GT101")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("CAZyme Family\n\n") +
+  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0,10.2),
+                       breaks=c(0, 2, 4, 6, 8, 10), 
+                       labels=c("0", "2", "4", "6", "8", "10"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
                                    "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
   theme(axis.text.x = element_blank(),

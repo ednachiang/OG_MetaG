@@ -1251,11 +1251,52 @@ mucin.wp.sig[which(mucin.wp.sig$log2FoldChange > 0),]
 mucin.wp.sig[which(mucin.wp.sig$log2FoldChange < 0),]
   # Enriched in Spring compared to Winter (negative log2FoldChange)
     # GH36_3.2.1.22, GH42_3.2.1.23
+```
+
+
+
+### Mucin - Heatmap
+```{r}
+mucin.sig <- subset_taxa(muc.norm.phy, FullName == "GH112_2.4.1.211" | FullName == "GH36_3.2.1.22" |
+                           FullName == "GH42_3.2.1.23" | FullName == "GH84_3.2.1.169" |
+                           FullName == "GH110_3.2.1.22")
+                           
+  
+
+
+#tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
+plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH110_3.2.1.22", "GH84_3.2.1.169", "GH42_3.2.1.23", "GH36_3.2.1.22", "GH112_2.4.1.211")) +
+  geom_tile(colour="gray40") +
+  geom_text(aes(label=sprintf("%0.2f", round(Abundance, digits=4)))) +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("Mucin-Degrading Enzyme Gene\n\n") +
+  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0, 100),
+                       breaks=c(0, 25, 50, 75, 100), 
+                       labels=c("0", "25", "50", "75", "100"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
+                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+#dev.off()
 
 
 ```
 
-### Mucin - Heatmap
+
+
+
+
 ### KEGG Brite
 ```{r}
 ko.comp <- read.csv('KEGG/ko_comp.csv', fileEncoding="UTF-8-BOM")

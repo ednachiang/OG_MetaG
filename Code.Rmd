@@ -902,7 +902,7 @@ dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
 dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
 dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 1,]
 
-# DESeq DataStructure for analyses; rlog-transformed
+# DESeq DataStructure for analyses
 dbcan.dds <- DESeq(dbcan.dds)
 #dbcan.rl <- rlog(dbcan.dds, blind=F)
 
@@ -1140,17 +1140,46 @@ muc.norm.phy <- merge_phyloseq(muc.norm.otu, sample_data(mucin.phy), tax_table(m
 
 ### Test DESeq2 to determine fit type
 # https://support.bioconductor.org/p/81094/
-mucin.dds <- phyloseq_to_deseq2(mucin.phy, ~Season)
-mucin.dds$Season <- factor(mucin.dds$Season, levels=c("Summer", "Winter", "Spring"))
-mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
-mucin.local <- DESeq(mucin.dds, fitType = "local")
-mucin.par <- DESeq(mucin.dds, fitType = "parametric")
-mad(log(mcols(mucin.local)$dispGeneEst) - log(mcols(mucin.local)$dispFit))
+#mucin.dds <- phyloseq_to_deseq2(mucin.phy, ~Season)
+#mucin.dds$Season <- factor(mucin.dds$Season, levels=c("Summer", "Winter", "Spring"))
+#mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
+#mucin.local <- DESeq(mucin.dds, fitType = "local")
+#mucin.par <- DESeq(mucin.dds, fitType = "parametric")
+#mad(log(mcols(mucin.local)$dispGeneEst) - log(mcols(mucin.local)$dispFit))
   # 1.412442
-mad(log(mcols(mucin.par)$dispGeneEst) - log(mcols(mucin.par)$dispFit))
+#mad(log(mcols(mucin.par)$dispGeneEst) - log(mcols(mucin.par)$dispFit))
   # 1.412442
 # No difference in fit type, so I'll stick with the DESeq2 defaults (test = Wald, fitType = Parametric)
 
+
+
+### Convert phyloseq object to deseq2 object
+mucin.dds <- phyloseq_to_deseq2(mucin.phy, ~Season)
+  # Design variable must be unordered otherwise you get an error
+mucin.dds$Season <- factor(mucin.dds$Season, levels=c("Summer", "Winter", "Spring"))
+mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
+
+
+# DESeq DataStructure for analyses
+mucin.dds <- DESeq(mucin.dds)
+
+
+# Pull out results from pairwise comparison
+mucin.sw <- results(mucin.dds, contrast=c("Season", "Summer", "Winter"))
+mucin.sw.sig <- mucin.sw[which(mucin.sw$padj < 0.05),]
+  # None
+mucin.sp <- results(mucin.dds, contrast=c("Season", "Summer", "Spring"))
+mucin.sp.sig <- mucin.sp[which(mucin.sp$padj < 0.05),]
+  # Enriched in Spring compared to Summer (negative log2FoldChange)
+    # GH112_2.4.1.211
+mucin.wp <- results(mucin.dds, contrast=c("Season", "Winter", "Spring"))
+mucin.wp.sig <- mucin.wp[which(mucin.wp$padj < 0.05),]
+mucin.wp.sig[which(mucin.wp.sig$log2FoldChange > 0),]
+  # Enriched in Winter compared to Spring (positive log2FoldChange)
+    # GH110_3.2.1.22, GH84_3.2.1.169
+mucin.wp.sig[which(mucin.wp.sig$log2FoldChange < 0),]
+  # Enriched in Spring compared to Winter (negative log2FoldChange)
+    # GH36_3.2.1.22, GH42_3.2.1.23
 
 
 ```

@@ -467,36 +467,30 @@ hist(prodigalCounts[3,])
 qqnorm(prodigalCounts[3,])
 qqline(prodigalCounts[3,])
 shapiro.test(prodigalCounts[3,])
-  # p-value = 0.5424
-  # Normal
+  # p-value = 0.001575
+  # Not Normal
 
-# Format for ANOVA
+# Format for Kruskal-Wallis
 prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
 prodigalCounts <- t(prodigalCounts)
 prodigalCounts <- data.frame(prodigalCounts)
 prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
+colnames(prodigalCounts) <- c("Total_ORFs", "Total_CAZymes", "CAZymePercentage", "Season")
 
-# Test w/ ANOVA
-summary(aov(PropCAZyme ~ Season, data = prodigalCounts))
-  # p-value = 0.0184
 
-# Posthoc test w/ Tukey's
-TukeyHSD(aov(PropCAZyme ~ Season, data = prodigalCounts))
-  # Winter-Summer = 0.0422137*
-  # Spring-Summer = 0.0208430*
-  # Spring-Winter = 0.8259681
-  
-
+# Test w/ Kruskal-Wallis
+kruskal.test(formula = CAZymePercentage ~ Season, data = prodigalCounts)
+  # p-value = 0.5611
 
 
 ### Boxplot
-ggplot(prodigalCounts, aes(x=Season, y=PropCAZyme, fill=Season)) +
+ggplot(prodigalCounts, aes(x=Season, y=CAZymePercentage, fill=Season)) +
   geom_boxplot(position=position_dodge(1)) +
   geom_point(position=position_dodge(width = 0.2), size=2) +
   ylab("CAZyme Proportion (%)") +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  scale_y_continuous(breaks = c(3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9), limits=c(3.1, 3.9)) +
+  scale_y_continuous(breaks = c(2.0, 2.6, 3.2, 3.8, 4.4), limits=c(2.0, 4.4)) +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
@@ -1099,6 +1093,52 @@ dbcan.muc.wp.sig[which(dbcan.muc.wp.sig$log2FoldChange > 0),]
 dbcan.muc.wp.sig[which(dbcan.muc.wp.sig$log2FoldChange < 0),]
   # Enriched in Spring compared to Winter (negative log2FoldChange)
     # GH3, GH36, GH42, GH129
+```
+
+
+
+### Mucin - Proportion mucin-degrading genes from ORFs
+```{r}
+prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
+prodigalCounts <- as.matrix(prodigalCounts)
+
+# Test normality
+hist(prodigalCounts[3,])
+qqnorm(prodigalCounts[3,])
+qqline(prodigalCounts[3,])
+shapiro.test(prodigalCounts[3,])
+  # p-value = 0.5424
+  # Normal
+
+# Format for ANOVA
+prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
+prodigalCounts <- t(prodigalCounts)
+prodigalCounts <- data.frame(prodigalCounts)
+prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Test w/ ANOVA
+summary(aov(PropCAZyme ~ Season, data = prodigalCounts))
+  # p-value = 0.0184
+
+# Posthoc test w/ Tukey's
+TukeyHSD(aov(PropCAZyme ~ Season, data = prodigalCounts))
+  # Winter-Summer = 0.0422137*
+  # Spring-Summer = 0.0208430*
+  # Spring-Winter = 0.8259681
+  
+
+
+
+### Boxplot
+ggplot(prodigalCounts, aes(x=Season, y=PropCAZyme, fill=Season)) +
+  geom_boxplot(position=position_dodge(1)) +
+  geom_point(position=position_dodge(width = 0.2), size=2) +
+  ylab("CAZyme Proportion (%)") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9), limits=c(3.1, 3.9)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
 ```
 
 

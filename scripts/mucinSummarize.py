@@ -196,6 +196,9 @@ for name in enzymeNameList:
         enzymeTax.loc[name, 'EC3'] = name[:6]
         enzymeTax.loc[name, 'EC4'] = name
 
+# Add last column of full enzyme name
+enzymeTax['FullName'] = enzymeTax['Full']
+
 # Remove unnecessary column
 enzymeTax = enzymeTax.drop(columns = 'Full')
 

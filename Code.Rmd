@@ -1000,7 +1000,9 @@ dev.off()
 ### dbCAN - Mucin-degrading CAZymes
 ```{r}
 # List of mucin-degrading CAZymes
-muc.enz <- c("GH2", "GH3", "GH16", "GH18", "GH20", "GH27", "GH29", "GH31", "GH33", "GH35", "GH36", "GH38", "GH42", "GH84", "GH85", "GH89", "GH92", "GH95", "GH101", "GH109", "GH123", "GH125", "GH129", "GH163")
+muc.enz <- c("GH2", "GH3", "GH4", "GH16", "GH18", "GH20", "GH27", "GH29", "GH31", "GH33", "GH35", "GH36", "GH38", "GH42", "GH67", "GH76", "GH84", "GH85", "GH89", "GH92", "GH95", "GH97", "GH98", "GH101", "GH109", "GH110", "GH112", "GH123", "GH125", "GH129", "GH130", "GH163")
+
+
 
 # Pull out mucin-degrading CAZymes
 for (i in 1:length(muc.enz)){
@@ -1037,18 +1039,18 @@ hist(muc.sum.df[,1])
 qqnorm(muc.sum.df[,1])
 qqline(muc.sum.df[,1])
 shapiro.test(muc.sum.df[,1])
-  # p-value = 0.6955
+  # p-value = 0.979
   # Normal
 
 # Test w/ ANOVA
 summary(aov(Total_MucinDeg ~ Season, data = muc.sum.df))
-  # p-value = 0.00454
+  # p-value = 0.0263
 
 # Posthoc test w/ Tukey's
 TukeyHSD(aov(Total_MucinDeg ~ Season, data = muc.sum.df))
-  # Winter-Summer = 0.2278598
-  # Spring-Summer = 0.0039594*
-  # Spring-Winter = 0.0281509*
+  # Winter-Summer = 0.3489136
+  # Spring-Summer = 0.0223984*
+  # Spring-Winter = 0.1447197
 
 
 ### Boxplot
@@ -1057,19 +1059,25 @@ ggplot(muc.sum.df, aes(x=Season, y=Total_MucinDeg, fill=Season)) +
   geom_point(position=position_dodge(width = 0.2), size=2) +
   ylab("Normalized Counts of Mucin-degrading CAZymes") +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  scale_y_continuous(breaks = c(3000, 3200, 3400, 3600), limits=c(3000, 3600)) +
+  scale_y_continuous(breaks = c(3400, 3600, 3800, 4000, 4200), limits=c(3400, 4200)) +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
 
 ### DESeq2
-dbcan.muc <- subset_taxa(dbcan.phy, Family == "GH2" | Family == "GH3" | Family == "GH16" | 
-                           Family == "GH18" | Family == "GH20" | Family == "GH27" | Family == "GH29" |
-                           Family == "GH31" | Family == "GH33" | Family == "GH35" | Family == "GH36" |
-                           Family == "GH38" | Family == "GH42" | Family == "GH84" | Family == "GH85" |
-                           Family == "GH89" | Family == "GH92" | Family == "GH95" | Family == "GH101" |
-                           Family == "GH109" | Family == "GH123" | Family == "GH125" |
-                           Family == "GH129" | Family == "GH163")
+dbcan.muc <- subset_taxa(dbcan.phy, Family == "GH2" | Family == "GH3" | Family == "GH4" | 
+                           Family == "GH16" | Family == "GH18" | Family == "GH20" | Family == "GH27" |
+                           Family == "GH29" | Family == "GH31" | Family == "GH33" | Family == "GH35" |
+                           Family == "GH36" | Family == "GH38" | Family == "GH42" | Family == "GH67" |
+                           Family == "GH76" | Family == "GH84" | Family == "GH85" | Family == "GH89" |
+                           Family == "GH92" | Family == "GH95" | Family == "GH97" | Family == "GH98" |
+                           Family == "GH101" | Family == "GH109" | Family == "GH110" |
+                           Family == "GH112" | Family == "GH123" | Family == "GH125" |
+                           Family == "GH129" | Family == "GH130" | Family == "GH163")
+
+
+
+
 dbcan.muc.dds <- phyloseq_to_deseq2(dbcan.muc, ~Season)
   # Design variable must be unordered otherwise you get an error
 dbcan.muc.dds$Season <- factor(dbcan.muc.dds$Season, levels=c("Summer", "Winter", "Spring"))
@@ -1087,10 +1095,10 @@ dbcan.muc.wp <- results(dbcan.muc.dds, contrast=c("Season", "Winter", "Spring"))
 dbcan.muc.wp.sig <- dbcan.muc.wp[which(dbcan.muc.wp$padj < 0.05),]
 dbcan.muc.wp.sig[which(dbcan.muc.wp.sig$log2FoldChange > 0),]
   # Enriched in Winter compared to Spring (positive log2FoldChange)
-    # GH20, GH92, GH84
+    # GH20, GH84
 dbcan.muc.wp.sig[which(dbcan.muc.wp.sig$log2FoldChange < 0),]
   # Enriched in Spring compared to Winter (negative log2FoldChange)
-    # GH3, GH31, GH36, GH42, GH129
+    # GH3, GH36, GH42, GH129
 ```
 
 

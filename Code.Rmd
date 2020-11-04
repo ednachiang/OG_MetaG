@@ -1099,7 +1099,7 @@ dbcan.muc.wp.sig[which(dbcan.muc.wp.sig$log2FoldChange < 0),]
 
 ### Mucin - Proportion mucin-degrading genes from ORFs
 ```{r}
-prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
+prodigalCounts <- read.csv('mucin/prodigalCounts.csv', row.names=1)
 prodigalCounts <- as.matrix(prodigalCounts)
 
 # Test normality
@@ -1107,38 +1107,35 @@ hist(prodigalCounts[3,])
 qqnorm(prodigalCounts[3,])
 qqline(prodigalCounts[3,])
 shapiro.test(prodigalCounts[3,])
-  # p-value = 0.5424
-  # Normal
+  # p-value = 0.001575
+  # Not Normal
 
-# Format for ANOVA
-prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
+# Format for Kruskal-Wallis
+prodigalCounts <- read.csv('mucin/prodigalCounts.csv', row.names=1)
 prodigalCounts <- t(prodigalCounts)
 prodigalCounts <- data.frame(prodigalCounts)
 prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
+colnames(prodigalCounts) <- c("Total_ORFs", "Total_MucinGenes", "MucinGenePercentage", "Season")
 
-# Test w/ ANOVA
-summary(aov(PropCAZyme ~ Season, data = prodigalCounts))
-  # p-value = 0.0184
 
-# Posthoc test w/ Tukey's
-TukeyHSD(aov(PropCAZyme ~ Season, data = prodigalCounts))
-  # Winter-Summer = 0.0422137*
-  # Spring-Summer = 0.0208430*
-  # Spring-Winter = 0.8259681
-  
-
+# Test w/ Kruskal-Wallis
+kruskal.test(formula = MucinGenePercentage ~ Season, data = prodigalCounts)
+  # p-value = 0.06646
 
 
 ### Boxplot
-ggplot(prodigalCounts, aes(x=Season, y=PropCAZyme, fill=Season)) +
+ggplot(prodigalCounts, aes(x=Season, y=MucinGenePercentage, fill=Season)) +
   geom_boxplot(position=position_dodge(1)) +
   geom_point(position=position_dodge(width = 0.2), size=2) +
-  ylab("CAZyme Proportion (%)") +
+  ylab("Mucin-Degrading Gene Proportion (%)") +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  scale_y_continuous(breaks = c(3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9), limits=c(3.1, 3.9)) +
+  scale_y_continuous(breaks = c(0.06, 0.07, 0.08, 0.09), limits=c(0.06, 0.09)) +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
+
+
+
 ```
 
 

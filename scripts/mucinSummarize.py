@@ -4,11 +4,11 @@ import pandas as pd
     # Import pandas to use dataframes
 
 ##### CHANGE THESE PARAMETERS ACCORDINGLY
-directoryeCAMI = 'test2/eCAMI/'
-directorydbCAN = 'test2/dbcan/'
-miscECpath = '../dbcan/miscEC_counts.csv'
-outputCount = 'test2/count.csv'
-outputTax = 'test2/tax.csv'
+directoryeCAMI = '../mucin/eCAMI/'
+directorydbCAN = '../mucin/dbCAN/'
+miscECpath = '../mucin/miscEC_counts.csv'
+outputCount = '../mucin/mucinCount.csv'
+outputTax = '../mucin/mucinClassification.csv'
     # Path to output count file of ECs w/o CAZymes
 
 # Input = list of EC numbers with associated CAZymes. Use this list to pull create .faa input for dbCAN
@@ -180,6 +180,7 @@ for name in enzymeNameList:
         enzymeTax.loc[name, 'EC3'] = name[:6]
         enzymeTax.loc[name, 'EC4'] = name
 
+enzymeTax = enzymeTax.drop(columns = 'Full')
 
 finalCount.to_csv(outputCount)
 enzymeTax.to_csv(outputTax)

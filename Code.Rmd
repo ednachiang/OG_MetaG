@@ -1167,6 +1167,40 @@ sample_names(muc.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", 
 muc.norm.phy <- merge_phyloseq(muc.norm.otu, sample_data(mucin.phy), tax_table(mucin.phy))
 ```
 
+### Mucin - Enzyme bar plots
+```{r}
+# Summarize data
+mucin.df <- psmelt(muc.norm.phy)
+mucin.sum <- mucin.df %>%
+  group_by(FullName, Season) %>%
+  summarize(Mean = mean(Abundance),
+            SD= sd(Abundance),
+            SE = se(Abundance))
+mucin.sum$FullName = ordered(mucin.sum$FullName, c("GH2_3.2.1.23", "GH2_3.2.1.25", "GH3_3.2.1.52", "GH4_3.2.1.22", "GH4_3.2.1.24", "GH16_3.2.1.23", "GH16_3.2.1.103", "GH20_3.2.1.52", "GH27_3.2.1.22", "GH29_3.2.1.51", "GH31_3.2.1.20", "GH35_3.2.1.23", "GH36_3.2.1.22", "GH38_3.2.1.24", "GH42_3.2.1.23", "GH67_3.2.1.139", "GH84_3.2.1.169", "GH95_3.2.1.51", "GH101_3.2.1.97", "GH110_3.2.1.22", "GH112_2.4.1.211", "GH130_2.4.1.281", "GH130_2.4.1.320", "3.1.1.2", "3.1.6.3", "3.1.6.4", "3.1.6.8", "3.1.6.14", "4.1.3.3"))
+
+
+
+# Plot barplot
+#tiff("dbcan.class.tiff", width=10, height=3.5, units="in", res= 300)
+ggplot(mucin.sum, aes(x=Season, y=Mean, fill=Season)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  scale_y_continuous(limits=c(-1,100)) +
+  facet_grid(. ~ FullName) +
+  scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  xlab("Mucin-Degrading Gene Classification") +
+  ylab("Mean Normalized Counts") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 15)))
+#dev.off()
+
+```
 ### Mucin - DESeq
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
@@ -1221,6 +1255,7 @@ mucin.wp.sig[which(mucin.wp.sig$log2FoldChange < 0),]
 
 ```
 
+### Mucin - Heatmap
 ### KEGG Brite
 ```{r}
 ko.comp <- read.csv('KEGG/ko_comp.csv', fileEncoding="UTF-8-BOM")

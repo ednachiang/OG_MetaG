@@ -1102,7 +1102,58 @@ dbcan.muc.wp.sig[which(dbcan.muc.wp.sig$log2FoldChange < 0),]
 ```
 
 
+### Mucin - Create phyloseq object
+```{r}
+# Load data
+muc.otu <- read.csv('mucin/mucinCount.csv', row.names=1)
+colnames(muc.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+muc.otu.tab <- otu_table(muc.otu, taxa_are_rows=T)
+muc.tax <- read.csv('mucin/mucinClassification.csv', row.names=1)
+muc.tax <- tax_table(muc.tax)
+colnames(muc.tax) <- c("GH_Class", "GH_Family", "EC1", "EC2", "EC3", "EC4", "FullName")
+taxa_names(muc.tax) <- muc.tax[,7]
+meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
+meta.ord <- meta
 
+
+# Create phyloseq object
+mucin.phy <- merge_phyloseq(muc.otu.tab, muc.tax, sample_data(meta.ord))
+
+# Normalized Counts
+#mucin.dds <- DESeqDataSetFromMatrix(countData = muc.otu, colData = meta, design = ~ Season)
+#mucin.dds <- estimateSizeFactors(mucin.dds)
+#mucin.norm <- counts(mucin.dds, normalized=T)
+#write.csv(mucin.norm, file = "mucin/mucin.normalized.counts.csv")
+mucin.norm <- read.csv('mucin/mucin.normalized.counts.csv', row.names=1)
+muc.norm.otu <- otu_table(mucin.norm, taxa_are_rows=T)
+sample_names(muc.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+muc.norm.phy <- merge_phyloseq(muc.norm.otu, sample_data(mucin.phy), tax_table(mucin.phy))
+```
+
+### Mucin - DESeq
+```{r}
+# https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
+# https://compbiocore.github.io/deseq-workshop-1/assets/deseq_workshop_1.html
+# Use UN-NORMALIZED data!!!
+  # DESeq accounts for library size
+
+
+### Test DESeq2 to determine fit type
+# https://support.bioconductor.org/p/81094/
+mucin.dds <- phyloseq_to_deseq2(mucin.phy, ~Season)
+mucin.dds$Season <- factor(mucin.dds$Season, levels=c("Summer", "Winter", "Spring"))
+mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
+mucin.local <- DESeq(mucin.dds, fitType = "local")
+mucin.par <- DESeq(mucin.dds, fitType = "parametric")
+mad(log(mcols(mucin.local)$dispGeneEst) - log(mcols(mucin.local)$dispFit))
+  # 1.412442
+mad(log(mcols(mucin.par)$dispGeneEst) - log(mcols(mucin.par)$dispFit))
+  # 1.412442
+# No difference in fit type, so I'll stick with the DESeq2 defaults (test = Wald, fitType = Parametric)
+
+
+
+```
 
 ### KEGG Brite
 ```{r}
@@ -1381,33 +1432,6 @@ sig <- rownames(kegg.pvals)[which(kegg.pvals[,1] < 0.06)]
 # }
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

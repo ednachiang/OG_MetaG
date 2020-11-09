@@ -7,8 +7,8 @@ import pandas as pd
 directoryeCAMI = '../mucin/eCAMI/'
 directorydbCAN = '../mucin/dbCAN/'
 miscECpath = '../mucin/miscEC_counts.csv'
-outputCount = '../mucin/mucinCount.csv'
-outputTax = '../mucin/mucinClassification.csv'
+outputCount = '../mucin/testest.csv'
+outputTax = '../mucin/testest.csv'
     # Path to output count file of ECs w/o CAZymes
 
 # Input = list of EC numbers with associated CAZymes. Use this list to pull create .faa input for dbCAN
@@ -40,7 +40,7 @@ def makeCountTable(ECdirectory, dbCANdirectory):
     fileNumber = range(0,len(eCAMIfiles))
 
 
-    for file1 in fileNumber:
+    for file3 in fileNumber:
         # Go through eCAMI files one-by-one
 
         ##### eCAMI #####
@@ -48,10 +48,12 @@ def makeCountTable(ECdirectory, dbCANdirectory):
         eCAMI_ORFs = { }
         
         # Open input file
-        eCAMIinput = open(eCAMIfiles[file1], mode = 'r')
+        eCAMIinput = open(eCAMIfiles[file3], mode = 'r')
+
+        print(eCAMIfiles[file3])
 
         # Save sample ID (same for both eCAMI and dbCAN)
-        sample = str(eCAMIfiles[file1][-8:-4])
+        sample = str(eCAMIfiles[file3][-8:-4])
 
         # Pull out ORFs classified to mucin-degrading ECs
         for line1 in eCAMIinput.readlines():
@@ -73,7 +75,9 @@ def makeCountTable(ECdirectory, dbCANdirectory):
         dbCAN_ORFs = { }
 
         # Open input file
-        dbCANinput = open(dbCANfiles[file1], mode = 'r')
+        dbCANinput = open(dbCANfiles[file3], mode = 'r')
+
+        print(dbCANfiles[file3])
 
         # Pull out ORFs classified to mucin-degrading CAZymes
         for line2 in dbCANinput.readlines():

@@ -7,8 +7,8 @@ import pandas as pd
 directoryeCAMI = '../mucin/eCAMI/'
 directorydbCAN = '../mucin/dbCAN/'
 miscECpath = '../mucin/miscEC_counts.csv'
-outputCount = '../mucin/testest.csv'
-outputTax = '../mucin/testest.csv'
+outputCount = '../mucin/mucinCount.csv'
+outputTax = '../mucin/mucinClassification.csv'
     # Path to output count file of ECs w/o CAZymes
 
 # Input = list of EC numbers with associated CAZymes. Use this list to pull create .faa input for dbCAN

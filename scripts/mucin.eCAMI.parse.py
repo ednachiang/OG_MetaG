@@ -4,11 +4,11 @@ import pandas as pd
     # Import pandas to use dataframes
 
 ##### CHANGE THESE PARAMETERS ACCORDINGLY
-directoryeCAMI = 'test/eCAMI/'
-directoryProdigal = 'test/prodigal/'
-outputFaa = 'test/eCAMI/'
+directoryeCAMI = 'test_mucin.eCAMI.parse/eCAMI/'
+directoryProdigal = 'test_mucin.eCAMI.parse/prodigal/'
+outputFaa = 'test_mucin.eCAMI.parse/eCAMI/'
     # Path to output faa file (for dbCAN input)
-outputCount = 'test/count.csv'
+outputCount = 'test_mucin.eCAMI.parse/count.csv'
     # Path to output count file of ECs w/o CAZymes
 
 # Input = list of EC numbers with associated CAZymes. Use this list to pull create .faa input for dbCAN
@@ -64,7 +64,12 @@ def parseEC(eCAMIFilePath, prodigalFilePath, outputFilePath):
                 if entry in line1:
                     string = line1.split('\t')
                     name = string[0]
-                    contig.append(name)
+
+                    if name in contig:
+                        # Ignore ORF if it already matched to an EC number so you don't get duplicate ORFs
+                        break
+                    else:
+                        contig.append(name)
 
     for contigName in contig:
         prodigal = open(prodigalFilePath, mode = 'r')

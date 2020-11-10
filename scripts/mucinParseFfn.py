@@ -42,7 +42,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                 eCAMI_ORF_name = eCAMI_ORF[0]
                     # Pull out ORF name
                 eCAMI_ORF_name = eCAMI_ORF_name[1:]
-                    # Remove '>' at start of OED name
+                    # Remove '>' at start of ORF name
                 
                 if eCAMI_ORF_name in eCAMI_ORFs:
                     # Ignore ORF if it already matched to an EC number so you don't get duplicate ORFs
@@ -77,7 +77,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                     dbCAN_ORFs.append(dbCAN_ORF[4])
  
 
-    ##### Create list of matching ORFs
+    ##### Create list of matching ORFs #####
     # Create empty list
     mucinContigs = []
 
@@ -90,7 +90,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                 mucinContigs.append(ORF1)
 
 
-    ##### Add ECs w/o an associated CAZyme
+    ##### Add ECs w/o an associated CAZyme #####
     # Open input file
     eCAMIinput = open(eCAMI_path, mode = 'r')
 
@@ -109,7 +109,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                     # Add ORF to list of mucin-degrading enzyme genes
         
 
-    ##### Pull out contigs that match mucin ORF
+    ##### Pull out contigs that match mucin ORF #####
     output = open(outputPath, mode = 'a')
 
     for contig in mucinContigs:

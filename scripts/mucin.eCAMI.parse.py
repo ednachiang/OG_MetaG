@@ -110,8 +110,10 @@ for file2 in os.listdir(directoryeCAMI):
     eCAMIpath = directoryeCAMI + file2
     sample = str(file2[:4]+'.faa')
         # Pulls out sample ID #
-    print(str(file2[:4]))
     prodigalPath = directoryProdigal + sample
     outputPath = outputFaa + sample
+    print(eCAMIpath)
+    print(prodigalPath)
+    print(outputPath)
     parseEC(eCAMIpath, prodigalPath, outputPath)
         # Function will save the .faa file, so no need to set it to a variable

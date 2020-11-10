@@ -24,7 +24,7 @@ def parse_dbCAN_ORFs(dbCAN_parsed_txt_path, prodigal_path, output_path):
 
     # Pull out ORFs classified to CAZyme
     for line1 in dbCANinput.readlines():
-        # Read file line-byline
+        # Read file line-by-line
         col = line1.split('\t')
             # Split row by tabs
         if 'hmm' in col[1]:

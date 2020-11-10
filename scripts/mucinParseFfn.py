@@ -30,7 +30,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
         
     # Open input file
     eCAMIinput = open(eCAMI_path, mode = 'r')
-    print(eCAMIinput)
+    print(eCAMI_path)
 
     # Pull out ORFs classified to mucin-degrading ECs
     for line1 in eCAMIinput.readlines():
@@ -56,7 +56,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
 
     # Open input file
     dbCANinput = open(dbCAN_path, mode = 'r')
-    print(dbCANinput)
+    print(dbCAN_path)
 
     # Pull out ORFs classified to mucin-degrading CAZymes
     for line2 in dbCANinput.readlines():
@@ -104,7 +104,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                 EC_ORF_name = EC_ORF[0]
                     # Pull out ORF name
                 EC_ORF_name = EC_ORF_name[1:]
-                    # Remove '>' at start of OED name
+                    # Remove '>' at start of ORF name
                 mucinContigs.append(EC_ORF_name)
                     # Add ORF to list of mucin-degrading enzyme genes
         

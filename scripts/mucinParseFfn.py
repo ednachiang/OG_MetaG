@@ -30,6 +30,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
         
     # Open input file
     eCAMIinput = open(eCAMI_path, mode = 'r')
+    print(eCAMIinput)
 
     # Pull out ORFs classified to mucin-degrading ECs
     for line1 in eCAMIinput.readlines():
@@ -42,7 +43,12 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                     # Pull out ORF name
                 eCAMI_ORF_name = eCAMI_ORF_name[1:]
                     # Remove '>' at start of OED name
-                eCAMI_ORFs.append(eCAMI_ORF_name)
+                
+                if eCAMI_ORF_name in eCAMI_ORFs:
+                    # Ignore ORF if it already matched to an EC number so you don't get duplicate ORFs
+                    break
+                else:
+                    eCAMI_ORFs.append(eCAMI_ORF_name)
 
     ##### dbCAN #####
     # Create empty list for parsed dbCAN ORFs
@@ -50,6 +56,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
 
     # Open input file
     dbCANinput = open(dbCAN_path, mode = 'r')
+    print(dbCANinput)
 
     # Pull out ORFs classified to mucin-degrading CAZymes
     for line2 in dbCANinput.readlines():

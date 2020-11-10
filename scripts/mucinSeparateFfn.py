@@ -77,8 +77,9 @@ def parseEnzymes(eCAMI_path, dbCAN_path, ffn_path, output_path):
         dbCAN_ORFs = { }
 
         # Open input file
-        dbCANinput = open(dbCANfiles[file3], mode = 'r')
-        print(dbCANfiles[file3])
+        specificPath = dbCAN_path + sample + '.parsed.txt'
+        dbCANinput = open(specificPath, mode = 'r')
+        print(specificPath)
 
         # Pull out ORFs classified to mucin-degrading CAZymes
         for line2 in dbCANinput.readlines():

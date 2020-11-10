@@ -63,9 +63,11 @@ def parse_dbCAN_ORFs(dbCAN_parsed_txt_path, prodigal_path, output_path):
 for file in os.listdir(directorydbCAN):
     # Iterate for all files in directory
     sample = str(file[:4])
-    print(sample)
     dbCANpath = directorydbCAN + str(file[:4]+'.parsed.txt')
+    print(dbCANpath)
     prodigalPath = directoryProdigal + sample + '.ffn'
+    print(prodigalPath)
     outputPath = directoryOutput + sample + '.ffn'
+    print(outputPath)
     parse_dbCAN_ORFs(dbCANpath, prodigalPath, outputPath)
         # Function will save the .ffn file, so no need to set it to a variable

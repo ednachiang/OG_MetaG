@@ -22,6 +22,11 @@ CAZymes = ["GH2", "GH3", "GH4", "GH16", "GH18", "GH20", "GH27", "GH29", "GH31", 
 # Input = list of EC numbers without associated CAZymes.
 onlyEC = ["3.1.1.2:", "3.1.6.3:", "3.1.6.4:", "3.1.6.8:", "3.1.6.14:", "4.1.3.3:"]
 
+# Input = list of enzymes with counts < 4. These are removed in my R analysis.
+# "GH16_3.2.1.23", "GH16_3.2.1.103", "GH4_3.2.1.24", "3.1.1.2", "3.1.6.3", "3.1.6.4", "3.1.6.8", "3.1.6.14"
+dropGH = ["GH16", "GH4"]
+dropEC = ["3.2.1.23:", "3.2.1.103:", "3.2.1.24:", "3.1.1.2:", "3.1.6.3:", "3.1.6.4:", "3.1.6.8:", "3.1.6.14:"]
+
 ##### Define function: create enzyme count table
 def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
 
@@ -108,6 +113,70 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                     # Remove '>' at start of ORF name
                 mucinContigs.append(EC_ORF_name)
                     # Add ORF to list of mucin-degrading enzyme genes
+    
+
+    ##### Create list of ORFs to remove - enzymes with counts < 4. These are removed in my R analysis #####
+    
+    # Create list of EC ORFs to remove
+    dropORF_EC = []
+
+    # Open input file - eCAMI
+    eCAMIinput = open(eCAMI_path, mode = 'r')
+
+    ### Parse through eCAMI
+    for line4 in eCAMIinput.readlines():
+        # Read file line-by-line
+        for drop1 in dropEC:
+            # Go entry-by-entry through EC list
+            if drop1 in line4:
+                drop_ORF1 = line4.split()
+                drop_ORF1_name = drop_ORF1[0]
+                    # Pull out ORF name
+                drop_ORF1_name = drop_ORF1_name[1:]
+                    # Remove '>' at start of ORF name
+                
+                if drop_ORF1_name in dropORF_EC:
+                    # Ignore ORF if it already matched to an EC number so you don't get duplicate ORFs
+                    break
+                else:
+                    dropORF_EC.append(drop_ORF1_name)
+
+    # Create list of CAZyme ORFs to remove
+    dropORF_CAZyme = []
+
+    # Open input file - dbCAN
+    dbCANinput = open(dbCAN_path, mode = 'r')
+
+    ### Parse through dbCAN 
+    for line5 in dbCANinput.readlines():
+        # Read file line-by-line
+        col2 = line5.split('\t')
+
+        if 'hmm' in col2[1]:
+        # Pull out only lines that specify dbCAN classification in col 2. The last 7 lines summarize each class and don't contain hmm, so we want to exclude them.
+            family = col2[1].split('.', 1)[0]
+                # Pull out everything before the ".hmm"
+            for drop2 in dropGH:
+                if family == drop2:
+                    drop_ORF2 = line5.split()
+                    dropORF_CAZyme.append(drop_ORF2[4])
+ 
+
+    # Create list of ORFs to remove (EC & CAZyme combined)
+    dropORF = []
+
+    ### Pull out shared ORFs between drop EC & CAZyme
+    for drop3 in dropORF_EC:
+        for drop4 in dropORF_CAZyme:
+            if drop3 == drop4:
+                dropORF.append(drop3)
+    
+    ### Remove unwanted ORFs
+    for ORF3 in mucinContigs:
+        for drop5 in dropORF:
+            if ORF3 == drop5:
+                mucinContigs.remove(ORF3)
+
         
 
     ##### Pull out contigs that match mucin ORF #####

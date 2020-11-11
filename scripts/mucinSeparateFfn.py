@@ -194,7 +194,7 @@ def parseEnzymes(eCAMI_path, dbCAN_path, ffn_path, output_path):
             entryRename = entry5[:-1]
                 # Remove ':' at end of EC number
 
-            # Create of ORFs classified to entry5
+            # Create list of ORFs classified to entry5
             EConly_ORF = []
 
             for row2 in df3.index:

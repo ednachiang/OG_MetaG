@@ -512,32 +512,43 @@ meta.ord <- meta
 # Create phyloseq object
 dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 
+# Trim CAZymes w/ count < 4
+# 3 samples per season, so 4 seemed like a somewhat reasonable arbitrary cutoff
+# Cutoff = 4 also ensures that no normalized counts < 3, so no further cutoffs needed
+dbcan.cut.phy <- prune_taxa(taxa_sums(dbcan.phy) > 3, dbcan.phy)
 
-##### Test removing CAZymes w/ normalized count < 3
-# Normalized + Rlog Transformed Counts At Family-level
+# Identify trimmed CAZymes (count < 4)
+#all <- rownames(tax_table(dbcan.phy))
+#remain <- rownames(tax_table(dbcan.cut.phy))
+#for (i in all){
+#  if (i %in% remain == F){
+#    print(i)
+#  }
+#}
+# GH12, GH17, GH34, GH52, GH100, GH107, GH118, GH149, GH153, GT29, GT37, GT42, GT52, GT58, GT60, GT67, GT68, GT77, GT85, GT93, GT97, CE5, CE13, PL2, PL14, PL16, PL18, PL28
+
+
+# Normalized Counts At Family-level
 # https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
-dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
-dbcan.dds <- estimateSizeFactors(dbcan.dds)
-dbcan.norm <- counts(dbcan.dds, normalized=T)
-cut.phy <- merge_phyloseq(otu_table(dbcan.norm, taxa_are_rows=T), sample_data(dbcan.phy), tax_table(dbcan.phy))
-cut.phy <- prune_taxa(taxa_sums(cut.phy) > 2, cut.phy)
-dbcan.fam.norm <- cut.phy
-
-
-
+#otu.cut <- data.frame(otu_table(dbcan.cut.phy))
+#dbcan.dds <- DESeqDataSetFromMatrix(countData = otu.cut, colData = meta, design = ~ Season)
+#dbcan.dds <- estimateSizeFactors(dbcan.dds)
+#dbcan.norm <- counts(dbcan.dds, normalized=T)
 #write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.Family.csv")
+
 dbcan.fam.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Family.csv', row.names=1)
 dbcan.fam.norm.otu <- otu_table(dbcan.fam.norm, taxa_are_rows=T)
 sample_names(dbcan.fam.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 dbcan.fam.norm.phy <- merge_phyloseq(dbcan.fam.norm.otu, sample_data(dbcan.phy), tax_table(dbcan.phy))
 
 # Normalize Counts to Class-Level
-#dbcan.class <- tax_glom(dbcan.phy, taxrank="Class")
+#dbcan.class <- tax_glom(dbcan.cut.phy, taxrank="Class")
 #dbcan.class.otu <- data.frame(otu_table(dbcan.class))
 #dbcan.dds <- DESeqDataSetFromMatrix(countData = dbcan.class.otu, colData = meta, design = ~ Season)
 #dbcan.dds <- estimateSizeFactors(dbcan.dds)
 #dbcan.norm <- counts(dbcan.dds, normalized=T)
 #write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.Class.csv")
+
 dbcan.class.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Class.csv', row.names=1)
 rownames(dbcan.class.norm) <- c("Polysaccharide Lyase", "Glycosyltransferase", "Glycoside Hydrolase", "Carbohydrate Esterase")
 
@@ -552,9 +563,9 @@ rownames(dbcan.class.norm) <- c("Polysaccharide Lyase", "Glycosyltransferase", "
 ### dbCAN - Count CAZyme families
 ```{r}
 # Subset out samples by season
-phy.sum <- subset_samples(dbcan.phy, Season == "Summer")
-phy.win <- subset_samples(dbcan.phy, Season == "Winter")
-phy.spr <- subset_samples(dbcan.phy, Season == "Spring")
+phy.sum <- subset_samples(dbcan.cut.phy, Season == "Summer")
+phy.win <- subset_samples(dbcan.cut.phy, Season == "Winter")
+phy.spr <- subset_samples(dbcan.cut.phy, Season == "Spring")
 
 # Remove CAZyme families with no counts
 phy.sum <- prune_taxa(taxa_sums(phy.sum) > 0, phy.sum)
@@ -574,23 +585,23 @@ spr.fam <- sort(spr.fam)
 # Summer - Count # of CAZymes in each class
 class <- substr(sum.fam,1,2)
 length(which(class == "GH"))
-  # 128
+  # 122
 length(which(class == "GT"))
-  # 66
+  # 60
 length(which(class == "CE"))
-  # 14
+  # 13
 length(which(class == "PL"))
-  # 27
+  # 26
 
 
 # Winter - Count # of CAZymes in each class
 class <- substr(win.fam,1,2)
 length(which(class == "GH"))
-  # 121
+  # 117
 length(which(class == "GT"))
-  # 66
+  # 60
 length(which(class == "CE"))
-  # 14
+  # 13
 length(which(class == "PL"))
   # 25
 
@@ -598,13 +609,13 @@ length(which(class == "PL"))
 # Spring - Count # of CAZymes in each class
 class <- substr(spr.fam,1,2)
 length(which(class == "GH"))
-  # 128
+  # 124
 length(which(class == "GT"))
-  # 68
+  # 63
 length(which(class == "CE"))
-  # 15
+  # 13
 length(which(class == "PL"))
-  # 31
+  # 26
 
 
 ```
@@ -666,12 +677,12 @@ hist(ce$Abundance)
 qqnorm(ce$Abundance)
 qqline(ce$Abundance)
 shapiro.test(ce$Abundance)
-  # p-value = 0.9632
+  # p-value = 0.6811
   # Normal
 
 # Test CE w/ ANOVA
 summary(aov(Abundance ~ Season, data = ce))
-  # p-value = 0.33
+  # p-value = 0.332
 
 
 ### GH
@@ -682,19 +693,18 @@ hist(gh$Abundance)
 qqnorm(gh$Abundance)
 qqline(gh$Abundance)
 shapiro.test(gh$Abundance)
-  # p-value = 0.484
+  # p-value = 0.4749
   # Normal
 
 # Test GH w/ ANOVA
 summary(aov(Abundance ~ Season, data = gh))
-  # p-value = 0.00786
+  # p-value = 0.00789
 
 # GH posthoc test w/ Tukey's
 TukeyHSD(aov(Abundance ~ Season, data = gh))
-  # Winter-Summer = 0.4784312
-  # Spring-Summer = 0.0295220*
-  # Spring-Winter = 0.0076309**
-
+  # Summer-Spring = 0.0297554*
+  # Winter-Spring = 0.0076492**
+  # Winter-Summer = 0.4762540
 
 
 
@@ -706,18 +716,19 @@ hist(gt$Abundance)
 qqnorm(gt$Abundance)
 qqline(gt$Abundance)
 shapiro.test(gt$Abundance)
-  # p-value = 0.4416
+  # p-value = 0.4515
   # Normal
 
 # Test GT w/ ANOVA
 summary(aov(Abundance ~ Season, data = gt))
-  # p-value = 0.00713
+  # p-value = 0.0074
 
 # GT posthoc test w/ Tukey's
 TukeyHSD(aov(Abundance ~ Season, data = gt))
-  # Winter-Summer = 0.0336456*
-  # Spring-Summer = 0.3545968
-  # Spring-Winter = 0.0065067*
+  # Summer-Spring = 0.3591323
+  # Winter-Spring = 0.0067560**
+  # Winter-Summer = 0.0347394*
+
 
 
 ### PL
@@ -728,21 +739,21 @@ hist(pl$Abundance)
 qqnorm(pl$Abundance)
 qqline(pl$Abundance)
 shapiro.test(pl$Abundance)
-  # p-value = 0.08817
+  # p-value = 0.08667
   # Normal
 
 # Test PL w/ ANOVA
 summary(aov(Abundance ~ Season, data = pl))
-  # p-value = 0.115
+  # p-value = 0.116
 
 
 
 ### Adjust Pvals
-p.adjust(c(0.33, 0.00786, 0.00713, 0.115), method="BH")
-  # CE = 0.33000
-  # GH = 0.01572 *
-  # GT = 0.01572 *
-  # PL = 0.15333
+p.adjust(c(0.332, 0.00789, 0.0074, 0.116), method="BH")
+  # CE = 0.33200
+  # GH = 0.01578 *
+  # GT = 0.01578 *
+  # PL = 0.15467
 ```
 
 
@@ -764,7 +775,7 @@ dbcan.fam.phy <- merge_phyloseq(otu_table(dbcan.fam.norm, taxa_are_rows=T), tax,
 
 
 #dbcan.nmds <- ordinate(physeq = dbcan.fam.phy, method = "NMDS", distance = "bray")
-  # stress = 0.0627683
+  # stress = 0.0731986
 #save(dbcan.nmds, file="dbcan.nmds.RData")
 load("dbcan.nmds.RData")
 
@@ -810,7 +821,7 @@ plot_ordination(physeq = dbcan.fam.phy, ordination = dbcan.nmds, color = "Season
 dbcan.pcoa <- ordinate(physeq = dbcan.fam.phy, method="PCoA", distance="bray")
 plot_ordination(physeq = dbcan.fam.phy, ordination = dbcan.pcoa, axes = c(1,2),
               color = "Season")
-  # Axis 1 + 2 = 71.5%
+  # Axis 1 + 2 = 41.9 + 29.7 = 71.6%
 
 ```
 
@@ -822,32 +833,32 @@ dbcan.bray <- phyloseq::distance(dbcan.fam.phy, method="bray")
 
 # Season
 adonis(dbcan.bray~Season, data=meta, permutations = 99999)
-  # p-value = 0.00726
-  # R2 = 0.52925
+  # p-value = 0.00725
+  # R2 = 0.53003
 beta.tax = betadisper(d=dbcan.bray, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.552
+  # p-value = 0.546
 
 
 # Diet
 adonis(dbcan.bray~Diet, data=meta, permutations = 99999)
-  # p-value = 0.01253
-  # R2 = 0.32024
+  # p-value = 0.01251
+  # R2 = 0.32065
 beta.tax = betadisper(d=dbcan.bray, group=meta$Diet)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.142
+  # p-value = 0.149
 
 
 # Sex
 adonis(dbcan.bray~Sex, data=meta, permutations = 99999)
-  # p-value = 0.3817
-  # R2 = 0.13187
+  # p-value = 0.3818
+  # R2 = 0.13182
 beta.tax = betadisper(d=dbcan.bray, group=meta$Sex)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.899
+  # p-value = 0.894
 
 
 
@@ -899,39 +910,6 @@ plot(dbcan.upgma, edge.width=2, type="cladogram")
 dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
   # Design variable must be unordered otherwise you get an error
 dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
-dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 1,]
-
-# DESeq DataStructure for analyses
-dbcan.dds <- DESeq(dbcan.dds)
-#dbcan.rl <- rlog(dbcan.dds, blind=F)
-
-# Pull out results from pairwise comparison
-dbcan.sw <- results(dbcan.dds, contrast=c("Season", "Summer", "Winter"))
-dbcan.sw.sig <- dbcan.sw[which(dbcan.sw$padj < 0.05),]
-  # Enriched in Summer compared to Winter (positive log2FoldChange)
-    # GT101, PL1, GH43, GH115, CE12, GH10, GH59
-dbcan.sp <- results(dbcan.dds, contrast=c("Season", "Summer", "Spring"))
-dbcan.sp.sig <- dbcan.sp[which(dbcan.sp$padj < 0.05),]
-  # Enriched in Summer compared to Spring (positive log2FoldChange)
-    # GT101
-dbcan.wp <- results(dbcan.dds, contrast=c("Season", "Winter", "Spring"))
-dbcan.wp.sig <- dbcan.wp[which(dbcan.wp$padj < 0.05),]
-dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange > 0),]
-  # Enriched in Winter compared to Spring (positive log2FoldChange)
-      # GT41, GH20, GT4, GT9, CE11, GT3, GH84
-dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
-  # Enriched in Spring compared to Winter (negative log2FoldChange)
-    # GH3, GH32, GH43, GH5, GH78, GH115, GH42, CE12, GH106, GH10, GH39
-
-
-
-
-### Test cut.phy (removed CAZymes w/ < 3 counts)
-### Convert phyloseq object to deseq2 object
-dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
-  # Design variable must be unordered otherwise you get an error
-dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
-dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 2,]
 
 # DESeq DataStructure for analyses
 dbcan.dds <- DESeq(dbcan.dds)
@@ -998,7 +976,7 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
 ### GH43, GH3, GT4, and GT41 plot
 dbcan.high <- subset_taxa(dbcan.fam.norm.phy, Family == "GH43" | Family == "GH3" | Family == "GT4" |
                             Family == "GT41")
-tiff("dbcan.high.heatmap.tiff", width=9, height=4, units="in", res=300)
+#tiff("dbcan.high.heatmap.tiff", width=9, height=4, units="in", res=300)
 plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH43", "GH3", "GT4", "GT41")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
@@ -1021,7 +999,7 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
   guides(fill = guide_colorbar(barheight = unit(2,"in"),
                                frame.colour="black",
                                frame.linewidth=1))
-dev.off()
+#dev.off()
 
 ```
 
@@ -1143,10 +1121,10 @@ hist(prodigalCounts[3,])
 qqnorm(prodigalCounts[3,])
 qqline(prodigalCounts[3,])
 shapiro.test(prodigalCounts[3,])
-  # p-value = 0.001575
-  # Not Normal
+  # p-value = 0.05926
+  # Normal
 
-# Format for Kruskal-Wallis
+# Format for ANOVA
 prodigalCounts <- read.csv('mucin/prodigalCounts.csv', row.names=1)
 prodigalCounts <- t(prodigalCounts)
 prodigalCounts <- data.frame(prodigalCounts)
@@ -1154,10 +1132,11 @@ prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Su
 prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
 colnames(prodigalCounts) <- c("Total_ORFs", "Total_MucinGenes", "MucinGenePercentage", "Season")
 
+# Test w/ ANOVA
+summary(aov(MucinGenePercentage ~ Season, data = prodigalCounts))
+  # p-value = 0.224
 
-# Test w/ Kruskal-Wallis
-kruskal.test(formula = MucinGenePercentage ~ Season, data = prodigalCounts)
-  # p-value = 0.06646
+
 
 
 ### Boxplot

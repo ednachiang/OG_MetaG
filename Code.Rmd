@@ -513,11 +513,8 @@ meta.ord <- meta
 dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 
 ### Test removing CAZymes with count < 4
-
 cut.phy <- prune_taxa(taxa_sums(dbcan.phy) > 3, dbcan.phy)
 cut.otu <- data.frame(otu_table(cut.phy))
-
-
 dbcan.dds <- DESeqDataSetFromMatrix(countData = cut.otu, colData = meta, design = ~ Season)
 dbcan.dds <- estimateSizeFactors(dbcan.dds)
 dbcan.norm <- counts(dbcan.dds, normalized=T)

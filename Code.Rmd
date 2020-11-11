@@ -905,9 +905,19 @@ plot(dbcan.upgma, edge.width=2, type="cladogram")
 
 ### Test DESeq2 to determine fit type
 # https://support.bioconductor.org/p/81094/
+#dbcan.dds <- phyloseq_to_deseq2(dbcan.cut.phy, ~Season)
+#dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
+#dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 1,]
+#dbcan.local <- DESeq(dbcan.dds, fitType = "local")
+#dbcan.par <- DESeq(dbcan.dds, fitType = "parametric")
+#mad(log(mcols(dbcan.local)$dispGeneEst) - log(mcols(dbcan.local)$dispFit))
+  # 9.744673
+#mad(log(mcols(dbcan.par)$dispGeneEst) - log(mcols(dbcan.par)$dispFit))
+  # 7.288668
+# Parametric is a better fit (lower median absolute residual) than local
 
 ### Convert phyloseq object to deseq2 object
-dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
+dbcan.dds <- phyloseq_to_deseq2(dbcan.cut.phy, ~Season)
   # Design variable must be unordered otherwise you get an error
 dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
 
@@ -1171,10 +1181,26 @@ meta.ord <- meta
 # Create phyloseq object
 mucin.phy <- merge_phyloseq(muc.otu.tab, muc.tax, sample_data(meta.ord))
 
+# Remove CAZymes w/ count < 4
+# 4 to stay consistent with how I trimmed all CAZymes
+mucin.cut.phy <- prune_taxa(taxa_sums(mucin.phy) > 3, mucin.phy)
+
+# Identify trimmed CAZymes (count < 4)
+all <- rownames(tax_table(mucin.phy))
+remain <- rownames(tax_table(mucin.cut.phy))
+for (i in all){
+  if (i %in% remain == F){
+    print(i)
+  }
+}
+# GH16_3.2.1.23, GH16_3.2.1.103, GH4_3.2.1.24, 3.1.1.2, 3.1.6.3, 3.1.6.4, 3.1.6.8, 3.1.6.14
+
+
 # Normalized Counts
-#mucin.dds <- DESeqDataSetFromMatrix(countData = muc.otu, colData = meta, design = ~ Season)
-#mucin.dds <- estimateSizeFactors(mucin.dds)
-#mucin.norm <- counts(mucin.dds, normalized=T)
+muc.cut.otu <- data.frame(otu_table(mucin.cut.phy))
+mucin.dds <- DESeqDataSetFromMatrix(countData = muc.cut.otu, colData = meta, design = ~ Season)
+mucin.dds <- estimateSizeFactors(mucin.dds)
+mucin.norm <- counts(mucin.dds, normalized=T)
 #write.csv(mucin.norm, file = "mucin/mucin.normalized.counts.csv")
 mucin.norm <- read.csv('mucin/mucin.normalized.counts.csv', row.names=1)
 muc.norm.otu <- otu_table(mucin.norm, taxa_are_rows=T)
@@ -1191,12 +1217,12 @@ mucin.sum <- mucin.df %>%
   summarize(Mean = mean(Abundance),
             SD= sd(Abundance),
             SE = se(Abundance))
-mucin.sum$FullName = ordered(mucin.sum$FullName, c("GH2_3.2.1.23", "GH2_3.2.1.25", "GH3_3.2.1.52", "GH4_3.2.1.22", "GH4_3.2.1.24", "GH16_3.2.1.23", "GH16_3.2.1.103", "GH20_3.2.1.52", "GH27_3.2.1.22", "GH29_3.2.1.51", "GH31_3.2.1.20", "GH35_3.2.1.23", "GH36_3.2.1.22", "GH38_3.2.1.24", "GH42_3.2.1.23", "GH67_3.2.1.139", "GH84_3.2.1.169", "GH95_3.2.1.51", "GH101_3.2.1.97", "GH110_3.2.1.22", "GH112_2.4.1.211", "GH130_2.4.1.281", "GH130_2.4.1.320", "3.1.1.2", "3.1.6.3", "3.1.6.4", "3.1.6.8", "3.1.6.14", "4.1.3.3"))
+mucin.sum$FullName = ordered(mucin.sum$FullName, c("GH2_3.2.1.23", "GH2_3.2.1.25", "GH3_3.2.1.52", "GH4_3.2.1.22", "GH20_3.2.1.52", "GH27_3.2.1.22", "GH29_3.2.1.51", "GH31_3.2.1.20", "GH35_3.2.1.23", "GH36_3.2.1.22", "GH38_3.2.1.24", "GH42_3.2.1.23", "GH67_3.2.1.139", "GH84_3.2.1.169", "GH95_3.2.1.51", "GH101_3.2.1.97", "GH110_3.2.1.22", "GH112_2.4.1.211", "GH130_2.4.1.281", "GH130_2.4.1.320", "4.1.3.3"))
 
 
 
 # Plot barplot
-#tiff("dbcan.class.tiff", width=10, height=3.5, units="in", res= 300)
+#tiff("mucin.family.tiff", width=10, height=3.5, units="in", res= 300)
 ggplot(mucin.sum, aes(x=Season, y=Mean, fill=Season)) +
   geom_bar(stat="identity", color="black") +
   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
@@ -1226,21 +1252,21 @@ ggplot(mucin.sum, aes(x=Season, y=Mean, fill=Season)) +
 
 ### Test DESeq2 to determine fit type
 # https://support.bioconductor.org/p/81094/
-#mucin.dds <- phyloseq_to_deseq2(mucin.phy, ~Season)
+#mucin.dds <- phyloseq_to_deseq2(mucin.cut.phy, ~Season)
 #mucin.dds$Season <- factor(mucin.dds$Season, levels=c("Summer", "Winter", "Spring"))
 #mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
 #mucin.local <- DESeq(mucin.dds, fitType = "local")
 #mucin.par <- DESeq(mucin.dds, fitType = "parametric")
 #mad(log(mcols(mucin.local)$dispGeneEst) - log(mcols(mucin.local)$dispFit))
-  # 1.412442
+  # 0.8548652
 #mad(log(mcols(mucin.par)$dispGeneEst) - log(mcols(mucin.par)$dispFit))
-  # 1.412442
-# No difference in fit type, so I'll stick with the DESeq2 defaults (test = Wald, fitType = Parametric)
+  # 0.8548652
+# No difference in fit type, but DESeq says local is better
 
 
 
 ### Convert phyloseq object to deseq2 object
-mucin.dds <- phyloseq_to_deseq2(mucin.phy, ~Season)
+mucin.dds <- phyloseq_to_deseq2(mucin.cut.phy, ~Season)
   # Design variable must be unordered otherwise you get an error
 mucin.dds$Season <- factor(mucin.dds$Season, levels=c("Summer", "Winter", "Spring"))
 mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
@@ -1248,6 +1274,7 @@ mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
 
 # DESeq DataStructure for analyses
 mucin.dds <- DESeq(mucin.dds)
+  # DESeq choose fitType = local
 
 
 # Pull out results from pairwise comparison
@@ -1279,7 +1306,7 @@ mucin.sig <- subset_taxa(muc.norm.phy, FullName == "GH112_2.4.1.211" | FullName 
   
 
 
-#tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
+#tiff("mucin.heatmap.tiff", width=9, height=10, units="in", res=300)
 plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH110_3.2.1.22", "GH84_3.2.1.169", "GH42_3.2.1.23", "GH36_3.2.1.22", "GH112_2.4.1.211")) +
   geom_tile(colour="gray40") +
   geom_text(aes(label=sprintf("%0.2f", round(Abundance, digits=4)))) +

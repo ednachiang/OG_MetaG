@@ -512,6 +512,18 @@ meta.ord <- meta
 # Create phyloseq object
 dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 
+### Test removing CAZymes with count < 3
+# 3 samples per season, so I went with the somewhat arbitrary number of 3
+cut.phy <- prune_taxa(taxa_sums(dbcan.phy) > 2, dbcan.phy)
+cut.otu <- data.frame(otu_table(cut.phy))
+
+
+dbcan.dds <- DESeqDataSetFromMatrix(countData = cut.otu, colData = meta, design = ~ Season)
+dbcan.dds <- estimateSizeFactors(dbcan.dds)
+dbcan.norm <- counts(dbcan.dds, normalized=T)
+#write.csv(dbcan.norm, file="dbcan/cut3.counts.csv")
+dbcan.fam.norm <- dbcan.norm
+
 # Normalized + Rlog Transformed Counts At Family-level
 # https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
 #dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
@@ -918,6 +930,37 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
   # Enriched in Spring compared to Winter (negative log2FoldChange)
     # GH3, GH32, GH43, GH5, GH78, GH115, GH42, CE12, GH106, GH10, GH39
 
+
+
+
+### Test cut.phy (removed CAZymes w/ < 3 counts)
+### Convert phyloseq object to deseq2 object
+dbcan.dds <- phyloseq_to_deseq2(cut.phy, ~Season)
+  # Design variable must be unordered otherwise you get an error
+dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
+dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 1,]
+
+# DESeq DataStructure for analyses
+dbcan.dds <- DESeq(dbcan.dds)
+#dbcan.rl <- rlog(dbcan.dds, blind=F)
+
+# Pull out results from pairwise comparison
+dbcan.sw <- results(dbcan.dds, contrast=c("Season", "Summer", "Winter"))
+dbcan.sw.sig <- dbcan.sw[which(dbcan.sw$padj < 0.05),]
+  # Enriched in Summer compared to Winter (positive log2FoldChange)
+    # GT101, PL1, GH43, GH115, CE12, GH10, GH59
+dbcan.sp <- results(dbcan.dds, contrast=c("Season", "Summer", "Spring"))
+dbcan.sp.sig <- dbcan.sp[which(dbcan.sp$padj < 0.05),]
+  # Enriched in Summer compared to Spring (positive log2FoldChange)
+    # GT101
+dbcan.wp <- results(dbcan.dds, contrast=c("Season", "Winter", "Spring"))
+dbcan.wp.sig <- dbcan.wp[which(dbcan.wp$padj < 0.05),]
+dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange > 0),]
+  # Enriched in Winter compared to Spring (positive log2FoldChange)
+      # GT41, GH20, GT4, GT9, CE11, GT3, GH84
+dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
+  # Enriched in Spring compared to Winter (negative log2FoldChange)
+    # GH3, GH32, GH43, GH5, GH78, GH115, GH42, CE12, GH106, GH10, GH39
 ```
 
 ### dbCAN - DESeq Heatmap

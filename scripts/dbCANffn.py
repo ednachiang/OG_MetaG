@@ -11,9 +11,33 @@ directoryProdigal = 'test_dbCANffn/prodigal/'
 directoryOutput = 'test_dbCANffn/'
     # Path to output dbCAN .ffn files
 
+# Input = list of CAZymes with counts < 3. These are removed in my R analysis.
+drop = ["GH12", "GH17", "GH34", "GH52", "GH100", "GH107", "GH118", "GH149", "GH153", "GT29", "GT37", "GT42", "GT52", "GT58", "GT60", "GT67", "GT68", "GT77", "GT85", "GT93", "GT97", "CE5", "CE13", "PL2", "PL14", "PL16", "PL18", "PL28"]
 
 ##### Define function: Pull out dbCAN-classified ORFs to create ffn of dbCAN genes
 def parse_dbCAN_ORFs(dbCAN_parsed_txt_path, prodigal_path, output_path):
+
+    ##### Identify unwanted ORFs #####
+    # Open input dbCAN file
+    dbCANinput = open(dbCAN_parsed_txt_path, mode = 'r')
+
+    # Create empty list for ORFs to remove
+    remove = []
+
+    for line1 in dbCANinput.readlines():
+        # Read file line-by-line
+        col = line1.split('\t')
+            # Split row by tabs
+        if 'hmm' in col[1]:
+            family = col[1].split('.', 1)[0]
+                # Pull out everything before the ".hmm"
+            for CAZyme in drop:
+                if family == CAZyme:
+                    removeTrim = col[4]
+                    removeTrim = removeTrim[:-1]
+                        # Remove new line character at end of ORF name
+                    remove.append(removeTrim)
+
 
     ##### Pull out ORF names #####
     # Open input dbCAN file
@@ -28,12 +52,18 @@ def parse_dbCAN_ORFs(dbCAN_parsed_txt_path, prodigal_path, output_path):
         col = line1.split('\t')
             # Split row by tabs
         if 'hmm' in col[1]:
-            # Pull out only lines with dbCAN classification
             ORFtrim = col[4]
             ORFtrim = ORFtrim[:-1]
                 # Remove new line character at end of ORF name
             ORFs.append(ORFtrim)
     
+
+    ##### Remove unwanted ORFs #####
+    for ORF0 in ORFs:
+        for ORF_remove in remove:
+            if ORF0 == ORF_remove:
+                ORFs.remove(ORF0)
+
 
     ##### Create ffn file #####
     # Open output .ffn file

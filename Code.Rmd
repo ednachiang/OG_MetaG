@@ -512,9 +512,9 @@ meta.ord <- meta
 # Create phyloseq object
 dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 
-### Test removing CAZymes with count < 3
-# 3 samples per season, so I went with the somewhat arbitrary number of 3
-cut.phy <- prune_taxa(taxa_sums(dbcan.phy) > 2, dbcan.phy)
+### Test removing CAZymes with count < 4
+
+cut.phy <- prune_taxa(taxa_sums(dbcan.phy) > 3, dbcan.phy)
 cut.otu <- data.frame(otu_table(cut.phy))
 
 
@@ -933,7 +933,7 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 
 
 
-### Test cut.phy (removed CAZymes w/ < 3 counts)
+### Test cut.phy (removed CAZymes w/ < 4 counts)
 ### Convert phyloseq object to deseq2 object
 dbcan.dds <- phyloseq_to_deseq2(cut.phy, ~Season)
   # Design variable must be unordered otherwise you get an error

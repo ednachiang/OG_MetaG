@@ -11,7 +11,7 @@ directoryProdigal = 'test_dbCANffn/prodigal/'
 directoryOutput = 'test_dbCANffn/'
     # Path to output dbCAN .ffn files
 
-# Input = list of CAZymes with counts < 3. These are removed in my R analysis.
+# Input = list of CAZymes with counts < 4. These are removed in my R analysis.
 drop = ["GH12", "GH17", "GH34", "GH52", "GH100", "GH107", "GH118", "GH149", "GH153", "GT29", "GT37", "GT42", "GT52", "GT58", "GT60", "GT67", "GT68", "GT77", "GT85", "GT93", "GT97", "CE5", "CE13", "PL2", "PL14", "PL16", "PL18", "PL28"]
 
 ##### Define function: Pull out dbCAN-classified ORFs to create ffn of dbCAN genes

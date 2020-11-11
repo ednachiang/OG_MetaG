@@ -512,20 +512,16 @@ meta.ord <- meta
 # Create phyloseq object
 dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
 
-### Test removing CAZymes with count < 4
-cut.phy <- prune_taxa(taxa_sums(dbcan.phy) > 3, dbcan.phy)
-cut.otu <- data.frame(otu_table(cut.phy))
-dbcan.dds <- DESeqDataSetFromMatrix(countData = cut.otu, colData = meta, design = ~ Season)
-dbcan.dds <- estimateSizeFactors(dbcan.dds)
-dbcan.norm <- counts(dbcan.dds, normalized=T)
-#write.csv(dbcan.norm, file="dbcan/cut3.counts.csv")
-dbcan.fam.norm <- dbcan.norm
 
+##### Test removing CAZymes w/ normalized count < 3
 # Normalized + Rlog Transformed Counts At Family-level
 # https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
-#dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
-#dbcan.dds <- estimateSizeFactors(dbcan.dds)
-#dbcan.norm <- counts(dbcan.dds, normalized=T)
+dbcan.dds <- DESeqDataSetFromMatrix(countData = otu, colData = meta, design = ~ Season)
+dbcan.dds <- estimateSizeFactors(dbcan.dds)
+dbcan.norm <- counts(dbcan.dds, normalized=T)
+cut.phy <- merge_phyloseq(otu_table(dbcan.norm, taxa_are_rows=T), sample_data(dbcan.phy), tax_table(dbcan.phy))
+cut.phy <- prune_taxa(taxa_sums(cut.phy) > 2, cut.phy)
+dbcan.fam.norm <- cut.phy
 
 
 
@@ -930,12 +926,12 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 
 
 
-### Test cut.phy (removed CAZymes w/ < 4 counts)
+### Test cut.phy (removed CAZymes w/ < 3 counts)
 ### Convert phyloseq object to deseq2 object
-dbcan.dds <- phyloseq_to_deseq2(cut.phy, ~Season)
+dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
   # Design variable must be unordered otherwise you get an error
 dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
-dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 1,]
+dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 2,]
 
 # DESeq DataStructure for analyses
 dbcan.dds <- DESeq(dbcan.dds)

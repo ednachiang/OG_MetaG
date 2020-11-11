@@ -168,7 +168,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
     ### Pull out shared ORFs between drop EC & CAZyme
     for drop3 in dropORF_EC:
         for drop4 in dropORF_CAZyme:
-            if drop3 == drop4:
+            if drop3 == drop4
                 dropORF.append(drop3)
     
     ### Remove unwanted ORFs

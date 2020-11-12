@@ -25,7 +25,8 @@ onlyEC = ["3.1.1.2:", "3.1.6.3:", "3.1.6.4:", "3.1.6.8:", "3.1.6.14:", "4.1.3.3:
 # Input = list of enzymes with counts < 4. These are removed in my R analysis.
 # "GH16_3.2.1.23", "GH16_3.2.1.103", "GH4_3.2.1.24", "3.1.1.2", "3.1.6.3", "3.1.6.4", "3.1.6.8", "3.1.6.14"
 dropGH = ["GH16", "GH4"]
-dropEC = ["3.2.1.23:", "3.2.1.103:", "3.2.1.24:", "3.1.1.2:", "3.1.6.3:", "3.1.6.4:", "3.1.6.8:", "3.1.6.14:"]
+dropEC_withCAZyme = ["3.2.1.23:", "3.2.1.103:", "3.2.1.24:"]
+dropEC_onlyEC = ["3.1.1.2:", "3.1.6.3:", "3.1.6.4:", "3.1.6.8:", "3.1.6.14:"]
 
 ##### Define function: create enzyme count table
 def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
@@ -118,7 +119,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
     ##### Create list of ORFs to remove - enzymes with counts < 4. These are removed in my R analysis #####
     
     # Create list of EC ORFs to remove
-    dropORF_EC = []
+    dropORF_EC_withCAZyme = []
 
     # Open input file - eCAMI
     eCAMIinput = open(eCAMI_path, mode = 'r')
@@ -126,7 +127,7 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
     ### Parse through eCAMI
     for line4 in eCAMIinput.readlines():
         # Read file line-by-line
-        for drop1 in dropEC:
+        for drop1 in dropEC_withCAZyme:
             # Go entry-by-entry through EC list
             if drop1 in line4:
                 drop_ORF1 = line4.split()
@@ -135,11 +136,12 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                 drop_ORF1_name = drop_ORF1_name[1:]
                     # Remove '>' at start of ORF name
                 
-                if drop_ORF1_name in dropORF_EC:
+                if drop_ORF1_name in dropORF_EC_withCAZyme:
                     # Ignore ORF if it already matched to an EC number so you don't get duplicate ORFs
                     break
                 else:
-                    dropORF_EC.append(drop_ORF1_name)
+                    dropORF_EC_withCAZyme.append(drop_ORF1_name)
+
 
     # Create list of CAZyme ORFs to remove
     dropORF_CAZyme = []
@@ -160,25 +162,54 @@ def parseMucinORFs(eCAMI_path, dbCAN_path, prodigal_path, output_path):
                 if family == drop2:
                     drop_ORF2 = line5.split()
                     dropORF_CAZyme.append(drop_ORF2[4])
- 
+
 
     # Create list of ORFs to remove (EC & CAZyme combined)
     dropORF = []
 
     ### Pull out shared ORFs between drop EC & CAZyme
-    for drop3 in dropORF_EC:
+    for drop3 in dropORF_EC_withCAZyme:
         for drop4 in dropORF_CAZyme:
-            if drop3 == drop4
+            if drop3 == drop4:
                 dropORF.append(drop3)
+
     
+    ### Pull out ORFs for dropped ECs w/o associated CAZyme
+    dropORF_EC_onlyEC = []
+
+    # Open input file - eCAMI
+    eCAMIinput = open(eCAMI_path, mode = 'r')
+
+    # Parse through eCAMI
+    for line6 in eCAMIinput.readlines():
+        # Read file line-by-line
+        for drop5 in dropEC_onlyEC:
+            if drop5 in line6:
+                drop_ORF3 = line6.split()
+                drop_ORF3_name = drop_ORF3[0]
+                    # Pull out ORF name
+                drop_ORF3_name = drop_ORF3_name[1:]
+                    # Remove '>' at start of ORF name
+                
+                if drop_ORF3_name in dropORF_EC_onlyEC:
+                    # Ignore ORF if it already matched to an EC number so you don't get duplicate ORFs
+                    break
+                else:
+                    dropORF_EC_onlyEC.append(drop_ORF3_name)
+
+
+    ### Add only-EC ORFs to list of ORFs to drop
+    for drop5 in dropORF_EC_onlyEC:
+        dropORF.append(drop5)
+    
+
     ### Remove unwanted ORFs
     for ORF3 in mucinContigs:
         for drop5 in dropORF:
             if ORF3 == drop5:
                 mucinContigs.remove(ORF3)
 
-        
-
+    
     ##### Pull out contigs that match mucin ORF #####
     output = open(outputPath, mode = 'a')
 

@@ -8,16 +8,16 @@ directorydbCAN = 'test_significantCAZymeFFN/dbCAN/'
     # Directory of dbCAN.parsed.txt
 dbCANtax = 'test_significantCAZymeFFN/dbcan_tax_table.csv'
     # dbCAN "tax" table
-directoryProdigal = 'test_significantCAZymeFFN/prodigal/'
-    # Directory of prodigal .ffn output files
+directoryFFN = 'test_significantCAZymeFFN/ffn/'
+    # Directory of dbCANffn.py .ffn output files
 directoryOutput = 'test_significantCAZymeFFN/'
     # Path to output dbCAN .ffn files
 
 # Input = list of significant CAZyme families
-CAZymes = ["GT101", "PL1", "GH43", "GH115", "CE12", "GH10", "GH59", "GT41", "GH20", "GT4", "GT9", "CE11", "GT3", "GH84", "GH3", "GH32", "GH43", "GH5", "GH78", "GH115", "GH42", "CE12", "GH106", "GH10", "GH39"]
+CAZymes = ["GT101", "PL1", "GH43", "GH115", "CE12", "GH10", "GH59", "GT41", "GH20", "GT4", "GT9", "CE11", "GT3", "GH84", "GH3", "GH32", "GH5", "GH78", "GH42", "GH106", "GH39"]
 
 ##### Define function: Pull out dbCAN-classified ORFs to create ffn of dbCAN genes
-def parse_CAZyme_ORFs(dbCAN_parsed_txt_path, dbCAN_tax_table_path, prodigal_path, output_path):
+def parse_CAZyme_ORFs(dbCAN_parsed_txt_path, dbCAN_tax_table_path, dbCAN_ffn_path, output_path):
 
     # Save paths for all dbCAN.parsed.txt files
     dbCANfiles = []
@@ -25,11 +25,11 @@ def parse_CAZyme_ORFs(dbCAN_parsed_txt_path, dbCAN_tax_table_path, prodigal_path
         dbCANpath = dbCAN_parsed_txt_path + file1
         dbCANfiles.append(dbCANpath)
     
-    # Create number list for 'for' loops to iterate through all eCAMI and dbCAN files
+    # Create number list for 'for' loops to iterate through all dbCAN.parsed.txt and dbcanffn/ffn files files
     fileNumber = range(0,len(dbCANfiles))
 
     for file2 in fileNumber:
-        # Save sample ID (same for both eCAMI and dbCAN)
+        # Save sample ID
         sample = str(dbCANfiles[file2][-15:-11])
 
         # Create empty dictionary for parsed dbCAN ORFs
@@ -78,18 +78,18 @@ def parse_CAZyme_ORFs(dbCAN_parsed_txt_path, dbCAN_tax_table_path, prodigal_path
                         # Create list of ORFs classified to a specific CAZyme
                 
             for ORF1 in sigORF:
-                inputPath = prodigal_path + sample + '.ffn'
-                prodigal_input = open(inputPath, mode = 'r')
+                inputPath = dbCAN_ffn_path + sample + '.ffn'
+                ffn_input = open(inputPath, mode = 'r')
                 flag = False
 
-                for line2 in prodigal_input.readlines():
-                    # Iterate line-by-line through prodigal .ffn file
+                for line2 in ffn_input.readlines():
+                    # Iterate line-by-line through .ffn file
                     if ORF1 in line2:
                         flag = True
                         outputFFN.write(line2)
                         continue
                     if '>' in line2 and flag == True:
-                        prodigal_input.close()
+                        ffn_input.close()
                         break
                     if flag == True:
                         outputFFN.write(line2)
@@ -97,5 +97,5 @@ def parse_CAZyme_ORFs(dbCAN_parsed_txt_path, dbCAN_tax_table_path, prodigal_path
 
     
 ##### Run code #####
-parse_CAZyme_ORFs(directorydbCAN, dbCANtax, directoryProdigal, directoryOutput)
+parse_CAZyme_ORFs(directorydbCAN, dbCANtax, directoryFFN, directoryOutput)
         # Function will save .ffn files, so no need to set it to a variable

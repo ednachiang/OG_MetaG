@@ -1,4 +1,5 @@
-# Script by Andrew Steinberger (https://github.com/asteinberger9)
+# Script by Charlotte Francoeur (https://github.com/cfrancoeur)
+# This is the same as dbCan_final.py (https://github.com/cfrancoeur/CAZy_counting)
 
 import os
 import sys

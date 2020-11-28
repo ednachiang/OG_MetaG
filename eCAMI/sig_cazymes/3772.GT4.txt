@@ -1,0 +1,4 @@
+>NODE_49_length_145512_cov_16.417235_80 # 99470 # 101917 # 1 # ID=49_80;partial=00;start_type=ATG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.578	2.7.8.-:114	2.7.8.12:2|2.7.8.44:2
+TWHGTPLK(143),TDYSSVFF(313),DYSSVFFD(314),YSSVFFDF(315),SSVFFDFA(316),
+>NODE_80769_length_371_cov_1.760870_1 # 1 # 369 # -1 # ID=80769_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.453	2.4.1.-:190	2.4.1.252:3
+EGFGLAAV(71),GFGLAAVE(72),FGLAAVEA(73),GLAAVEAM(74),LAAVEAMS(75),AAVEAMSA(76),

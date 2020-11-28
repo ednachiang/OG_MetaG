@@ -1,0 +1,2 @@
+>NODE_76690_length_455_cov_1.075000_1 # 1 # 453 # -1 # ID=76690_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.589	2.4.1.-:245	2.4.1.345:4
+VEAMAAGT(123),EAMAAGTP(124),AMAAGTPV(125),MAAGTPVV(126),AAGTPVVA(127),AGTPVVAS(128),

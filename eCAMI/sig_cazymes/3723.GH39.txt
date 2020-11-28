@@ -1,0 +1,2 @@
+>NODE_307_length_65672_cov_4.329704_37 # 33028 # 34545 # -1 # ID=307_37;partial=00;start_type=ATG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.507	3.2.1.-:337	3.2.1.37:3
+GLALQKEY(31),EVWNEPNL(160),VGGPAICG(199),FHGGFGLV(337),HGGFGLVA(338),

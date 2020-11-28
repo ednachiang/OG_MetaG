@@ -1,0 +1,2 @@
+>NODE_11996_length_2330_cov_1.617002_2 # 1129 # 2154 # 1 # ID=11996_2;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.302	5.2.1.-:65	5.2.1.8:3
+LGVGQVIK(103),GVGQVIKG(104),VGQVIKGL(105),GQVIKGLD(106),QVIKGLDI(107),

@@ -1,0 +1,4 @@
+>NODE_2610_length_11641_cov_12.202494_10 # 10300 # 11394 # 1 # ID=2610_10;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.443	2.4.1.-:190	2.4.1.252:3
+EGFGLAAV(271),GFGLAAVE(272),FGLAAVEA(273),GLAAVEAM(274),LAAVEAMS(275),AAVEAMSA(276),
+>NODE_33881_length_1445_cov_1.222222_1 # 1 # 1020 # -1 # ID=33881_1;partial=10;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.521	2.4.1.-:216	2.4.1.250:60
+LEAQACGT(315),EAQACGTP(316),AQACGTPV(317),QACGTPVV(318),ACGTPVVA(319),

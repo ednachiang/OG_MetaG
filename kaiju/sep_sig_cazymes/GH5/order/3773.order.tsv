@@ -1,0 +1,5 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH5/3773.kaiju.output	35.714287	5	186802	Bacteria;Firmicutes;Clostridia;Clostridiales;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH5/3773.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH5/3773.kaiju.output	0.000000	0	NA	cannot be assigned to a (non-viral) order
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH5/3773.kaiju.output	64.285713	9	NA	unclassified

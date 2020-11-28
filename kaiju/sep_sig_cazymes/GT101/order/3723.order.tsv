@@ -1,0 +1,6 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GT101/3723.kaiju.output	5.555556	1	48461	Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GT101/3723.kaiju.output	5.555556	1	186826	Bacteria;Firmicutes;Bacilli;Lactobacillales;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GT101/3723.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GT101/3723.kaiju.output	5.555556	1	NA	cannot be assigned to a (non-viral) order
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GT101/3723.kaiju.output	83.333331	15	NA	unclassified

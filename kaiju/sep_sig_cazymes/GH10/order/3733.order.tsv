@@ -1,0 +1,5 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH10/3733.kaiju.output	80.952385	34	171549	Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH10/3733.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH10/3733.kaiju.output	4.761905	2	NA	cannot be assigned to a (non-viral) order
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH10/3733.kaiju.output	14.285715	6	NA	unclassified

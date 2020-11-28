@@ -1,0 +1,5 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH59/3715.kaiju.output	100.000000	1	1760	Bacteria;Actinobacteria;Actinobacteria;NA;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH59/3715.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH59/3715.kaiju.output	0.000000	0	NA	cannot be assigned to a (non-viral) class
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cazymes/sep_enzymes/GH59/3715.kaiju.output	0.000000	0	NA	unclassified

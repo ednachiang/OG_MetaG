@@ -476,24 +476,30 @@ prodigalCounts <- t(prodigalCounts)
 prodigalCounts <- data.frame(prodigalCounts)
 prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
-colnames(prodigalCounts) <- c("Total_ORFs", "Total_CAZymes", "CAZymePercentage", "Season")
+prodigalCounts$Diet <- c("Feeding", "Feeding", "Fasting", "Fasting", "Feeding", "Feeding", "Fasting", "Feeding", "Feeding")
+prodigalCounts$Diet <- ordered(prodigalCounts$Diet, levels=c("Feeding", "Fasting"))
+colnames(prodigalCounts) <- c("Total_ORFs", "Total_CAZymes", "CAZymePercentage", "Season", "Diet")
 
 
 # Test w/ Kruskal-Wallis
 kruskal.test(formula = CAZymePercentage ~ Season, data = prodigalCounts)
   # p-value = 0.5611
+kruskal.test(formula = CAZymePercentage ~ Diet, data = prodigalCounts)
+  # p-value = 0.4386
 
-
-### Boxplot
+### Dot plot
+#tiff("dbcan.prop.tiff", width=5, height=4, units="in", res= 300)
 ggplot(prodigalCounts, aes(x=Season, y=CAZymePercentage, fill=Season)) +
-  geom_boxplot(position=position_dodge(1)) +
-  geom_point(position=position_dodge(width = 0.2), size=2) +
-  ylab("CAZyme Proportion (%)") +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  ylab("% ORFs annotated as CAZyme (%)") +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   scale_y_continuous(breaks = c(2.0, 2.6, 3.2, 3.8, 4.4), limits=c(2.0, 4.4)) +
   theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"))
+#dev.off()
 ```
 
 ### dbCAN - Create phyloseq object
@@ -617,7 +623,6 @@ length(which(class == "CE"))
 length(which(class == "PL"))
   # 26
 
-
 ```
 
 ### dbCAN - Class-level bar plot
@@ -643,9 +648,10 @@ dbcan.class.sum$Class <- ordered(dbcan.class.sum$Class, c("Glycoside Hydrolase",
                                                                   "Glycosyltransferase",
                                                                   "Carbohydrate Esterase",
                                                                   "Polysaccharide Lyase"))
+dbcan.class.sum$Season <- ordered(dbcan.class.sum$Season, levels = c("Summer", "Winter", "Spring"))
 
 # Plot barplot
-#tiff("dbcan.class.tiff", width=10, height=3.5, units="in", res= 300)
+#tiff("dbcan.class.tiff", width=10, height=4, units="in", res= 300)
 ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
   geom_bar(stat="identity", color="black") +
   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
@@ -661,14 +667,46 @@ ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
         strip.text.x = element_text(size=11),
         legend.title = element_text(face="bold"),
         panel.spacing = unit(0.5, "lines"),
-        axis.title.x = element_text(margin = margin(t = 15)))
+        axis.title.x = element_text(margin = margin(t = 20)))
 #dev.off()
 
 
+
+
+# # Summarize data
+# dbcan.class.diet.sum <- dbcan.class.df %>%
+#   group_by(Class, Diet) %>%
+#   summarize(Mean = mean(Abundance),
+#             SD = sd(Abundance),
+#             SE = se(Abundance))
+# dbcan.class.diet.sum$Class <- ordered(dbcan.class.diet.sum$Class, c("Glycoside Hydrolase",
+#                                                                   "Glycosyltransferase",
+#                                                                   "Carbohydrate Esterase",
+#                                                                   "Polysaccharide Lyase"))
+# dbcan.class.diet.sum$Diet <- ordered(dbcan.class.diet.sum$Diet, levels=c("Feeding", "Fasting"))
+# 
+# # Plot barplot
+# ggplot(dbcan.class.diet.sum, aes(x=Diet, y=Mean, fill=Diet)) +
+#   geom_bar(stat="identity", color="black") +
+#   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+#   scale_y_continuous(limits=c(0,9500)) +
+#   facet_grid(. ~ Class) +
+#   scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3")) +
+#   xlab("CAZyme Class") +
+#   ylab("Mean Normalized Counts") +
+#   theme(panel.grid.major = element_blank(),
+#         panel.grid.minor = element_blank(),
+#         strip.background = element_blank(),
+#         strip.text = element_text(face="bold"),
+#         strip.text.x = element_text(size=11),
+#         legend.title = element_text(face="bold"),
+#         panel.spacing = unit(0.5, "lines"),
+#         axis.title.x = element_text(margin = margin(t = 15)))
 ```
 
 ### dbCAN - Test class-level
 ```{r}
+# Same results if you compare Diet (Feeding vs. Fasting)
 ### CE
 ce <- dbcan.class.df[which(dbcan.class.df$Class == "Carbohydrate Esterase"),]
 
@@ -683,6 +721,7 @@ shapiro.test(ce$Abundance)
 # Test CE w/ ANOVA
 summary(aov(Abundance ~ Season, data = ce))
   # p-value = 0.332
+
 
 
 ### GH
@@ -748,12 +787,15 @@ summary(aov(Abundance ~ Season, data = pl))
 
 
 
+
 ### Adjust Pvals
 p.adjust(c(0.332, 0.00789, 0.0074, 0.116), method="BH")
   # CE = 0.33200
   # GH = 0.01578 *
   # GT = 0.01578 *
   # PL = 0.15467
+
+
 ```
 
 
@@ -772,7 +814,7 @@ p.adjust(c(0.332, 0.00789, 0.0074, 0.116), method="BH")
 # Create family-level physeq object
 colnames(dbcan.fam.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 dbcan.fam.phy <- merge_phyloseq(otu_table(dbcan.fam.norm, taxa_are_rows=T), tax, sample_data(meta.ord))
-
+sample_data(dbcan.fam.phy)$Season <- ordered(sample_data(dbcan.fam.phy)$Season, levels=c("Summer", "Winter", "Spring"))
 
 #dbcan.nmds <- ordinate(physeq = dbcan.fam.phy, method = "NMDS", distance = "bray")
   # stress = 0.0731986
@@ -814,6 +856,9 @@ plot_ordination(physeq = dbcan.fam.phy, ordination = dbcan.nmds, color = "Season
         panel.grid.minor = element_blank()
         )
 #dev.off()
+
+
+
 ```
 
 ### dbCAN - Family Bray-Curtis PCoA
@@ -899,6 +944,7 @@ plot(dbcan.upgma, edge.width=2, type="cladogram")
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 # https://compbiocore.github.io/deseq-workshop-1/assets/deseq_workshop_1.html
+# https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
 # Use UN-NORMALIZED data!!!
   # DESeq accounts for library size
 
@@ -952,19 +998,19 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 # I'll make a separate plot for just GH43, GH3, GT4, and GT41
 
 
-dbcan.sig <- subset_taxa(dbcan.fam.norm.phy, Family == "GT101" | Family == "GH10" | Family == "GH59" |
-                           Family == "GH115" | Family == "PL1" | Family == "CE12" | Family == "GH5" |
+dbcan.sig <- subset_taxa(dbcan.fam.norm.phy, Family == "GT101" | Family == "GH59" | Family == "PL1" |
+                           Family == "GH10" | Family == "GH115" | Family == "CE12" | Family == "GH5" |
                            Family == "GH32" | Family == "GH39" | Family == "GH42" | Family == "GH78" |
-                           Family == "GH106" | Family == "GH20" | Family == "GH84" | Family == "GT3" | 
+                           Family == "GH106" | Family == "GH20" | Family == "GH84" | Family == "GT3" |
                            Family == "GH9" | Family == "CE11")
 
 #tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
-plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GH9", "GT3", "GH84", "GH20", "CE12", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "PL1", "GH115", "GH59", "GH10", "GT101")) +
+plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GH9", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "CE12", "GH115", "GH10", "PL1", "GH59", "GT101")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0,300),
+  scale_fill_gradientn(name=expression("Normalized\nCounts\n"), limits=c(0,300),
                        breaks=c(0, 100, 200, 300), 
                        labels=c("0", "100", "200", "300"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
@@ -986,13 +1032,13 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
 ### GH43, GH3, GT4, and GT41 plot
 dbcan.high <- subset_taxa(dbcan.fam.norm.phy, Family == "GH43" | Family == "GH3" | Family == "GT4" |
                             Family == "GT41")
-#tiff("dbcan.high.heatmap.tiff", width=9, height=4, units="in", res=300)
-plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH43", "GH3", "GT4", "GT41")) +
+tiff("dbcan.high.heatmap.tiff", width=9, height=3.3, units="in", res=300)
+plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GT41", "GT4", "GH3", "GH43")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Normalized Counts\n"), limits=c(300,1200),
+  scale_fill_gradientn(name=expression("Normalized\nCounts\n"), limits=c(300,1200),
                        breaks=c(300, 600, 900, 1200), 
                        labels=c("300", "600", "900", "1200"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
@@ -1009,7 +1055,7 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
   guides(fill = guide_colorbar(barheight = unit(2,"in"),
                                frame.colour="black",
                                frame.linewidth=1))
-#dev.off()
+dev.off()
 
 ```
 
@@ -1149,19 +1195,21 @@ summary(aov(MucinGenePercentage ~ Season, data = prodigalCounts))
 
 
 
-### Boxplot
+### Dot plot
+tiff("mucin.prop.tiff", width=5, height=4, units="in", res= 300)
 ggplot(prodigalCounts, aes(x=Season, y=MucinGenePercentage, fill=Season)) +
-  geom_boxplot(position=position_dodge(1)) +
-  geom_point(position=position_dodge(width = 0.2), size=2) +
-  ylab("Mucin-Degrading Gene Proportion (%)") +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  ylab("% ORFs annotated as Mucin-Degrading Gene (%)") +
   scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   scale_y_continuous(breaks = c(0.06, 0.07, 0.08, 0.09), limits=c(0.06, 0.09)) +
   theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-
-
-
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"))
+dev.off()
 ```
+
 
 
 ### Mucin - Create phyloseq object
@@ -1306,14 +1354,14 @@ mucin.sig <- subset_taxa(muc.norm.phy, FullName == "GH112_2.4.1.211" | FullName 
   
 
 
-#tiff("mucin.heatmap.tiff", width=9, height=10, units="in", res=300)
+tiff("mucin.heatmap.tiff", width=15, height=7, units="in", res=300)
 plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH110_3.2.1.22", "GH84_3.2.1.169", "GH42_3.2.1.23", "GH36_3.2.1.22", "GH112_2.4.1.211")) +
   geom_tile(colour="gray40") +
-  geom_text(aes(label=sprintf("%0.2f", round(Abundance, digits=4)))) +
+  geom_text(aes(label=sprintf("%0.2f", round(Abundance, digits=4))), size = 7) +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("Mucin-Degrading Enzyme Gene\n\n") +
-  scale_fill_gradientn(name=expression("Normalized Counts"), limits=c(0, 100),
+  scale_fill_gradientn(name=expression("Normalized\nCounts\n"), limits=c(0, 100),
                        breaks=c(0, 25, 50, 75, 100), 
                        labels=c("0", "25", "50", "75", "100"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
@@ -1327,10 +1375,10 @@ plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717"
         axis.title.y = element_text(size=20, face="bold"),
         legend.title = element_text(size=20, face="bold"),
         legend.text = element_text(size=20)) +
-  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+  guides(fill = guide_colorbar(barheight = unit(5,"in"),
                                frame.colour="black",
                                frame.linewidth=1))
-#dev.off()
+dev.off()
 
 
 ```

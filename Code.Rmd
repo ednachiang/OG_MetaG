@@ -566,7 +566,7 @@ rownames(dbcan.class.norm) <- c("Polysaccharide Lyase", "Glycosyltransferase", "
 #dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
   # Winter & Spring
 ```
-### dbCAN - Count CAZyme families
+### dbCAN - Count unique CAZyme families
 ```{r}
 # Subset out samples by season
 phy.sum <- subset_samples(dbcan.cut.phy, Season == "Summer")
@@ -624,6 +624,47 @@ length(which(class == "PL"))
   # 26
 
 ```
+
+### dbCAN - Compare total normalized CAZyme counts
+```{r}
+# Summarize data
+dbcan.df <- psmelt(dbcan.fam.norm.phy)
+dbcan.sum <- dbcan.df %>%
+  group_by(Sample, Season) %>%
+  summarize(Sum = sum(Abundance))
+dbcan.sum$Season <- ordered(dbcan.sum$Season, levels=c("Summer", "Winter", "Spring"))
+
+## Dot plot
+#tiff("dbcan.normCount.tiff", width=5, height=4, units="in", res= 300)
+ggplot(dbcan.sum, aes(x=Season, y=Sum, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  scale_y_continuous(limits=c(14900,17100)) +
+  scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  xlab("Season") +
+  ylab("Total Normalized CAZyme Counts") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 15)))
+#dev.off()
+
+# Test normality
+hist(dbcan.sum$Sum)
+qqnorm(dbcan.sum$Sum)
+qqline(dbcan.sum$Sum)
+shapiro.test(dbcan.sum$Sum)
+  # p-value = 0.9777
+  # Normal
+
+summary(aov(Sum ~ Season, data=dbcan.sum))
+  # p-value = 0.263
+
+```
+
 
 ### dbCAN - Class-level bar plot
 ```{r}
@@ -1628,51 +1669,6 @@ dbcan.muc.wp.sig[which(dbcan.muc.wp.sig$log2FoldChange < 0),]
 
 
 
-### Mucin - Proportion mucin-degrading genes from ORFs
-```{r}
-prodigalCounts <- read.csv('mucin/prodigalCounts.csv', row.names=1)
-prodigalCounts <- as.matrix(prodigalCounts)
-
-# Test normality
-hist(prodigalCounts[3,])
-qqnorm(prodigalCounts[3,])
-qqline(prodigalCounts[3,])
-shapiro.test(prodigalCounts[3,])
-  # p-value = 0.05926
-  # Normal
-
-# Format for ANOVA
-prodigalCounts <- read.csv('mucin/prodigalCounts.csv', row.names=1)
-prodigalCounts <- t(prodigalCounts)
-prodigalCounts <- data.frame(prodigalCounts)
-prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
-colnames(prodigalCounts) <- c("Total_ORFs", "Total_MucinGenes", "MucinGenePercentage", "Season")
-
-# Test w/ ANOVA
-summary(aov(MucinGenePercentage ~ Season, data = prodigalCounts))
-  # p-value = 0.224
-
-
-
-
-### Dot plot
-#tiff("mucin.prop.tiff", width=5, height=4, units="in", res= 300)
-ggplot(prodigalCounts, aes(x=Season, y=MucinGenePercentage, fill=Season)) +
-  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
-  ylab("% ORFs annotated as Mucin-Degrading Gene (%)") +
-  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  scale_y_continuous(breaks = c(0.06, 0.07, 0.08, 0.09), limits=c(0.06, 0.09)) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.text = element_text(face="bold"),
-        strip.text.x = element_text(size=11),
-        legend.title = element_text(face="bold"))
-#dev.off()
-```
-
-
-
 ### Mucin - Create phyloseq object
 ```{r}
 # Load data
@@ -1695,13 +1691,13 @@ mucin.phy <- merge_phyloseq(muc.otu.tab, muc.tax, sample_data(meta.ord))
 mucin.cut.phy <- prune_taxa(taxa_sums(mucin.phy) > 3, mucin.phy)
 
 # Identify trimmed CAZymes (count < 4)
-all <- rownames(tax_table(mucin.phy))
-remain <- rownames(tax_table(mucin.cut.phy))
-for (i in all){
-  if (i %in% remain == F){
-    print(i)
-  }
-}
+#all <- rownames(tax_table(mucin.phy))
+#remain <- rownames(tax_table(mucin.cut.phy))
+#for (i in all){
+#  if (i %in% remain == F){
+#    print(i)
+#  }
+#}
 # GH16_3.2.1.23, GH16_3.2.1.103, GH4_3.2.1.24, 3.1.1.2, 3.1.6.3, 3.1.6.4, 3.1.6.8, 3.1.6.14
 
 
@@ -1721,6 +1717,77 @@ mucin.ra <- read.csv('mucin/mucinCountRA.csv', row.names=1)
 mucin.ra.otu <- otu_table(mucin.ra, taxa_are_rows=T)
 sample_names(mucin.ra.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 muc.ra.phy <- merge_phyloseq(mucin.ra.otu, sample_data(mucin.phy), tax_table(mucin.phy))
+```
+### Mucin - Count unique mucin-deg genes
+```{r}
+# Subset out samples by season
+phy.sum <- subset_samples(mucin.cut.phy, Season == "Summer")
+phy.win <- subset_samples(mucin.cut.phy, Season == "Winter")
+phy.spr <- subset_samples(mucin.cut.phy, Season == "Spring")
+
+# Remove annotations with no counts
+phy.sum <- prune_taxa(taxa_sums(phy.sum) > 0, phy.sum)
+phy.win <- prune_taxa(taxa_sums(phy.win) > 0, phy.win)
+phy.spr <- prune_taxa(taxa_sums(phy.spr) > 0, phy.spr)
+
+
+# Pull out unique muc-deg gene annotations in each season and order alphabetically
+sum.gene <- get_taxa_unique(phy.sum, "FullName")
+sum.gene <- sort(sum.gene)
+win.gene <- get_taxa_unique(phy.win, "FullName")
+win.gene <- sort(win.gene)
+spr.gene <- get_taxa_unique(phy.spr, "FullName")
+spr.gene <- sort(spr.gene)
+
+# Count unique annotations
+length(sum.gene)
+  # 20
+length(win.gene)
+  # 21
+length(spr.gene)
+  #21
+
+```
+### Mucin - Compare total normalized mucin-deg counts
+```{r}
+mucin.df <- psmelt(muc.norm.phy)
+mucin.sum <- mucin.df %>%
+  group_by(Sample, Season) %>%
+  summarize(Sum = sum(Abundance))
+mucin.sum$Season = ordered(mucin.sum$Season, levels=c("Summer", "Winter", "Spring"))
+
+#tiff("mucin.normCount.tiff", width=5, height=4, units="in", res= 300)
+ggplot(mucin.sum, aes(x=Season, y=Sum, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  scale_y_continuous(limits=c(324,436)) +
+  scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  xlab("Season") +
+  ylab("Total Normalized Mucin-Deg Counts") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 15)))
+#dev.off()
+
+
+# Test normality
+hist(mucin.sum$Sum)
+qqnorm(mucin.sum$Sum)
+qqline(mucin.sum$Sum)
+shapiro.test(mucin.sum$Sum)
+  # p-value = 0.2094
+  # Normal
+
+summary(aov(Sum ~ Season, data=mucin.sum))
+  # p-value = 0.0252
+TukeyHSD(aov(Sum ~ Season, data=mucin.sum))
+  # Winter - Summer = 0.9990301
+  # Spring - Summer = 0.0389443*
+  # Spring - Winter = 0.0370233*
 ```
 
 ### Mucin - Kaiju

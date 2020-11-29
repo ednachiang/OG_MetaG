@@ -128,7 +128,7 @@ domain.clas.df$SE <- as.numeric(c(domain.clas.sum[1, 10:13], domain.clas.sum[2, 
 # Barplot for all sequences
 ggplot(domain.df, aes(x=Domain, y=Mean, fill=Domain)) +
   geom_bar(stat="identity") +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.5,60)) +
   facet_grid(Season ~ .) +
   scale_fill_brewer(palette="Set1") +
@@ -143,7 +143,7 @@ ggplot(domain.df, aes(x=Domain, y=Mean, fill=Domain)) +
 # Barplot for classified sequences
 ggplot(domain.clas.df, aes(x=Domain, y=Mean, fill=Domain)) +
   geom_bar(stat="identity") +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.5,100)) +
   facet_grid(Season ~ .) +
   scale_fill_brewer(palette="Set1") +
@@ -190,7 +190,7 @@ phy.total$Season <- ordered(phy.total$Season, levels=c("Summer", "Winter", "Spri
 ggplot(phy.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.1,63)) +
   facet_grid(Season ~ .) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
@@ -224,7 +224,7 @@ phy.clas.total$Season <- ordered(phy.clas.total$Season, levels=c("Summer", "Wint
 ggplot(phy.clas.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.1,45)) +
   facet_grid(Season ~ .) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
@@ -270,7 +270,7 @@ cla.total$Season <- ordered(cla.total$Season, levels=c("Summer", "Winter", "Spri
 ggplot(cla.total, aes(x=Class, y=Mean, fill=Class)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.1,42)) +
   facet_grid(Season ~ .) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
@@ -316,7 +316,7 @@ ord.total$Season <- ordered(ord.total$Season, levels=c("Summer", "Winter", "Spri
 ggplot(ord.total, aes(x=Order, y=Mean, fill=Order)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.1,42)) +
   facet_grid(Season ~ .) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
@@ -363,7 +363,7 @@ fam.total$Season <- ordered(fam.total$Season, levels=c("Summer", "Winter", "Spri
 ggplot(fam.total, aes(x=Family, y=Mean, fill=Family)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.3,16)) +
   facet_grid(Season ~ .) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
@@ -411,7 +411,7 @@ gen.total$Season <- ordered(gen.total$Season, levels=c("Summer", "Winter", "Spri
 ggplot(gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.2,16)) +
   facet_grid(Season ~ .) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
@@ -654,7 +654,7 @@ dbcan.class.sum$Season <- ordered(dbcan.class.sum$Season, levels = c("Summer", "
 #tiff("dbcan.class.tiff", width=10, height=4, units="in", res= 300)
 ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
   geom_bar(stat="identity", color="black") +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(0,9500)) +
   facet_grid(. ~ Class) +
   scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
@@ -688,7 +688,7 @@ ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
 # # Plot barplot
 # ggplot(dbcan.class.diet.sum, aes(x=Diet, y=Mean, fill=Diet)) +
 #   geom_bar(stat="identity", color="black") +
-#   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+#   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
 #   scale_y_continuous(limits=c(0,9500)) +
 #   facet_grid(. ~ Class) +
 #   scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3")) +
@@ -1194,7 +1194,7 @@ gen.GH20.total$Season <- ordered(gen.GH20.total$Season, levels=c("Summer", "Wint
 ggplot(gen.GH20.total, aes(x=Genus, y=Mean, fill=Genus)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-0.2,41)) +
   facet_grid(Season ~ .) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33")) +
@@ -1325,7 +1325,7 @@ gen.GH84.total$Season <- ordered(gen.GH84.total$Season, levels=c("Summer", "Wint
 ggplot(gen.GH84.total, aes(x=Genus, y=Mean, fill=Genus)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-5,45)) +
   facet_grid(Season ~ .) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#ffff33", "#a65628")) +
@@ -1458,7 +1458,7 @@ gen.GT3.total$Season <- ordered(gen.GT3.total$Season, levels=c("Summer", "Winter
 ggplot(gen.GT3.total, aes(x=Genus, y=Mean, fill=Genus)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-5,45)) +
   scale_fill_manual(values=c("#984ea3", "#e41a1c", "#ffff33", "#377eb8", "gainsboro")) +
   xlab("Genera") +
@@ -1797,7 +1797,7 @@ muc.gen.total$Season <- ordered(muc.gen.total$Season, levels=c("Summer", "Winter
 ggplot(muc.gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
   geom_bar(stat="identity", color="black") +
   facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(-5,45)) +
   scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush", "lightpink")) +
   xlab("Genera") +
@@ -1883,7 +1883,7 @@ mucin.sum$Season = ordered(mucin.sum$Season, levels=c("Summer", "Winter", "Sprin
 #tiff("mucin.family.tiff", width=33, height=7, units="in", res= 300)
 ggplot(mucin.sum, aes(x=Season, y=Mean, fill=Season)) +
   geom_bar(stat="identity", color="black") +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
   scale_y_continuous(limits=c(0,2e-2)) +
   facet_grid(. ~ FullName) +
   scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
@@ -2368,7 +2368,36 @@ TukeyHSD(aov(RelAbund ~ Season, data = muc.GH110_3.2.1.22.df))
   # Winter-Summer = 0.1012993
 
 ```
+### Mucin - Sig enzymes barplot
+```{r}
+# Subset sig genes
+sig1 = which(mucin.sum$FullName == "GH27_3.2.1.22")
+sig2 = which(mucin.sum$FullName == "GH36_3.2.1.22")
+sig3 = which(mucin.sum$FullName == "GH84_3.2.1.169")
+sig4 = which(mucin.sum$FullName == "GH110_3.2.1.22")
+mucSig = c(sig1,sig2,sig3,sig4)
+muc.sig.sum <- mucin.sum[mucSig,]
 
+
+# Plot barplot
+tiff("mucin.sig.tiff", width=8, height=4, units="in", res= 300)
+ggplot(muc.sig.sum, aes(x=Season, y=Mean, fill=Season)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(0,1.8e-2), breaks=c(0,0.0045, 0.009, 0.0135, 0.018)) +
+  facet_grid(. ~ FullName) +
+  scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ylab("Mean Relative Abundance (%)") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 15)))
+dev.off()
+```
 
 ### Mucin - DESeq
 ```{r}

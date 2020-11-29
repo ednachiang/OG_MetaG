@@ -1217,16 +1217,16 @@ gen.GH20.combined$SD[1] = sd(gen.GH20.total$Mean[1:3])
 gen.GH20.combined$SD[2] = sd(gen.GH20.total$Mean[4:6])
 gen.GH20.combined$SD[3] = sd(gen.GH20.total$Mean[7:9])
 gen.GH20.combined$SD[4] = sd(gen.GH20.total$Mean[10:12])
-gen.GH20.combined$SD[5] = sd(gen.GH20.total$Mean[13:5])
+gen.GH20.combined$SD[5] = sd(gen.GH20.total$Mean[13:15])
 gen.GH20.combined$SE[1] = (sd(gen.GH20.total$Mean[1:3])/3)
 gen.GH20.combined$SE[2] = (sd(gen.GH20.total$Mean[4:6])/3)
 gen.GH20.combined$SE[3] = (sd(gen.GH20.total$Mean[7:9])/3)
 gen.GH20.combined$SE[4] = (sd(gen.GH20.total$Mean[10:12])/3)
-gen.GH20.combined$SE[5] = (sd(gen.GH20.total$Mean[13:5])/3)
+gen.GH20.combined$SE[5] = (sd(gen.GH20.total$Mean[13:15])/3)
 
   
 # Barplot for top 5 genera - All seasons combined
-#tiff("GH20.class.tiff", width=7, height=5, units="in", res= 300)
+#tiff("GH20.genus.tiff", width=7, height=5, units="in", res= 300)
 ggplot(gen.GH20.combined, aes(x=Genus, y=Mean, fill=Genus)) +
   geom_bar(stat="identity", color="black") +
   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
@@ -1348,16 +1348,16 @@ gen.GH84.combined$SD[1] = sd(gen.GH84.total$Mean[1:3])
 gen.GH84.combined$SD[2] = sd(gen.GH84.total$Mean[4:6])
 gen.GH84.combined$SD[3] = sd(gen.GH84.total$Mean[7:9])
 gen.GH84.combined$SD[4] = sd(gen.GH84.total$Mean[10:12])
-gen.GH84.combined$SD[5] = sd(gen.GH84.total$Mean[13:5])
+gen.GH84.combined$SD[5] = sd(gen.GH84.total$Mean[13:15])
 gen.GH84.combined$SE[1] = (sd(gen.GH84.total$Mean[1:3])/3)
 gen.GH84.combined$SE[2] = (sd(gen.GH84.total$Mean[4:6])/3)
 gen.GH84.combined$SE[3] = (sd(gen.GH84.total$Mean[7:9])/3)
 gen.GH84.combined$SE[4] = (sd(gen.GH84.total$Mean[10:12])/3)
-gen.GH84.combined$SE[5] = (sd(gen.GH84.total$Mean[13:5])/3)
+gen.GH84.combined$SE[5] = (sd(gen.GH84.total$Mean[13:15])/3)
 
   
 # Barplot for top 5 genera - All seasons combined
-#tiff("GH84.class.tiff", width=7, height=5, units="in", res= 300)
+#tiff("GH84.genus.tiff", width=7, height=5, units="in", res= 300)
 ggplot(gen.GH84.combined, aes(x=Genus, y=Mean, fill=Genus)) +
   geom_bar(stat="identity", color="black") +
   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
@@ -1480,16 +1480,16 @@ gen.GT3.combined$SD[1] = sd(gen.GT3.total$Mean[1:3])
 gen.GT3.combined$SD[2] = sd(gen.GT3.total$Mean[4:6])
 gen.GT3.combined$SD[3] = sd(gen.GT3.total$Mean[7:9])
 gen.GT3.combined$SD[4] = sd(gen.GT3.total$Mean[10:12])
-gen.GT3.combined$SD[5] = sd(gen.GT3.total$Mean[13:5])
+gen.GT3.combined$SD[5] = sd(gen.GT3.total$Mean[13:15])
 gen.GT3.combined$SE[1] = (sd(gen.GT3.total$Mean[1:3])/3)
 gen.GT3.combined$SE[2] = (sd(gen.GT3.total$Mean[4:6])/3)
 gen.GT3.combined$SE[3] = (sd(gen.GT3.total$Mean[7:9])/3)
 gen.GT3.combined$SE[4] = (sd(gen.GT3.total$Mean[10:12])/3)
-gen.GT3.combined$SE[5] = (sd(gen.GT3.total$Mean[13:5])/3)
+gen.GT3.combined$SE[5] = (sd(gen.GT3.total$Mean[13:15])/3)
 
   
 # Barplot for top 5 genera - All seasons combined
-tiff("GT3.class.tiff", width=7, height=5, units="in", res= 300)
+#tiff("GT3.genus.tiff", width=7, height=5, units="in", res= 300)
 ggplot(gen.GT3.combined, aes(x=Genus, y=Mean, fill=Genus)) +
   geom_bar(stat="identity", color="black") +
   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
@@ -1504,7 +1504,7 @@ ggplot(gen.GT3.combined, aes(x=Genus, y=Mean, fill=Genus)) +
         strip.text = element_text(face="bold"),
         legend.title = element_text(face="bold"),
         plot.title=element_text(hjust=0.5, face="bold"))
-dev.off()
+#dev.off()
 
 
 ########## Species ##########
@@ -1657,7 +1657,7 @@ summary(aov(MucinGenePercentage ~ Season, data = prodigalCounts))
 
 
 ### Dot plot
-tiff("mucin.prop.tiff", width=5, height=4, units="in", res= 300)
+#tiff("mucin.prop.tiff", width=5, height=4, units="in", res= 300)
 ggplot(prodigalCounts, aes(x=Season, y=MucinGenePercentage, fill=Season)) +
   geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
   ylab("% ORFs annotated as Mucin-Degrading Gene (%)") +
@@ -1668,7 +1668,7 @@ ggplot(prodigalCounts, aes(x=Season, y=MucinGenePercentage, fill=Season)) +
         strip.text = element_text(face="bold"),
         strip.text.x = element_text(size=11),
         legend.title = element_text(face="bold"))
-dev.off()
+#dev.off()
 ```
 
 
@@ -1717,6 +1717,149 @@ sample_names(muc.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", 
 muc.norm.phy <- merge_phyloseq(muc.norm.otu, sample_data(mucin.phy), tax_table(mucin.phy))
 ```
 
+### Mucin - Kaiju
+```{r}
+########## Phylum ##########
+muc.phy.sum <- import.phylum.sum('kaiju/mucin_all/phylum',7)
+
+# Summarize phyla to get top 10
+muc.phy.sum.sum <- muc.phy.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+muc.cla.sum <- import.class.sum('kaiju/mucin_all/class', 11)
+
+# Summarize classes to get top 10
+muc.cla.sum.sum <- muc.cla.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+muc.ord.sum <- import.order.sum('kaiju/mucin_all/order', 14)
+
+# Summarize orders to get top 10
+muc.ord.sum.sum <- muc.ord.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+muc.fam.sum <- import.family.sum('kaiju/mucin_all/family', 27)
+
+# Summarize families to get top 10
+muc.fam.sum.sum <- muc.fam.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+muc.gen.sum <- import.genus.sum('kaiju/mucin_all/genus',35)
+
+# Summarize genera to get top 10
+muc.gen.sum.sum <- muc.gen.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 11 genera (excluding unclassified, but using the % calculated with unclassified
+top.muc.genus <- c("Bacteroides", "Prevotella", "Parabacteroides", "Clostridium", "Alistipes", "Roseburia", "Blautia", "Paenibacillus", "Faecalibacterium", "Ruminococcus", "Akkermansia")
+
+
+
+# Pull out top 11 genera
+muc.gen.total <- data.frame(matrix(nrow=33, ncol=5))
+colnames(muc.gen.total) <- c("Season", "Genus", "Mean", "SD", "SE")
+for (i in 1:length(top.muc.genus)){
+  top <- which(muc.gen.sum$Genus == top.muc.genus[i])
+  for (j in 1:length(top)){
+    muc.gen.total$Season[(j + 3*(i-1))] <- as.character(muc.gen.sum$Season[top[j]])
+    muc.gen.total$Genus[(j + 3*(i-1))] <- muc.gen.sum$Genus[top[j]]
+    muc.gen.total$Mean[(j + 3*(i-1))] <- muc.gen.sum$Mean[top[j]]
+    muc.gen.total$SD[(j + 3*(i-1))] <- muc.gen.sum$SD[top[j]]
+    muc.gen.total$SE[(j + 3*(i-1))] <- muc.gen.sum$SE[top[j]]
+  }
+}
+muc.gen.total$Genus <- ordered(muc.gen.total$Genus, levels=c("Bacteroides", "Prevotella", "Parabacteroides", "Clostridium", "Alistipes", "Roseburia", "Blautia", "Paenibacillus", "Faecalibacterium", "Ruminococcus", "Akkermansia"))
+muc.gen.total$Season <- ordered(muc.gen.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 11 genera
+ggplot(muc.gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SD), width=0.25) +
+  scale_y_continuous(limits=c(-5,45)) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush", "lightpink")) +
+  xlab("Genera") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+# Pull out top 5 genera - All seasons combined
+muc.gen.combined <- muc.gen.total %>%
+  group_by(Genus) %>%
+    summarize(Mean = mean(Mean),
+              SD = sd(Mean),
+              SE = se(Mean))
+muc.gen.combined$SD[1] = sd(muc.gen.total$Mean[1:3])
+muc.gen.combined$SD[2] = sd(muc.gen.total$Mean[4:6])
+muc.gen.combined$SD[3] = sd(muc.gen.total$Mean[7:9])
+muc.gen.combined$SD[4] = sd(muc.gen.total$Mean[10:12])
+muc.gen.combined$SD[5] = sd(muc.gen.total$Mean[13:15])
+muc.gen.combined$SD[6] = sd(muc.gen.total$Mean[16:18])
+muc.gen.combined$SD[7] = sd(muc.gen.total$Mean[19:21])
+muc.gen.combined$SD[8] = sd(muc.gen.total$Mean[22:24])
+muc.gen.combined$SD[9] = sd(muc.gen.total$Mean[25:27])
+muc.gen.combined$SD[10] = sd(muc.gen.total$Mean[28:30])
+muc.gen.combined$SD[11] = sd(muc.gen.total$Mean[31:33])
+muc.gen.combined$SE[1] = (sd(muc.gen.total$Mean[1:3])/3)
+muc.gen.combined$SE[2] = (sd(muc.gen.total$Mean[4:6])/3)
+muc.gen.combined$SE[3] = (sd(muc.gen.total$Mean[7:9])/3)
+muc.gen.combined$SE[4] = (sd(muc.gen.total$Mean[10:12])/3)
+muc.gen.combined$SE[5] = (sd(muc.gen.total$Mean[13:15])/3)
+muc.gen.combined$SE[6] = (sd(muc.gen.total$Mean[16:18])/3)
+muc.gen.combined$SE[7] = (sd(muc.gen.total$Mean[19:21])/3)
+muc.gen.combined$SE[8] = (sd(muc.gen.total$Mean[22:24])/3)
+muc.gen.combined$SE[9] = (sd(muc.gen.total$Mean[25:27])/3)
+muc.gen.combined$SE[10] = (sd(muc.gen.total$Mean[28:30])/3)
+muc.gen.combined$SE[11] = (sd(muc.gen.total$Mean[31:33])/3)
+  
+# Barplot for top 5 genera - All seasons combined
+tiff("muc.gen.tiff", width=9, height=5, units="in", res= 300)
+ggplot(muc.gen.combined, aes(x=Genus, y=Mean, fill=Genus)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(0,26), breaks=c(0,6.5,13,19.5,26)) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush", "lightpink")) +
+  xlab("Genera") +
+  ylab("Mean Relative Abundance (%)") +
+  ggtitle("Mucin-Degradation Genes Genus-level Classification") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"),
+        plot.title=element_text(hjust=0.5, face="bold"),
+        axis.text.x = element_text(angle=30, hjust=1))
+dev.off()
+
+
+########## Species ##########
+muc.spe.sum <- import.species.sum('kaiju/mucin_all/species',87)
+
+# Summarize species to get top 10
+muc.spe.sum.sum <- muc.spe.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
 ### Mucin - Enzyme bar plots
 ```{r}
 # Summarize data
@@ -1845,6 +1988,140 @@ dev.off()
 ```
 
 
+
+
+
+### Mucin - Family-Level for each mucin enzyme
+```{r}
+# I chose Family-level because that was the taxon that gave the most taxonomic resolution without too many being unclassified
+
+### 4.1.3.3
+fam.4.1.3.3.sum <- import.family.sum('kaiju/mucin_sep/4.1.3.3/family',2)
+# Summarize families
+fam.4.1.3.3.sum.sum <- fam.4.1.3.3.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH2_3.2.1.23
+fam.GH2_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH2_3.2.1.23/family',10)
+# Summarize families
+fam.GH2_3.2.1.23.sum.sum <- fam.GH2_3.2.1.23.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH2_3.2.1.25
+fam.GH2_3.2.1.25.sum <- import.family.sum('kaiju/mucin_sep/GH2_3.2.1.25/family',3)
+# Summarize families
+fam.GH2_3.2.1.25.sum.sum <- fam.GH2_3.2.1.25.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH3_3.2.1.52
+# Not found in some samples
+
+### GH4_3.2.1.22
+# Not found in some samples
+
+### GH20_3.2.1.52
+# Not found in some samples
+
+### GH27_3.2.1.22
+fam.GH27_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH27_3.2.1.22/family',4)
+# Summarize families
+fam.GH27_3.2.1.22.sum.sum <- fam.GH27_3.2.1.22.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH29_3.2.1.51
+fam.GH29_3.2.1.51.sum <- import.family.sum('kaiju/mucin_sep/GH29_3.2.1.51/family',7)
+# Summarize families
+fam.GH29_3.2.1.51.sum.sum <- fam.GH29_3.2.1.51.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH31_3.2.1.20
+fam.GH31_3.2.1.20.sum <- import.family.sum('kaiju/mucin_sep/GH31_3.2.1.20/family',6)
+# Summarize families
+fam.GH31_3.2.1.20.sum.sum <- fam.GH31_3.2.1.20.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH35_3.2.1.23
+fam.GH35_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH35_3.2.1.23/family',5)
+# Summarize families
+fam.GH35_3.2.1.23.sum.sum <- fam.GH35_3.2.1.23.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH36_3.2.1.22
+fam.GH36_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH36_3.2.1.22/family',13)
+# Summarize families
+fam.GH36_3.2.1.22.sum.sum <- fam.GH36_3.2.1.22.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH38_3.2.1.24
+# Not found in some samples
+
+### GH42_3.2.1.23
+fam.GH42_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH42_3.2.1.23/family',4)
+# Summarize families
+fam.GH42_3.2.1.23.sum.sum <- fam.GH42_3.2.1.23.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH67_3.2.1.139
+fam.GH67_3.2.1.139.sum <- import.family.sum('kaiju/mucin_sep/GH67_3.2.1.139/family',7)
+# Summarize families
+fam.GH67_3.2.1.139.sum.sum <- fam.GH67_3.2.1.139.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH84_3.2.1.169
+fam.GH84_3.2.1.169.sum <- import.family.sum('kaiju/mucin_sep/GH84_3.2.1.169/family',10)
+# Summarize families
+fam.GH84_3.2.1.169.sum.sum <- fam.GH84_3.2.1.169.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH95_3.2.1.51
+fam.GH95_3.2.1.51.sum <- import.family.sum('kaiju/mucin_sep/GH95_3.2.1.51/family',7)
+# Summarize families
+fam.GH95_3.2.1.51.sum.sum <- fam.GH95_3.2.1.51.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH101_3.2.1.97
+# Not found in some samples
+
+### GH110_3.2.1.22
+fam.GH110_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH110_3.2.1.22/family',6)
+# Summarize families
+fam.GH110_3.2.1.22.sum.sum <- fam.GH110_3.2.1.22.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH112_2.4.1.211
+fam.GH112_2.4.1.211.sum <- import.family.sum('kaiju/mucin_sep/GH112_2.4.1.211/family',6)
+# Summarize families
+fam.GH112_2.4.1.211.sum.sum <- fam.GH112_2.4.1.211.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH130_2.4.1.281
+fam.GH130_2.4.1.281.sum <- import.family.sum('kaiju/mucin_sep/GH130_2.4.1.281/family',8)
+# Summarize families
+fam.GH130_2.4.1.281.sum.sum <- fam.GH130_2.4.1.281.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+### GH130_2.4.1.320
+fam.GH130_2.4.1.320.sum <- import.family.sum('kaiju/mucin_sep/GH130_2.4.1.320/family',7)
+# Summarize families
+fam.GH130_2.4.1.320.sum.sum <- fam.GH130_2.4.1.320.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+```
 
 
 

@@ -457,50 +457,6 @@ kruskal.test(formula = AGS ~ Season, data = mc)
   # p-value = 0.4298
 ```
 
-### dbCAN - Proportion CAZymes from ORFs
-```{r}
-prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
-prodigalCounts <- as.matrix(prodigalCounts)
-
-# Test normality
-hist(prodigalCounts[3,])
-qqnorm(prodigalCounts[3,])
-qqline(prodigalCounts[3,])
-shapiro.test(prodigalCounts[3,])
-  # p-value = 0.001575
-  # Not Normal
-
-# Format for Kruskal-Wallis
-prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
-prodigalCounts <- t(prodigalCounts)
-prodigalCounts <- data.frame(prodigalCounts)
-prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
-prodigalCounts$Diet <- c("Feeding", "Feeding", "Fasting", "Fasting", "Feeding", "Feeding", "Fasting", "Feeding", "Feeding")
-prodigalCounts$Diet <- ordered(prodigalCounts$Diet, levels=c("Feeding", "Fasting"))
-colnames(prodigalCounts) <- c("Total_ORFs", "Total_CAZymes", "CAZymePercentage", "Season", "Diet")
-
-
-# Test w/ Kruskal-Wallis
-kruskal.test(formula = CAZymePercentage ~ Season, data = prodigalCounts)
-  # p-value = 0.5611
-kruskal.test(formula = CAZymePercentage ~ Diet, data = prodigalCounts)
-  # p-value = 0.4386
-
-### Dot plot
-#tiff("dbcan.prop.tiff", width=5, height=4, units="in", res= 300)
-ggplot(prodigalCounts, aes(x=Season, y=CAZymePercentage, fill=Season)) +
-  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
-  ylab("% ORFs annotated as CAZyme (%)") +
-  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  scale_y_continuous(breaks = c(2.0, 2.6, 3.2, 3.8, 4.4), limits=c(2.0, 4.4)) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.text = element_text(face="bold"),
-        strip.text.x = element_text(size=11),
-        legend.title = element_text(face="bold"))
-#dev.off()
-```
 
 ### dbCAN - Create phyloseq object
 ```{r}
@@ -981,7 +937,7 @@ plot(dbcan.upgma, edge.width=2, type="cladogram")
 ```
 
 
-### dbCAN DESeq
+### dbCAN - DESeq
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 # https://compbiocore.github.io/deseq-workshop-1/assets/deseq_workshop_1.html
@@ -1098,6 +1054,58 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
                                frame.linewidth=1))
 dev.off()
 
+```
+
+
+
+
+### dbCAN - Testing DESeq plots
+```{r}
+# https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
+
+# MA plot (log ratio (M) vs. average (A))
+plotMA(dbcan.dds, alpha = 0.05)
+
+# Plot single gene normalized counts
+plotCounts(dbcan.dds, gene="GH20", intgroup="Season")
+
+# Heatmap of count matrix
+select <- order(rowMeans(counts(dbcan.dds, normalized=T)), decreasing=T)[1:20]
+df <- as.data.frame(colData(dbcan.dds)[,"Season"])
+pheatmap(assay(normTransform(dbcan.dds)[select,], cluster_rows=F, show_rownames=F, cluster_cols=F, annotation_col=df))
+
+# Heatmap of count matrix (variance stabilizing transformed)
+vsd <- varianceStabilizingTransformation(dbcan.dds, blind=F)
+pheatmap(assay(vsd)[select,])
+
+# Heatmap of count matrix (rlog transformed)
+rld <- rlog(dbcan.dds, blind=F)
+pheatmap(assay(rld)[select,])
+
+# Heatmap of sample-to-sample distances
+sampleDists <- dist(t(assay(vsd)))
+sampleDistMatrix <- as.matrix(sampleDists)
+rownames(sampleDistMatrix) <- paste(vsd$Season, vsd$type, sep="-")
+colnames(sampleDistMatrix) <- NULL
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+pheatmap(sampleDistMatrix,
+         clustering_distance_rows=sampleDists,
+         clustering_distance_cols=sampleDists,
+         col=colors)
+
+# PCA 
+plotPCA(vsd, intgroup=c("Season"))
+
+# Customized PCA
+pcaData <- plotPCA(vsd, intgroup=c("Season"), returnData=TRUE)
+percentVar <- round(100 * attr(pcaData, "percentVar"))
+ggplot(pcaData, aes(PC1, PC2, color=Season)) +
+  geom_point(size=3) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed()
+
+plot_PCA()
 ```
 
 

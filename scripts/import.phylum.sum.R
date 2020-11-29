@@ -2,10 +2,10 @@
 # y = These are the variables you want to group by
 # USE ' ' AROUND BOTH X & Y!!!
 
-import.phylum.sum <- function(x) {
+import.phylum.sum <- function(x, numRows) {
   n <- as.numeric(length(list.files(x)))
   # Initialize output dataframe
-  phylum <- data.frame(matrix(ncol=2, nrow=169))
+  phylum <- data.frame(matrix(ncol=2, nrow=numRows))
     # nrow is based on (# phyla - 1) in sample 3715 because this is the first sample used to populate the dataframe
     # nrow will change as we populate the dataframe with all samples
     # The -1 is because we combined reads assigned to "unclassified" and "cannot be assigned to a (non-viral) phylum" (aka not classified at phylum level, but classified at a higher taxonomic level)

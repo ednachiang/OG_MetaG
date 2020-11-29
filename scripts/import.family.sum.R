@@ -2,10 +2,10 @@
 # y = These are the variables you want to group by
 # USE ' ' AROUND BOTH X & Y!!!
 
-import.family.sum <- function(x) {
+import.family.sum <- function(x, numRows) {
   n <- as.numeric(length(list.files(x)))
   # Initialize output dataframe
-  family <- data.frame(matrix(ncol=2, nrow=714))
+  family <- data.frame(matrix(ncol=2, nrow=numRows))
   # nrow is based on (# families - 1) in sample 3715 because this is the first sample used to populate the dataframe
   # nrow will change as we populate the dataframe with all samples
   # The -1 is because we combined reads assigned to "unclassified" and "cannot be assigned to a (non-viral) family" (aka not classified at family level, but classified at a higher taxonomic level)

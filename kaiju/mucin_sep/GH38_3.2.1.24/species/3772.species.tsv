@@ -1,0 +1,5 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH38_3.2.1.24/3772.kaiju.output	50.000000	1	154046	Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae;Hungatella;Hungatella hathewayi;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH38_3.2.1.24/3772.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH38_3.2.1.24/3772.kaiju.output	0.000000	0	NA	cannot be assigned to a (non-viral) species
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH38_3.2.1.24/3772.kaiju.output	50.000000	1	NA	unclassified

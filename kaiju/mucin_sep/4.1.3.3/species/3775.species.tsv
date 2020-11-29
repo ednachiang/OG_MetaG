@@ -1,0 +1,5 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/4.1.3.3/3775.kaiju.output	50.000000	1	349933	Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae;Clostridium;Clostridium hydrogeniformans;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/4.1.3.3/3775.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/4.1.3.3/3775.kaiju.output	0.000000	0	NA	cannot be assigned to a (non-viral) species
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/4.1.3.3/3775.kaiju.output	50.000000	1	NA	unclassified

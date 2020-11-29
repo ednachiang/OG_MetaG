@@ -1,0 +1,6 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH95_3.2.1.51/3734.kaiju.output	66.666672	4	976	Bacteria;Bacteroidetes;NA;NA;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH95_3.2.1.51/3734.kaiju.output	16.666668	1	1239	Bacteria;Firmicutes;NA;NA;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH95_3.2.1.51/3734.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH95_3.2.1.51/3734.kaiju.output	16.666668	1	NA	cannot be assigned to a (non-viral) phylum
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/mucin/sep_enzymes/GH95_3.2.1.51/3734.kaiju.output	0.000000	0	NA	unclassified

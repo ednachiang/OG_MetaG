@@ -1875,36 +1875,6 @@ ggplot(mucin.sum, aes(x=Season, y=Mean, fill=Season)) +
 
 ```
 
-### Mucin - Sig enzymes barplot
-```{r}
-# Subset sig genes
-sig1 = which(mucin.sum$FullName == "GH27_3.2.1.22")
-sig2 = which(mucin.sum$FullName == "GH36_3.2.1.22")
-sig3 = which(mucin.sum$FullName == "GH84_3.2.1.169")
-sig4 = which(mucin.sum$FullName == "GH110_3.2.1.22")
-mucSig = c(sig1,sig2,sig3,sig4)
-muc.sig.sum <- mucin.sum[mucSig,]
-
-
-# Plot barplot
-tiff("mucin.sig.tiff", width=8, height=4, units="in", res= 300)
-ggplot(muc.sig.sum, aes(x=Season, y=Mean, fill=Season)) +
-  geom_bar(stat="identity", color="black") +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
-  scale_y_continuous(limits=c(0,1.8e-2), breaks=c(0,0.0045, 0.009, 0.0135, 0.018)) +
-  facet_grid(. ~ FullName) +
-  scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ylab("Mean Relative Abundance (%)") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.background = element_blank(),
-        strip.text = element_text(face="bold"),
-        strip.text.x = element_text(size=11),
-        legend.title = element_text(face="bold"),
-        panel.spacing = unit(0.5, "lines"),
-        axis.title.x = element_text(margin = margin(t = 15)))
-dev.off()
-```
 
 ### Mucin - DESeq
 ```{r}

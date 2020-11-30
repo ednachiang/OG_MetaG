@@ -1946,7 +1946,7 @@ mucin.sig <- subset_taxa(muc.norm.phy, FullName == "GH112_2.4.1.211" | FullName 
   
 
 
-tiff("mucin.heatmap.tiff", width=15, height=7, units="in", res=300)
+#tiff("mucin.heatmap.tiff", width=15, height=7, units="in", res=300)
 plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GH110_3.2.1.22", "GH84_3.2.1.169", "GH42_3.2.1.23", "GH36_3.2.1.22", "GH112_2.4.1.211")) +
   geom_tile(colour="gray40") +
   geom_text(aes(label=sprintf("%0.2f", round(Abundance, digits=4))), size = 7) +
@@ -1970,7 +1970,7 @@ plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717"
   guides(fill = guide_colorbar(barheight = unit(5,"in"),
                                frame.colour="black",
                                frame.linewidth=1))
-dev.off()
+#dev.off()
 
 
 ```

@@ -806,138 +806,7 @@ p.adjust(c(0.332, 0.00789, 0.0074, 0.116), method="BH")
 
 
 
-### dbCAN - Family Bray-Curtis NMDS
-```{r}
-# Create family-level physeq object
-colnames(dbcan.fam.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-dbcan.fam.phy <- merge_phyloseq(otu_table(dbcan.fam.norm, taxa_are_rows=T), tax, sample_data(meta.ord))
-sample_data(dbcan.fam.phy)$Season <- ordered(sample_data(dbcan.fam.phy)$Season, levels=c("Summer", "Winter", "Spring"))
-
-#dbcan.nmds <- ordinate(physeq = dbcan.fam.phy, method = "NMDS", distance = "bray")
-  # stress = 0.0731986
-#save(dbcan.nmds, file="dbcan.nmds.RData")
-load("dbcan.nmds.RData")
-
-### NMDS Ellipses
-sample_data(dbcan.fam.phy)$Elip <- paste(sample_data(dbcan.fam.phy)$Season)
-dbcan.elip <- data.frame(MDS1 = dbcan.nmds$points[,1], MDS2 = dbcan.nmds$points[,2],
-                           Group = sample_data(dbcan.fam.phy)$Season)
-plot.new()
-dbcan.elip.ord <- ordiellipse(dbcan.nmds, sample_data(dbcan.fam.phy)$Elip, display="sites", kind="se", conf=0.95, label=T)
-dbcan.elip.df <- data.frame()
-for(i in levels(dbcan.elip$Group)){
-  dbcan.elip.df <- rbind(dbcan.elip.df,
-                           cbind(as.data.frame(with(dbcan.elip[dbcan.elip$Group==i,],
-                                                    veganCovEllipse(dbcan.elip.ord[[i]]$cov,
-                                                                    dbcan.elip.ord[[i]]$center,
-                                                                    dbcan.elip.ord[[i]]$scale))), group=i
-                                 ))
-}
-
-
-### NMDS Ordination
-#tiff("dbcan.nmds.tiff", width=8, height=6, units="in", res=300)
-plot_ordination(physeq = dbcan.fam.phy, ordination = dbcan.nmds, color = "Season") +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  geom_path(data=dbcan.elip.df, aes(x=NMDS1, y=NMDS2, colour=group), size=1, linetype=1) +
-  ggtitle("CAZyme Composition") +
-  geom_point(size=3) +
-  theme(plot.title=element_text(hjust=0.5, size=20),
-        axis.text.x = element_text(size=20),
-        axis.text.y = element_text(size=20),
-        axis.title.x = element_text(size=20),
-        axis.title.y = element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        legend.text = element_text(size=20),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()
-        )
-#dev.off()
-
-
-
-```
-
-### dbCAN - Family Bray-Curtis PCoA
-```{r}
-dbcan.pcoa <- ordinate(physeq = dbcan.fam.phy, method="PCoA", distance="bray")
-plot_ordination(physeq = dbcan.fam.phy, ordination = dbcan.pcoa, axes = c(1,2),
-              color = "Season")
-  # Axis 1 + 2 = 41.9 + 29.7 = 71.6%
-
-```
-
-
-### dbCAN - Family Bray-Curtis PERMANOVA
-```{r}
-### PERMANOVA
-dbcan.bray <- phyloseq::distance(dbcan.fam.phy, method="bray")
-
-# Season
-adonis(dbcan.bray~Season, data=meta, permutations = 99999)
-  # p-value = 0.00725
-  # R2 = 0.53003
-beta.tax = betadisper(d=dbcan.bray, group=meta$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.546
-
-
-# Diet
-adonis(dbcan.bray~Diet, data=meta, permutations = 99999)
-  # p-value = 0.01251
-  # R2 = 0.32065
-beta.tax = betadisper(d=dbcan.bray, group=meta$Diet)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.149
-
-
-# Sex
-adonis(dbcan.bray~Sex, data=meta, permutations = 99999)
-  # p-value = 0.3818
-  # R2 = 0.13182
-beta.tax = betadisper(d=dbcan.bray, group=meta$Sex)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.894
-
-
-
-### Pairwise PERMANOVA - Season
-pairwise.adonis(as.matrix(t(otu_table(dbcan.fam.phy))), meta$Season, sim.method="bray", p.adjust.m="fdr")
-  # Summer-Winter: adj-pval=0.1, R2 = 0.15
-  # Summer-Spring: adj-pval=0.2, R2 = 0.20
-  # Winter-Spring: adj-pval=0.1, R2 = 0.15
-
-
-### Global PERMANOVA is sig, but not pairwise PERMANOVA-- why?
-# https://help.xlstat.com/s/article/how-to-interpret-contradictory-results-between-anova-and-multiple-pairwise-comparisons?language=en_US
-# Likely due to lack of statistical power (small n)
-```
-
-
-### dbCAN - Family UPGMA
-```{r}
-### Create Kendall's Tau Correlation Matrix
-# Using Kendall's instead of Spearman's because Kendall is more accurate w/ smaller n's
-# https://www.statisticssolutions.com/kendalls-tau-and-spearmans-rank-correlation-coefficient/
-# http://www.r-tutor.com/gpu-computing/correlation/kendall-rank-coefficient
-dbcan.cor <- cor(data.frame(otu_table(dbcan.fam.phy)), method = "kendall", use="pairwise")
-
-### UPGMA
-dbcan.upgma <- upgma(dbcan.cor)
-# Rename sample names to make interpreting tree easier
-dbcan.upgma$tip.label <- c("Summer_F_1", "Summer_F_1", "Winter_M_2", "Winter_F_3", "Spring_M_3", "Summer_M_4", "Winter_M_5", "Spring_F_5", "Spring_M_5")
-  # Last number refers to litter
-
-### Plot
-# http://www.phytools.org/Cordoba2017/ex/2/Intro-to-phylogenies.html
-plot(dbcan.upgma, edge.width=2, type="cladogram")
-```
-
-
-### dbCAN - DESeq
+### dbCAN - Create DESeq Object
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 # https://compbiocore.github.io/deseq-workshop-1/assets/deseq_workshop_1.html
@@ -966,8 +835,15 @@ dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Sprin
 
 # DESeq DataStructure for analyses
 dbcan.dds <- DESeq(dbcan.dds)
-#dbcan.rl <- rlog(dbcan.dds, blind=F)
 
+# vst-transformed data for visualizations (VST = variance stabilizing transformation)
+  # Choosing vst instead of rlog due to these two threads:
+    # https://support.bioconductor.org/p/104615/#104650
+    # https://support.bioconductor.org/p/123969/
+dbcan.vst <- vst(dds)
+```
+### dbCAN - DESeq - find overrep genes
+```{r}
 # Pull out results from pairwise comparison
 dbcan.sw <- results(dbcan.dds, contrast=c("Season", "Summer", "Winter"))
 dbcan.sw.sig <- dbcan.sw[which(dbcan.sw$padj < 0.05),]
@@ -987,19 +863,24 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
     # GH3, GH32, GH43, GH5, GH78, GH115, GH42, CE12, GH106, GH10, GH39
 ```
 
-### dbCAN - DESeq Heatmap
+### dbCAN - DESeq heatmap of normalized counts
 ```{r}
 # Note: I tried merging the samples by season so the heatmap only displays Summer, Winter, and Spring, but I get an error that say I have insufficient data. Therefore, I display each sample separately.
 
 # Excluding some families because they has such high counts that it makes the heatmap hard to interpret visually
 # I'll make a separate plot for just GH43, GH3, GT4, and GT41
 
+# NormTransform
+dbcan.ntd <- normTransform(dbcan.dds)
+dbcan.heatmap.phy <- merge_phyloseq(otu_table(assay(dbcan.ntd), taxa_are_rows=T), sample_data(dbcan.fam.norm.phy), tax_table(dbcan.fam.norm.phy))
 
-dbcan.sig <- subset_taxa(dbcan.fam.norm.phy, Family == "GT101" | Family == "GH59" | Family == "PL1" |
+dbcan.sig <- subset_taxa(dbcan.heatmap.phy, Family == "GT101" | Family == "GH59" | Family == "PL1" |
                            Family == "GH10" | Family == "GH115" | Family == "CE12" | Family == "GH5" |
                            Family == "GH32" | Family == "GH39" | Family == "GH42" | Family == "GH78" |
                            Family == "GH106" | Family == "GH20" | Family == "GH84" | Family == "GT3" |
                            Family == "GH9" | Family == "CE11")
+
+
 
 #tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
 plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GH9", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "CE12", "GH115", "GH10", "PL1", "GH59", "GT101")) +
@@ -1007,9 +888,7 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Normalized\nCounts\n"), limits=c(0,300),
-                       breaks=c(0, 100, 200, 300), 
-                       labels=c("0", "100", "200", "300"),
+  scale_fill_gradientn(name=expression("Normalized\nCounts\n"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
                                    "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
   theme(axis.text.x = element_blank(),
@@ -1054,11 +933,46 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
                                frame.linewidth=1))
 dev.off()
 
+
+
+
+
+
+dbcan.sig <- subset_taxa(dbcan.heatmap.phy, Family == "GT101" | Family == "GH59" | Family == "PL1" |
+                           Family == "GH10" | Family == "GH115" | Family == "CE12" | Family == "GH5" |
+                           Family == "GH32" | Family == "GH39" | Family == "GH42" | Family == "GH78" |
+                           Family == "GH106" | Family == "GH20" | Family == "GH84" | Family == "GT3" |
+                           Family == "GH9" | Family == "CE11" | Family == "GH43" | Family == "GH3" |
+                           Family == "GT4" | Family == "GT41")
+
+
+plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GT41", "GT4", "GH3", "GH43", "CE11", "GH9", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "CE12", "GH115", "GH10", "PL1", "GH59", "GT101")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("CAZyme Family\n\n") +
+  scale_fill_gradientn(name=expression("Normalized\nCounts\n"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
+                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
 ```
 
 
 
 
+
+### dbCAN - DESeq 
 ### dbCAN - Testing DESeq plots
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results

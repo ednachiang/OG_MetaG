@@ -22,6 +22,7 @@ library('dplyr')
 library('stringr')
 library('lme4')
 library('picante')
+library('ggdendro')
 theme_set(theme_bw())
 set.seed(1)
 ```
@@ -840,7 +841,7 @@ dbcan.dds <- DESeq(dbcan.dds)
   # Choosing vst instead of rlog due to these two threads:
     # https://support.bioconductor.org/p/104615/#104650
     # https://support.bioconductor.org/p/123969/
-dbcan.vst <- vst(dds)
+dbcan.vsd <- varianceStabilizingTransformation(dbcan.dds)
 ```
 ### dbCAN - DESeq - find overrep genes
 ```{r}
@@ -935,57 +936,83 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
 
 
 
-### dbCAN - DESeq 
-### dbCAN - Testing DESeq plots
-```{r}
-# https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
+### dbCAN - DESeq sample dist heatmap / dendrogram
+``` {r}
+dbcan.dist <- dist(t(assay(dbcan.vsd)))
+dbcan.dist.matrix <- as.matrix(dbcan.dist)
+rownames(dbcan.dist.matrix) <- dbcan.vsd$Season
+colnames(dbcan.dist.matrix) <- dbcan.vsd$Season
 
-# MA plot (log ratio (M) vs. average (A))
-plotMA(dbcan.dds, alpha = 0.05)
+# Heatmap
+pheatmap(dbcan.dist.matrix, clustering_distance_rows = dbcan.dist, clustering_distance_cols = dbcan.dist,
+         col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                 "#bd0026", "#800026"))
 
-# Plot single gene normalized counts
-plotCounts(dbcan.dds, gene="GH20", intgroup="Season")
+# Dendrogram
+dbcan.hclust <- hclust(dbcan.dist)
+dbcan.den <- as.dendrogram(dbcan.hclust)
+dbcan.den.data <- dendro_data(dbcan.den, type="rectangle")
+dbcan.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
+dbcan.den.data$labels[,3] <- ordered(dbcan.den.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
 
-# Heatmap of count matrix
-select <- order(rowMeans(counts(dbcan.dds, normalized=T)), decreasing=T)[1:20]
-df <- as.data.frame(colData(dbcan.dds)[,"Season"])
-pheatmap(assay(normTransform(dbcan.dds)[select,], cluster_rows=F, show_rownames=F, cluster_cols=F, annotation_col=df))
+#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
+ggplot(dbcan.den.data$segments) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_text(data = dbcan.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
+            hjust=0, size=5) +
+  ylab("Cook's Distance") +
+  xlab("Season") +
+  labs(colour = "Season") +
+  coord_flip() +
+  scale_y_reverse() +
+  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size=20),
+        panel.border = element_blank(),
+        axis.line.x = element_line(),
+        legend.title = element_text(face="bold"),
+        axis.title.x = element_text(face="bold", size=20),
+        axis.title.y = element_text(face="bold", size=20))
+#dev.off()
 
-# Heatmap of count matrix (variance stabilizing transformed)
-vsd <- varianceStabilizingTransformation(dbcan.dds, blind=F)
-pheatmap(assay(vsd)[select,])
 
-# Heatmap of count matrix (rlog transformed)
-rld <- rlog(dbcan.dds, blind=F)
-pheatmap(assay(rld)[select,])
-
-# Heatmap of sample-to-sample distances
-sampleDists <- dist(t(assay(vsd)))
-sampleDistMatrix <- as.matrix(sampleDists)
-rownames(sampleDistMatrix) <- paste(vsd$Season, vsd$type, sep="-")
-colnames(sampleDistMatrix) <- NULL
-colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
-pheatmap(sampleDistMatrix,
-         clustering_distance_rows=sampleDists,
-         clustering_distance_cols=sampleDists,
-         col=colors)
-
-# PCA 
-plotPCA(vsd, intgroup=c("Season"))
-
-# Customized PCA
-pcaData <- plotPCA(vsd, intgroup=c("Season"), returnData=TRUE)
-percentVar <- round(100 * attr(pcaData, "percentVar"))
-ggplot(pcaData, aes(PC1, PC2, color=Season)) +
-  geom_point(size=3) +
-  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
-  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
-  coord_fixed()
-
-plot_PCA()
 ```
 
+### dbCAN - sample dist PCA & PERMANOVA
+```{r}
+dbcan.pca.data <- plotPCA(dbcan.vsd, intgroup="Season", returnData=T)
+dbcan.pca.perc <- round(100*attr(dbcan.pca.data, "percentVar"))
+# PCA variance explained = 62%
 
+#tiff("dbcan.pca.tiff", width=8, height=6, units="in", res=300)
+ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
+  geom_point(size=5) +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  xlab(paste0("PC1: ", dbcan.pca.perc[1], "% variance")) +
+  ylab(paste0("PC2: ", dbcan.pca.perc[2], "% variance")) +
+  ggtitle("Cook's Distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust=0.5, size=20))
+#dev.off()
+
+### Run PERMANOVA on DESEq's Cook's distance
+dbcan.dist <- dist(t(assay(dbcan.vsd)))
+adonis(dbcan.dist ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.00721
+beta.tax = betadisper(d=dbcan.dist, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.652
+
+```
 
 ### dbCAN - Kaiju on GH10
 ```{r}

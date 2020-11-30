@@ -870,10 +870,6 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 # Excluding some families because they has such high counts that it makes the heatmap hard to interpret visually
 # I'll make a separate plot for just GH43, GH3, GT4, and GT41
 
-# NormTransform
-dbcan.ntd <- normTransform(dbcan.dds)
-dbcan.heatmap.phy <- merge_phyloseq(otu_table(assay(dbcan.ntd), taxa_are_rows=T), sample_data(dbcan.fam.norm.phy), tax_table(dbcan.fam.norm.phy))
-
 dbcan.sig <- subset_taxa(dbcan.heatmap.phy, Family == "GT101" | Family == "GH59" | Family == "PL1" |
                            Family == "GH10" | Family == "GH115" | Family == "CE12" | Family == "GH5" |
                            Family == "GH32" | Family == "GH39" | Family == "GH42" | Family == "GH78" |
@@ -908,7 +904,7 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
 ### GH43, GH3, GT4, and GT41 plot
 dbcan.high <- subset_taxa(dbcan.fam.norm.phy, Family == "GH43" | Family == "GH3" | Family == "GT4" |
                             Family == "GT41")
-tiff("dbcan.high.heatmap.tiff", width=9, height=3.3, units="in", res=300)
+#tiff("dbcan.high.heatmap.tiff", width=9, height=3.3, units="in", res=300)
 plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GT41", "GT4", "GH3", "GH43")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
@@ -931,41 +927,8 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
   guides(fill = guide_colorbar(barheight = unit(2,"in"),
                                frame.colour="black",
                                frame.linewidth=1))
-dev.off()
+#dev.off()
 
-
-
-
-
-
-dbcan.sig <- subset_taxa(dbcan.heatmap.phy, Family == "GT101" | Family == "GH59" | Family == "PL1" |
-                           Family == "GH10" | Family == "GH115" | Family == "CE12" | Family == "GH5" |
-                           Family == "GH32" | Family == "GH39" | Family == "GH42" | Family == "GH78" |
-                           Family == "GH106" | Family == "GH20" | Family == "GH84" | Family == "GT3" |
-                           Family == "GH9" | Family == "CE11" | Family == "GH43" | Family == "GH3" |
-                           Family == "GT4" | Family == "GT41")
-
-
-plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GT41", "GT4", "GH3", "GH43", "CE11", "GH9", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "CE12", "GH115", "GH10", "PL1", "GH59", "GT101")) +
-  geom_tile(colour="gray40") +
-  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
-  xlab("Season\n\n") +
-  ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Normalized\nCounts\n"),
-                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
-                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_text(size=20),
-        axis.ticks.x = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.border=element_blank(),
-        axis.title.x = element_text(size=20, face="bold"),
-        axis.title.y = element_text(size=20, face="bold"),
-        legend.title = element_text(size=20, face="bold"),
-        legend.text = element_text(size=20)) +
-  guides(fill = guide_colorbar(barheight = unit(7,"in"),
-                               frame.colour="black",
-                               frame.linewidth=1))
 ```
 
 

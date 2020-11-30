@@ -621,47 +621,6 @@ length(which(class == "PL"))
 
 ```
 
-### dbCAN - Compare total normalized CAZyme counts
-```{r}
-# Summarize data
-dbcan.df <- psmelt(dbcan.fam.norm.phy)
-dbcan.sum <- dbcan.df %>%
-  group_by(Sample, Season) %>%
-  summarize(Sum = sum(Abundance))
-dbcan.sum$Season <- ordered(dbcan.sum$Season, levels=c("Summer", "Winter", "Spring"))
-
-## Dot plot
-#tiff("dbcan.normCount.tiff", width=5, height=4, units="in", res= 300)
-ggplot(dbcan.sum, aes(x=Season, y=Sum, fill=Season)) +
-  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
-  scale_y_continuous(limits=c(14900,17100)) +
-  scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  xlab("Season") +
-  ylab("Total Normalized CAZyme Counts") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.background = element_blank(),
-        strip.text = element_text(face="bold"),
-        strip.text.x = element_text(size=11),
-        legend.title = element_text(face="bold"),
-        panel.spacing = unit(0.5, "lines"),
-        axis.title.x = element_text(margin = margin(t = 15)))
-#dev.off()
-
-# Test normality
-hist(dbcan.sum$Sum)
-qqnorm(dbcan.sum$Sum)
-qqline(dbcan.sum$Sum)
-shapiro.test(dbcan.sum$Sum)
-  # p-value = 0.9777
-  # Normal
-
-summary(aov(Sum ~ Season, data=dbcan.sum))
-  # p-value = 0.263
-
-```
-
-
 ### dbCAN - Class-level bar plot
 ```{r}
 # Create phyloseq object to summarize data
@@ -1807,48 +1766,6 @@ length(spr.gene)
   #21
 
 ```
-### Mucin - Compare total normalized mucin-deg counts
-```{r}
-mucin.df <- psmelt(muc.norm.phy)
-mucin.sum <- mucin.df %>%
-  group_by(Sample, Season) %>%
-  summarize(Sum = sum(Abundance))
-mucin.sum$Season = ordered(mucin.sum$Season, levels=c("Summer", "Winter", "Spring"))
-
-#tiff("mucin.normCount.tiff", width=5, height=4, units="in", res= 300)
-ggplot(mucin.sum, aes(x=Season, y=Sum, fill=Season)) +
-  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
-  scale_y_continuous(limits=c(324,436)) +
-  scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  xlab("Season") +
-  ylab("Total Normalized Mucin-Deg Counts") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.background = element_blank(),
-        strip.text = element_text(face="bold"),
-        strip.text.x = element_text(size=11),
-        legend.title = element_text(face="bold"),
-        panel.spacing = unit(0.5, "lines"),
-        axis.title.x = element_text(margin = margin(t = 15)))
-#dev.off()
-
-
-# Test normality
-hist(mucin.sum$Sum)
-qqnorm(mucin.sum$Sum)
-qqline(mucin.sum$Sum)
-shapiro.test(mucin.sum$Sum)
-  # p-value = 0.2094
-  # Normal
-
-summary(aov(Sum ~ Season, data=mucin.sum))
-  # p-value = 0.0252
-TukeyHSD(aov(Sum ~ Season, data=mucin.sum))
-  # Winter - Summer = 0.9990301
-  # Spring - Summer = 0.0389443*
-  # Spring - Winter = 0.0370233*
-```
-
 ### Mucin - Kaiju
 ```{r}
 ########## Phylum ##########

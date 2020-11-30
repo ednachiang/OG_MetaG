@@ -864,6 +864,19 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
     # GH3, GH32, GH43, GH5, GH78, GH115, GH42, CE12, GH106, GH10, GH39
 ```
 
+### dbCAN - DESeq - Diet
+```{r}
+dbcan.diet.dds <- phyloseq_to_deseq2(dbcan.cut.phy, ~Diet)
+dbcan.diet.dds <- DESeq(dbcan.diet.dds)
+dbcan.diet.results <- results(dbcan.diet.dds)
+dbcan.diet.sig <- dbcan.diet.results[which(dbcan.diet.results$padj < 0.05),]
+dbcan.diet.sig[which(dbcan.diet.sig$log2FoldChange > 0),]
+  # Enriched in feeding compared to fasting
+  # PL1, GH43, GH115, CE12, GH106, GH10, GH39, GH59
+dbcan.diet.sig[which(dbcan.diet.sig$log2FoldChange < 0),]
+  # Enriched in fasting compared to feeding
+  # GT4, GT9, CE11, GH84
+```
 ### dbCAN - DESeq heatmap of normalized counts
 ```{r}
 # Note: I tried merging the samples by season so the heatmap only displays Summer, Winter, and Spring, but I get an error that say I have insufficient data. Therefore, I display each sample separately.
@@ -939,6 +952,7 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
 ### dbCAN - DESeq sample dist heatmap / dendrogram
 ``` {r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
+# http://bioconductor.org/packages/devel/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
 
 dbcan.dist <- dist(t(assay(dbcan.vsd)))
 dbcan.dist.matrix <- as.matrix(dbcan.dist)
@@ -962,7 +976,7 @@ ggplot(dbcan.den.data$segments) +
   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
   geom_text(data = dbcan.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Cook's Distance") +
+  ylab("Euclidean Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -995,7 +1009,7 @@ ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   xlab(paste0("PC1: ", dbcan.pca.perc[1], "% variance")) +
   ylab(paste0("PC2: ", dbcan.pca.perc[2], "% variance")) +
-  ggtitle("Cook's Distance") +
+  ggtitle("Euclidean Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -1005,7 +1019,7 @@ ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
         plot.title = element_text(hjust=0.5, size=20))
 #dev.off()
 
-### Run PERMANOVA on DESEq's Cook's distance
+### Run PERMANOVA on DESEq Euclidean distance
 dbcan.dist <- dist(t(assay(dbcan.vsd)))
 adonis(dbcan.dist ~ Season, data=meta, permutations = 99999)
   # p-value = 0.00721
@@ -1937,6 +1951,16 @@ mucin.wp.sig[which(mucin.wp.sig$log2FoldChange < 0),]
 
 
 
+### Mucin - DESeq - Diet
+```{r}
+muc.diet.dds <- phyloseq_to_deseq2(mucin.cut.phy, ~Diet)
+muc.diet.dds <- DESeq(muc.diet.dds)
+muc.diet.results <- results(muc.diet.dds)
+muc.diet.sig <- muc.diet.results[which(muc.diet.results$padj < 0.05),]
+muc.diet.sig[which(muc.diet.sig$log2FoldChange > 0),]
+  # Enriched in feeding compared to fasting
+  # GH36_3.2.1.22
+```
 ### Mucin - Heatmap of normalized counts
 ```{r}
 mucin.sig <- subset_taxa(muc.norm.phy, FullName == "GH112_2.4.1.211" | FullName == "GH36_3.2.1.22" |
@@ -1983,11 +2007,12 @@ plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717"
 ### Mucin - DESeq sample dist heatmap / dendrogram
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
+# http://bioconductor.org/packages/devel/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
 
 muc.dist <- dist(t(assay(muc.vsd)))
 muc.dist.matrix <- as.matrix(muc.dist)
 rownames(muc.dist.matrix) <- muc.vsd$Season
-colnames(muc.dist.matrx) <- muc.vsd$Season
+colnames(muc.dist.matrix) <- muc.vsd$Season
 
 # Heatmap
 pheatmap(muc.dist.matrix, clustering_distance_rows = muc.dist, clustering_distance_cols = muc.dist,
@@ -2006,7 +2031,7 @@ ggplot(muc.den.data$segments) +
   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
   geom_text(data = muc.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Cook's Distance") +
+  ylab("Euclidean Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -2038,7 +2063,7 @@ ggplot(muc.pca.data, aes(PC1, PC2, color=Season)) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   xlab(paste0("PC1: ", muc.pca.perc[1], "% variance")) +
   ylab(paste0("PC2: ", muc.pca.perc[2], "% variance")) +
-  ggtitle("Cook's Distance") +
+  ggtitle("Euclidean Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -2048,7 +2073,7 @@ ggplot(muc.pca.data, aes(PC1, PC2, color=Season)) +
         plot.title = element_text(hjust=0.5, size=20))
 #dev.off()
 
-### Run PERMANOVA on DESEq's Cook's distance
+### Run PERMANOVA on DESEq Euclidean distance
 muc.dist <- dist(t(assay(muc.vsd)))
 adonis(muc.dist ~ Season, data=meta, permutations = 99999)
   # p-value = 0.00366

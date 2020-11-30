@@ -459,6 +459,45 @@ kruskal.test(formula = AGS ~ Season, data = mc)
 ```
 
 
+### dbCAN - Proportion CAZymes from ORFs
+```{r}
+prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
+prodigalCounts <- as.matrix(prodigalCounts)
+# Test normality
+hist(prodigalCounts[3,])
+qqnorm(prodigalCounts[3,])
+qqline(prodigalCounts[3,])
+shapiro.test(prodigalCounts[3,])
+  # p-value = 0.001575
+  # Not Normal
+# Format for Kruskal-Wallis
+prodigalCounts <- read.csv('dbcan/prodigalCounts.csv', row.names=1)
+prodigalCounts <- t(prodigalCounts)
+prodigalCounts <- data.frame(prodigalCounts)
+prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
+prodigalCounts$Diet <- c("Feeding", "Feeding", "Fasting", "Fasting", "Feeding", "Feeding", "Fasting", "Feeding", "Feeding")
+prodigalCounts$Diet <- ordered(prodigalCounts$Diet, levels=c("Feeding", "Fasting"))
+colnames(prodigalCounts) <- c("Total_ORFs", "Total_CAZymes", "CAZymePercentage", "Season", "Diet")
+# Test w/ Kruskal-Wallis
+kruskal.test(formula = CAZymePercentage ~ Season, data = prodigalCounts)
+  # p-value = 0.5611
+kruskal.test(formula = CAZymePercentage ~ Diet, data = prodigalCounts)
+  # p-value = 0.4386
+### Dot plot
+#tiff("dbcan.prop.tiff", width=5, height=4, units="in", res= 300)
+ggplot(prodigalCounts, aes(x=Season, y=CAZymePercentage, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  ylab("% ORFs annotated as CAZyme (%)") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(2.0, 2.6, 3.2, 3.8, 4.4), limits=c(2.0, 4.4)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"))
+#dev.off()
+```
 ### dbCAN - Create phyloseq object
 ```{r}
 # Load data
@@ -1659,6 +1698,41 @@ dbcan.muc.wp.sig[which(dbcan.muc.wp.sig$log2FoldChange < 0),]
 
 
 
+### Mucin - Proportion mucin-degrading genes from ORFs
+```{r}
+prodigalCounts <- read.csv('mucin/prodigalCounts.csv', row.names=1)
+prodigalCounts <- as.matrix(prodigalCounts)
+# Test normality
+hist(prodigalCounts[3,])
+qqnorm(prodigalCounts[3,])
+qqline(prodigalCounts[3,])
+shapiro.test(prodigalCounts[3,])
+  # p-value = 0.05926
+  # Normal
+# Format for ANOVA
+prodigalCounts <- read.csv('mucin/prodigalCounts.csv', row.names=1)
+prodigalCounts <- t(prodigalCounts)
+prodigalCounts <- data.frame(prodigalCounts)
+prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
+colnames(prodigalCounts) <- c("Total_ORFs", "Total_MucinGenes", "MucinGenePercentage", "Season")
+# Test w/ ANOVA
+summary(aov(MucinGenePercentage ~ Season, data = prodigalCounts))
+  # p-value = 0.224
+### Dot plot
+#tiff("mucin.prop.tiff", width=5, height=4, units="in", res= 300)
+ggplot(prodigalCounts, aes(x=Season, y=MucinGenePercentage, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  ylab("% ORFs annotated as Mucin-Degrading Gene (%)") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(0.06, 0.07, 0.08, 0.09), limits=c(0.06, 0.09)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"))
+#dev.off()
+```
 ### Mucin - Create phyloseq object
 ```{r}
 # Load data

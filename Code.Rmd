@@ -1037,7 +1037,9 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.652
 
-### Prepare data for pairwise comparisons
+
+
+### Pairwise PERMANOVA Comparisons
 dbcan.dist.matrix <- as.matrix(dbcan.dist)
 dbcan.dist.df <- data.frame(dbcan.dist.matrix)
 
@@ -1057,9 +1059,9 @@ dbcan.sp.dist.df <- dbcan.sp.dist.df[,-5]
 dbcan.sp.dist.df <- dbcan.sp.dist.df[-3:-4,]
 dbcan.sp.dist.df <- dbcan.sp.dist.df[-5,]
 dbcan.sp.dist <- as.dist(dbcan.sp.dist.df)
-meta.sp <- meta[-which(meta$Season == "Spring"),]
+meta.sp <- meta[-which(meta$Season == "Winter"),]
 adonis(dbcan.sp.dist ~ Season, data=meta.sp, permutations= 99999)
-  # p-value = 0.1
+  # p-value = 0.2
 
 # Spring vs. Winter
 dbcan.wp.dist.df <- dbcan.dist.df[,-3:-4]
@@ -1067,9 +1069,27 @@ dbcan.wp.dist.df <- dbcan.wp.dist.df[,-5]
 dbcan.wp.dist.df <- dbcan.wp.dist.df[-3:-4,]
 dbcan.wp.dist.df <- dbcan.wp.dist.df[-5,]
 dbcan.wp.dist <- as.dist(dbcan.wp.dist.df)
-meta.wp <- meta[-which(meta$Season == "Spring"),]
+meta.wp <- meta[-which(meta$Season == "Summer"),]
 adonis(dbcan.wp.dist ~ Season, data=meta.wp, permutations= 99999)
-  # p-value = 0.1
+  # p-value = 0.2
+
+
+### Pairwise Welch's T-Test Comparisons
+
+# Summer vs. Winter
+meta.sw$Season <- ordered(meta.sw$Season, levels=c("Summer","Winter"))
+WT.test(dbcan.sw.dist, meta.sw$Season)
+  # p-value = 0.123
+
+# Summer vs. Spring
+meta.sp$Season <- ordered(meta.sp$Season, levels=c("Summer","Spring"))
+WT.test(dbcan.sp.dist, meta.sp$Season)
+  # P-value = 0.205
+
+# Winter vs. Spring
+meta.wp$Season <- ordered(meta.wp$Season, levels=c("Winter","Springr"))
+WT.test(dbcan.sp.dist, meta.sp$Season)
+  # p-value = 0.205
 ```
 
 ### dbCAN - Kaiju on GH10

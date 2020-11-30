@@ -938,6 +938,8 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
 
 ### dbCAN - DESeq sample dist heatmap / dendrogram
 ``` {r}
+# https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
+
 dbcan.dist <- dist(t(assay(dbcan.vsd)))
 dbcan.dist.matrix <- as.matrix(dbcan.dist)
 rownames(dbcan.dist.matrix) <- dbcan.vsd$Season
@@ -1875,8 +1877,7 @@ ggplot(mucin.sum, aes(x=Season, y=Mean, fill=Season)) +
 
 ```
 
-
-### Mucin - DESeq
+### Mucin - Create DESeq Object
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 # https://compbiocore.github.io/deseq-workshop-1/assets/deseq_workshop_1.html
@@ -1910,7 +1911,12 @@ mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
 mucin.dds <- DESeq(mucin.dds)
   # DESeq choose fitType = local
 
+# vst-transformed data for visualizations
+muc.vsd <- varianceStabilizingTransformation(mucin.dds)
+```
 
+### Mucin - DESeq - find overrep genes
+```{r}
 # Pull out results from pairwise comparison
 mucin.sw <- results(mucin.dds, contrast=c("Season", "Summer", "Winter"))
 mucin.sw.sig <- mucin.sw[which(mucin.sw$padj < 0.05),]
@@ -1931,7 +1937,7 @@ mucin.wp.sig[which(mucin.wp.sig$log2FoldChange < 0),]
 
 
 
-### Mucin - Heatmap
+### Mucin - Heatmap of normalized counts
 ```{r}
 mucin.sig <- subset_taxa(muc.norm.phy, FullName == "GH112_2.4.1.211" | FullName == "GH36_3.2.1.22" |
                            FullName == "GH42_3.2.1.23" | FullName == "GH84_3.2.1.169" |
@@ -1973,6 +1979,85 @@ dev.off()
 
 
 
+
+### Mucin - DESeq sample dist heatmap / dendrogram
+```{r}
+# https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
+
+muc.dist <- dist(t(assay(muc.vsd)))
+muc.dist.matrix <- as.matrix(muc.dist)
+rownames(muc.dist.matrix) <- muc.vsd$Season
+colnames(muc.dist.matrx) <- muc.vsd$Season
+
+# Heatmap
+pheatmap(muc.dist.matrix, clustering_distance_rows = muc.dist, clustering_distance_cols = muc.dist,
+         col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                 "#bd0026", "#800026"))
+
+# Dendrogram
+muc.hclust <- hclust(muc.dist)
+muc.den <- as.dendrogram(muc.hclust)
+muc.den.data <- dendro_data(muc.den, type="rectangle")
+muc.den.data$labels[,3] <- c("Spring", "Spring", "Summer", "Summer", "Summer", "Spring", "Winter", "Winter", "Winter")
+muc.den.data$labels[,3] <- ordered(muc.den.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
+
+#tiff("mucin.dendro.tiff", width=10, height=5, units="in", res=300)
+ggplot(muc.den.data$segments) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_text(data = muc.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
+            hjust=0, size=5) +
+  ylab("Cook's Distance") +
+  xlab("Season") +
+  labs(colour = "Season") +
+  coord_flip() +
+  scale_y_reverse() +
+  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size=20),
+        panel.border = element_blank(),
+        axis.line.x = element_line(),
+        legend.title = element_text(face="bold"),
+        axis.title.x = element_text(face="bold", size=20),
+        axis.title.y = element_text(face="bold", size=20))
+#dev.off()
+
+```
+
+### Mucin - DESeq sample dist PCA & PERMANOVA
+```{r}
+muc.pca.data <- plotPCA(muc.vsd, intgroup="Season", returnData=T)
+muc.pca.perc <- round(100*attr(muc.pca.data, "percentVar"))
+# PCA variance explained = 71%
+
+#tiff("mucin.pca.tiff", width=8, height=6, units="in", res=300)
+ggplot(muc.pca.data, aes(PC1, PC2, color=Season)) +
+  geom_point(size=5) +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  xlab(paste0("PC1: ", muc.pca.perc[1], "% variance")) +
+  ylab(paste0("PC2: ", muc.pca.perc[2], "% variance")) +
+  ggtitle("Cook's Distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust=0.5, size=20))
+#dev.off()
+
+### Run PERMANOVA on DESEq's Cook's distance
+muc.dist <- dist(t(assay(muc.vsd)))
+adonis(muc.dist ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.00366
+beta.tax = betadisper(d=muc.dist, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.812
+
+```
 ### Mucin - Family-Level for each mucin enzyme
 ```{r}
 # I chose Family-level because that was the taxon that gave the most taxonomic resolution without too many being unclassified

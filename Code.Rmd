@@ -1019,6 +1019,15 @@ ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
         plot.title = element_text(hjust=0.5, size=20))
 #dev.off()
 
+
+### Test normality
+hist(dbcan.dist)
+qqnorm(dbcan.dist)
+qqline(dbcan.dist)
+shapiro.test(dbcan.dist)
+  # p-value = 0.5035
+  # Normal
+
 ### Run PERMANOVA on DESEq Euclidean distance
 dbcan.dist <- dist(t(assay(dbcan.vsd)))
 adonis(dbcan.dist ~ Season, data=meta, permutations = 99999)
@@ -1028,6 +1037,39 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.652
 
+### Prepare data for pairwise comparisons
+dbcan.dist.matrix <- as.matrix(dbcan.dist)
+dbcan.dist.df <- data.frame(dbcan.dist.matrix)
+
+# Summer vs. Winter
+dbcan.sw.dist.df <- dbcan.dist.df[,-5]
+dbcan.sw.dist.df <- dbcan.sw.dist.df[,-7:-8]
+dbcan.sw.dist.df <- dbcan.sw.dist.df[-5,]
+dbcan.sw.dist.df <- dbcan.sw.dist.df[-7:-8,]
+dbcan.sw.dist <- as.dist(dbcan.sw.dist.df)
+meta.sw <- meta[-which(meta$Season == "Spring"),]
+adonis(dbcan.sw.dist ~ Season, data=meta.sw, permutations= 99999)
+  # p-value = 0.1
+
+# Summer vs. Spring
+dbcan.sp.dist.df <- dbcan.dist.df[,-3:-4]
+dbcan.sp.dist.df <- dbcan.sp.dist.df[,-5]
+dbcan.sp.dist.df <- dbcan.sp.dist.df[-3:-4,]
+dbcan.sp.dist.df <- dbcan.sp.dist.df[-5,]
+dbcan.sp.dist <- as.dist(dbcan.sp.dist.df)
+meta.sp <- meta[-which(meta$Season == "Spring"),]
+adonis(dbcan.sp.dist ~ Season, data=meta.sp, permutations= 99999)
+  # p-value = 0.1
+
+# Spring vs. Winter
+dbcan.wp.dist.df <- dbcan.dist.df[,-3:-4]
+dbcan.wp.dist.df <- dbcan.wp.dist.df[,-5]
+dbcan.wp.dist.df <- dbcan.wp.dist.df[-3:-4,]
+dbcan.wp.dist.df <- dbcan.wp.dist.df[-5,]
+dbcan.wp.dist <- as.dist(dbcan.wp.dist.df)
+meta.wp <- meta[-which(meta$Season == "Spring"),]
+adonis(dbcan.wp.dist ~ Season, data=meta.wp, permutations= 99999)
+  # p-value = 0.1
 ```
 
 ### dbCAN - Kaiju on GH10

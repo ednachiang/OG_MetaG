@@ -4,13 +4,14 @@ import pandas as pd
     # Import pandas to use dataframes
 import numpy as np
     # Import numpy to pull out unique values
+import csv
 
 ##### CHANGE THESE PARAMETERS ACCORDINGLY
-directoryeCAMI = 'test_match.dbCAN.eCAMI/eCAMI/'
+directoryeCAMI = '../eCAMI/sig_cazymes/cazymes/'
     # Path to eCAMI outputs
-directoryOutput = 'test_match.dbCAN.eCAMI/output/'
+directoryOutput = '../eCAMI/sig_cazymes/output/'
     # Path to output folder
-pathClass = 'test_match.dbCAN.eCAMI/input/matches.csv'
+pathClass = '../dbcan/sig_cazyme_possible_ECs.csv'
     # Path to doc of ECs to identify for each CAZymes
 
 ##### Define function: Pull out ECs from eCAMI output
@@ -33,6 +34,7 @@ def pullEC(eCAMIFilePath, use):
     classUnique = np.unique(keep)
     return(classUnique)
 
+
 ### Load CAZyme-EC matches
 matches = pd.read_csv(pathClass)
 colnames = matches.columns
@@ -43,7 +45,7 @@ for file1 in os.listdir(directoryeCAMI):
     # Iterate through all folders in eCAMI output directory
     cazymePath = directoryeCAMI + file1
     cazyme = file1
-    matchesDF = pd.DataFrame()
+    matchesDict = { }
 
     for name in colnames:
         if cazyme == name:
@@ -58,9 +60,11 @@ for file1 in os.listdir(directoryeCAMI):
             # Pull out sample ID
         inputPath = cazymePath + '/' + file2
         matchList = pullEC(inputPath, use)
-        matchesDF[sample] = matchList
-    
-    matchesDF = matchesDF.replace(r'\n', ' ', regex=True)
-        # Remove new line characters
+        matchesDict[sample] = matchList
+        
     outputPath = directoryOutput + cazyme + '.EC.match.csv'
-    matchesDF.to_csv(outputPath, index=False)
+
+    # Save dictionary as csv
+    with open(outputPath, 'w') as f:
+        for key in matchesDict.keys():
+            f.write("%s,%s\n"%(key,matchesDict[key]))

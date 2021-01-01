@@ -2333,3 +2333,55 @@ fam.GH130_2.4.1.320.sum.sum <- fam.GH130_2.4.1.320.sum %>%
 
 
 
+
+
+### COG - Normalize by Universal Single-Copy Genes
+```{r}
+# Import raw COG count table
+cog.counts <- read.csv('cog/COG.table.tab', header = T, sep = "\t")
+rownames(cog.counts) <- cog.counts$COG
+cog.counts <- cog.counts[,-1]
+colnames(cog.counts) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+# Prepare universal single-copy COGs
+cog.usg <- c("COG0012", "COG0016", "COG0048", "COG0049", "COG0052", "COG0080", "COG0081", "COG0085", "COG0087", "COG0088", "COG0090", "COG0091", "COG0092", "COG0093", "COG0094", "COG0096", "COG0097", "COG0098", "COG0099", "COG0100", "COG0102", "COG0103", "COG0124", "COG0184", "COG0185", "COG0186", "COG0197", "COG0200", "COG0201", "COG0256", "COG0495", "COG0522", "COG0525", "COG0533", "COG0541")
+cog.usg.df <- data.frame(matrix(NA, nrow = length(cog.usg), ncol = 9))
+rownames(cog.usg.df) <- cog.usg
+colnames(cog.usg.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+# Pull out universal single-copy COGs
+for(i in 1:nrow(cog.counts)){
+  match <- sum(which(cog.usg == rownames(cog.counts)[i]))
+  
+  if (match > 0){
+    rowNum <- which(rownames(cog.usg.df) == rownames(cog.counts)[i])
+    cog.usg.df[rowNum,] <- cog.counts[i,]
+  }
+}
+
+# Average universal single-copy COGs
+cog.usg.avg <- data.frame(matrix(nrow = 1, ncol = 9))
+colnames(cog.usg.avg) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+for(i in 1:ncol(cog.usg.df)){
+  usgNum <- nrow(cog.usg.df)
+  sum <- sum(cog.usg.df[,i])
+  avg <- sum/usgNum
+  cog.usg.avg[,i] <- avg
+}
+
+# Normalize COG counts by dividing by avg universal single-copy COGs for each sample
+cog.norm <- data.frame(matrix(nrow = nrow(cog.counts), ncol = ncol(cog.counts)))
+rownames(cog.norm) <- rownames(cog.counts)
+colnames(cog.norm) <- colnames(cog.counts)
+for(i in 1:ncol(cog.counts)){
+ cog.norm[,i] = cog.counts[,i] / cog.usg.avg[,i]
+}
+
+# Save normalized COG counts
+#write.table(cog.norm, file = "cog/cog.normalized.tab", sep = "\t")
+```
+### COG - Prepare physeq object
+```{r}
+cog.norm <- read.csv('cog/cog.normalized.tab', header = T, sep = "\t")
+
+```

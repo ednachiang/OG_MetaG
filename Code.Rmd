@@ -2335,7 +2335,7 @@ fam.GH130_2.4.1.320.sum.sum <- fam.GH130_2.4.1.320.sum %>%
 
 
 
-### COG - Normalize by Universal Single-Copy Genes
+### COG - Normalize by Universal Single-Copy Genes (Don't run!)
 ```{r}
 # Import raw COG count table
 cog.counts <- read.csv('cog/COG.table.tab', header = T, sep = "\t")
@@ -2380,8 +2380,26 @@ for(i in 1:ncol(cog.counts)){
 # Save normalized COG counts
 #write.table(cog.norm, file = "cog/cog.normalized.tab", sep = "\t")
 ```
-### COG - Prepare physeq object
+### COG - Kruskal-Wallis
 ```{r}
+# Load data
 cog.norm <- read.csv('cog/cog.normalized.tab', header = T, sep = "\t")
+
+# Format data
+cog.df <- data.frame(t(cog.norm))
+rownames(cog.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+cog.df$Season <- ordered(cog.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Run Kruskal-Wallis on all COGs
+cog.kw <- data.frame(matrix(nrow = 1, ncol = nrow(cog.norm)))
+colnames(cog.kw) <- rownames(cog.norm)
+for(i in 1:ncol(cog.df)){
+  cogName <- colnames(cog.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", cogName), data = cog.df)
+  cog.kw[,i] <- kw$p.value
+}
+cog.kw[2,] <- p.adjust(cog.kw[1,], method = "fdr")
+which(cog.kw[2,] < 0.05)
 
 ```

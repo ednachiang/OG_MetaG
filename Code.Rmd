@@ -2385,16 +2385,33 @@ for(i in 1:ncol(cog.counts)){
 # Load data
 cog.norm <- read.csv('cog/cog.normalized.tab', header = T, sep = "\t")
 
+# Identify COGs that appear in only 1 sample
+cog.rem <- list()
+for(i in 1:nrow(cog.norm)){
+  empty <- length(which(cog.norm[i,] == 0))
+    # Identifies number of samples without COG
+  if(empty > 7){
+    # If COG appears in only 1 sample
+    cog.rem <- append(cog.rem, i)
+      # Create list of COGs that appear in only 1 sample
+  }
+}
+cog.rem.row <- as.numeric(cog.rem)
+  # Convert list to numeric
+
+# Remove COGs that appear in only 1 sample
+cog.norm.rem <- cog.norm[-cog.rem.row,]
+
 # Format data
-cog.df <- data.frame(t(cog.norm))
+cog.df <- data.frame(t(cog.norm.rem))
 rownames(cog.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 cog.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 cog.df$Season <- ordered(cog.df$Season, levels=c("Summer", "Winter", "Spring"))
 
 # Run Kruskal-Wallis on all COGs
-cog.kw <- data.frame(matrix(nrow = 1, ncol = nrow(cog.norm)))
-colnames(cog.kw) <- rownames(cog.norm)
-for(i in 1:nrow(cog.norm)){
+cog.kw <- data.frame(matrix(nrow = 1, ncol = nrow(cog.norm.rem)))
+colnames(cog.kw) <- rownames(cog.norm.rem)
+for(i in 1:nrow(cog.norm.rem)){
   cogName <- colnames(cog.df)[i]
   kw <- kruskal.test(formula = reformulate("Season", cogName), data = cog.df)
   cog.kw[,i] <- kw$p.value

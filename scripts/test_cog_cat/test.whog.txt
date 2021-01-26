@@ -1,0 +1,122 @@
+[H] COG0001 Glutamate-1-semialdehyde aminotransferase
+  Afu:  AF1241
+  Hbs:  VNG2326G
+  Mac:  MA0581
+  Mth:  MTH228
+  Mja:  MJ0603
+  Mka:  MK0280
+  Tac:  Ta0571
+  Tvo:  TVN0635
+  Pya:  PAE0594
+  Sso:  SSO0182
+  Ape:  APE2130 APE2299
+  Spo:  SPCC417.11c
+  Aae:  aq_816
+  Fnu:  FN0540
+  Dra:  DR0555
+  Cac:  CAC0099
+  Cgl:  Cgl0432
+  Mtu:  Rv0524
+  MtC:  MT0546
+  Mle:  ML2414
+  Sau:  SA1491 SA1681
+  Lin:  lin1588 lin1793
+  Bsu:  BS_gsaB BS_hemL
+  Bha:  BH0943 BH2941 BH3043
+  Syn:  sll0017
+  Nos:  all2638 alr3265
+  Eco:  hemL
+  EcZ:  ZhemL
+  Ecs:  ECs0158
+  Ype:  YPO3389
+  Sty:  STM0202
+  Vch:  VC0626
+  Pae:  PA3977 PA4088 PA5523
+  Pmu:  PM0462
+  Xfa:  XF2302
+  Nme:  NMB1864
+  NmA:  NMA0592
+  Rso:  RSc0666 RSp0641_3
+  Hpy:  HP0306
+  jHp:  jhp0291
+  Cje:  Cj0853c
+  Atu:  AGl159 AGl2319 AGpA182
+  Sme:  SMa0956
+  Bme:  BMEII0192 BMEII0834
+  Mlo:  mll5149
+  Ccr:  CC3139
+  Ctr:  CT210
+  Cpn:  CPn0138
+_______
+
+[E] COG0002 Acetylglutamate semialdehyde dehydrogenase
+  Afu:  AF2071
+  Mac:  MA3566
+  Mth:  MTH846
+  Mja:  MJ1096
+  Mka:  MK1077
+  Pho:  PH1720
+  Pab:  PAB0291
+  Pya:  PAE2881
+  Sso:  SSO0155
+  Ape:  APE1462
+  Sce:  YER069w_2
+  Spo:  SPAC4G9.09c_3
+  Aae:  aq_1879
+  Tma:  TM1782
+  Dra:  DR0078 DR0963
+  Cac:  CAC2390
+  Cgl:  Cgl1361
+  Mtu:  Rv1652
+  MtC:  MT1690
+  Mle:  ML1406
+  Lla:  L0104
+  Sau:  SA0178
+  Lin:  lin1633
+  Bsu:  BS_argC
+  Bha:  BH2900
+  Syn:  sll0080
+  Nos:  all2498 alr3537
+  Eco:  argC
+  EcZ:  ZargC
+  Ecs:  ECs4887
+  Ype:  YPO3927
+  Sty:  STM4121
+  Buc:  BU048
+  Vch:  VC2644
+  Pae:  PA0662
+  Pmu:  PM1118
+  Xfa:  XF1002
+  Nme:  NMB1787
+  NmA:  NMA0676
+  Rso:  RSc0142
+  Cje:  Cj0224
+  Atu:  AGc2293
+  Sme:  SMc01801
+  Bme:  BMEI1171
+  Mlo:  mll8452
+  Ccr:  CC1378
+_______
+
+[P] COG0003 Oxyanion-translocating ATPase
+  Hbs:  VNG0365G VNG7123
+  Mth:  MTH1511
+  Mja:  MJ1142
+  Mka:  MK1680
+  Tac:  Ta0437
+  Tvo:  TVN0026 TVN1056
+  Pab:  PAB1555
+  Pya:  PAE1427
+  Ape:  APE2164 APE2165
+  Sce:  YDL100c
+  Spo:  SPAC1142.06
+  Aae:  aq_343 aq_682
+  Fnu:  FN1537 FN1538
+  Mtu:  Rv2184c Rv3679 Rv3680
+  MtC:  MT2239 MT3781 MT3782
+  Mle:  ML0890 ML2305 ML2306
+  Lin:  pli0037
+  Bha:  BH1795
+  Syn:  sll0086 slr1794
+  Nos:  all2244 all2700 all4481
+_______

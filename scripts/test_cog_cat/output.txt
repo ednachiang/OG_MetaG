@@ -1,0 +1,3 @@
+COG0001	[H]	['Glutamate-1-semialdehyde']
+COG0002	[E]	['Acetylglutamate', 'semialdehyde']
+COG0003	[P]	['Oxyanion-translocating']

@@ -513,8 +513,8 @@ COG0530	Ca2+/Na+ antiporter	67
 COG0531	Amino acid transporters	44
 COG0532	Translation initiation factor 2 (IF-2; GTPase)	106
 COG0533	Metal-dependent proteases with possible chaperone activity	82
-COG0534	Na+-driven multidrug efflux pump	726
-COG0535	Predicted Fe-S oxidoreductases	98
+COG0534	Na+-driven multidrug efflux pump	727
+COG0535	Predicted Fe-S oxidoreductases	99
 COG0536	Predicted GTPase	79
 COG0537	Diadenosine tetraphosphate (Ap4A) hydrolase and other HIT family hydrolases	75
 COG0538	Isocitrate dehydrogenases	30
@@ -555,7 +555,7 @@ COG0573	ABC-type phosphate transport system, permease component	31
 COG0574	Phosphoenolpyruvate synthase/pyruvate phosphate dikinase	169
 COG0575	CDP-diglyceride synthetase	55
 COG0576	Molecular chaperone GrpE (heat shock protein)	58
-COG0577	ABC-type antimicrobial peptide transport system, permease component	251
+COG0577	ABC-type antimicrobial peptide transport system, permease component	252
 COG0578	Glycerol-3-phosphate dehydrogenase	21
 COG0579	Predicted dehydrogenase	20
 COG0580	Glycerol uptake facilitator and related permeases (Major Intrinsic Protein Family)	37
@@ -1288,7 +1288,6 @@ COG1528	Ferritin-like protein	54
 COG1529	Aerobic-type carbon monoxide dehydrogenase, large subunit CoxL/CutL homologs	48
 COG1530	Ribonucleases G and E	85
 COG1532	Predicted RNA-binding protein	1
-COG1533	DNA repair photolyase	19
 COG1534	Predicted RNA-binding protein containing KH domain, possibly ribosomal protein	10
 COG1536	Flagellar motor switch protein	1
 COG1537	Predicted RNA-binding proteins	4
@@ -1317,7 +1316,6 @@ COG1566	Multidrug resistance efflux pump	147
 COG1567	Uncharacterized protein predicted to be involved in DNA repair (RAMP superfamily)	3
 COG1569	Predicted nucleic acid-binding protein, contains PIN domain	15
 COG1570	Exonuclease VII, large subunit	82
-COG1572	Uncharacterized conserved protein	1
 COG1573	Uracil-DNA glycosylase	22
 COG1574	Predicted metal-dependent hydrolase with the TIM-barrel fold	24
 COG1575	1,4-dihydroxy-2-naphthoate octaprenyltransferase	47

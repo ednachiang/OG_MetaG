@@ -515,7 +515,7 @@ COG0531	Amino acid transporters	65
 COG0532	Translation initiation factor 2 (IF-2; GTPase)	155
 COG0533	Metal-dependent proteases with possible chaperone activity	138
 COG0534	Na+-driven multidrug efflux pump	1022
-COG0535	Predicted Fe-S oxidoreductases	124
+COG0535	Predicted Fe-S oxidoreductases	125
 COG0536	Predicted GTPase	106
 COG0537	Diadenosine tetraphosphate (Ap4A) hydrolase and other HIT family hydrolases	109
 COG0538	Isocitrate dehydrogenases	40
@@ -660,7 +660,7 @@ COG0680	Ni,Fe-hydrogenase maturation factor	11
 COG0681	Signal peptidase I	102
 COG0682	Prolipoprotein diacylglyceryltransferase	105
 COG0683	ABC-type branched-chain amino acid transport systems, periplasmic component	72
-COG0684	Demethylmenaquinone methyltransferase	27
+COG0684	Demethylmenaquinone methyltransferase	28
 COG0685	5,10-methylenetetrahydrofolate reductase	49
 COG0686	Alanine dehydrogenase	56
 COG0687	Spermidine/putrescine-binding periplasmic protein	62
@@ -862,7 +862,7 @@ COG1027	Aspartate ammonia-lyase	37
 COG1028	Dehydrogenases with different specificities (related to short-chain alcohol dehydrogenases)	392
 COG1030	Membrane-bound serine protease (ClpP class)	24
 COG1031	Uncharacterized Fe-S oxidoreductase	1
-COG1032	Fe-S oxidoreductase	171
+COG1032	Fe-S oxidoreductase	172
 COG1033	Predicted exporters of the RND superfamily	38
 COG1034	NADH dehydrogenase/NADH:ubiquinone oxidoreductase 75 kD subunit (chain G)	36
 COG1035	Coenzyme F420-reducing hydrogenase, beta subunit	24
@@ -1296,7 +1296,6 @@ COG1527	Archaeal/vacuolar-type H+-ATPase subunit C	13
 COG1528	Ferritin-like protein	65
 COG1529	Aerobic-type carbon monoxide dehydrogenase, large subunit CoxL/CutL homologs	66
 COG1530	Ribonucleases G and E	104
-COG1533	DNA repair photolyase	41
 COG1534	Predicted RNA-binding protein containing KH domain, possibly ribosomal protein	22
 COG1536	Flagellar motor switch protein	18
 COG1537	Predicted RNA-binding proteins	1
@@ -1324,7 +1323,6 @@ COG1566	Multidrug resistance efflux pump	172
 COG1567	Uncharacterized protein predicted to be involved in DNA repair (RAMP superfamily)	1
 COG1569	Predicted nucleic acid-binding protein, contains PIN domain	9
 COG1570	Exonuclease VII, large subunit	111
-COG1572	Uncharacterized conserved protein	1
 COG1573	Uracil-DNA glycosylase	52
 COG1574	Predicted metal-dependent hydrolase with the TIM-barrel fold	49
 COG1575	1,4-dihydroxy-2-naphthoate octaprenyltransferase	43
@@ -3254,7 +3252,7 @@ COG5275	BRCT domain type II	1
 COG5276	Uncharacterized conserved protein	1
 COG5277	Actin and related proteins	8
 COG5279	Uncharacterized protein involved in cytokinesis, contains TGc (transglutaminase/protease-like) domain	50
-COG5280	Phage-related minor tail protein	9
+COG5280	Phage-related minor tail protein	10
 COG5281	Phage-related minor tail protein	4
 COG5283	Phage-related tail protein	12
 COG5291	Predicted membrane protein	1

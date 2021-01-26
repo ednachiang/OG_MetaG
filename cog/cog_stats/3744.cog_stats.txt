@@ -439,7 +439,7 @@ COG0450	Peroxiredoxin	29
 COG0451	Nucleoside-diphosphate-sugar epimerases	670
 COG0452	Phosphopantothenoylcysteine synthetase/decarboxylase	134
 COG0455	ATPases involved in chromosome partitioning	23
-COG0456	Acetyltransferases	513
+COG0456	Acetyltransferases	514
 COG0457	FOG: TPR repeat	106
 COG0458	Carbamoylphosphate synthase large subunit (split gene in MJ)	391
 COG0459	Chaperonin GroEL (HSP60 family)	223
@@ -515,7 +515,7 @@ COG0531	Amino acid transporters	67
 COG0532	Translation initiation factor 2 (IF-2; GTPase)	244
 COG0533	Metal-dependent proteases with possible chaperone activity	206
 COG0534	Na+-driven multidrug efflux pump	1692
-COG0535	Predicted Fe-S oxidoreductases	233
+COG0535	Predicted Fe-S oxidoreductases	234
 COG0536	Predicted GTPase	158
 COG0537	Diadenosine tetraphosphate (Ap4A) hydrolase and other HIT family hydrolases	156
 COG0538	Isocitrate dehydrogenases	73
@@ -856,7 +856,7 @@ COG1027	Aspartate ammonia-lyase	36
 COG1028	Dehydrogenases with different specificities (related to short-chain alcohol dehydrogenases)	680
 COG1030	Membrane-bound serine protease (ClpP class)	31
 COG1031	Uncharacterized Fe-S oxidoreductase	2
-COG1032	Fe-S oxidoreductase	255
+COG1032	Fe-S oxidoreductase	256
 COG1033	Predicted exporters of the RND superfamily	74
 COG1034	NADH dehydrogenase/NADH:ubiquinone oxidoreductase 75 kD subunit (chain G)	40
 COG1035	Coenzyme F420-reducing hydrogenase, beta subunit	66
@@ -1165,7 +1165,7 @@ COG1392	Phosphate transport regulator (distant homolog of PhoU)	9
 COG1393	Arsenate reductase and related proteins, glutaredoxin family	52
 COG1394	Archaeal/vacuolar-type H+-ATPase subunit D	52
 COG1395	Predicted transcriptional regulator	5
-COG1396	Predicted transcriptional regulators	1112
+COG1396	Predicted transcriptional regulators	1113
 COG1397	ADP-ribosylglycohydrolase	75
 COG1399	Predicted metal-binding, possibly nucleic acid-binding protein	75
 COG1401	GTPase subunit of restriction endonuclease	45
@@ -1273,7 +1273,6 @@ COG1528	Ferritin-like protein	83
 COG1529	Aerobic-type carbon monoxide dehydrogenase, large subunit CoxL/CutL homologs	75
 COG1530	Ribonucleases G and E	147
 COG1532	Predicted RNA-binding protein	2
-COG1533	DNA repair photolyase	80
 COG1534	Predicted RNA-binding protein containing KH domain, possibly ribosomal protein	46
 COG1536	Flagellar motor switch protein	26
 COG1538	Outer membrane protein	503
@@ -2813,7 +2812,7 @@ COG4413	Urea transporter	20
 COG4416	Mu-like prophage protein Com	1
 COG4420	Predicted membrane protein	1
 COG4421	Capsular polysaccharide biosynthesis protein	7
-COG4422	Bacteriophage protein gp37	49
+COG4422	Bacteriophage protein gp37	50
 COG4430	Uncharacterized protein conserved in bacteria	20
 COG4443	Uncharacterized protein conserved in bacteria	15
 COG4447	Uncharacterized protein related to plant photosystem II stability/assembly factor	2

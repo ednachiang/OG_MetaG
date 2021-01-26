@@ -557,14 +557,14 @@ COG0573	ABC-type phosphate transport system, permease component	57
 COG0574	Phosphoenolpyruvate synthase/pyruvate phosphate dikinase	359
 COG0575	CDP-diglyceride synthetase	108
 COG0576	Molecular chaperone GrpE (heat shock protein)	131
-COG0577	ABC-type antimicrobial peptide transport system, permease component	354
+COG0577	ABC-type antimicrobial peptide transport system, permease component	355
 COG0578	Glycerol-3-phosphate dehydrogenase	13
 COG0579	Predicted dehydrogenase	52
 COG0580	Glycerol uptake facilitator and related permeases (Major Intrinsic Protein Family)	46
 COG0581	ABC-type phosphate transport system, permease component	53
 COG0582	Integrase	202
 COG0583	Transcriptional regulator	717
-COG0584	Glycerophosphoryl diester phosphodiesterase	120
+COG0584	Glycerophosphoryl diester phosphodiesterase	121
 COG0585	Uncharacterized conserved protein	3
 COG0586	Uncharacterized membrane-associated protein	51
 COG0587	DNA polymerase III, alpha subunit	505
@@ -861,7 +861,7 @@ COG1027	Aspartate ammonia-lyase	31
 COG1028	Dehydrogenases with different specificities (related to short-chain alcohol dehydrogenases)	677
 COG1030	Membrane-bound serine protease (ClpP class)	29
 COG1031	Uncharacterized Fe-S oxidoreductase	1
-COG1032	Fe-S oxidoreductase	269
+COG1032	Fe-S oxidoreductase	271
 COG1033	Predicted exporters of the RND superfamily	70
 COG1034	NADH dehydrogenase/NADH:ubiquinone oxidoreductase 75 kD subunit (chain G)	46
 COG1035	Coenzyme F420-reducing hydrogenase, beta subunit	45
@@ -1303,7 +1303,6 @@ COG1528	Ferritin-like protein	90
 COG1529	Aerobic-type carbon monoxide dehydrogenase, large subunit CoxL/CutL homologs	105
 COG1530	Ribonucleases G and E	161
 COG1532	Predicted RNA-binding protein	1
-COG1533	DNA repair photolyase	80
 COG1534	Predicted RNA-binding protein containing KH domain, possibly ribosomal protein	48
 COG1536	Flagellar motor switch protein	31
 COG1537	Predicted RNA-binding proteins	5
@@ -1333,7 +1332,6 @@ COG1567	Uncharacterized protein predicted to be involved in DNA repair (RAMP sup
 COG1569	Predicted nucleic acid-binding protein, contains PIN domain	27
 COG1570	Exonuclease VII, large subunit	184
 COG1571	Predicted DNA-binding protein containing a Zn-ribbon domain	1
-COG1572	Uncharacterized conserved protein	1
 COG1573	Uracil-DNA glycosylase	71
 COG1574	Predicted metal-dependent hydrolase with the TIM-barrel fold	48
 COG1575	1,4-dihydroxy-2-naphthoate octaprenyltransferase	53
@@ -2901,7 +2899,7 @@ COG4412	Uncharacterized protein conserved in bacteria	31
 COG4413	Urea transporter	18
 COG4420	Predicted membrane protein	3
 COG4421	Capsular polysaccharide biosynthesis protein	10
-COG4422	Bacteriophage protein gp37	65
+COG4422	Bacteriophage protein gp37	66
 COG4430	Uncharacterized protein conserved in bacteria	17
 COG4443	Uncharacterized protein conserved in bacteria	8
 COG4448	L-asparaginase II	4

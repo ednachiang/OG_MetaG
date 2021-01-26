@@ -2379,7 +2379,28 @@ for(i in 1:ncol(cog.counts)){
 
 # Save normalized COG counts
 #write.table(cog.norm, file = "cog/cog.normalized.tab", sep = "\t")
+
+# Normalize COG category counts by dividing by avg universal single-copy COGs for each sample
+cog.cat <- read.csv('cog/cog.category.csv', header = T)
+rownames(cog.cat) <- cog.cat[,1]
+cog.cat <- cog.cat[,-1]
+colnames(cog.cat) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.cat.norm <- data.frame(matrix(nrow = 25, ncol = 9))
+rownames(cog.cat.norm) <- rownames(cog.cat)
+colnames(cog.cat.norm) <- colnames(cog.cat)
+for(i in 1:ncol(cog.cat)){
+ cog.cat.norm[,i] = cog.cat[,i] / cog.usg.avg[,i]
+}
+
+# Save normalized COG category counts
+#write.csv(cog.cat.norm, file = "cog/cog.category.normalized.csv")
+
 ```
+
+### COG Category - Kruskal-Wallis
+```{r}
+```
+
 ### COG - Kruskal-Wallis
 ```{r}
 # Load data

@@ -1,0 +1,16 @@
+"","Season","Phylum","Mean","SD","SE"
+"1","Summer","Bacteroidetes",51.4285714285714,17.3793215151378,10.0339559550978
+"2","Summer","Firmicutes",27.6190476190476,12.8835707223511,7.43833302467301
+"3","Summer","Unclassified",17.6190476190476,9.72408469364864,5.61420291550076
+"4","Summer","Verrucomicrobia",3.33333333333333,5.77350269189626,3.33333333333333
+"5","Summer","Viruses",0,0,0
+"6","Winter","Bacteroidetes",75,25,14.4337567297406
+"7","Winter","Firmicutes",25,25,14.4337567297406
+"8","Winter","Unclassified",0,0,0
+"9","Winter","Verrucomicrobia",0,0,0
+"10","Winter","Viruses",0,0,0
+"11","Spring","Bacteroidetes",27.7777777777778,25.4587538608658,14.6986183948033
+"12","Spring","Firmicutes",63.8888888888889,37.5770812735241,21.6951379886296
+"13","Spring","Unclassified",8.33333333333333,14.4337567297406,8.33333333333333
+"14","Spring","Verrucomicrobia",0,0,0
+"15","Spring","Viruses",0,0,0

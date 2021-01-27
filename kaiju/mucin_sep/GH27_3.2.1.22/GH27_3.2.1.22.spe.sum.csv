@@ -1,0 +1,61 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Alistipes timonensis",0,0,0
+"2","Summer","Bacteroides fragilis",22.3809523809524,10.7222192849502,6.19047619047619
+"3","Summer","Bacteroides intestinalis",3.33333333333333,5.77350269189626,3.33333333333333
+"4","Summer","Clostridia bacterium",0,0,0
+"5","Summer","Clostridiales bacterium NK3B98",9.52380952380952,8.24786098842323,4.76190476190476
+"6","Summer","Draconibacterium sp. GM2-18",3.33333333333333,5.77350269189626,3.33333333333333
+"7","Summer","Eubacterium sp. CAG:115",3.33333333333333,5.77350269189626,3.33333333333333
+"8","Summer","Eubacterium sp. CAG:180",0,0,0
+"9","Summer","Eubacterium sp. CAG:786",0,0,0
+"10","Summer","Faecalibacterium sp. CAG:74_58_120",3.33333333333333,5.77350269189626,3.33333333333333
+"11","Summer","Lachnospiraceae bacterium MD308",0,0,0
+"12","Summer","Odoribacter sp. AF15-53",4.76190476190476,8.24786098842323,4.76190476190476
+"13","Summer","Prevotella sp. P6B4",3.33333333333333,5.77350269189626,3.33333333333333
+"14","Summer","Prolixibacteraceae bacterium MeG22",0,0,0
+"15","Summer","Roseburia intestinalis",8.09523809523809,7.33085919920983,4.23247353205504
+"16","Summer","Roseburia sp. CAG:10041_57",3.33333333333333,5.77350269189626,3.33333333333333
+"17","Summer","Ruminococcus sp. CAG:177",0,0,0
+"18","Summer","Unclassified",31.9047619047619,18.9700802733734,10.952380952381
+"19","Summer","Verrucomicrobiaceae bacterium",3.33333333333333,5.77350269189626,3.33333333333333
+"20","Summer","Viruses",0,0,0
+"21","Winter","Alistipes timonensis",6.66666666666667,11.5470053837925,6.66666666666667
+"22","Winter","Bacteroides fragilis",15,13.228756555323,7.63762615825973
+"23","Winter","Bacteroides intestinalis",0,0,0
+"24","Winter","Clostridia bacterium",0,0,0
+"25","Winter","Clostridiales bacterium NK3B98",0,0,0
+"26","Winter","Draconibacterium sp. GM2-18",0,0,0
+"27","Winter","Eubacterium sp. CAG:115",0,0,0
+"28","Winter","Eubacterium sp. CAG:180",0,0,0
+"29","Winter","Eubacterium sp. CAG:786",0,0,0
+"30","Winter","Faecalibacterium sp. CAG:74_58_120",0,0,0
+"31","Winter","Lachnospiraceae bacterium MD308",0,0,0
+"32","Winter","Odoribacter sp. AF15-53",23.3333333333333,25.1661147842358,14.5296631451356
+"33","Winter","Prevotella sp. P6B4",8.33333333333333,14.4337567297406,8.33333333333333
+"34","Winter","Prolixibacteraceae bacterium MeG22",6.66666666666667,11.5470053837925,6.66666666666667
+"35","Winter","Roseburia intestinalis",0,0,0
+"36","Winter","Roseburia sp. CAG:10041_57",0,0,0
+"37","Winter","Ruminococcus sp. CAG:177",8.33333333333333,14.4337567297406,8.33333333333333
+"38","Winter","Unclassified",31.6666666666667,16.0727512683216,9.27960727138337
+"39","Winter","Verrucomicrobiaceae bacterium",0,0,0
+"40","Winter","Viruses",0,0,0
+"41","Spring","Alistipes timonensis",0,0,0
+"42","Spring","Bacteroides fragilis",0,0,0
+"43","Spring","Bacteroides intestinalis",0,0,0
+"44","Spring","Clostridia bacterium",6.66666666666667,11.5470053837925,6.66666666666667
+"45","Spring","Clostridiales bacterium NK3B98",8.33333333333333,14.4337567297406,8.33333333333333
+"46","Spring","Draconibacterium sp. GM2-18",5.55555555555555,9.62250448649376,5.55555555555556
+"47","Spring","Eubacterium sp. CAG:115",0,0,0
+"48","Spring","Eubacterium sp. CAG:180",6.66666666666667,11.5470053837925,6.66666666666667
+"49","Spring","Eubacterium sp. CAG:786",5.55555555555555,9.62250448649376,5.55555555555556
+"50","Spring","Faecalibacterium sp. CAG:74_58_120",0,0,0
+"51","Spring","Lachnospiraceae bacterium MD308",5.55555555555555,9.62250448649376,5.55555555555556
+"52","Spring","Odoribacter sp. AF15-53",0,0,0
+"53","Spring","Prevotella sp. P6B4",0,0,0
+"54","Spring","Prolixibacteraceae bacterium MeG22",0,0,0
+"55","Spring","Roseburia intestinalis",11.1111111111111,19.2450089729875,11.1111111111111
+"56","Spring","Roseburia sp. CAG:10041_57",6.66666666666667,11.5470053837925,6.66666666666667
+"57","Spring","Ruminococcus sp. CAG:177",0,0,0
+"58","Spring","Unclassified",43.8888888888889,29.3604672482751,16.9512736693248
+"59","Spring","Verrucomicrobiaceae bacterium",0,0,0
+"60","Spring","Viruses",0,0,0

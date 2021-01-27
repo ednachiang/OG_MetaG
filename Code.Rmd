@@ -23,6 +23,7 @@ library('stringr')
 library('lme4')
 library('picante')
 library('ggdendro')
+library('fitdistrplus')
 theme_set(theme_bw())
 set.seed(1)
 ```
@@ -596,7 +597,7 @@ ggplot(dbcan.den.data$segments) +
 
 ```
 
-### dbCAN - sample dist PCA & PERMANOVA
+### dbCAN - Sample dist PCA & PERMANOVA
 ```{r}
 dbcan.pca.data <- plotPCA(dbcan.vsd, intgroup="Season", returnData=T)
 dbcan.pca.perc <- round(100*attr(dbcan.pca.data, "percentVar"))
@@ -1603,6 +1604,41 @@ which(cog.kw[2,] < 0.05)
 
 ```
 
+### COG - Variance stabilizing transformation
+```{r}
+a <- as.numeric(cog.norm[,1])
+b <- as.numeric(cog.norm[,2])
+c <- as.numeric(cog.norm[,3])
+d <- as.numeric(cog.norm[,4])
+e <- as.numeric(cog.norm[,5])
+f <- as.numeric(cog.norm[,6])
+g <- as.numeric(cog.norm[,7])
+h <- as.numeric(cog.norm[,8])
+i <- as.numeric(cog.norm[,9])
+cog.num <- c(a,b,c,d,e,f,g,h,i)
+cog.num <- na.omit(cog.num)
+descdist(test, discrete = F, boot=1000)
+  # min:  0   max:  17.58868 
+  # median:  0.1220457 
+  # mean:  0.4213211 
+  # estimated sd:  0.797082 
+  # estimated skewness:  6.432063 
+  # estimated kurtosis:  75.04978 
+
+test <- cog.num[-which(cog.num == 0)]
+fw <- fitdist(test, "weibull")
+fg <- fitdist(test, "gamma")
+fe <- fitdist(test, "exp")
+
+par(mfrow = c(2, 2))
+plot.legend <- c("Weibull", "gamma", "expo")
+denscomp(list(fw, fg, fe), legendtext = plot.legend)
+qqcomp(list(fw, fg, fe), legendtext = plot.legend)
+cdfcomp(list(fw, fg, fe), legendtext = plot.legend)
+ppcomp(list(fw, fg, fe), legendtext = plot.legend)
+
+gofstat(list(fw, fg, fe))
+```
 ### KEGG - Kruskal-Wallis
 ```{r}
 # Load data

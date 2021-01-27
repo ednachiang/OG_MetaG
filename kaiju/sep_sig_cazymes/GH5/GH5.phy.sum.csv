@@ -1,0 +1,16 @@
+"","Season","Phylum","Mean","SD","SE"
+"1","Summer","Actinobacteria",0,0,0
+"2","Summer","Bacteroidetes",4.44444444444444,7.69800358919501,4.44444444444445
+"3","Summer","Firmicutes",57.037037037037,37.864823464095,21.8612660198129
+"4","Summer","Unclassified",38.5185185185185,30.1709805250612,17.419223727859
+"5","Summer","Viruses",0,0,0
+"6","Winter","Actinobacteria",0,0,0
+"7","Winter","Bacteroidetes",0,0,0
+"8","Winter","Firmicutes",50,50,28.8675134594813
+"9","Winter","Unclassified",50,50,28.8675134594813
+"10","Winter","Viruses",0,0,0
+"11","Spring","Actinobacteria",7.03703703703704,6.11952283031789,3.53310815339609
+"12","Spring","Bacteroidetes",3.7037037037037,6.41500299099584,3.7037037037037
+"13","Spring","Firmicutes",29.6825396825397,8.46941052187562,4.88981644468234
+"14","Spring","Unclassified",59.5767195767196,13.4127766817791,7.74387022780549
+"15","Spring","Viruses",0,0,0

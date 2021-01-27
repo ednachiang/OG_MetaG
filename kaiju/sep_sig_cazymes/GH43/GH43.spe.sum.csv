@@ -1,0 +1,46 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Bacteroides fragilis",3.33333333333333,5.77350269189626,3.33333333333333
+"2","Summer","Bacteroides xylanisolvens",0,0,0
+"3","Summer","Clostridiales bacterium",5.55555555555555,9.62250448649376,5.55555555555556
+"4","Summer","Coprobacillus sp. CAG:826",4.16666666666667,7.21687836487032,4.16666666666667
+"5","Summer","Eisenbergiella massiliensis",0,0,0
+"6","Summer","Firmicutes bacterium",0,0,0
+"7","Summer","Firmicutes bacterium CAG:345",6.94444444444444,6.36468846521644,3.67465459870082
+"8","Summer","Firmicutes bacterium CAG:449",0,0,0
+"9","Summer","Lachnoclostridium sp. An196",0,0,0
+"10","Summer","Lactobacillus murinus",2.77777777777778,4.81125224324688,2.77777777777778
+"11","Summer","Parabacteroides johnsonii",0,0,0
+"12","Summer","Prevotella brevis",2.77777777777778,4.81125224324688,2.77777777777778
+"13","Summer","Ruthenibacterium lactatiformans",0,0,0
+"14","Summer","Unclassified",74.4444444444444,15.8406415882036,9.14559868508574
+"15","Summer","Viruses",0,0,0
+"16","Winter","Bacteroides fragilis",12.2222222222222,10.7151675122144,6.18640484758891
+"17","Winter","Bacteroides xylanisolvens",0,0,0
+"18","Winter","Clostridiales bacterium",0,0,0
+"19","Winter","Coprobacillus sp. CAG:826",0,0,0
+"20","Winter","Eisenbergiella massiliensis",0,0,0
+"21","Winter","Firmicutes bacterium",0,0,0
+"22","Winter","Firmicutes bacterium CAG:345",0,0,0
+"23","Winter","Firmicutes bacterium CAG:449",0,0,0
+"24","Winter","Lachnoclostridium sp. An196",5.55555555555555,9.62250448649376,5.55555555555556
+"25","Winter","Lactobacillus murinus",0,0,0
+"26","Winter","Parabacteroides johnsonii",4.76190476190476,8.24786098842323,4.76190476190476
+"27","Winter","Prevotella brevis",0,0,0
+"28","Winter","Ruthenibacterium lactatiformans",4.76190476190476,8.24786098842323,4.76190476190476
+"29","Winter","Unclassified",72.6984126984127,6.7567608424739,3.90101769125223
+"30","Winter","Viruses",0,0,0
+"31","Spring","Bacteroides fragilis",0,0,0
+"32","Spring","Bacteroides xylanisolvens",5.55555555555555,9.62250448649376,5.55555555555556
+"33","Spring","Clostridiales bacterium",0,0,0
+"34","Spring","Coprobacillus sp. CAG:826",1.19047619047619,2.06196524710581,1.19047619047619
+"35","Spring","Eisenbergiella massiliensis",1.58730158730159,2.74928699614108,1.58730158730159
+"36","Spring","Firmicutes bacterium",1.58730158730159,2.74928699614108,1.58730158730159
+"37","Spring","Firmicutes bacterium CAG:345",0,0,0
+"38","Spring","Firmicutes bacterium CAG:449",1.19047619047619,2.06196524710581,1.19047619047619
+"39","Spring","Lachnoclostridium sp. An196",1.19047619047619,2.06196524710581,1.19047619047619
+"40","Spring","Lactobacillus murinus",2.77777777777778,2.47817380888825,1.43077431566031
+"41","Spring","Parabacteroides johnsonii",0,0,0
+"42","Spring","Prevotella brevis",2.77777777777778,2.47817380888825,1.43077431566031
+"43","Spring","Ruthenibacterium lactatiformans",0,0,0
+"44","Spring","Unclassified",82.1428571428571,1.1904761904762,0.687321749035273
+"45","Spring","Viruses",0,0,0

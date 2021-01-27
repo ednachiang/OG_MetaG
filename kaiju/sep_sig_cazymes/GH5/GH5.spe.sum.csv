@@ -1,0 +1,34 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Adlercreutzia equolifaciens",0,0,0
+"2","Summer","Blautia producta",8.88888888888889,10.1835015443463,5.87944735792131
+"3","Summer","Clostridiales bacterium",0,0,0
+"4","Summer","Clostridiales bacterium NK3B98",3.7037037037037,6.41500299099584,3.7037037037037
+"5","Summer","Clostridium sp. FS41",0,0,0
+"6","Summer","Clostridium transplantifaecale",3.7037037037037,6.41500299099584,3.7037037037037
+"7","Summer","Lachnospiraceae bacterium",6.66666666666667,11.5470053837925,6.66666666666667
+"8","Summer","Ruminococcus sp. Marseille-P6503",3.7037037037037,6.41500299099584,3.7037037037037
+"9","Summer","Ruminococcus sp. OM02-16LB",3.7037037037037,6.41500299099584,3.7037037037037
+"10","Summer","Unclassified",69.6296296296296,20.6479405403946,11.9210940292082
+"11","Summer","Viruses",0,0,0
+"12","Winter","Adlercreutzia equolifaciens",0,0,0
+"13","Winter","Blautia producta",8.33333333333333,14.4337567297406,8.33333333333333
+"14","Winter","Clostridiales bacterium",0,0,0
+"15","Winter","Clostridiales bacterium NK3B98",33.3333333333333,57.7350269189626,33.3333333333333
+"16","Winter","Clostridium sp. FS41",0,0,0
+"17","Winter","Clostridium transplantifaecale",0,0,0
+"18","Winter","Lachnospiraceae bacterium",0,0,0
+"19","Winter","Ruminococcus sp. Marseille-P6503",0,0,0
+"20","Winter","Ruminococcus sp. OM02-16LB",0,0,0
+"21","Winter","Unclassified",58.3333333333333,52.0416499866533,30.0462606288666
+"22","Winter","Viruses",0,0,0
+"23","Spring","Adlercreutzia equolifaciens",3.33333333333333,5.77350269189626,3.33333333333333
+"24","Spring","Blautia producta",3.7037037037037,6.41500299099584,3.7037037037037
+"25","Spring","Clostridiales bacterium",2.38095238095238,4.12393049421161,2.38095238095238
+"26","Spring","Clostridiales bacterium NK3B98",0,0,0
+"27","Spring","Clostridium sp. FS41",3.33333333333333,5.77350269189626,3.33333333333333
+"28","Spring","Clostridium transplantifaecale",0,0,0
+"29","Spring","Lachnospiraceae bacterium",3.33333333333333,5.77350269189626,3.33333333333333
+"30","Spring","Ruminococcus sp. Marseille-P6503",0,0,0
+"31","Spring","Ruminococcus sp. OM02-16LB",0,0,0
+"32","Spring","Unclassified",83.9153439153439,12.2132860893727,7.05134401138925
+"33","Spring","Viruses",0,0,0

@@ -1646,6 +1646,8 @@ levene.test(cog.df[,1:3872], group = "Season")
 
 ### COG - Clustering
 ```{r}
+# https://sites.google.com/site/mb3gustame/reference/dissimilarity
+
 colnames(cog.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
                         "3773", "3775")
 cog.dist <- dist(t(cog.norm))

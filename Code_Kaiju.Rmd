@@ -39,7 +39,7 @@ source('scripts/import.genus.sum.R')
 source('scripts/import.species.sum.R')
 ```
 
-### Kaiju - No Host
+### No Host
 ```{r}
 ########## Domain ##########
 # Load files
@@ -424,10 +424,10 @@ ggplot(gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
         legend.title = element_text(face="bold"))
 ```
 
-### Kaiju - All CAZymes
+### All CAZymes
 ```{r}
 ########## Phylum ##########
-phy.sum <- import.phylum.sum('kaiju/all_cazymes/phylum', 33)
+phy.sum <- import.phylum.sum('kaiju/all_cazymes/phylum')
 
 # Summarize phyla to get top 10
 phy.sum.sum <- phy.sum %>%
@@ -775,7 +775,137 @@ ggplot(gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
         legend.title = element_text(face="bold"))
 ```
 
-### Kaiju - CE11
+### CE11
+```{r}
+########## Phylum ##########
+phy.CE11.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/CE11/phylum')
+#write.csv(phy.CE11.sum, file = "kaiju/sep_sig_cazymes/CE11/CE11.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.CE11.sum.sum <- phy.CE11.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.CE11.sum <- import.class.sum('kaiju/sep_sig_cazymes/CE11/class')
+#write.csv(cla.CE11.sum, file = "kaiju/sep_sig_cazymes/CE11/CE11.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.CE11.sum.sum <- cla.CE11.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.CE11.sum <- import.order.sum('kaiju/sep_sig_cazymes/CE11/order')
+#write.csv(ord.CE11.sum, file = "kaiju/sep_sig_cazymes/CE11/CE11.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.CE11.sum.sum <- ord.CE11.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.CE11.sum <- import.family.sum('kaiju/sep_sig_cazymes/CE11/family')
+#write.csv(fam.CE11.sum, file = "kaiju/sep_sig_cazymes/CE11/CE11.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.CE11.sum.sum <- fam.CE11.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.CE11.sum <- import.genus.sum('kaiju/sep_sig_cazymes/CE11/genus')
+#write.csv(gen.CE11.sum, file = "kaiju/sep_sig_cazymes/CE11/CE11.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.CE11.sum.sum <- gen.CE11.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.CE11.sum <- import.species.sum('kaiju/sep_sig_cazymes/CE11/species')
+#write.csv(spe.CE11.sum, file = "kaiju/sep_sig_cazymes/CE11/CE11.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.CE11.sum.sum <- spe.CE11.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### CE12
+```{r}
+########## Phylum ##########
+phy.CE12.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/CE12/phylum')
+#write.csv(phy.CE12.sum, file = "kaiju/sep_sig_cazymes/CE12/CE12.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.CE12.sum.sum <- phy.CE12.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.CE12.sum <- import.class.sum('kaiju/sep_sig_cazymes/CE12/class')
+#write.csv(cla.CE12.sum, file = "kaiju/sep_sig_cazymes/CE12/CE12.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.CE12.sum.sum <- cla.CE12.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.CE12.sum <- import.order.sum('kaiju/sep_sig_cazymes/CE12/order')
+#write.csv(ord.CE12.sum, file = "kaiju/sep_sig_cazymes/CE12/CE12.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.CE12.sum.sum <- ord.CE12.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.CE12.sum <- import.family.sum('kaiju/sep_sig_cazymes/CE12/family')
+#write.csv(fam.CE12.sum, file = "kaiju/sep_sig_cazymes/CE12/CE12.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.CE12.sum.sum <- fam.CE12.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.CE12.sum <- import.genus.sum('kaiju/sep_sig_cazymes/CE12/genus')
+#write.csv(gen.CE12.sum, file = "kaiju/sep_sig_cazymes/CE12/CE12.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.CE12.sum.sum <- gen.CE12.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.CE12.sum <- import.species.sum('kaiju/sep_sig_cazymes/CE12/species')
+#write.csv(spe.CE12.sum, file = "kaiju/sep_sig_cazymes/CE12/CE12.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.CE12.sum.sum <- spe.CE12.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### GH10
 ```{r}
 ########## Phylum ##########
 phy.GH10.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH10/phylum')
@@ -838,89 +968,141 @@ spe.GH10.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH10/species')
 spe.GH10.sum.sum <- spe.GH10.sum %>%
   group_by(Species) %>%
   summarize(Mean = mean(Mean))
-
 ```
 
-### Kaiju - CE12
-```{r}
-```
 
-### dbCAN - Kaiju on GH10
+
+### GH106
 ```{r}
 ########## Phylum ##########
-phy.GH10.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH10/phylum')
-#write.csv(phy.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.phy.sum.csv")
+phy.GH106.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH106/phylum')
+#write.csv(phy.GH106.sum, file = "kaiju/sep_sig_cazymes/GH106/GH106.phy.sum.csv")
 
 # Summarize phyla to get top 10
-phy.GH10.sum.sum <- phy.GH10.sum %>%
+phy.GH106.sum.sum <- phy.GH106.sum %>%
   group_by(Phylum) %>%
   summarize(Mean = mean(Mean))
 
 
 
 ########## Class ##########
-cla.GH10.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH10/class')
-#write.csv(cla.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.cla.sum.csv")
+cla.GH106.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH106/class')
+#write.csv(cla.GH106.sum, file = "kaiju/sep_sig_cazymes/GH106/GH106.cla.sum.csv")
 
 # Summarize classes to get top 10
-cla.GH10.sum.sum <- cla.GH10.sum %>%
+cla.GH106.sum.sum <- cla.GH106.sum %>%
   group_by(Class) %>%
   summarize(Mean = mean(Mean))
 
 
 
 ########## Order ##########
-ord.GH10.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH10/order')
-#write.csv(ord.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.ord.sum.csv")
+ord.GH106.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH106/order')
+#write.csv(ord.GH106.sum, file = "kaiju/sep_sig_cazymes/GH106/GH106.ord.sum.csv")
 
 # Summarize orders to get top 10
-ord.GH10.sum.sum <- ord.GH10.sum %>%
+ord.GH106.sum.sum <- ord.GH106.sum %>%
   group_by(Order) %>%
   summarize(Mean = mean(Mean))
 
 
 
 ########## Family ##########
-fam.GH10.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH10/family')
-#write.csv(fam.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.fam.sum.csv")
+fam.GH106.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH106/family')
+#write.csv(fam.GH106.sum, file = "kaiju/sep_sig_cazymes/GH106/GH106.fam.sum.csv")
 
 # Summarize families to get top 10
-fam.GH10.sum.sum <- fam.GH10.sum %>%
+fam.GH106.sum.sum <- fam.GH106.sum %>%
   group_by(Family) %>%
   summarize(Mean = mean(Mean))
 
 
 ########## Genus ##########
-gen.GH10.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH10/genus')
-#write.csv(gen.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.gen.sum.csv")
+gen.GH106.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH106/genus')
+#write.csv(gen.GH106.sum, file = "kaiju/sep_sig_cazymes/GH106/GH106.gen.sum.csv")
 
 # Summarize genera to get top 10
-gen.GH10.sum.sum <- gen.GH10.sum %>%
+gen.GH106.sum.sum <- gen.GH106.sum %>%
   group_by(Genus) %>%
   summarize(Mean = mean(Mean))
 
 
 ########## Species ##########
-spe.GH10.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH10/species')
-#write.csv(spe.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.spe.sum.csv")
+spe.GH106.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH106/species')
+#write.csv(spe.GH106.sum, file = "kaiju/sep_sig_cazymes/GH106/GH106.spe.sum.csv")
 
 # Summarize species to get top 10
-spe.GH10.sum.sum <- spe.GH10.sum %>%
+spe.GH106.sum.sum <- spe.GH106.sum %>%
   group_by(Species) %>%
   summarize(Mean = mean(Mean))
 ```
 
-
-
-### Kaiju - GH106
+### GH115
 ```{r}
+########## Phylum ##########
+phy.GH115.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH115/phylum')
+#write.csv(phy.GH115.sum, file = "kaiju/sep_sig_cazymes/GH115/GH115.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH115.sum.sum <- phy.GH115.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH115.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH115/class')
+#write.csv(cla.GH115.sum, file = "kaiju/sep_sig_cazymes/GH115/GH115.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH115.sum.sum <- cla.GH115.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH115.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH115/order')
+#write.csv(ord.GH115.sum, file = "kaiju/sep_sig_cazymes/GH115/GH115.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH115.sum.sum <- ord.GH115.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH115.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH115/family')
+#write.csv(fam.GH115.sum, file = "kaiju/sep_sig_cazymes/GH115/GH115.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH115.sum.sum <- fam.GH115.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH115.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH115/genus')
+#write.csv(gen.GH115.sum, file = "kaiju/sep_sig_cazymes/GH115/GH115.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH115.sum.sum <- gen.GH115.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH115.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH115/species')
+#write.csv(spe.GH115.sum, file = "kaiju/sep_sig_cazymes/GH115/GH115.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH115.sum.sum <- spe.GH115.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH115
-```{r}
-```
-
-### dbCAN - Kaiju on GH20
+### GH20
 ```{r}
 ########## Phylum ##########
 phy.GH20.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH20/phylum')
@@ -986,39 +1168,527 @@ spe.GH20.sum.sum <- spe.GH20.sum %>%
   summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH3
+### GH3
 ```{r}
+########## Phylum ##########
+phy.GH3.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH3/phylum')
+#write.csv(phy.GH3.sum, file = "kaiju/sep_sig_cazymes/GH3/GH3.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH3.sum.sum <- phy.GH3.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH3.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH3/class')
+#write.csv(cla.GH3.sum, file = "kaiju/sep_sig_cazymes/GH3/GH3.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH3.sum.sum <- cla.GH3.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH3.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH3/order')
+#write.csv(ord.GH3.sum, file = "kaiju/sep_sig_cazymes/GH3/GH3.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH3.sum.sum <- ord.GH3.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH3.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH3/family')
+#write.csv(fam.GH3.sum, file = "kaiju/sep_sig_cazymes/GH3/GH3.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH3.sum.sum <- fam.GH3.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH3.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH3/genus')
+#write.csv(gen.GH3.sum, file = "kaiju/sep_sig_cazymes/GH3/GH3.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH3.sum.sum <- gen.GH3.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH3.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH3/species')
+#write.csv(spe.GH3.sum, file = "kaiju/sep_sig_cazymes/GH3/GH3.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH3.sum.sum <- spe.GH3.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH32
+### GH32
 ```{r}
+########## Phylum ##########
+phy.GH32.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH32/phylum')
+#write.csv(phy.GH32.sum, file = "kaiju/sep_sig_cazymes/GH32/GH32.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH32.sum.sum <- phy.GH32.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH32.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH32/class')
+#write.csv(cla.GH32.sum, file = "kaiju/sep_sig_cazymes/GH32/GH32.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH32.sum.sum <- cla.GH32.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH32.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH32/order')
+#write.csv(ord.GH32.sum, file = "kaiju/sep_sig_cazymes/GH32/GH32.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH32.sum.sum <- ord.GH32.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH32.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH32/family')
+#write.csv(fam.GH32.sum, file = "kaiju/sep_sig_cazymes/GH32/GH32.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH32.sum.sum <- fam.GH32.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH32.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH32/genus')
+#write.csv(gen.GH32.sum, file = "kaiju/sep_sig_cazymes/GH32/GH32.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH32.sum.sum <- gen.GH32.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH32.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH32/species')
+#write.csv(spe.GH32.sum, file = "kaiju/sep_sig_cazymes/GH32/GH32.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH32.sum.sum <- spe.GH32.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH39
+### GH39
 ```{r}
+########## Phylum ##########
+phy.GH39.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH39/phylum')
+#write.csv(phy.GH39.sum, file = "kaiju/sep_sig_cazymes/GH39/GH39.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH39.sum.sum <- phy.GH39.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH39.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH39/class')
+#write.csv(cla.GH39.sum, file = "kaiju/sep_sig_cazymes/GH39/GH39.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH39.sum.sum <- cla.GH39.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH39.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH39/order')
+#write.csv(ord.GH39.sum, file = "kaiju/sep_sig_cazymes/GH39/GH39.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH39.sum.sum <- ord.GH39.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH39.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH39/family')
+#write.csv(fam.GH39.sum, file = "kaiju/sep_sig_cazymes/GH39/GH39.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH39.sum.sum <- fam.GH39.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH39.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH39/genus')
+#write.csv(gen.GH39.sum, file = "kaiju/sep_sig_cazymes/GH39/GH39.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH39.sum.sum <- gen.GH39.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH39.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH39/species')
+#write.csv(spe.GH39.sum, file = "kaiju/sep_sig_cazymes/GH39/GH39.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH39.sum.sum <- spe.GH39.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH42
+### GH42
 ```{r}
+########## Phylum ##########
+phy.GH42.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH42/phylum')
+#write.csv(phy.GH42.sum, file = "kaiju/sep_sig_cazymes/GH42/GH42.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH42.sum.sum <- phy.GH42.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH42.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH42/class')
+#write.csv(cla.GH42.sum, file = "kaiju/sep_sig_cazymes/GH42/GH42.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH42.sum.sum <- cla.GH42.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH42.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH42/order')
+#write.csv(ord.GH42.sum, file = "kaiju/sep_sig_cazymes/GH42/GH42.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH42.sum.sum <- ord.GH42.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH42.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH42/family')
+#write.csv(fam.GH42.sum, file = "kaiju/sep_sig_cazymes/GH42/GH42.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH42.sum.sum <- fam.GH42.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH42.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH42/genus')
+#write.csv(gen.GH42.sum, file = "kaiju/sep_sig_cazymes/GH42/GH42.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH42.sum.sum <- gen.GH42.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH42.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH42/species')
+#write.csv(spe.GH42.sum, file = "kaiju/sep_sig_cazymes/GH42/GH42.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH42.sum.sum <- spe.GH42.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH43
+### GH43
 ```{r}
+########## Phylum ##########
+phy.GH43.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH43/phylum')
+#write.csv(phy.GH43.sum, file = "kaiju/sep_sig_cazymes/GH43/GH43.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH43.sum.sum <- phy.GH43.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH43.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH43/class')
+#write.csv(cla.GH43.sum, file = "kaiju/sep_sig_cazymes/GH43/GH43.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH43.sum.sum <- cla.GH43.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH43.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH43/order')
+#write.csv(ord.GH43.sum, file = "kaiju/sep_sig_cazymes/GH43/GH43.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH43.sum.sum <- ord.GH43.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH43.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH43/family')
+#write.csv(fam.GH43.sum, file = "kaiju/sep_sig_cazymes/GH43/GH43.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH43.sum.sum <- fam.GH43.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH43.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH43/genus')
+#write.csv(gen.GH43.sum, file = "kaiju/sep_sig_cazymes/GH43/GH43.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH43.sum.sum <- gen.GH43.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH43.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH43/species')
+#write.csv(spe.GH43.sum, file = "kaiju/sep_sig_cazymes/GH43/GH43.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH43.sum.sum <- spe.GH43.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH5
+### GH5
 ```{r}
+########## Phylum ##########
+phy.GH5.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH5/phylum')
+#write.csv(phy.GH5.sum, file = "kaiju/sep_sig_cazymes/GH5/GH5.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH5.sum.sum <- phy.GH5.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH5.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH5/class')
+#write.csv(cla.GH5.sum, file = "kaiju/sep_sig_cazymes/GH5/GH5.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH5.sum.sum <- cla.GH5.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH5.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH5/order')
+#write.csv(ord.GH5.sum, file = "kaiju/sep_sig_cazymes/GH5/GH5.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH5.sum.sum <- ord.GH5.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH5.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH5/family')
+#write.csv(fam.GH5.sum, file = "kaiju/sep_sig_cazymes/GH5/GH5.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH5.sum.sum <- fam.GH5.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH5.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH5/genus')
+#write.csv(gen.GH5.sum, file = "kaiju/sep_sig_cazymes/GH5/GH5.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH5.sum.sum <- gen.GH5.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH5.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH5/species')
+#write.csv(spe.GH5.sum, file = "kaiju/sep_sig_cazymes/GH5/GH5.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH5.sum.sum <- spe.GH5.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH59
+### Kaiju - GH59 ###########################
 ```{r}
+########## Phylum ##########
+phy.GH59.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH59/phylum')
+write.csv(phy.GH59.sum, file = "kaiju/sep_sig_cazymes/GH59/GH59.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH59.sum.sum <- phy.GH59.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH59.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH59/class')
+write.csv(cla.GH59.sum, file = "kaiju/sep_sig_cazymes/GH59/GH59.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH59.sum.sum <- cla.GH59.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH59.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH59/order')
+write.csv(ord.GH59.sum, file = "kaiju/sep_sig_cazymes/GH59/GH59.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH59.sum.sum <- ord.GH59.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH59.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH59/family')
+write.csv(fam.GH59.sum, file = "kaiju/sep_sig_cazymes/GH59/GH59.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH59.sum.sum <- fam.GH59.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH59.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH59/genus')
+write.csv(gen.GH59.sum, file = "kaiju/sep_sig_cazymes/GH59/GH59.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH59.sum.sum <- gen.GH59.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH59.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH59/species')
+write.csv(spe.GH59.sum, file = "kaiju/sep_sig_cazymes/GH59/GH59.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH59.sum.sum <- spe.GH59.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GH78
+### GH78
 ```{r}
+########## Phylum ##########
+phy.GH78.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH78/phylum')
+#write.csv(phy.GH78.sum, file = "kaiju/sep_sig_cazymes/GH78/GH78.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH78.sum.sum <- phy.GH78.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH78.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH78/class')
+#write.csv(cla.GH78.sum, file = "kaiju/sep_sig_cazymes/GH78/GH78.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH78.sum.sum <- cla.GH78.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH78.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH78/order')
+#write.csv(ord.GH78.sum, file = "kaiju/sep_sig_cazymes/GH78/GH78.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH78.sum.sum <- ord.GH78.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH78.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH78/family')
+#write.csv(fam.GH78.sum, file = "kaiju/sep_sig_cazymes/GH78/GH78.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH78.sum.sum <- fam.GH78.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH78.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH78/genus')
+#write.csv(gen.GH78.sum, file = "kaiju/sep_sig_cazymes/GH78/GH78.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH78.sum.sum <- gen.GH78.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH78.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH78/species')
+#write.csv(spe.GH78.sum, file = "kaiju/sep_sig_cazymes/GH78/GH78.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH78.sum.sum <- spe.GH78.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
 ```
 
-### dbCAN - Kaiju on GH84
+### GH84
 ```{r}
 ########## Phylum ##########
 phy.GH84.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH84/phylum')
@@ -1084,7 +1754,7 @@ spe.GH84.sum.sum <- spe.GH84.sum %>%
 ```
 
 
-### Kaiju - GT101
+### GT101
 ```{r}
 ########## Phylum ##########
 phy.GT101.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT101/phylum')
@@ -1149,7 +1819,7 @@ spe.GT101.sum.sum <- spe.GT101.sum %>%
   summarize(Mean = mean(Mean))
 ```
 
-### dbCAN - Kaiju on GT3
+### GT3
 ```{r}
 ########## Phylum ##########
 phy.GT3.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT3/phylum')
@@ -1221,7 +1891,7 @@ spe.GT3.sum.sum <- spe.GT3.sum %>%
 
 
 
-### Kaiju - GT4
+### GT4
 ```{r}
 ########## Phylum ##########
 phy.GT4.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT4/phylum')
@@ -1286,7 +1956,7 @@ spe.GT4.sum.sum <- spe.GT4.sum %>%
   summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GT41
+### GT41
 ```{r}
 ########## Phylum ##########
 phy.GT41.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT41/phylum')
@@ -1351,7 +2021,7 @@ spe.GT41.sum.sum <- spe.GT41.sum %>%
   summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - GT9
+### GT9
 ```{r}
 ########## Phylum ##########
 phy.GT9.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT9/phylum')
@@ -1416,7 +2086,7 @@ spe.GT9.sum.sum <- spe.GT9.sum %>%
   summarize(Mean = mean(Mean))
 ```
 
-### Kaiju - PL1
+### PL1
 ```{r}
 ########## Phylum ##########
 phy.PL1.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/PL1/phylum')

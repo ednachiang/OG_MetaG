@@ -1586,7 +1586,7 @@ cog.rem.row <- as.numeric(cog.rem)
 cog.norm.rem <- cog.norm[-cog.rem.row,]
 
 # Format data
-cog.df <- data.frame(t(cog.norm.rem))
+cog.df <- data.frame(t(cog.norm))
 rownames(cog.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 cog.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 cog.df$Season <- ordered(cog.df$Season, levels=c("Summer", "Winter", "Spring"))
@@ -1638,6 +1638,57 @@ cdfcomp(list(fw, fg, fe), legendtext = plot.legend)
 ppcomp(list(fw, fg, fe), legendtext = plot.legend)
 
 gofstat(list(fw, fg, fe))
+
+# Levene test
+test <- psmelt(cog.df)
+levene.test(cog.df[,1:3872], group = "Season")
+```
+
+### COG - Clustering
+```{r}
+colnames(cog.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
+                        "3773", "3775")
+cog.dist <- dist(t(cog.norm))
+cog.dist.matrix <- as.matrix(cog.dist)
+rownames(cog.dist.matrix) <- cog.df$Season
+colnames(cog.dist.matrix) <- cog.df$Season
+
+# Heatmap
+pheatmap(cog.dist.matrix, clustering_distance_rows = cog.dist, 
+         clustering_distance_cols = cog.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
+
+
+# Dendrogram
+cog.hclust <- hclust(cog.dist)
+cog.den <- as.dendrogram(cog.hclust)
+cog.den.data <- dendro_data(cog.den, type = "rectangle")
+cog.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
+cog.den.data$labels[,3] <- ordered(cog.den.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
+
+
+#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
+ggplot(cog.den.data$segments) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_text(data = cog.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
+            hjust=0, size=5) +
+  ylab("Euclidean Distance") +
+  xlab("Season") +
+  labs(colour = "Season") +
+  coord_flip() +
+  scale_y_reverse() +
+  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size=20),
+        panel.border = element_blank(),
+        axis.line.x = element_line(),
+        legend.title = element_text(face="bold"),
+        axis.title.x = element_text(face="bold", size=20),
+        axis.title.y = element_text(face="bold", size=20))
+#dev.off()
+
 ```
 ### KEGG - Kruskal-Wallis
 ```{r}

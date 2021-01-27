@@ -1,0 +1,19 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Clostridium hydrogeniformans",6.66666666666667,11.5470053837925,6.66666666666667
+"2","Summer","Firmicutes bacterium CAG:272",8.33333333333333,14.4337567297406,8.33333333333333
+"3","Summer","Lactobacillus murinus",15,13.228756555323,7.63762615825973
+"4","Summer","Terrisporobacter glycolicus",6.66666666666667,11.5470053837925,6.66666666666667
+"5","Summer","Unclassified",63.3333333333333,32.1455025366432,18.5592145427667
+"6","Summer","Viruses",0,0,0
+"7","Winter","Clostridium hydrogeniformans",0,0,0
+"8","Winter","Firmicutes bacterium CAG:272",0,0,0
+"9","Winter","Lactobacillus murinus",0,0,0
+"10","Winter","Terrisporobacter glycolicus",0,0,0
+"11","Winter","Unclassified",100,0,0
+"12","Winter","Viruses",0,0,0
+"13","Spring","Clostridium hydrogeniformans",16.6666666666667,28.8675134594813,16.6666666666667
+"14","Spring","Firmicutes bacterium CAG:272",0,0,0
+"15","Spring","Lactobacillus murinus",27.7777777777778,25.4587538608658,14.6986183948033
+"16","Spring","Terrisporobacter glycolicus",11.1111111111111,19.2450089729875,11.1111111111111
+"17","Spring","Unclassified",44.4444444444444,9.62250448649377,5.55555555555556
+"18","Spring","Viruses",0,0,0

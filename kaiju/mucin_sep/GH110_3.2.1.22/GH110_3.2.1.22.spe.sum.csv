@@ -1,0 +1,55 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Akkermansia muciniphila",6.56395891690009,0.636497739202774,0.36748214106731
+"2","Summer","Bacteroidales bacterium 52_46",2.22222222222222,3.84900179459751,2.22222222222222
+"3","Summer","Bacteroides fluxus",4.6031746031746,3.99357003981242,2.30568873751333
+"4","Summer","Bacteroides fragilis",6.56395891690009,0.636497739202774,0.36748214106731
+"5","Summer","Bacteroides heparinolyticus",0,0,0
+"6","Summer","Bacteroides plebeius",1.96078431372549,3.39617805405662,1.96078431372549
+"7","Summer","Bacteroides sartorii",1.96078431372549,3.39617805405662,1.96078431372549
+"8","Summer","Bacteroides sp. CAG:530",4.34173669467787,3.81250912851994,2.2011531716389
+"9","Summer","Bacteroides sp. CAG:714",0,0,0
+"10","Summer","Bacteroides sp. HPS0048",0,0,0
+"11","Summer","Bacteroides thetaiotaomicron",4.34173669467787,3.81250912851994,2.2011531716389
+"12","Summer","Culturomica massiliensis",0,0,0
+"13","Summer","Parabacteroides distasonis",0,0,0
+"14","Summer","Parabacteroides johnsonii",6.56395891690009,0.636497739202774,0.36748214106731
+"15","Summer","Pedobacter ginsengisoli",1.96078431372549,3.39617805405662,1.96078431372549
+"16","Summer","Prevotella sp. MGM2",2.22222222222222,3.84900179459751,2.22222222222222
+"17","Summer","Unclassified",56.6946778711485,3.55068949635649,2.04999153653019
+"18","Summer","Viruses",0,0,0
+"19","Winter","Akkermansia muciniphila",4.93697478991597,0.871138326654393,0.502951947395314
+"20","Winter","Bacteroidales bacterium 52_46",0,0,0
+"21","Winter","Bacteroides fluxus",4.93697478991597,0.871138326654393,0.502951947395314
+"22","Winter","Bacteroides fragilis",5.31045751633987,5.96517135172281,3.44399328567941
+"23","Winter","Bacteroides heparinolyticus",3.54808590102708,3.12338537510322,1.80328738709878
+"24","Winter","Bacteroides plebeius",3.54808590102708,3.12338537510322,1.80328738709878
+"25","Winter","Bacteroides sartorii",0,0,0
+"26","Winter","Bacteroides sp. CAG:530",4.36507936507936,4.18081498129077,2.41379465488025
+"27","Winter","Bacteroides sp. CAG:714",4.93697478991597,0.871138326654393,0.502951947395314
+"28","Winter","Bacteroides sp. HPS0048",0,0,0
+"29","Winter","Bacteroides thetaiotaomicron",0,0,0
+"30","Winter","Culturomica massiliensis",1.38888888888889,2.40562612162344,1.38888888888889
+"31","Winter","Parabacteroides distasonis",1.96078431372549,3.39617805405662,1.96078431372549
+"32","Winter","Parabacteroides johnsonii",4.93697478991597,0.871138326654393,0.502951947395314
+"33","Winter","Pedobacter ginsengisoli",0,0,0
+"34","Winter","Prevotella sp. MGM2",2.97619047619048,2.5945827044885,1.49798302287118
+"35","Winter","Unclassified",57.1545284780579,8.74820100964159,5.05077620784153
+"36","Winter","Viruses",0,0,0
+"37","Spring","Akkermansia muciniphila",4.94505494505495,4.29134597577289,2.47760975429829
+"38","Spring","Bacteroidales bacterium 52_46",0,0,0
+"39","Spring","Bacteroides fluxus",10.6593406593407,3.34578842805238,1.93169184958758
+"40","Spring","Bacteroides fragilis",0,0,0
+"41","Spring","Bacteroides heparinolyticus",2.56410256410256,4.44115591684328,2.56410256410256
+"42","Spring","Bacteroides plebeius",0,0,0
+"43","Spring","Bacteroides sartorii",2.56410256410256,4.44115591684328,2.56410256410256
+"44","Spring","Bacteroides sp. CAG:530",0,0,0
+"45","Spring","Bacteroides sp. CAG:714",0,0,0
+"46","Spring","Bacteroides sp. HPS0048",2.56410256410256,4.44115591684328,2.56410256410256
+"47","Spring","Bacteroides thetaiotaomicron",0,0,0
+"48","Spring","Culturomica massiliensis",0,0,0
+"49","Spring","Parabacteroides distasonis",0,0,0
+"50","Spring","Parabacteroides johnsonii",9.04761904761905,10.1351412637108,5.85152653687834
+"51","Spring","Pedobacter ginsengisoli",0,0,0
+"52","Spring","Prevotella sp. MGM2",6.66666666666667,11.5470053837925,6.66666666666667
+"53","Spring","Unclassified",60.989010989011,10.7248468659028,6.19199322504651
+"54","Spring","Viruses",0,0,0

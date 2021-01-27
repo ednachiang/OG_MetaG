@@ -1,0 +1,76 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Acetatifactor muris",0,0,0
+"2","Summer","Bacteroidales bacterium",1.28205128205128,2.22057795842164,1.28205128205128
+"3","Summer","Bacteroidales bacterium 52_46",1.28205128205128,2.22057795842164,1.28205128205128
+"4","Summer","Bacteroides acidifaciens",2.38095238095238,4.12393049421161,2.38095238095238
+"5","Summer","Bacteroides congonensis",3.66300366300366,3.57494895530094,2.06399774168217
+"6","Summer","Bacteroides ndongoniae",0,0,0
+"7","Summer","Bacteroides sp. CAG:754",1.28205128205128,2.22057795842164,1.28205128205128
+"8","Summer","Bacteroides uniformis",0,0,0
+"9","Summer","Butyrivibrio fibrisolvens",0,0,0
+"10","Summer","Clostridium sp. CAG:678",3.5042735042735,3.34645674366699,1.93207770178758
+"11","Summer","Dysgonomonas capnocytophagoides",3.5042735042735,3.34645674366699,1.93207770178758
+"12","Summer","Escherichia coli",0,0,0
+"13","Summer","Eubacterium sp. CAG:115",0,0,0
+"14","Summer","Eubacterium sp. CAG:180",0,0,0
+"15","Summer","Labilibaculum sp. A4",0,0,0
+"16","Summer","Lactobacillus animalis",2.22222222222222,3.84900179459751,2.22222222222222
+"17","Summer","Muribaculum sp. TLL-A4",0,0,0
+"18","Summer","Paraprevotella xylaniphila",5.88522588522589,1.78186711844562,1.02876146049472
+"19","Summer","Prevotella sp. CAG:1124",3.66300366300366,3.57494895530094,2.06399774168217
+"20","Summer","Prevotella sp. CAG:485",0,0,0
+"21","Summer","Prevotella sp. Marseille-P4119",2.22222222222222,3.84900179459751,2.22222222222222
+"22","Summer","Prevotella sp. P5-92",4.94505494505495,4.29134597577289,2.47760975429829
+"23","Summer","Ruminococcus sp. CAG:579",2.22222222222222,3.84900179459751,2.22222222222222
+"24","Summer","Unclassified",61.9413919413919,2.1710830055293,1.25347535767536
+"25","Summer","Viruses",0,0,0
+"26","Winter","Acetatifactor muris",0,0,0
+"27","Winter","Bacteroidales bacterium",4.44444444444444,7.69800358919501,4.44444444444445
+"28","Winter","Bacteroidales bacterium 52_46",4.44444444444444,7.69800358919501,4.44444444444445
+"29","Winter","Bacteroides acidifaciens",6.06060606060606,10.4972776216296,6.06060606060606
+"30","Winter","Bacteroides congonensis",7.33585858585859,1.53412987854233,0.885730298348262
+"31","Winter","Bacteroides ndongoniae",0,0,0
+"32","Winter","Bacteroides sp. CAG:754",8.61111111111111,7.46907203319375,4.31227074896112
+"33","Winter","Bacteroides uniformis",0,0,0
+"34","Winter","Butyrivibrio fibrisolvens",2.08333333333333,3.60843918243516,2.08333333333333
+"35","Winter","Clostridium sp. CAG:678",7.33585858585859,1.53412987854233,0.885730298348262
+"36","Winter","Dysgonomonas capnocytophagoides",0,0,0
+"37","Winter","Escherichia coli",2.08333333333333,3.60843918243516,2.08333333333333
+"38","Winter","Eubacterium sp. CAG:115",0,0,0
+"39","Winter","Eubacterium sp. CAG:180",2.22222222222222,3.84900179459751,2.22222222222222
+"40","Winter","Labilibaculum sp. A4",0,0,0
+"41","Winter","Lactobacillus animalis",0,0,0
+"42","Winter","Muribaculum sp. TLL-A4",0,0,0
+"43","Winter","Paraprevotella xylaniphila",0,0,0
+"44","Winter","Prevotella sp. CAG:1124",0,0,0
+"45","Winter","Prevotella sp. CAG:485",2.22222222222222,3.84900179459751,2.22222222222222
+"46","Winter","Prevotella sp. Marseille-P4119",0,0,0
+"47","Winter","Prevotella sp. P5-92",4.16666666666667,7.21687836487032,4.16666666666667
+"48","Winter","Ruminococcus sp. CAG:579",0,0,0
+"49","Winter","Unclassified",48.989898989899,15.1767466679967,8.76229877419064
+"50","Winter","Viruses",0,0,0
+"51","Spring","Acetatifactor muris",4.52488687782805,4.02180742864959,2.32199160155968
+"52","Spring","Bacteroidales bacterium",0,0,0
+"53","Spring","Bacteroidales bacterium 52_46",1.96078431372549,3.39617805405662,1.96078431372549
+"54","Spring","Bacteroides acidifaciens",4.52488687782805,4.02180742864959,2.32199160155968
+"55","Spring","Bacteroides congonensis",2.56410256410256,4.44115591684328,2.56410256410256
+"56","Spring","Bacteroides ndongoniae",1.96078431372549,3.39617805405662,1.96078431372549
+"57","Spring","Bacteroides sp. CAG:754",4.52488687782805,4.02180742864959,2.32199160155968
+"58","Spring","Bacteroides uniformis",2.56410256410256,4.44115591684328,2.56410256410256
+"59","Spring","Butyrivibrio fibrisolvens",0,0,0
+"60","Spring","Clostridium sp. CAG:678",4.52488687782805,4.02180742864959,2.32199160155968
+"61","Spring","Dysgonomonas capnocytophagoides",1.96078431372549,3.39617805405662,1.96078431372549
+"62","Spring","Escherichia coli",0,0,0
+"63","Spring","Eubacterium sp. CAG:115",1.96078431372549,3.39617805405662,1.96078431372549
+"64","Spring","Eubacterium sp. CAG:180",0,0,0
+"65","Spring","Labilibaculum sp. A4",1.96078431372549,3.39617805405662,1.96078431372549
+"66","Spring","Lactobacillus animalis",1.96078431372549,3.39617805405662,1.96078431372549
+"67","Spring","Muribaculum sp. TLL-A4",1.96078431372549,3.39617805405662,1.96078431372549
+"68","Spring","Paraprevotella xylaniphila",2.56410256410256,4.44115591684328,2.56410256410256
+"69","Spring","Prevotella sp. CAG:1124",0,0,0
+"70","Spring","Prevotella sp. CAG:485",0,0,0
+"71","Spring","Prevotella sp. Marseille-P4119",1.96078431372549,3.39617805405662,1.96078431372549
+"72","Spring","Prevotella sp. P5-92",1.96078431372549,3.39617805405662,1.96078431372549
+"73","Spring","Ruminococcus sp. CAG:579",0,0,0
+"74","Spring","Unclassified",56.5610859728507,9.48069087771808,5.47367943035416
+"75","Spring","Viruses",0,0,0

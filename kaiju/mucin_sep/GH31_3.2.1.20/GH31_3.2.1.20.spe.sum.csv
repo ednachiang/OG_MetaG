@@ -1,0 +1,58 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Alistipes sp. Z76",3.36700336700337,2.95932589751632,1.70856760355088
+"2","Summer","Bacteroidales bacterium",0,0,0
+"3","Summer","Bacteroides helcogenes",1.51515151515152,2.62431940540739,1.51515151515152
+"4","Summer","Bacteroides heparinolyticus",0,0,0
+"5","Summer","Bacteroides ovatus",0,0,0
+"6","Summer","Bacteroides salyersiae",4.95430495430495,0.531826464345742,0.307050152352181
+"7","Summer","Bacteroides sartorii",3.1024531024531,2.68898198464419,1.55248447268038
+"8","Summer","Bacteroides sp. AM32-11AC",1.58730158730159,2.74928699614108,1.58730158730159
+"9","Summer","Bacteroides uniformis",1.85185185185185,3.20750149549792,1.85185185185185
+"10","Summer","Bacteroidetes bacterium",0,0,0
+"11","Summer","Flavobacteriaceae bacterium DSL-48",3.43915343915344,3.00471341047634,1.73477209637619
+"12","Summer","Muribaculaceae bacterium Isolate-110 (HZI)",14.5262145262145,3.54148343130351,2.04467641239368
+"13","Summer","Parabacteroides distasonis",0,0,0
+"14","Summer","Prevotella baroniae",0,0,0
+"15","Summer","Prevotella sp. MGM1",4.95430495430495,0.531826464345742,0.307050152352181
+"16","Summer","Prevotellaceae bacterium MN60",3.36700336700337,2.95932589751632,1.70856760355088
+"17","Summer","Unclassified",57.3352573352573,3.98940534675209,2.30328425085385
+"18","Summer","uncultured Parabacteroides sp.",0,0,0
+"19","Summer","Viruses",0,0,0
+"20","Winter","Alistipes sp. Z76",8.88888888888889,2.93972367896066,1.69725025739105
+"21","Winter","Bacteroidales bacterium",0,0,0
+"22","Winter","Bacteroides helcogenes",0,0,0
+"23","Winter","Bacteroides heparinolyticus",1.85185185185185,3.20750149549792,1.85185185185185
+"24","Winter","Bacteroides ovatus",0,0,0
+"25","Winter","Bacteroides salyersiae",0,0,0
+"26","Winter","Bacteroides sartorii",0,0,0
+"27","Winter","Bacteroides sp. AM32-11AC",3.33333333333333,5.77350269189626,3.33333333333333
+"28","Winter","Bacteroides uniformis",5.18518518518519,5.01027750313655,2.89268506515061
+"29","Winter","Bacteroidetes bacterium",0,0,0
+"30","Winter","Flavobacteriaceae bacterium DSL-48",1.85185185185185,3.20750149549792,1.85185185185185
+"31","Winter","Muribaculaceae bacterium Isolate-110 (HZI)",11.1111111111111,11.1111111111111,6.41500299099584
+"32","Winter","Parabacteroides distasonis",3.7037037037037,6.41500299099584,3.7037037037037
+"33","Winter","Prevotella baroniae",1.85185185185185,3.20750149549792,1.85185185185185
+"34","Winter","Prevotella sp. MGM1",0,0,0
+"35","Winter","Prevotellaceae bacterium MN60",0,0,0
+"36","Winter","Unclassified",58.5185185185185,10.3239702701973,5.9605470146041
+"37","Winter","uncultured Parabacteroides sp.",3.7037037037037,6.41500299099584,3.7037037037037
+"38","Winter","Viruses",0,0,0
+"39","Spring","Alistipes sp. Z76",1.75438596491228,3.03868562731382,1.75438596491228
+"40","Spring","Bacteroidales bacterium",3.92156862745098,6.79235610811324,3.92156862745098
+"41","Spring","Bacteroides helcogenes",0,0,0
+"42","Spring","Bacteroides heparinolyticus",1.96078431372549,3.39617805405662,1.96078431372549
+"43","Spring","Bacteroides ovatus",1.96078431372549,3.39617805405662,1.96078431372549
+"44","Spring","Bacteroides salyersiae",1.75438596491228,3.03868562731382,1.75438596491228
+"45","Spring","Bacteroides sartorii",1.75438596491228,3.03868562731382,1.75438596491228
+"46","Spring","Bacteroides sp. AM32-11AC",7.63673890608875,3.58830519106578,2.07170896799636
+"47","Spring","Bacteroides uniformis",3.92156862745098,3.39617805405662,1.96078431372549
+"48","Spring","Bacteroidetes bacterium",1.96078431372549,3.39617805405662,1.96078431372549
+"49","Spring","Flavobacteriaceae bacterium DSL-48",3.71517027863777,3.23229303681441,1.86616525490455
+"50","Spring","Muribaculaceae bacterium Isolate-110 (HZI)",15.0670794633643,3.00697673567254,1.73607882778748
+"51","Spring","Parabacteroides distasonis",0,0,0
+"52","Spring","Prevotella baroniae",0,0,0
+"53","Spring","Prevotella sp. MGM1",3.71517027863777,3.23229303681441,1.86616525490455
+"54","Spring","Prevotellaceae bacterium MN60",5.67595459236326,0.357492426742802,0.20639834881321
+"55","Spring","Unclassified",45.2012383900929,3.48898689460825,2.01436752280115
+"56","Spring","uncultured Parabacteroides sp.",0,0,0
+"57","Spring","Viruses",0,0,0

@@ -1,0 +1,82 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","[Clostridium] cocleatum",0,0,0
+"2","Summer","[Clostridium] spiroforme",0,0,0
+"3","Summer","Alloprevotella sp.",2.56410256410256,4.44115591684328,2.56410256410256
+"4","Summer","Bacteroides fluxus",4.94505494505495,4.29134597577289,2.47760975429829
+"5","Summer","Bacteroides fragilis",2.56410256410256,4.44115591684328,2.56410256410256
+"6","Summer","Bacteroides helcogenes",0,0,0
+"7","Summer","Bacteroides sp. CAG:1076",0,0,0
+"8","Summer","Bacteroides sp. CAG:661",0,0,0
+"9","Summer","Bacteroides sp. CAG:927",4.6474358974359,4.08889449428624,2.36072433696414
+"10","Summer","Bacteroides sp. OF04-15BH",2.56410256410256,4.44115591684328,2.56410256410256
+"11","Summer","Bacteroides thetaiotaomicron",4.46428571428571,3.89187405673274,2.24697453430677
+"12","Summer","Bacteroides uniformis",7.02838827838828,0.727935581299663,0.420273803816067
+"13","Summer","Candidatus Ornithobacterium hominis",0,0,0
+"14","Summer","Clostridiales bacterium VE202-01",0,0,0
+"15","Summer","Dysgonomonas alginatilytica",2.38095238095238,4.12393049421161,2.38095238095238
+"16","Summer","Lachnoclostridium sp. An181",0,0,0
+"17","Summer","Lachnospiraceae bacterium",0,0,0
+"18","Summer","Lentibacillus jeotgali",2.56410256410256,4.44115591684328,2.56410256410256
+"19","Summer","Marinilabilia salmonicolor",0,0,0
+"20","Summer","Mediterranea sp. An20",0,0,0
+"21","Summer","Parabacteroides johnsonii",7.02838827838828,0.727935581299663,0.420273803816067
+"22","Summer","Porphyromonas sp. 31_2",4.46428571428571,3.89187405673274,2.24697453430677
+"23","Summer","Prevotella buccalis",0,0,0
+"24","Summer","Prevotella sp. CAG:755",0,0,0
+"25","Summer","Unclassified",54.7847985347985,15.2812975853164,8.82266127444917
+"26","Summer","uncultured Ruminococcus sp.",0,0,0
+"27","Summer","Viruses",0,0,0
+"28","Winter","[Clostridium] cocleatum",2.6984126984127,2.44361973306994,1.41082451068501
+"29","Winter","[Clostridium] spiroforme",2.22222222222222,3.84900179459751,2.22222222222222
+"30","Winter","Alloprevotella sp.",0,0,0
+"31","Winter","Bacteroides fluxus",4.36507936507937,0.9014140231429,0.520431628912857
+"32","Winter","Bacteroides fragilis",2.6984126984127,2.44361973306994,1.41082451068501
+"33","Winter","Bacteroides helcogenes",4.36507936507937,0.9014140231429,0.520431628912857
+"34","Winter","Bacteroides sp. CAG:1076",1.58730158730159,2.74928699614108,1.58730158730159
+"35","Winter","Bacteroides sp. CAG:661",0,0,0
+"36","Winter","Bacteroides sp. CAG:927",8.80952380952381,5.44504601239489,3.14369878100609
+"37","Winter","Bacteroides sp. OF04-15BH",0,0,0
+"38","Winter","Bacteroides thetaiotaomicron",0,0,0
+"39","Winter","Bacteroides uniformis",4.36507936507937,0.9014140231429,0.520431628912857
+"40","Winter","Candidatus Ornithobacterium hominis",1.11111111111111,1.92450089729875,1.11111111111111
+"41","Winter","Clostridiales bacterium VE202-01",1.11111111111111,1.92450089729875,1.11111111111111
+"42","Winter","Dysgonomonas alginatilytica",0,0,0
+"43","Winter","Lachnoclostridium sp. An181",1.58730158730159,2.74928699614108,1.58730158730159
+"44","Winter","Lachnospiraceae bacterium",2.6984126984127,2.44361973306994,1.41082451068501
+"45","Winter","Lentibacillus jeotgali",0,0,0
+"46","Winter","Marinilabilia salmonicolor",2.77777777777778,2.54587538608658,1.46986183948033
+"47","Winter","Mediterranea sp. An20",1.66666666666667,2.88675134594813,1.66666666666667
+"48","Winter","Parabacteroides johnsonii",4.36507936507937,0.9014140231429,0.520431628912857
+"49","Winter","Porphyromonas sp. 31_2",1.11111111111111,1.92450089729875,1.11111111111111
+"50","Winter","Prevotella buccalis",1.58730158730159,2.74928699614108,1.58730158730159
+"51","Winter","Prevotella sp. CAG:755",0,0,0
+"52","Winter","Unclassified",49.2063492063492,1.37464349807054,0.793650793650796
+"53","Winter","uncultured Ruminococcus sp.",1.66666666666667,2.88675134594813,1.66666666666667
+"54","Winter","Viruses",0,0,0
+"55","Spring","[Clostridium] cocleatum",0,0,0
+"56","Spring","[Clostridium] spiroforme",0,0,0
+"57","Spring","Alloprevotella sp.",2.77777777777778,4.81125224324688,2.77777777777778
+"58","Spring","Bacteroides fluxus",9.16666666666667,3.00462606288666,1.73472166622178
+"59","Spring","Bacteroides fragilis",0,0,0
+"60","Spring","Bacteroides helcogenes",0,0,0
+"61","Spring","Bacteroides sp. CAG:1076",0,0,0
+"62","Spring","Bacteroides sp. CAG:661",2.22222222222222,3.84900179459751,2.22222222222222
+"63","Spring","Bacteroides sp. CAG:927",2.22222222222222,3.84900179459751,2.22222222222222
+"64","Spring","Bacteroides sp. OF04-15BH",0,0,0
+"65","Spring","Bacteroides thetaiotaomicron",0,0,0
+"66","Spring","Bacteroides uniformis",9.16666666666667,3.00462606288666,1.73472166622178
+"67","Spring","Candidatus Ornithobacterium hominis",0,0,0
+"68","Spring","Clostridiales bacterium VE202-01",0,0,0
+"69","Spring","Dysgonomonas alginatilytica",0,0,0
+"70","Spring","Lachnoclostridium sp. An181",0,0,0
+"71","Spring","Lachnospiraceae bacterium",0,0,0
+"72","Spring","Lentibacillus jeotgali",2.77777777777778,4.81125224324688,2.77777777777778
+"73","Spring","Marinilabilia salmonicolor",0,0,0
+"74","Spring","Mediterranea sp. An20",0,0,0
+"75","Spring","Parabacteroides johnsonii",9.16666666666667,3.00462606288666,1.73472166622178
+"76","Spring","Porphyromonas sp. 31_2",0,0,0
+"77","Spring","Prevotella buccalis",0,0,0
+"78","Spring","Prevotella sp. CAG:755",2.22222222222222,3.84900179459751,2.22222222222222
+"79","Spring","Unclassified",60.2777777777778,2.09717623201965,1.21080526209463
+"80","Spring","uncultured Ruminococcus sp.",0,0,0
+"81","Spring","Viruses",0,0,0

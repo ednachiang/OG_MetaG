@@ -1,0 +1,49 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Acetatifactor muris",4.76190476190476,8.24786098842323,4.76190476190476
+"2","Summer","Bacillus akibai",5.71428571428571,5.15078753637713,2.9738085706659
+"3","Summer","Bacillus sp. P16(2019)",0,0,0
+"4","Summer","Bacteroides plebeius",0,0,0
+"5","Summer","Bacteroides reticulotermitis",5.71428571428571,5.15078753637713,2.9738085706659
+"6","Summer","Bacteroides sp. 51",0,0,0
+"7","Summer","Bacteroides sp. CAG:545",2.38095238095238,4.12393049421161,2.38095238095238
+"8","Summer","Bacteroides sp. CAG:927",2.38095238095238,4.12393049421161,2.38095238095238
+"9","Summer","Bacteroides vulgatus",9.04761904761905,10.1351412637108,5.85152653687834
+"10","Summer","Muribaculaceae bacterium Isolate-110 (HZI)",12.3809523809524,6.75116518036087,3.89778703422498
+"11","Summer","Odoribacter sp. Z80",0,0,0
+"12","Summer","Rikenellaceae bacterium",0,0,0
+"13","Summer","Ruminococcus albus",0,0,0
+"14","Summer","Ruminococcus lactaris",0,0,0
+"15","Summer","Unclassified",57.6190476190476,13.7271764813329,7.92538903671107
+"16","Summer","Viruses",0,0,0
+"17","Winter","Acetatifactor muris",0,0,0
+"18","Winter","Bacillus akibai",0,0,0
+"19","Winter","Bacillus sp. P16(2019)",0,0,0
+"20","Winter","Bacteroides plebeius",2.38095238095238,4.12393049421161,2.38095238095238
+"21","Winter","Bacteroides reticulotermitis",9.41798941798942,2.04714731451356,1.18192105310522
+"22","Winter","Bacteroides sp. 51",3.7037037037037,6.41500299099584,3.7037037037037
+"23","Winter","Bacteroides sp. CAG:545",2.38095238095238,4.12393049421161,2.38095238095238
+"24","Winter","Bacteroides sp. CAG:927",9.41798941798942,2.04714731451356,1.18192105310522
+"25","Winter","Bacteroides vulgatus",3.33333333333333,5.77350269189626,3.33333333333333
+"26","Winter","Muribaculaceae bacterium Isolate-110 (HZI)",2.38095238095238,4.12393049421161,2.38095238095238
+"27","Winter","Odoribacter sp. Z80",6.08465608465608,5.63063403539491,3.25084807604352
+"28","Winter","Rikenellaceae bacterium",9.41798941798942,2.04714731451356,1.18192105310522
+"29","Winter","Ruminococcus albus",2.38095238095238,4.12393049421161,2.38095238095238
+"30","Winter","Ruminococcus lactaris",2.38095238095238,4.12393049421161,2.38095238095238
+"31","Winter","Unclassified",46.7195767195767,12.3016726400863,7.10237401023649
+"32","Winter","Viruses",0,0,0
+"33","Spring","Acetatifactor muris",9.52380952380952,16.4957219768465,9.52380952380952
+"34","Spring","Bacillus akibai",0,0,0
+"35","Spring","Bacillus sp. P16(2019)",4.76190476190476,8.24786098842323,4.76190476190476
+"36","Spring","Bacteroides plebeius",0,0,0
+"37","Spring","Bacteroides reticulotermitis",15.0793650793651,1.37464349807054,0.793650793650793
+"38","Spring","Bacteroides sp. 51",0,0,0
+"39","Spring","Bacteroides sp. CAG:545",0,0,0
+"40","Spring","Bacteroides sp. CAG:927",0,0,0
+"41","Spring","Bacteroides vulgatus",10.3174603174603,9.01414023142901,5.20431628912857
+"42","Spring","Muribaculaceae bacterium Isolate-110 (HZI)",5.55555555555555,9.62250448649376,5.55555555555556
+"43","Spring","Odoribacter sp. Z80",0,0,0
+"44","Spring","Rikenellaceae bacterium",9.52380952380952,8.24786098842323,4.76190476190476
+"45","Spring","Ruminococcus albus",0,0,0
+"46","Spring","Ruminococcus lactaris",0,0,0
+"47","Spring","Unclassified",45.2380952380952,14.8690428533295,8.58464589396188
+"48","Spring","Viruses",0,0,0

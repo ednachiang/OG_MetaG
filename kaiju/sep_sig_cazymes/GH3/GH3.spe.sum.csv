@@ -1,0 +1,1492 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","[Clostridium] cellulosi",0.059206631142688,0.102548893284125,0.059206631142688
+"2","Summer","[Clostridium] methoxybenzovorans",0,0,0
+"3","Summer","[Clostridium] saccharogumia",0,0,0
+"4","Summer","[Eubacterium] cellulosolvens",0.0681663258350375,0.11806753971158,0.0681663258350375
+"5","Summer","[Ruminococcus] gnavus",0.059206631142688,0.102548893284125,0.059206631142688
+"6","Summer","Acetanaerobacterium elongatum",0,0,0
+"7","Summer","Acetatifactor muris",0.195539282812763,0.205086957624264,0.11840701019165
+"8","Summer","Acetitomaculum ruminis",0,0,0
+"9","Summer","Acholeplasma axanthum",0.245786219263101,0.2688184089067,0.15520238074541
+"10","Summer","Acidaminococcus sp. CAG:917",0,0,0
+"11","Summer","Acidiphilium sp. CAG:727",0,0,0
+"12","Summer","Acidobacteria bacterium",0.174947371883429,0.173626537947946,0.100243328422709
+"13","Summer","Actinobaculum sp. oral taxon 183",0,0,0
+"14","Summer","Agromyces sp. OV415",0.115740740740741,0.20046884346862,0.115740740740741
+"15","Summer","Akkermansia muciniphila",0.243113697718466,0.0911567877119808,0.0526293959239737
+"16","Summer","Alistipes megaguti",0,0,0
+"17","Summer","Alistipes onderdonkii",1.4766015756955,0.700168407471229,0.404242418531586
+"18","Summer","Alistipes provencensis",0.115740740740741,0.20046884346862,0.115740740740741
+"19","Summer","Alistipes sp. An116",0.0681663258350375,0.11806753971158,0.0681663258350375
+"20","Summer","Alistipes sp. An54",0.0681663258350375,0.11806753971158,0.0681663258350375
+"21","Summer","Alistipes sp. An66",0.127372956977725,0.111123912445263,0.0641574207636768
+"22","Summer","Alistipes sp. CAG:435",0.127372956977725,0.111123912445263,0.0641574207636768
+"23","Summer","Alistipes sp. CHKCI003",0.059206631142688,0.102548893284125,0.059206631142688
+"24","Summer","Alistipes sp. Z76",0.174947371883429,0.173626537947946,0.100243328422709
+"25","Summer","Alistipes timonensis",0.059206631142688,0.102548893284125,0.059206631142688
+"26","Summer","Alkalibacter saccharofermentans",0,0,0
+"27","Summer","Alkaliflexus imshenetskii",0,0,0
+"28","Summer","Alloscardovia omnicolens",0,0,0
+"29","Summer","Anaerobium acetethylicum",0,0,0
+"30","Summer","Anaerocolumna aminovalerica",0,0,0
+"31","Summer","Anaerocolumna jejuensis",0,0,0
+"32","Summer","Anaerocolumna sp. CBA3638",0.136332651670075,0.23613507942316,0.136332651670075
+"33","Summer","Anaerocolumna xylanovorans",0.127372956977725,0.111123912445263,0.0641574207636768
+"34","Summer","Anaerolineaceae bacterium",0.059206631142688,0.102548893284125,0.059206631142688
+"35","Summer","Anaeromassilibacillus senegalensis",0.059206631142688,0.102548893284125,0.059206631142688
+"36","Summer","Anaeromassilibacillus sp. An200",0.059206631142688,0.102548893284125,0.059206631142688
+"37","Summer","Anaeromassilibacillus sp. An250",0,0,0
+"38","Summer","Anaeromassilibacillus sp. Marseille-P4683",0,0,0
+"39","Summer","Anaerophaga thermohalophila",0,0,0
+"40","Summer","Anaeroplasma bactoclasticum",0,0,0
+"41","Summer","Anaerosporobacter mobilis",0,0,0
+"42","Summer","Anaerotignum neopropionicum",0,0,0
+"43","Summer","Anaerotruncus sp. CAG:528",0,0,0
+"44","Summer","Anaerotruncus sp. X29",0,0,0
+"45","Summer","Ancylomarina sp. 16SWW S1-10-2",0,0,0
+"46","Summer","Ancylomarina subtilis",0.059206631142688,0.102548893284125,0.059206631142688
+"47","Summer","Arcticibacter eurypsychrophilus",0,0,0
+"48","Summer","Bacillus alkalitelluris",0.059206631142688,0.102548893284125,0.059206631142688
+"49","Summer","Bacillus caseinilyticus",0.059206631142688,0.102548893284125,0.059206631142688
+"50","Summer","Bacillus salsus",0.0681663258350375,0.11806753971158,0.0681663258350375
+"51","Summer","Bacillus sp. J37",0,0,0
+"52","Summer","Bacillus sp. JCM 19034",0.059206631142688,0.102548893284125,0.059206631142688
+"53","Summer","bacterium 0.1xD8-71",0.136332651670075,0.23613507942316,0.136332651670075
+"54","Summer","bacterium 0.1xD8-82",0,0,0
+"55","Summer","bacterium 1XD42-54",0,0,0
+"56","Summer","bacterium 1xD42-62",0,0,0
+"57","Summer","bacterium 1xD42-87",0,0,0
+"58","Summer","bacterium D16-29",0.118413262285376,0.205097786568251,0.118413262285376
+"59","Summer","bacterium enrichment culture",0,0,0
+"60","Summer","bacterium TMED264",0.115740740740741,0.20046884346862,0.115740740740741
+"61","Summer","Bacteroidaceae bacterium",0,0,0
+"62","Summer","Bacteroidaceae bacterium HV4-6-C5C",0.059206631142688,0.102548893284125,0.059206631142688
+"63","Summer","Bacteroidales bacterium",0.302320328861154,0.0848105708122893,0.048965405888601
+"64","Summer","Bacteroidales bacterium 43_36",0.183907066575778,0.174524605709412,0.100761828086542
+"65","Summer","Bacteroidales bacterium 52_46",0.361526960003842,0.164647067768131,0.0950590288972128
+"66","Summer","Bacteroidales bacterium 6E",0,0,0
+"67","Summer","Bacteroidales bacterium KA00344",0,0,0
+"68","Summer","Bacteroidales bacterium WCE2004",0.059206631142688,0.102548893284125,0.059206631142688
+"69","Summer","Bacteroidales bacterium WCE2008",0.115740740740741,0.20046884346862,0.115740740740741
+"70","Summer","Bacteroides acidifaciens",0.729341093155399,0.273470363135942,0.157888187771921
+"71","Summer","Bacteroides barnesiae",0.059206631142688,0.102548893284125,0.059206631142688
+"72","Summer","Bacteroides clarus",0.059206631142688,0.102548893284125,0.059206631142688
+"73","Summer","Bacteroides congonensis",0.367814133151556,0.349049211418824,0.201523656173085
+"74","Summer","Bacteroides cutis",0,0,0
+"75","Summer","Bacteroides fluxus",0.486227395436932,0.182313575423962,0.105258791847947
+"76","Summer","Bacteroides fragilis",1.82649631946235,0.871782644475816,0.503323944462956
+"77","Summer","Bacteroides graminisolvens",0,0,0
+"78","Summer","Bacteroides heparinolyticus",0.243113697718466,0.0911567877119808,0.0526293959239737
+"79","Summer","Bacteroides ihuae",0.115740740740741,0.20046884346862,0.115740740740741
+"80","Summer","Bacteroides ilei",0,0,0
+"81","Summer","Bacteroides intestinalis",0,0,0
+"82","Summer","Bacteroides luti",0,0,0
+"83","Summer","Bacteroides neonati",0.243113697718466,0.0911567877119808,0.0526293959239737
+"84","Summer","Bacteroides nordii",0,0,0
+"85","Summer","Bacteroides ovatus",0,0,0
+"86","Summer","Bacteroides plebeius",0,0,0
+"87","Summer","Bacteroides propionicifaciens",0.0681663258350375,0.11806753971158,0.0681663258350375
+"88","Summer","Bacteroides rodentium",0.788547724298087,0.224506809279193,0.129619066772246
+"89","Summer","Bacteroides salanitronis",0.183907066575778,0.174524605709412,0.100761828086542
+"90","Summer","Bacteroides salyersiae",0,0,0
+"91","Summer","Bacteroides sartorii",1.28373481442737,0.42684375195303,0.246438355091992
+"92","Summer","Bacteroides sp. 1_1_14",0.183907066575778,0.174524605709412,0.100761828086542
+"93","Summer","Bacteroides sp. 214",0.115740740740741,0.20046884346862,0.115740740740741
+"94","Summer","Bacteroides sp. 224",0.183907066575778,0.174524605709412,0.100761828086542
+"95","Summer","Bacteroides sp. 43_108",0.059206631142688,0.102548893284125,0.059206631142688
+"96","Summer","Bacteroides sp. 51",0.115740740740741,0.20046884346862,0.115740740740741
+"97","Summer","Bacteroides sp. 519",0,0,0
+"98","Summer","Bacteroides sp. 9_1_42FAA",0.243113697718466,0.0911567877119808,0.0526293959239737
+"99","Summer","Bacteroides sp. AF34-31BH",0.115740740740741,0.20046884346862,0.115740740740741
+"100","Summer","Bacteroides sp. AF39-16AC",0.183907066575778,0.174524605709412,0.100761828086542
+"101","Summer","Bacteroides sp. AM37-9",0,0,0
+"102","Summer","Bacteroides sp. An322",0.059206631142688,0.102548893284125,0.059206631142688
+"103","Summer","Bacteroides sp. CAG:189",0.115740740740741,0.20046884346862,0.115740740740741
+"104","Summer","Bacteroides sp. CAG:530",0,0,0
+"105","Summer","Bacteroides sp. CAG:714",0,0,0
+"106","Summer","Bacteroides sp. CAG:754",0.115740740740741,0.20046884346862,0.115740740740741
+"107","Summer","Bacteroides sp. CAG:770",0.252073392410816,0.220476317688537,0.127292061367414
+"108","Summer","Bacteroides sp. CAG:927",0.059206631142688,0.102548893284125,0.059206631142688
+"109","Summer","Bacteroides sp. D2",0,0,0
+"110","Summer","Bacteroides sp. Marseille-P3684",0,0,0
+"111","Summer","Bacteroides sp. NM69_E16B",0.243113697718466,0.0911567877119808,0.0526293959239737
+"112","Summer","Bacteroides thetaiotaomicron",1.47125653260623,1.3961968456753,0.80609462469234
+"113","Summer","Bacteroides timonensis",0.231481481481481,0.40093768693724,0.231481481481481
+"114","Summer","Bacteroides uniformis",2.0812422334178,0.679135391119951,0.392099000879306
+"115","Summer","Bacteroides vulgatus",0.379446349388541,0.219717987610472,0.126854239292709
+"116","Summer","Bacteroides xylanisolvens",0.183907066575778,0.174524605709412,0.100761828086542
+"117","Summer","Bacteroides xylanolyticus",0.186579588120413,0.178296536501238,0.102939553344567
+"118","Summer","Bacteroidetes bacterium",0.059206631142688,0.102548893284125,0.059206631142688
+"119","Summer","Bacteroidia bacterium",0,0,0
+"120","Summer","Barnesiella sp. WM24",0.42969328583888,0.0945332692627732,0.0545788084562375
+"121","Summer","Barnesiella viscericola",0.059206631142688,0.102548893284125,0.059206631142688
+"122","Summer","Bifidobacterium bombi",0,0,0
+"123","Summer","Bifidobacterium callitrichidarum",0,0,0
+"124","Summer","Bifidobacterium eulemuris",0.0681663258350375,0.11806753971158,0.0681663258350375
+"125","Summer","Bifidobacterium samirii",0.059206631142688,0.102548893284125,0.059206631142688
+"126","Summer","Blastococcus sp. DSM 44270",0,0,0
+"127","Summer","Blautia hydrogenotrophica CAG:147",0.115740740740741,0.20046884346862,0.115740740740741
+"128","Summer","Blautia obeum",0,0,0
+"129","Summer","Blautia producta",0.127372956977725,0.111123912445263,0.0641574207636768
+"130","Summer","Blautia schinkii",0.54543402657962,0.143138080960826,0.0826408095740194
+"131","Summer","Blautia sp. AF19-34",0,0,0
+"132","Summer","Blautia sp. N6H1-15",0,0,0
+"133","Summer","Brachybacterium endophyticum",0,0,0
+"134","Summer","Brachyspira sp. G79",0,0,0
+"135","Summer","Butyricicoccus porcorum",0.183907066575778,0.174524605709412,0.100761828086542
+"136","Summer","Butyricimonas virosa",0.059206631142688,0.102548893284125,0.059206631142688
+"137","Summer","Butyrivibrio fibrisolvens",0.174947371883429,0.173626537947946,0.100243328422709
+"138","Summer","Butyrivibrio proteoclasticus",0,0,0
+"139","Summer","Butyrivibrio sp. AE2015",0.0681663258350375,0.11806753971158,0.0681663258350375
+"140","Summer","Butyrivibrio sp. AE2032",0.0681663258350375,0.11806753971158,0.0681663258350375
+"141","Summer","Butyrivibrio sp. AE3004",0.118413262285376,0.205097786568251,0.118413262285376
+"142","Summer","Butyrivibrio sp. AE3009",0.059206631142688,0.102548893284125,0.059206631142688
+"143","Summer","Butyrivibrio sp. CAG:318",0,0,0
+"144","Summer","Butyrivibrio sp. FCS014",0,0,0
+"145","Summer","Butyrivibrio sp. XPD2006",0.0681663258350375,0.11806753971158,0.0681663258350375
+"146","Summer","Calditrichaeota bacterium",0,0,0
+"147","Summer","Caloramator sp. E03",0.136332651670075,0.23613507942316,0.136332651670075
+"148","Summer","Candidatus Amulumruptor caecigallinarius",0.427020764294244,0.258883217637194,0.149466295391511
+"149","Summer","Candidatus Galacturonibacter soehngenii",0,0,0
+"150","Summer","Candidatus Gastranaerophilales bacterium HUM_15",0.0681663258350375,0.11806753971158,0.0681663258350375
+"151","Summer","Candidatus Koribacter versatilis",0,0,0
+"152","Summer","Candidatus Soleaferrea massiliensis",0,0,0
+"153","Summer","Candidatus Stoquefichus sp. SB1",0.059206631142688,0.102548893284125,0.059206631142688
+"154","Summer","Candidatus Sulfotelmatomonas gaucii",0.0681663258350375,0.11806753971158,0.0681663258350375
+"155","Summer","Capnocytophaga sp. oral taxon 332",0.059206631142688,0.102548893284125,0.059206631142688
+"156","Summer","Caproiciproducens sp. NJN-50",0,0,0
+"157","Summer","Cellulomonas soli",0.183907066575778,0.174524605709412,0.100761828086542
+"158","Summer","Cellulomonas sp. WB94",0,0,0
+"159","Summer","Cellulosilyticum lentocellum",0,0,0
+"160","Summer","Chitinophagaceae bacterium",0.059206631142688,0.102548893284125,0.059206631142688
+"161","Summer","Chlamydia trachomatis",0,0,0
+"162","Summer","Christensenella minuta",0,0,0
+"163","Summer","Christensenella sp. AF73-05CM02",0,0,0
+"164","Summer","Chryseobacterium sp. Leaf394",0.127372956977725,0.111123912445263,0.0641574207636768
+"165","Summer","Chryseobacterium sp. POL2",0.059206631142688,0.102548893284125,0.059206631142688
+"166","Summer","Clostridia bacterium UC5.1-1E11",0,0,0
+"167","Summer","Clostridiaceae bacterium",0.115740740740741,0.20046884346862,0.115740740740741
+"168","Summer","Clostridiales bacterium",0.177619893428064,0.307646679852376,0.177619893428064
+"169","Summer","Clostridiales bacterium 41_21_two_genomes",0.059206631142688,0.102548893284125,0.059206631142688
+"170","Summer","Clostridiales bacterium 44_9",0,0,0
+"171","Summer","Clostridiales bacterium 59_14",0,0,0
+"172","Summer","Clostridiales bacterium CHKCI001",0,0,0
+"173","Summer","Clostridiales bacterium Marseille-P2846",0.127372956977725,0.111123912445263,0.0641574207636768
+"174","Summer","Clostridiales bacterium Marseille-P5551",0,0,0
+"175","Summer","Clostridiales bacterium NK3B98",0,0,0
+"176","Summer","Clostridiales bacterium oral taxon 876",0.0681663258350375,0.11806753971158,0.0681663258350375
+"177","Summer","Clostridium beijerinckii",0,0,0
+"178","Summer","Clostridium estertheticum",0.059206631142688,0.102548893284125,0.059206631142688
+"179","Summer","Clostridium grantii",0.0681663258350375,0.11806753971158,0.0681663258350375
+"180","Summer","Clostridium hathewayi CAG:224",0,0,0
+"181","Summer","Clostridium oryzae",0.0681663258350375,0.11806753971158,0.0681663258350375
+"182","Summer","Clostridium saccharoperbutylacetonicum",0.115740740740741,0.20046884346862,0.115740740740741
+"183","Summer","Clostridium sp. 1001271st1 H5",0,0,0
+"184","Summer","Clostridium sp. AF34-10BH",0,0,0
+"185","Summer","Clostridium sp. AF37-5",0,0,0
+"186","Summer","Clostridium sp. C105KSO13",0,0,0
+"187","Summer","Clostridium sp. CAG:167",0.0681663258350375,0.11806753971158,0.0681663258350375
+"188","Summer","Clostridium sp. CAG:343",0,0,0
+"189","Summer","Clostridium sp. CAG:354_28_25",0,0,0
+"190","Summer","Clostridium sp. CAG:417",0.0681663258350375,0.11806753971158,0.0681663258350375
+"191","Summer","Clostridium sp. CAG:440",0,0,0
+"192","Summer","Clostridium sp. CAG:510",0,0,0
+"193","Summer","Clostridium sp. CAG:568",0.136332651670075,0.23613507942316,0.136332651670075
+"194","Summer","Clostridium sp. CAG:768",0.127372956977725,0.111123912445263,0.0641574207636768
+"195","Summer","Clostridium sp. CAG:967",0,0,0
+"196","Summer","Clostridium sp. chh4-2",0,0,0
+"197","Summer","Clostridium sp. E02",0,0,0
+"198","Summer","Clostridium sp. HBUAS56017",0,0,0
+"199","Summer","Clostridium sp. KNHs205",0.0681663258350375,0.11806753971158,0.0681663258350375
+"200","Summer","Clostridium sp. Marseille-P2415",0,0,0
+"201","Summer","Clostridium sp. Marseille-P2538",0,0,0
+"202","Summer","Clostridium sp. Marseille-P299",0.059206631142688,0.102548893284125,0.059206631142688
+"203","Summer","Clostridium sp. Marseille-P3244",0,0,0
+"204","Summer","Clostridium sp. SYSU GA17076",0.059206631142688,0.102548893284125,0.059206631142688
+"205","Summer","Clostridium sp. WB02_MRS01",0.115740740740741,0.20046884346862,0.115740740740741
+"206","Summer","Clostridium transplantifaecale",0,0,0
+"207","Summer","Colidextribacter sp. OB.20",0,0,0
+"208","Summer","Coprobacillus sp. CAG:826",0.0681663258350375,0.11806753971158,0.0681663258350375
+"209","Summer","Coprococcus catus",0.059206631142688,0.102548893284125,0.059206631142688
+"210","Summer","Coprococcus comes",0.059206631142688,0.102548893284125,0.059206631142688
+"211","Summer","Corallococcus sp. CAG:1435",0,0,0
+"212","Summer","Coriobacteriaceae bacterium",0,0,0
+"213","Summer","Cuneatibacter caecimuris",0.183907066575778,0.174524605709412,0.100761828086542
+"214","Summer","Cytophaga xylanolytica",0,0,0
+"215","Summer","Defluviitalea raffinosedens",0.059206631142688,0.102548893284125,0.059206631142688
+"216","Summer","Defluviitoga tunisiensis",0,0,0
+"217","Summer","Demequina flava",0,0,0
+"218","Summer","Demequina salsinemoris",0,0,0
+"219","Summer","Desulfovibrionaceae bacterium",0.243113697718466,0.0911567877119808,0.0526293959239737
+"220","Summer","Dorea sp. 5-2",0,0,0
+"221","Summer","Drancourtella sp. An57",0.115740740740741,0.20046884346862,0.115740740740741
+"222","Summer","Dysgonomonas alginatilytica",0.174947371883429,0.173626537947946,0.100243328422709
+"223","Summer","Dysgonomonas macrotermitis",0,0,0
+"224","Summer","Dysgonomonas sp. 511",0,0,0
+"225","Summer","Dysgonomonas sp. 520",0.115740740740741,0.20046884346862,0.115740740740741
+"226","Summer","Dysgonomonas sp. 521",0,0,0
+"227","Summer","Echinicola vietnamensis",0.0681663258350375,0.11806753971158,0.0681663258350375
+"228","Summer","Eisenbergiella massiliensis",0,0,0
+"229","Summer","Eisenbergiella sp. OF01-20",0.136332651670075,0.23613507942316,0.136332651670075
+"230","Summer","Eisenbergiella tayi",0.059206631142688,0.102548893284125,0.059206631142688
+"231","Summer","Elusimicrobium minutum",0,0,0
+"232","Summer","Elusimicrobium sp. An273",0,0,0
+"233","Summer","Enterocloster clostridioformis",0.186579588120413,0.178296536501238,0.102939553344567
+"234","Summer","Enterococcus florum",0.115740740740741,0.20046884346862,0.115740740740741
+"235","Summer","Enterococcus termitis",0.059206631142688,0.102548893284125,0.059206631142688
+"236","Summer","Erysipelotrichaceae bacterium",0.186579588120413,0.178296536501238,0.102939553344567
+"237","Summer","Eubacteriaceae bacterium",0,0,0
+"238","Summer","Eubacterium plexicaudatum",0.186579588120413,0.178296536501238,0.102939553344567
+"239","Summer","Eubacterium ruminantium",0.059206631142688,0.102548893284125,0.059206631142688
+"240","Summer","Eubacterium sp. CAG:115",0,0,0
+"241","Summer","Eubacterium sp. CAG:161",0,0,0
+"242","Summer","Eubacterium sp. CAG:180",0.059206631142688,0.102548893284125,0.059206631142688
+"243","Summer","Eubacterium sp. CAG:248",0,0,0
+"244","Summer","Eubacterium sp. CAG:251",0,0,0
+"245","Summer","Eubacterium xylanophilum",0.059206631142688,0.102548893284125,0.059206631142688
+"246","Summer","Faecalibacterium prausnitzii",0.195539282812763,0.205086957624264,0.11840701019165
+"247","Summer","Faecalibacterium sp. An122",0,0,0
+"248","Summer","Faecalibacterium sp. An192",0,0,0
+"249","Summer","Faecalibacterium sp. CAG:74",0.204498977505112,0.35420261913474,0.204498977505113
+"250","Summer","Faecalibacterium sp. CAG:74_58_120",0.0681663258350375,0.11806753971158,0.0681663258350375
+"251","Summer","Faecalicatena orotica",0,0,0
+"252","Summer","Firmicutes bacterium",0.349894743766857,0.347253075895892,0.200486656845419
+"253","Summer","Firmicutes bacterium AM10-47",0,0,0
+"254","Summer","Firmicutes bacterium ASF500",0,0,0
+"255","Summer","Firmicutes bacterium CAG:110",0,0,0
+"256","Summer","Firmicutes bacterium CAG:137_57_8",0.127372956977725,0.111123912445263,0.0641574207636768
+"257","Summer","Firmicutes bacterium CAG:212",0.059206631142688,0.102548893284125,0.059206631142688
+"258","Summer","Firmicutes bacterium CAG:24053_14",0,0,0
+"259","Summer","Firmicutes bacterium CAG:345",0.427020764294244,0.258883217637194,0.149466295391511
+"260","Summer","Firmicutes bacterium CAG:41",0.0681663258350375,0.11806753971158,0.0681663258350375
+"261","Summer","Firmicutes bacterium CAG:475",0.115740740740741,0.20046884346862,0.115740740740741
+"262","Summer","Firmicutes bacterium CAG:534",0,0,0
+"263","Summer","Firmicutes bacterium CAG:646",0.059206631142688,0.102548893284125,0.059206631142688
+"264","Summer","Firmicutes bacterium CAG:791",0,0,0
+"265","Summer","Firmicutes bacterium CAG:882",0.059206631142688,0.102548893284125,0.059206631142688
+"266","Summer","Firmicutes bacterium HGW-Firmicutes-9",0,0,0
+"267","Summer","Flammeovirgaceae bacterium 311",0,0,0
+"268","Summer","Flavobacteriaceae bacterium CP2B",0.059206631142688,0.102548893284125,0.059206631142688
+"269","Summer","Flavobacteriales bacterium",0,0,0
+"270","Summer","Flavobacterium sp. A45",0.059206631142688,0.102548893284125,0.059206631142688
+"271","Summer","Flavonifractor sp. An10",0,0,0
+"272","Summer","Flavonifractor sp. An306",0.059206631142688,0.102548893284125,0.059206631142688
+"273","Summer","Fournierella massiliensis",0,0,0
+"274","Summer","Fusobacterium sp. CAG:439",0.0681663258350375,0.11806753971158,0.0681663258350375
+"275","Summer","Gammaproteobacteria bacterium TMED30",0.059206631142688,0.102548893284125,0.059206631142688
+"276","Summer","Gemmiger formicilis",0.0681663258350375,0.11806753971158,0.0681663258350375
+"277","Summer","Gemmiger sp. An120",0.0681663258350375,0.11806753971158,0.0681663258350375
+"278","Summer","Gemmiger sp. An194",0.118413262285376,0.205097786568251,0.118413262285376
+"279","Summer","Gemmiger sp. An50",0,0,0
+"280","Summer","Gemmiger sp. An87",0,0,0
+"281","Summer","Geofilum rhodophaeum",0.059206631142688,0.102548893284125,0.059206631142688
+"282","Summer","Halanaerobium praevalens",0.059206631142688,0.102548893284125,0.059206631142688
+"283","Summer","Halocella sp. SP3-1",0.059206631142688,0.102548893284125,0.059206631142688
+"284","Summer","Herbinix hemicellulosilytica",0.0681663258350375,0.11806753971158,0.0681663258350375
+"285","Summer","Herbinix luporum",0.0681663258350375,0.11806753971158,0.0681663258350375
+"286","Summer","Hungateiclostridium straminisolvens",0.059206631142688,0.102548893284125,0.059206631142688
+"287","Summer","Hungatella effluvii",0.059206631142688,0.102548893284125,0.059206631142688
+"288","Summer","Hungatella hathewayi",0.136332651670075,0.23613507942316,0.136332651670075
+"289","Summer","Intestinibacillus massiliensis",0,0,0
+"290","Summer","Intestinibacillus sp. Marseille-P6563",0,0,0
+"291","Summer","Intestinimonas butyriciproducens",0,0,0
+"292","Summer","Isoptericola variabilis",0.059206631142688,0.102548893284125,0.059206631142688
+"293","Summer","Kineothrix alysoides",0.254745913955451,0.222247824890525,0.128314841527354
+"294","Summer","Klebsiella oxytoca",0,0,0
+"295","Summer","Kosmotoga sp.",0.059206631142688,0.102548893284125,0.059206631142688
+"296","Summer","Ktedonobacter racemifer",0,0,0
+"297","Summer","Labilibaculum filiforme",0,0,0
+"298","Summer","Labilibaculum sp. 44",0.0681663258350375,0.11806753971158,0.0681663258350375
+"299","Summer","Lachnoclostridium phytofermentans",0.0681663258350375,0.11806753971158,0.0681663258350375
+"300","Summer","Lachnoclostridium sp. An169",0.548106548124256,0.296058185203807,0.17092927292321
+"301","Summer","Lachnoclostridium sp. An298",0,0,0
+"302","Summer","Lachnospira eligens",0,0,0
+"303","Summer","Lachnospiraceae bacterium",1.10250026939623,0.122346246228787,0.0706366381945305
+"304","Summer","Lachnospiraceae bacterium 10-1",0.136332651670075,0.23613507942316,0.136332651670075
+"305","Summer","Lachnospiraceae bacterium 3-1",0,0,0
+"306","Summer","Lachnospiraceae bacterium A2",0.059206631142688,0.102548893284125,0.059206631142688
+"307","Summer","Lachnospiraceae bacterium A4",0.302320328861154,0.0848105708122893,0.048965405888601
+"308","Summer","Lachnospiraceae bacterium AC2028",0,0,0
+"309","Summer","Lachnospiraceae bacterium AC2031",0,0,0
+"310","Summer","Lachnospiraceae bacterium G41",0,0,0
+"311","Summer","Lachnospiraceae bacterium M18-1",0.379446349388541,0.219717987610472,0.126854239292709
+"312","Summer","Lachnospiraceae bacterium Marseille-P3773",0,0,0
+"313","Summer","Lachnospiraceae bacterium MD308",0.183907066575778,0.174524605709412,0.100761828086542
+"314","Summer","Lachnospiraceae bacterium MD329",0.0681663258350375,0.11806753971158,0.0681663258350375
+"315","Summer","Lachnospiraceae bacterium MD335",0.254745913955451,0.222247824890525,0.128314841527354
+"316","Summer","Lachnospiraceae bacterium ND2006",0,0,0
+"317","Summer","Lachnospiraceae bacterium NK3A20",0.127372956977725,0.111123912445263,0.0641574207636768
+"318","Summer","Lachnospiraceae bacterium P6B14",0.0681663258350375,0.11806753971158,0.0681663258350375
+"319","Summer","Lachnospiraceae bacterium V9D3004",0.136332651670075,0.23613507942316,0.136332651670075
+"320","Summer","Lachnospiraceae bacterium WCA-693-APC-MOT-I",0,0,0
+"321","Summer","Lachnospiraceae bacterium WCA-9-b2",0.252073392410816,0.220476317688537,0.127292061367414
+"322","Summer","Lachnospiraceae bacterium XBB2008",0,0,0
+"323","Summer","Lachnospiraceae bacterium XPB1003",0,0,0
+"324","Summer","Lachnospiraceae bacterium YSD2013",0,0,0
+"325","Summer","Lachnotalea glycerini",0,0,0
+"326","Summer","Lachnotalea sp. AF33-28",0.331871934482838,0.430261079264345,0.248411349935088
+"327","Summer","Lacrimispora aerotolerans",0.059206631142688,0.102548893284125,0.059206631142688
+"328","Summer","Lacrimispora algidixylanolytica",0,0,0
+"329","Summer","Lacrimispora amygdalina",0.115740740740741,0.20046884346862,0.115740740740741
+"330","Summer","Lactobacillus composti",0,0,0
+"331","Summer","Lactobacillus ghanensis",0,0,0
+"332","Summer","Lactobacillus mellis",0,0,0
+"333","Summer","Lactobacillus psittaci",0,0,0
+"334","Summer","Lactobacillus sp. 218-6",0.059206631142688,0.102548893284125,0.059206631142688
+"335","Summer","Lactobacillus timonensis",0,0,0
+"336","Summer","Lactococcus piscium",0.059206631142688,0.102548893284125,0.059206631142688
+"337","Summer","Lactococcus sp. Hs30E4-3",0.0681663258350375,0.11806753971158,0.0681663258350375
+"338","Summer","Marinifilum sp. N1E240",0,0,0
+"339","Summer","Marvinbryantia formatexigens",0.482612743833853,0.666696014236083,0.384917123286853
+"340","Summer","Massilimaliae massiliensis",0.118413262285376,0.205097786568251,0.118413262285376
+"341","Summer","Mediterranea massiliensis",0,0,0
+"342","Summer","Microbacterium sediminis",0,0,0
+"343","Summer","Millionella massiliensis",0,0,0
+"344","Summer","Mucilaginibacter sp. HME9299",0.0681663258350375,0.11806753971158,0.0681663258350375
+"345","Summer","Muribaculaceae bacterium Isolate-002 (NCI)",0.059206631142688,0.102548893284125,0.059206631142688
+"346","Summer","Muribaculaceae bacterium Isolate-013 (NCI)",0.059206631142688,0.102548893284125,0.059206631142688
+"347","Summer","Muribaculaceae bacterium Isolate-080 (Janvier)",0,0,0
+"348","Summer","Muribaculaceae bacterium Isolate-104 (HZI)",0.254745913955451,0.222247824890525,0.128314841527354
+"349","Summer","Muribaculaceae bacterium Isolate-110 (HZI)",1.34294144557006,0.349913069023776,0.202022404593845
+"350","Summer","Muribaculum sp. H5",0,0,0
+"351","Summer","Muribaculum sp. TLL-A4",0.174947371883429,0.173626537947946,0.100243328422709
+"352","Summer","Muricauda sp. ARW7G5W",0.183907066575778,0.174524605709412,0.100761828086542
+"353","Summer","Murimonas intestini",0.391078565625526,0.410173915248529,0.236814020383301
+"354","Summer","Natranaerovirga hydrolytica",0,0,0
+"355","Summer","Natranaerovirga pectinivora",0,0,0
+"356","Summer","Neglecta sp. Marseille-P3890",0.059206631142688,0.102548893284125,0.059206631142688
+"357","Summer","Neglecta timonensis",0,0,0
+"358","Summer","Neocallimastix californiae",0,0,0
+"359","Summer","Nonomuraea solani",0,0,0
+"360","Summer","Odoribacter sp. Z80",0.174947371883429,0.173626537947946,0.100243328422709
+"361","Summer","Oenococcus oeni",0,0,0
+"362","Summer","Olsenella provencensis",0,0,0
+"363","Summer","Olsenella sp. An290",0,0,0
+"364","Summer","Opitutus sp. ER46",0.186579588120413,0.178296536501238,0.102939553344567
+"365","Summer","Orenia metallireducens",0,0,0
+"366","Summer","Oribacterium sp. WCC10",0.059206631142688,0.102548893284125,0.059206631142688
+"367","Summer","Oscillibacter ruminantium",0.174947371883429,0.173626537947946,0.100243328422709
+"368","Summer","Oscillibacter sp. 1-3",0.136332651670075,0.23613507942316,0.136332651670075
+"369","Summer","Oscillibacter sp. PC13",0.0681663258350375,0.11806753971158,0.0681663258350375
+"370","Summer","Oscillibacter valericigenes",0,0,0
+"371","Summer","Paenibacillus antibioticophila",0.0681663258350375,0.11806753971158,0.0681663258350375
+"372","Summer","Paenibacillus apiarius",0.059206631142688,0.102548893284125,0.059206631142688
+"373","Summer","Paenibacillus chondroitinus",0.0681663258350375,0.11806753971158,0.0681663258350375
+"374","Summer","Paenibacillus daejeonensis",0.059206631142688,0.102548893284125,0.059206631142688
+"375","Summer","Paenibacillus luteus",0.115740740740741,0.20046884346862,0.115740740740741
+"376","Summer","Paenibacillus oralis",0,0,0
+"377","Summer","Paenibacillus prosopidis",0,0,0
+"378","Summer","Paenibacillus sinopodophylli",0.183907066575778,0.174524605709412,0.100761828086542
+"379","Summer","Paenibacillus sp. 1_12",0.379446349388541,0.219717987610472,0.126854239292709
+"380","Summer","Paenibacillus sp. FSL H7-0737",0.0681663258350375,0.11806753971158,0.0681663258350375
+"381","Summer","Paenibacillus sp. FSL R7-269",0,0,0
+"382","Summer","Paenibacillus sp. GM2",0.0681663258350375,0.11806753971158,0.0681663258350375
+"383","Summer","Paenibacillus sp. IHB B 3415",0,0,0
+"384","Summer","Paenibacillus sp. VTT E-133291",0,0,0
+"385","Summer","Parabacteroides distasonis",0.42073359114653,0.260877427071371,0.150617652745153
+"386","Summer","Parabacteroides goldsteinii",0,0,0
+"387","Summer","Parabacteroides johnsonii",0.486227395436932,0.182313575423962,0.105258791847947
+"388","Summer","Parabacteroides sp. 52",0,0,0
+"389","Summer","Parabacteroides sp. AF27-14",0.059206631142688,0.102548893284125,0.059206631142688
+"390","Summer","Parabacteroides sp. An277",0,0,0
+"391","Summer","Parabacteroides sp. CAG:409",0.059206631142688,0.102548893284125,0.059206631142688
+"392","Summer","Parabacteroides sp. D13",0.183907066575778,0.174524605709412,0.100761828086542
+"393","Summer","Paraprevotella clara",0,0,0
+"394","Summer","Pararcticibacter amylolyticus",0.183907066575778,0.174524605709412,0.100761828086542
+"395","Summer","Pedobacter chitinilyticus",0,0,0
+"396","Summer","Pedobacter sp.",0.0681663258350375,0.11806753971158,0.0681663258350375
+"397","Summer","Pontibacter oryzae",0.127372956977725,0.111123912445263,0.0641574207636768
+"398","Summer","Porphyromonas bennonis",0,0,0
+"399","Summer","Prevotella bergensis",0.183907066575778,0.174524605709412,0.100761828086542
+"400","Summer","Prevotella brevis",0.115740740740741,0.20046884346862,0.115740740740741
+"401","Summer","Prevotella copri",0.477267700744583,0.249658749667319,0.144140546325972
+"402","Summer","Prevotella marseillensis",0.059206631142688,0.102548893284125,0.059206631142688
+"403","Summer","Prevotella oryzae",0.254745913955451,0.222247824890525,0.128314841527354
+"404","Summer","Prevotella ruminicola",0.059206631142688,0.102548893284125,0.059206631142688
+"405","Summer","Prevotella sp. 10(H)",0,0,0
+"406","Summer","Prevotella sp. CAG:1031",0.059206631142688,0.102548893284125,0.059206631142688
+"407","Summer","Prevotella sp. CAG:1124",0.059206631142688,0.102548893284125,0.059206631142688
+"408","Summer","Prevotella sp. CAG:279",0,0,0
+"409","Summer","Prevotella sp. CAG:617",0.115740740740741,0.20046884346862,0.115740740740741
+"410","Summer","Prevotella sp. CAG:732",0,0,0
+"411","Summer","Prevotella sp. CAG:873",0,0,0
+"412","Summer","Prevotella sp. CAG:924",0.438652980531229,0.151472360497652,0.0874526081081073
+"413","Summer","Prevotella sp. P2-180",0.358854438459207,0.290940046019939,0.167974313887654
+"414","Summer","Prevotella sp. P3-122",0.302320328861154,0.0848105708122893,0.048965405888601
+"415","Summer","Prevotella sp. P5-92",0.115740740740741,0.20046884346862,0.115740740740741
+"416","Summer","Prevotella sp. tf2-5",0.183907066575778,0.174524605709412,0.100761828086542
+"417","Summer","Prevotellaceae bacterium HUN156",0.302320328861154,0.0848105708122893,0.048965405888601
+"418","Summer","Prolixibacter sp. SD074",0.174947371883429,0.173626537947946,0.100243328422709
+"419","Summer","Propionispora hippei",0,0,0
+"420","Summer","Propionispora sp. 2/2-37",0,0,0
+"421","Summer","Proteiniclasticum ruminis",0.059206631142688,0.102548893284125,0.059206631142688
+"422","Summer","Proteobacteria bacterium CAG:495",0,0,0
+"423","Summer","Pseudobutyrivibrio xylanivorans",0.0681663258350375,0.11806753971158,0.0681663258350375
+"424","Summer","Pseudoclostridium thermosuccinogenes",0,0,0
+"425","Summer","Pseudoflavonifractor capillosus",0.177619893428064,0.307646679852376,0.177619893428064
+"426","Summer","Pseudoflavonifractor sp. 60",0.304992850405789,0.365745225578572,0.211163104442609
+"427","Summer","Pseudoflavonifractor sp. An184",0,0,0
+"428","Summer","Puniceicoccaceae bacterium",0,0,0
+"429","Summer","Reichenbachiella faecimaris",0,0,0
+"430","Summer","Rhodococcus triatomae",0,0,0
+"431","Summer","Robiginitalea sediminis",0,0,0
+"432","Summer","Robinsoniella peoriensis",0.42969328583888,0.0945332692627732,0.0545788084562375
+"433","Summer","Robinsoniella sp. KNHs210",0.059206631142688,0.102548893284125,0.059206631142688
+"434","Summer","Roseburia hominis",0.459244891460563,0.519121127572181,0.299714722745821
+"435","Summer","Roseburia intestinalis CAG:13",0,0,0
+"436","Summer","Roseburia inulinivorans",0,0,0
+"437","Summer","Roseburia sp. 1XD42-69",0,0,0
+"438","Summer","Roseburia sp. AM16-25",0,0,0
+"439","Summer","Roseburia sp. AM51-8",0.0681663258350375,0.11806753971158,0.0681663258350375
+"440","Summer","Roseburia sp. CAG:303",0,0,0
+"441","Summer","Roseburia sp. MUC/MUC-530-WT-4D",0,0,0
+"442","Summer","Ruminiclostridium cellobioparum",0,0,0
+"443","Summer","Ruminiclostridium hungatei",0,0,0
+"444","Summer","Ruminococcaceae bacterium cv2",0,0,0
+"445","Summer","Ruminococcaceae bacterium HV4-5-B5C",0.304992850405789,0.365745225578572,0.211163104442609
+"446","Summer","Ruminococcaceae bacterium YRB3002",0,0,0
+"447","Summer","Ruminococcus albus",0.059206631142688,0.102548893284125,0.059206631142688
+"448","Summer","Ruminococcus bromii",0.059206631142688,0.102548893284125,0.059206631142688
+"449","Summer","Ruminococcus flavefaciens",0.245786219263101,0.2688184089067,0.15520238074541
+"450","Summer","Ruminococcus sp. AF18-22",0.252073392410816,0.220476317688537,0.127292061367414
+"451","Summer","Ruminococcus sp. AF19-15",0,0,0
+"452","Summer","Ruminococcus sp. AF31-14BH",0,0,0
+"453","Summer","Ruminococcus sp. AF46-10NS",0.059206631142688,0.102548893284125,0.059206631142688
+"454","Summer","Ruminococcus sp. AM42-11",0,0,0
+"455","Summer","Ruminococcus sp. CAG:563",0,0,0
+"456","Summer","Ruminococcus sp. SW178",0,0,0
+"457","Summer","Runella sp. HYN0085",0,0,0
+"458","Summer","Ruthenibacterium lactatiformans",0.059206631142688,0.102548893284125,0.059206631142688
+"459","Summer","Schaedlerella arabinosiphila",0.740973309392383,0.0671836445743444,0.0387884952801379
+"460","Summer","Selenomonas ruminantium",0.059206631142688,0.102548893284125,0.059206631142688
+"461","Summer","Solitalea canadensis",0,0,0
+"462","Summer","Sphingobacterium sp. SSI9",0,0,0
+"463","Summer","Staphylococcus sp. CAG:324",0,0,0
+"464","Summer","Stenotrophomonas indicatrix",0,0,0
+"465","Summer","Streptococcus gallolyticus",0.0681663258350375,0.11806753971158,0.0681663258350375
+"466","Summer","Streptococcus henryi",0,0,0
+"467","Summer","Streptococcus ovis",0,0,0
+"468","Summer","Streptomyces atroolivaceus",0.115740740740741,0.20046884346862,0.115740740740741
+"469","Summer","Streptomyces sp. SLBN-31",0.0681663258350375,0.11806753971158,0.0681663258350375
+"470","Summer","Streptomyces sp. SM11",0,0,0
+"471","Summer","Subdoligranulum sp. AF14-43",0,0,0
+"472","Summer","Subdoligranulum sp. APC924/74",0,0,0
+"473","Summer","Subdoligranulum variabile",0,0,0
+"474","Summer","Sunxiuqinia sp. RC1_OXG_1F",0,0,0
+"475","Summer","Tenericutes bacterium GWD2_38_27",0,0,0
+"476","Summer","Teredinibacter sp. ISS155",0,0,0
+"477","Summer","Thermoanaerobacterium sp. RBIITD",0,0,0
+"478","Summer","Thermoclostridium caenicola",0.0681663258350375,0.11806753971158,0.0681663258350375
+"479","Summer","Treponema azotonutricium",0,0,0
+"480","Summer","Treponema sp. OMZ 838",0,0,0
+"481","Summer","Unclassified",51.4254389947707,2.38093106074052,1.37463118884048
+"482","Summer","uncultured bacterium",0.127372956977725,0.111123912445263,0.0641574207636768
+"483","Summer","uncultured bacterium Contig1500",0.059206631142688,0.102548893284125,0.059206631142688
+"484","Summer","uncultured bacterium Contig1759",0,0,0
+"485","Summer","uncultured bacterium Contig4",0,0,0
+"486","Summer","uncultured bacterium fosmid pJB65E1",0,0,0
+"487","Summer","uncultured bacterium scaffold00056",0,0,0
+"488","Summer","uncultured bacterium scaffold00090",0,0,0
+"489","Summer","uncultured Bacteroides sp.",0.551721199727335,0.523573817128236,0.302285484259627
+"490","Summer","uncultured Clostridiales bacterium",0.059206631142688,0.102548893284125,0.059206631142688
+"491","Summer","uncultured Clostridium sp.",0.186579588120413,0.178296536501238,0.102939553344567
+"492","Summer","uncultured Elusimicrobia bacterium",0,0,0
+"493","Summer","Vallitalea okinawensis",0.0681663258350375,0.11806753971158,0.0681663258350375
+"494","Summer","Verrucomicrobia bacterium",0.136332651670075,0.23613507942316,0.136332651670075
+"495","Summer","Vibrio hangzhouensis",0,0,0
+"496","Summer","Vibrio pacinii",0,0,0
+"497","Summer","Viruses",0,0,0
+"498","Winter","[Clostridium] cellulosi",0,0,0
+"499","Winter","[Clostridium] methoxybenzovorans",0,0,0
+"500","Winter","[Clostridium] saccharogumia",0,0,0
+"501","Winter","[Eubacterium] cellulosolvens",0,0,0
+"502","Winter","[Ruminococcus] gnavus",0,0,0
+"503","Winter","Acetanaerobacterium elongatum",0,0,0
+"504","Winter","Acetatifactor muris",0,0,0
+"505","Winter","Acetitomaculum ruminis",0,0,0
+"506","Winter","Acholeplasma axanthum",0,0,0
+"507","Winter","Acidaminococcus sp. CAG:917",0,0,0
+"508","Winter","Acidiphilium sp. CAG:727",0,0,0
+"509","Winter","Acidobacteria bacterium",0,0,0
+"510","Winter","Actinobaculum sp. oral taxon 183",0,0,0
+"511","Winter","Agromyces sp. OV415",0,0,0
+"512","Winter","Akkermansia muciniphila",0,0,0
+"513","Winter","Alistipes megaguti",0,0,0
+"514","Winter","Alistipes onderdonkii",0,0,0
+"515","Winter","Alistipes provencensis",0,0,0
+"516","Winter","Alistipes sp. An116",0,0,0
+"517","Winter","Alistipes sp. An54",0,0,0
+"518","Winter","Alistipes sp. An66",0,0,0
+"519","Winter","Alistipes sp. CAG:435",0,0,0
+"520","Winter","Alistipes sp. CHKCI003",0,0,0
+"521","Winter","Alistipes sp. Z76",0,0,0
+"522","Winter","Alistipes timonensis",0,0,0
+"523","Winter","Alkalibacter saccharofermentans",0,0,0
+"524","Winter","Alkaliflexus imshenetskii",0,0,0
+"525","Winter","Alloscardovia omnicolens",0,0,0
+"526","Winter","Anaerobium acetethylicum",0,0,0
+"527","Winter","Anaerocolumna aminovalerica",0,0,0
+"528","Winter","Anaerocolumna jejuensis",0,0,0
+"529","Winter","Anaerocolumna sp. CBA3638",0,0,0
+"530","Winter","Anaerocolumna xylanovorans",0,0,0
+"531","Winter","Anaerolineaceae bacterium",0,0,0
+"532","Winter","Anaeromassilibacillus senegalensis",0,0,0
+"533","Winter","Anaeromassilibacillus sp. An200",0,0,0
+"534","Winter","Anaeromassilibacillus sp. An250",0,0,0
+"535","Winter","Anaeromassilibacillus sp. Marseille-P4683",0,0,0
+"536","Winter","Anaerophaga thermohalophila",0,0,0
+"537","Winter","Anaeroplasma bactoclasticum",0,0,0
+"538","Winter","Anaerosporobacter mobilis",0,0,0
+"539","Winter","Anaerotignum neopropionicum",0,0,0
+"540","Winter","Anaerotruncus sp. CAG:528",0,0,0
+"541","Winter","Anaerotruncus sp. X29",0,0,0
+"542","Winter","Ancylomarina sp. 16SWW S1-10-2",0,0,0
+"543","Winter","Ancylomarina subtilis",0,0,0
+"544","Winter","Arcticibacter eurypsychrophilus",0,0,0
+"545","Winter","Bacillus alkalitelluris",0,0,0
+"546","Winter","Bacillus caseinilyticus",0,0,0
+"547","Winter","Bacillus salsus",0,0,0
+"548","Winter","Bacillus sp. J37",0,0,0
+"549","Winter","Bacillus sp. JCM 19034",0,0,0
+"550","Winter","bacterium 0.1xD8-71",0,0,0
+"551","Winter","bacterium 0.1xD8-82",0,0,0
+"552","Winter","bacterium 1XD42-54",0,0,0
+"553","Winter","bacterium 1xD42-62",0,0,0
+"554","Winter","bacterium 1xD42-87",0,0,0
+"555","Winter","bacterium D16-29",0,0,0
+"556","Winter","bacterium enrichment culture",0,0,0
+"557","Winter","bacterium TMED264",0,0,0
+"558","Winter","Bacteroidaceae bacterium",0,0,0
+"559","Winter","Bacteroidaceae bacterium HV4-6-C5C",0,0,0
+"560","Winter","Bacteroidales bacterium",0,0,0
+"561","Winter","Bacteroidales bacterium 43_36",0,0,0
+"562","Winter","Bacteroidales bacterium 52_46",0,0,0
+"563","Winter","Bacteroidales bacterium 6E",0,0,0
+"564","Winter","Bacteroidales bacterium KA00344",0,0,0
+"565","Winter","Bacteroidales bacterium WCE2004",0,0,0
+"566","Winter","Bacteroidales bacterium WCE2008",0,0,0
+"567","Winter","Bacteroides acidifaciens",0,0,0
+"568","Winter","Bacteroides barnesiae",0,0,0
+"569","Winter","Bacteroides clarus",0,0,0
+"570","Winter","Bacteroides congonensis",0,0,0
+"571","Winter","Bacteroides cutis",0,0,0
+"572","Winter","Bacteroides fluxus",0,0,0
+"573","Winter","Bacteroides fragilis",0,0,0
+"574","Winter","Bacteroides graminisolvens",0,0,0
+"575","Winter","Bacteroides heparinolyticus",0,0,0
+"576","Winter","Bacteroides ihuae",0,0,0
+"577","Winter","Bacteroides ilei",0,0,0
+"578","Winter","Bacteroides intestinalis",0,0,0
+"579","Winter","Bacteroides luti",0,0,0
+"580","Winter","Bacteroides neonati",0,0,0
+"581","Winter","Bacteroides nordii",0,0,0
+"582","Winter","Bacteroides ovatus",0,0,0
+"583","Winter","Bacteroides plebeius",0,0,0
+"584","Winter","Bacteroides propionicifaciens",0,0,0
+"585","Winter","Bacteroides rodentium",0,0,0
+"586","Winter","Bacteroides salanitronis",0,0,0
+"587","Winter","Bacteroides salyersiae",0,0,0
+"588","Winter","Bacteroides sartorii",0,0,0
+"589","Winter","Bacteroides sp. 1_1_14",0,0,0
+"590","Winter","Bacteroides sp. 214",0,0,0
+"591","Winter","Bacteroides sp. 224",0,0,0
+"592","Winter","Bacteroides sp. 43_108",0,0,0
+"593","Winter","Bacteroides sp. 51",0,0,0
+"594","Winter","Bacteroides sp. 519",0,0,0
+"595","Winter","Bacteroides sp. 9_1_42FAA",0,0,0
+"596","Winter","Bacteroides sp. AF34-31BH",0,0,0
+"597","Winter","Bacteroides sp. AF39-16AC",0,0,0
+"598","Winter","Bacteroides sp. AM37-9",0,0,0
+"599","Winter","Bacteroides sp. An322",0,0,0
+"600","Winter","Bacteroides sp. CAG:189",0,0,0
+"601","Winter","Bacteroides sp. CAG:530",0,0,0
+"602","Winter","Bacteroides sp. CAG:714",0,0,0
+"603","Winter","Bacteroides sp. CAG:754",0,0,0
+"604","Winter","Bacteroides sp. CAG:770",0,0,0
+"605","Winter","Bacteroides sp. CAG:927",0,0,0
+"606","Winter","Bacteroides sp. D2",0,0,0
+"607","Winter","Bacteroides sp. Marseille-P3684",0,0,0
+"608","Winter","Bacteroides sp. NM69_E16B",0,0,0
+"609","Winter","Bacteroides thetaiotaomicron",0,0,0
+"610","Winter","Bacteroides timonensis",0,0,0
+"611","Winter","Bacteroides uniformis",0,0,0
+"612","Winter","Bacteroides vulgatus",0,0,0
+"613","Winter","Bacteroides xylanisolvens",0,0,0
+"614","Winter","Bacteroides xylanolyticus",0,0,0
+"615","Winter","Bacteroidetes bacterium",0,0,0
+"616","Winter","Bacteroidia bacterium",0,0,0
+"617","Winter","Barnesiella sp. WM24",0,0,0
+"618","Winter","Barnesiella viscericola",0,0,0
+"619","Winter","Bifidobacterium bombi",0,0,0
+"620","Winter","Bifidobacterium callitrichidarum",0,0,0
+"621","Winter","Bifidobacterium eulemuris",0,0,0
+"622","Winter","Bifidobacterium samirii",0,0,0
+"623","Winter","Blastococcus sp. DSM 44270",0,0,0
+"624","Winter","Blautia hydrogenotrophica CAG:147",0,0,0
+"625","Winter","Blautia obeum",0,0,0
+"626","Winter","Blautia producta",0,0,0
+"627","Winter","Blautia schinkii",0,0,0
+"628","Winter","Blautia sp. AF19-34",0,0,0
+"629","Winter","Blautia sp. N6H1-15",0,0,0
+"630","Winter","Brachybacterium endophyticum",0,0,0
+"631","Winter","Brachyspira sp. G79",0,0,0
+"632","Winter","Butyricicoccus porcorum",0,0,0
+"633","Winter","Butyricimonas virosa",0,0,0
+"634","Winter","Butyrivibrio fibrisolvens",0,0,0
+"635","Winter","Butyrivibrio proteoclasticus",0,0,0
+"636","Winter","Butyrivibrio sp. AE2015",0,0,0
+"637","Winter","Butyrivibrio sp. AE2032",0,0,0
+"638","Winter","Butyrivibrio sp. AE3004",0,0,0
+"639","Winter","Butyrivibrio sp. AE3009",0,0,0
+"640","Winter","Butyrivibrio sp. CAG:318",0,0,0
+"641","Winter","Butyrivibrio sp. FCS014",0,0,0
+"642","Winter","Butyrivibrio sp. XPD2006",0,0,0
+"643","Winter","Calditrichaeota bacterium",0,0,0
+"644","Winter","Caloramator sp. E03",0,0,0
+"645","Winter","Candidatus Amulumruptor caecigallinarius",0,0,0
+"646","Winter","Candidatus Galacturonibacter soehngenii",0,0,0
+"647","Winter","Candidatus Gastranaerophilales bacterium HUM_15",0,0,0
+"648","Winter","Candidatus Koribacter versatilis",0,0,0
+"649","Winter","Candidatus Soleaferrea massiliensis",0,0,0
+"650","Winter","Candidatus Stoquefichus sp. SB1",0,0,0
+"651","Winter","Candidatus Sulfotelmatomonas gaucii",0,0,0
+"652","Winter","Capnocytophaga sp. oral taxon 332",0,0,0
+"653","Winter","Caproiciproducens sp. NJN-50",0,0,0
+"654","Winter","Cellulomonas soli",0,0,0
+"655","Winter","Cellulomonas sp. WB94",0,0,0
+"656","Winter","Cellulosilyticum lentocellum",0,0,0
+"657","Winter","Chitinophagaceae bacterium",0,0,0
+"658","Winter","Chlamydia trachomatis",0,0,0
+"659","Winter","Christensenella minuta",0,0,0
+"660","Winter","Christensenella sp. AF73-05CM02",0,0,0
+"661","Winter","Chryseobacterium sp. Leaf394",0,0,0
+"662","Winter","Chryseobacterium sp. POL2",0,0,0
+"663","Winter","Clostridia bacterium UC5.1-1E11",0,0,0
+"664","Winter","Clostridiaceae bacterium",0,0,0
+"665","Winter","Clostridiales bacterium",0,0,0
+"666","Winter","Clostridiales bacterium 41_21_two_genomes",0,0,0
+"667","Winter","Clostridiales bacterium 44_9",0,0,0
+"668","Winter","Clostridiales bacterium 59_14",0,0,0
+"669","Winter","Clostridiales bacterium CHKCI001",0,0,0
+"670","Winter","Clostridiales bacterium Marseille-P2846",0,0,0
+"671","Winter","Clostridiales bacterium Marseille-P5551",0,0,0
+"672","Winter","Clostridiales bacterium NK3B98",0,0,0
+"673","Winter","Clostridiales bacterium oral taxon 876",0,0,0
+"674","Winter","Clostridium beijerinckii",0,0,0
+"675","Winter","Clostridium estertheticum",0,0,0
+"676","Winter","Clostridium grantii",0,0,0
+"677","Winter","Clostridium hathewayi CAG:224",0,0,0
+"678","Winter","Clostridium oryzae",0,0,0
+"679","Winter","Clostridium saccharoperbutylacetonicum",0,0,0
+"680","Winter","Clostridium sp. 1001271st1 H5",0,0,0
+"681","Winter","Clostridium sp. AF34-10BH",0,0,0
+"682","Winter","Clostridium sp. AF37-5",0,0,0
+"683","Winter","Clostridium sp. C105KSO13",0,0,0
+"684","Winter","Clostridium sp. CAG:167",0,0,0
+"685","Winter","Clostridium sp. CAG:343",0,0,0
+"686","Winter","Clostridium sp. CAG:354_28_25",0,0,0
+"687","Winter","Clostridium sp. CAG:417",0,0,0
+"688","Winter","Clostridium sp. CAG:440",0,0,0
+"689","Winter","Clostridium sp. CAG:510",0,0,0
+"690","Winter","Clostridium sp. CAG:568",0,0,0
+"691","Winter","Clostridium sp. CAG:768",0,0,0
+"692","Winter","Clostridium sp. CAG:967",0,0,0
+"693","Winter","Clostridium sp. chh4-2",0,0,0
+"694","Winter","Clostridium sp. E02",0,0,0
+"695","Winter","Clostridium sp. HBUAS56017",0,0,0
+"696","Winter","Clostridium sp. KNHs205",0,0,0
+"697","Winter","Clostridium sp. Marseille-P2415",0,0,0
+"698","Winter","Clostridium sp. Marseille-P2538",0,0,0
+"699","Winter","Clostridium sp. Marseille-P299",0,0,0
+"700","Winter","Clostridium sp. Marseille-P3244",0,0,0
+"701","Winter","Clostridium sp. SYSU GA17076",0,0,0
+"702","Winter","Clostridium sp. WB02_MRS01",0,0,0
+"703","Winter","Clostridium transplantifaecale",0,0,0
+"704","Winter","Colidextribacter sp. OB.20",0,0,0
+"705","Winter","Coprobacillus sp. CAG:826",0,0,0
+"706","Winter","Coprococcus catus",0,0,0
+"707","Winter","Coprococcus comes",0,0,0
+"708","Winter","Corallococcus sp. CAG:1435",0,0,0
+"709","Winter","Coriobacteriaceae bacterium",0,0,0
+"710","Winter","Cuneatibacter caecimuris",0,0,0
+"711","Winter","Cytophaga xylanolytica",0,0,0
+"712","Winter","Defluviitalea raffinosedens",0,0,0
+"713","Winter","Defluviitoga tunisiensis",0,0,0
+"714","Winter","Demequina flava",0,0,0
+"715","Winter","Demequina salsinemoris",0,0,0
+"716","Winter","Desulfovibrionaceae bacterium",0,0,0
+"717","Winter","Dorea sp. 5-2",0,0,0
+"718","Winter","Drancourtella sp. An57",0,0,0
+"719","Winter","Dysgonomonas alginatilytica",0,0,0
+"720","Winter","Dysgonomonas macrotermitis",0,0,0
+"721","Winter","Dysgonomonas sp. 511",0,0,0
+"722","Winter","Dysgonomonas sp. 520",0,0,0
+"723","Winter","Dysgonomonas sp. 521",0,0,0
+"724","Winter","Echinicola vietnamensis",0,0,0
+"725","Winter","Eisenbergiella massiliensis",0,0,0
+"726","Winter","Eisenbergiella sp. OF01-20",0,0,0
+"727","Winter","Eisenbergiella tayi",0,0,0
+"728","Winter","Elusimicrobium minutum",0,0,0
+"729","Winter","Elusimicrobium sp. An273",0,0,0
+"730","Winter","Enterocloster clostridioformis",0,0,0
+"731","Winter","Enterococcus florum",0,0,0
+"732","Winter","Enterococcus termitis",0,0,0
+"733","Winter","Erysipelotrichaceae bacterium",0,0,0
+"734","Winter","Eubacteriaceae bacterium",0,0,0
+"735","Winter","Eubacterium plexicaudatum",0,0,0
+"736","Winter","Eubacterium ruminantium",0,0,0
+"737","Winter","Eubacterium sp. CAG:115",0,0,0
+"738","Winter","Eubacterium sp. CAG:161",0,0,0
+"739","Winter","Eubacterium sp. CAG:180",0,0,0
+"740","Winter","Eubacterium sp. CAG:248",0,0,0
+"741","Winter","Eubacterium sp. CAG:251",0,0,0
+"742","Winter","Eubacterium xylanophilum",0,0,0
+"743","Winter","Faecalibacterium prausnitzii",0,0,0
+"744","Winter","Faecalibacterium sp. An122",0,0,0
+"745","Winter","Faecalibacterium sp. An192",0,0,0
+"746","Winter","Faecalibacterium sp. CAG:74",0,0,0
+"747","Winter","Faecalibacterium sp. CAG:74_58_120",0,0,0
+"748","Winter","Faecalicatena orotica",0,0,0
+"749","Winter","Firmicutes bacterium",0,0,0
+"750","Winter","Firmicutes bacterium AM10-47",0,0,0
+"751","Winter","Firmicutes bacterium ASF500",0,0,0
+"752","Winter","Firmicutes bacterium CAG:110",0,0,0
+"753","Winter","Firmicutes bacterium CAG:137_57_8",0,0,0
+"754","Winter","Firmicutes bacterium CAG:212",0,0,0
+"755","Winter","Firmicutes bacterium CAG:24053_14",0,0,0
+"756","Winter","Firmicutes bacterium CAG:345",0,0,0
+"757","Winter","Firmicutes bacterium CAG:41",0,0,0
+"758","Winter","Firmicutes bacterium CAG:475",0,0,0
+"759","Winter","Firmicutes bacterium CAG:534",0,0,0
+"760","Winter","Firmicutes bacterium CAG:646",0,0,0
+"761","Winter","Firmicutes bacterium CAG:791",0,0,0
+"762","Winter","Firmicutes bacterium CAG:882",0,0,0
+"763","Winter","Firmicutes bacterium HGW-Firmicutes-9",0,0,0
+"764","Winter","Flammeovirgaceae bacterium 311",0,0,0
+"765","Winter","Flavobacteriaceae bacterium CP2B",0,0,0
+"766","Winter","Flavobacteriales bacterium",0,0,0
+"767","Winter","Flavobacterium sp. A45",0,0,0
+"768","Winter","Flavonifractor sp. An10",0,0,0
+"769","Winter","Flavonifractor sp. An306",0,0,0
+"770","Winter","Fournierella massiliensis",0,0,0
+"771","Winter","Fusobacterium sp. CAG:439",0,0,0
+"772","Winter","Gammaproteobacteria bacterium TMED30",0,0,0
+"773","Winter","Gemmiger formicilis",0,0,0
+"774","Winter","Gemmiger sp. An120",0,0,0
+"775","Winter","Gemmiger sp. An194",0,0,0
+"776","Winter","Gemmiger sp. An50",0,0,0
+"777","Winter","Gemmiger sp. An87",0,0,0
+"778","Winter","Geofilum rhodophaeum",0,0,0
+"779","Winter","Halanaerobium praevalens",0,0,0
+"780","Winter","Halocella sp. SP3-1",0,0,0
+"781","Winter","Herbinix hemicellulosilytica",0,0,0
+"782","Winter","Herbinix luporum",0,0,0
+"783","Winter","Hungateiclostridium straminisolvens",0,0,0
+"784","Winter","Hungatella effluvii",0,0,0
+"785","Winter","Hungatella hathewayi",0,0,0
+"786","Winter","Intestinibacillus massiliensis",0,0,0
+"787","Winter","Intestinibacillus sp. Marseille-P6563",0,0,0
+"788","Winter","Intestinimonas butyriciproducens",0,0,0
+"789","Winter","Isoptericola variabilis",0,0,0
+"790","Winter","Kineothrix alysoides",0,0,0
+"791","Winter","Klebsiella oxytoca",0,0,0
+"792","Winter","Kosmotoga sp.",0,0,0
+"793","Winter","Ktedonobacter racemifer",0,0,0
+"794","Winter","Labilibaculum filiforme",0,0,0
+"795","Winter","Labilibaculum sp. 44",0,0,0
+"796","Winter","Lachnoclostridium phytofermentans",0,0,0
+"797","Winter","Lachnoclostridium sp. An169",0,0,0
+"798","Winter","Lachnoclostridium sp. An298",0,0,0
+"799","Winter","Lachnospira eligens",0,0,0
+"800","Winter","Lachnospiraceae bacterium",0,0,0
+"801","Winter","Lachnospiraceae bacterium 10-1",0,0,0
+"802","Winter","Lachnospiraceae bacterium 3-1",0,0,0
+"803","Winter","Lachnospiraceae bacterium A2",0,0,0
+"804","Winter","Lachnospiraceae bacterium A4",0,0,0
+"805","Winter","Lachnospiraceae bacterium AC2028",0,0,0
+"806","Winter","Lachnospiraceae bacterium AC2031",0,0,0
+"807","Winter","Lachnospiraceae bacterium G41",0,0,0
+"808","Winter","Lachnospiraceae bacterium M18-1",0,0,0
+"809","Winter","Lachnospiraceae bacterium Marseille-P3773",0,0,0
+"810","Winter","Lachnospiraceae bacterium MD308",0,0,0
+"811","Winter","Lachnospiraceae bacterium MD329",0,0,0
+"812","Winter","Lachnospiraceae bacterium MD335",0,0,0
+"813","Winter","Lachnospiraceae bacterium ND2006",0,0,0
+"814","Winter","Lachnospiraceae bacterium NK3A20",0,0,0
+"815","Winter","Lachnospiraceae bacterium P6B14",0,0,0
+"816","Winter","Lachnospiraceae bacterium V9D3004",0,0,0
+"817","Winter","Lachnospiraceae bacterium WCA-693-APC-MOT-I",0,0,0
+"818","Winter","Lachnospiraceae bacterium WCA-9-b2",0,0,0
+"819","Winter","Lachnospiraceae bacterium XBB2008",0,0,0
+"820","Winter","Lachnospiraceae bacterium XPB1003",0,0,0
+"821","Winter","Lachnospiraceae bacterium YSD2013",0,0,0
+"822","Winter","Lachnotalea glycerini",0,0,0
+"823","Winter","Lachnotalea sp. AF33-28",0,0,0
+"824","Winter","Lacrimispora aerotolerans",0,0,0
+"825","Winter","Lacrimispora algidixylanolytica",0,0,0
+"826","Winter","Lacrimispora amygdalina",0,0,0
+"827","Winter","Lactobacillus composti",0,0,0
+"828","Winter","Lactobacillus ghanensis",0,0,0
+"829","Winter","Lactobacillus mellis",0,0,0
+"830","Winter","Lactobacillus psittaci",0,0,0
+"831","Winter","Lactobacillus sp. 218-6",0,0,0
+"832","Winter","Lactobacillus timonensis",0,0,0
+"833","Winter","Lactococcus piscium",0,0,0
+"834","Winter","Lactococcus sp. Hs30E4-3",0,0,0
+"835","Winter","Marinifilum sp. N1E240",0,0,0
+"836","Winter","Marvinbryantia formatexigens",0,0,0
+"837","Winter","Massilimaliae massiliensis",0,0,0
+"838","Winter","Mediterranea massiliensis",0,0,0
+"839","Winter","Microbacterium sediminis",0,0,0
+"840","Winter","Millionella massiliensis",0,0,0
+"841","Winter","Mucilaginibacter sp. HME9299",0,0,0
+"842","Winter","Muribaculaceae bacterium Isolate-002 (NCI)",0,0,0
+"843","Winter","Muribaculaceae bacterium Isolate-013 (NCI)",0,0,0
+"844","Winter","Muribaculaceae bacterium Isolate-080 (Janvier)",0,0,0
+"845","Winter","Muribaculaceae bacterium Isolate-104 (HZI)",0,0,0
+"846","Winter","Muribaculaceae bacterium Isolate-110 (HZI)",0,0,0
+"847","Winter","Muribaculum sp. H5",0,0,0
+"848","Winter","Muribaculum sp. TLL-A4",0,0,0
+"849","Winter","Muricauda sp. ARW7G5W",0,0,0
+"850","Winter","Murimonas intestini",0,0,0
+"851","Winter","Natranaerovirga hydrolytica",0,0,0
+"852","Winter","Natranaerovirga pectinivora",0,0,0
+"853","Winter","Neglecta sp. Marseille-P3890",0,0,0
+"854","Winter","Neglecta timonensis",0,0,0
+"855","Winter","Neocallimastix californiae",0,0,0
+"856","Winter","Nonomuraea solani",0,0,0
+"857","Winter","Odoribacter sp. Z80",0,0,0
+"858","Winter","Oenococcus oeni",0,0,0
+"859","Winter","Olsenella provencensis",0,0,0
+"860","Winter","Olsenella sp. An290",0,0,0
+"861","Winter","Opitutus sp. ER46",0,0,0
+"862","Winter","Orenia metallireducens",0,0,0
+"863","Winter","Oribacterium sp. WCC10",0,0,0
+"864","Winter","Oscillibacter ruminantium",0,0,0
+"865","Winter","Oscillibacter sp. 1-3",0,0,0
+"866","Winter","Oscillibacter sp. PC13",0,0,0
+"867","Winter","Oscillibacter valericigenes",0,0,0
+"868","Winter","Paenibacillus antibioticophila",0,0,0
+"869","Winter","Paenibacillus apiarius",0,0,0
+"870","Winter","Paenibacillus chondroitinus",0,0,0
+"871","Winter","Paenibacillus daejeonensis",0,0,0
+"872","Winter","Paenibacillus luteus",0,0,0
+"873","Winter","Paenibacillus oralis",0,0,0
+"874","Winter","Paenibacillus prosopidis",0,0,0
+"875","Winter","Paenibacillus sinopodophylli",0,0,0
+"876","Winter","Paenibacillus sp. 1_12",0,0,0
+"877","Winter","Paenibacillus sp. FSL H7-0737",0,0,0
+"878","Winter","Paenibacillus sp. FSL R7-269",0,0,0
+"879","Winter","Paenibacillus sp. GM2",0,0,0
+"880","Winter","Paenibacillus sp. IHB B 3415",0,0,0
+"881","Winter","Paenibacillus sp. VTT E-133291",0,0,0
+"882","Winter","Parabacteroides distasonis",0,0,0
+"883","Winter","Parabacteroides goldsteinii",0,0,0
+"884","Winter","Parabacteroides johnsonii",0,0,0
+"885","Winter","Parabacteroides sp. 52",0,0,0
+"886","Winter","Parabacteroides sp. AF27-14",0,0,0
+"887","Winter","Parabacteroides sp. An277",0,0,0
+"888","Winter","Parabacteroides sp. CAG:409",0,0,0
+"889","Winter","Parabacteroides sp. D13",0,0,0
+"890","Winter","Paraprevotella clara",0,0,0
+"891","Winter","Pararcticibacter amylolyticus",0,0,0
+"892","Winter","Pedobacter chitinilyticus",0,0,0
+"893","Winter","Pedobacter sp.",0,0,0
+"894","Winter","Pontibacter oryzae",0,0,0
+"895","Winter","Porphyromonas bennonis",0,0,0
+"896","Winter","Prevotella bergensis",0,0,0
+"897","Winter","Prevotella brevis",0,0,0
+"898","Winter","Prevotella copri",0,0,0
+"899","Winter","Prevotella marseillensis",0,0,0
+"900","Winter","Prevotella oryzae",0,0,0
+"901","Winter","Prevotella ruminicola",0,0,0
+"902","Winter","Prevotella sp. 10(H)",0,0,0
+"903","Winter","Prevotella sp. CAG:1031",0,0,0
+"904","Winter","Prevotella sp. CAG:1124",0,0,0
+"905","Winter","Prevotella sp. CAG:279",0,0,0
+"906","Winter","Prevotella sp. CAG:617",0,0,0
+"907","Winter","Prevotella sp. CAG:732",0,0,0
+"908","Winter","Prevotella sp. CAG:873",0,0,0
+"909","Winter","Prevotella sp. CAG:924",0,0,0
+"910","Winter","Prevotella sp. P2-180",0,0,0
+"911","Winter","Prevotella sp. P3-122",0,0,0
+"912","Winter","Prevotella sp. P5-92",0,0,0
+"913","Winter","Prevotella sp. tf2-5",0,0,0
+"914","Winter","Prevotellaceae bacterium HUN156",0,0,0
+"915","Winter","Prolixibacter sp. SD074",0,0,0
+"916","Winter","Propionispora hippei",0,0,0
+"917","Winter","Propionispora sp. 2/2-37",0,0,0
+"918","Winter","Proteiniclasticum ruminis",0,0,0
+"919","Winter","Proteobacteria bacterium CAG:495",0,0,0
+"920","Winter","Pseudobutyrivibrio xylanivorans",0,0,0
+"921","Winter","Pseudoclostridium thermosuccinogenes",0,0,0
+"922","Winter","Pseudoflavonifractor capillosus",0,0,0
+"923","Winter","Pseudoflavonifractor sp. 60",0,0,0
+"924","Winter","Pseudoflavonifractor sp. An184",0,0,0
+"925","Winter","Puniceicoccaceae bacterium",0,0,0
+"926","Winter","Reichenbachiella faecimaris",0,0,0
+"927","Winter","Rhodococcus triatomae",0,0,0
+"928","Winter","Robiginitalea sediminis",0,0,0
+"929","Winter","Robinsoniella peoriensis",0,0,0
+"930","Winter","Robinsoniella sp. KNHs210",0,0,0
+"931","Winter","Roseburia hominis",0,0,0
+"932","Winter","Roseburia intestinalis CAG:13",0,0,0
+"933","Winter","Roseburia inulinivorans",0,0,0
+"934","Winter","Roseburia sp. 1XD42-69",0,0,0
+"935","Winter","Roseburia sp. AM16-25",0,0,0
+"936","Winter","Roseburia sp. AM51-8",0,0,0
+"937","Winter","Roseburia sp. CAG:303",0,0,0
+"938","Winter","Roseburia sp. MUC/MUC-530-WT-4D",0,0,0
+"939","Winter","Ruminiclostridium cellobioparum",0,0,0
+"940","Winter","Ruminiclostridium hungatei",0,0,0
+"941","Winter","Ruminococcaceae bacterium cv2",0,0,0
+"942","Winter","Ruminococcaceae bacterium HV4-5-B5C",0,0,0
+"943","Winter","Ruminococcaceae bacterium YRB3002",0,0,0
+"944","Winter","Ruminococcus albus",0,0,0
+"945","Winter","Ruminococcus bromii",0,0,0
+"946","Winter","Ruminococcus flavefaciens",0,0,0
+"947","Winter","Ruminococcus sp. AF18-22",0,0,0
+"948","Winter","Ruminococcus sp. AF19-15",0,0,0
+"949","Winter","Ruminococcus sp. AF31-14BH",0,0,0
+"950","Winter","Ruminococcus sp. AF46-10NS",0,0,0
+"951","Winter","Ruminococcus sp. AM42-11",0,0,0
+"952","Winter","Ruminococcus sp. CAG:563",0,0,0
+"953","Winter","Ruminococcus sp. SW178",0,0,0
+"954","Winter","Runella sp. HYN0085",0,0,0
+"955","Winter","Ruthenibacterium lactatiformans",0,0,0
+"956","Winter","Schaedlerella arabinosiphila",0,0,0
+"957","Winter","Selenomonas ruminantium",0,0,0
+"958","Winter","Solitalea canadensis",0,0,0
+"959","Winter","Sphingobacterium sp. SSI9",0,0,0
+"960","Winter","Staphylococcus sp. CAG:324",0,0,0
+"961","Winter","Stenotrophomonas indicatrix",0,0,0
+"962","Winter","Streptococcus gallolyticus",0,0,0
+"963","Winter","Streptococcus henryi",0,0,0
+"964","Winter","Streptococcus ovis",0,0,0
+"965","Winter","Streptomyces atroolivaceus",0,0,0
+"966","Winter","Streptomyces sp. SLBN-31",0,0,0
+"967","Winter","Streptomyces sp. SM11",0,0,0
+"968","Winter","Subdoligranulum sp. AF14-43",0,0,0
+"969","Winter","Subdoligranulum sp. APC924/74",0,0,0
+"970","Winter","Subdoligranulum variabile",0,0,0
+"971","Winter","Sunxiuqinia sp. RC1_OXG_1F",0,0,0
+"972","Winter","Tenericutes bacterium GWD2_38_27",0,0,0
+"973","Winter","Teredinibacter sp. ISS155",0,0,0
+"974","Winter","Thermoanaerobacterium sp. RBIITD",0,0,0
+"975","Winter","Thermoclostridium caenicola",0,0,0
+"976","Winter","Treponema azotonutricium",0,0,0
+"977","Winter","Treponema sp. OMZ 838",0,0,0
+"978","Winter","Unclassified",0,0,0
+"979","Winter","uncultured bacterium",0,0,0
+"980","Winter","uncultured bacterium Contig1500",0,0,0
+"981","Winter","uncultured bacterium Contig1759",0,0,0
+"982","Winter","uncultured bacterium Contig4",0,0,0
+"983","Winter","uncultured bacterium fosmid pJB65E1",0,0,0
+"984","Winter","uncultured bacterium scaffold00056",0,0,0
+"985","Winter","uncultured bacterium scaffold00090",0,0,0
+"986","Winter","uncultured Bacteroides sp.",0,0,0
+"987","Winter","uncultured Clostridiales bacterium",0,0,0
+"988","Winter","uncultured Clostridium sp.",0,0,0
+"989","Winter","uncultured Elusimicrobia bacterium",0,0,0
+"990","Winter","Vallitalea okinawensis",0,0,0
+"991","Winter","Verrucomicrobia bacterium",0,0,0
+"992","Winter","Vibrio hangzhouensis",0,0,0
+"993","Winter","Vibrio pacinii",0,0,0
+"994","Winter","Viruses",0,0,0
+"995","Spring","[Clostridium] cellulosi",0,0,0
+"996","Spring","[Clostridium] methoxybenzovorans",0.053248136315229,0.09222847750633,0.053248136315229
+"997","Spring","[Clostridium] saccharogumia",0,0,0
+"998","Spring","[Eubacterium] cellulosolvens",0.0598444045481747,0.103653549226145,0.0598444045481748
+"999","Spring","[Ruminococcus] gnavus",0.408799324122243,0.0627009861308916,0.0362004312211253
+"1000","Spring","Acetanaerobacterium elongatum",0.053248136315229,0.09222847750633,0.053248136315229
+"1001","Spring","Acetatifactor muris",0.235862378710665,0.207123422511393,0.11958276374243
+"1002","Spring","Acetitomaculum ruminis",0.043122035360069,0.0746895561694212,0.043122035360069
+"1003","Spring","Acholeplasma axanthum",0.149618307990527,0.160704355731477,0.0927827030415137
+"1004","Spring","Acidaminococcus sp. CAG:917",0,0,0
+"1005","Spring","Acidiphilium sp. CAG:727",0.053248136315229,0.09222847750633,0.053248136315229
+"1006","Spring","Acidobacteria bacterium",0.053248136315229,0.09222847750633,0.053248136315229
+"1007","Spring","Actinobaculum sp. oral taxon 183",0.043122035360069,0.0746895561694212,0.043122035360069
+"1008","Spring","Agromyces sp. OV415",0,0,0
+"1009","Spring","Akkermansia muciniphila",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1010","Spring","Alistipes megaguti",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1011","Spring","Alistipes onderdonkii",0.511765764030487,0.0300906767537416,0.0173728603238707
+"1012","Spring","Alistipes provencensis",0,0,0
+"1013","Spring","Alistipes sp. An116",0.043122035360069,0.0746895561694212,0.043122035360069
+"1014","Spring","Alistipes sp. An54",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1015","Spring","Alistipes sp. An66",0.106496272630458,0.18445695501266,0.106496272630458
+"1016","Spring","Alistipes sp. CAG:435",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1017","Spring","Alistipes sp. CHKCI003",0.053248136315229,0.09222847750633,0.053248136315229
+"1018","Spring","Alistipes sp. Z76",0.043122035360069,0.0746895561694212,0.043122035360069
+"1019","Spring","Alistipes timonensis",0,0,0
+"1020","Spring","Alkalibacter saccharofermentans",0.043122035360069,0.0746895561694212,0.043122035360069
+"1021","Spring","Alkaliflexus imshenetskii",0.053248136315229,0.09222847750633,0.053248136315229
+"1022","Spring","Alloscardovia omnicolens",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1023","Spring","Anaerobium acetethylicum",0.149618307990527,0.160704355731477,0.0927827030415137
+"1024","Spring","Anaerocolumna aminovalerica",0.053248136315229,0.09222847750633,0.053248136315229
+"1025","Spring","Anaerocolumna jejuensis",0,0,0
+"1026","Spring","Anaerocolumna sp. CBA3638",0.043122035360069,0.0746895561694212,0.043122035360069
+"1027","Spring","Anaerocolumna xylanovorans",0.086244070720138,0.149379112338842,0.086244070720138
+"1028","Spring","Anaerolineaceae bacterium",0.043122035360069,0.0746895561694212,0.043122035360069
+"1029","Spring","Anaeromassilibacillus senegalensis",0.053248136315229,0.09222847750633,0.053248136315229
+"1030","Spring","Anaeromassilibacillus sp. An200",0.106496272630458,0.18445695501266,0.106496272630458
+"1031","Spring","Anaeromassilibacillus sp. An250",0.053248136315229,0.09222847750633,0.053248136315229
+"1032","Spring","Anaeromassilibacillus sp. Marseille-P4683",0.043122035360069,0.0746895561694212,0.043122035360069
+"1033","Spring","Anaerophaga thermohalophila",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1034","Spring","Anaeroplasma bactoclasticum",0.043122035360069,0.0746895561694212,0.043122035360069
+"1035","Spring","Anaerosporobacter mobilis",0.129366106080207,0.224068668508264,0.129366106080207
+"1036","Spring","Anaerotignum neopropionicum",0,0,0
+"1037","Spring","Anaerotruncus sp. CAG:528",0,0,0
+"1038","Spring","Anaerotruncus sp. X29",0,0,0
+"1039","Spring","Ancylomarina sp. 16SWW S1-10-2",0.043122035360069,0.0746895561694212,0.043122035360069
+"1040","Spring","Ancylomarina subtilis",0,0,0
+"1041","Spring","Arcticibacter eurypsychrophilus",0,0,0
+"1042","Spring","Bacillus alkalitelluris",0,0,0
+"1043","Spring","Bacillus caseinilyticus",0,0,0
+"1044","Spring","Bacillus salsus",0,0,0
+"1045","Spring","Bacillus sp. J37",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1046","Spring","Bacillus sp. JCM 19034",0,0,0
+"1047","Spring","bacterium 0.1xD8-71",0.225736277755505,0.264968965486867,0.152979903550739
+"1048","Spring","bacterium 0.1xD8-82",0.043122035360069,0.0746895561694212,0.043122035360069
+"1049","Spring","bacterium 1XD42-54",0.043122035360069,0.0746895561694212,0.043122035360069
+"1050","Spring","bacterium 1xD42-62",0.216058980771647,0.124776029912869,0.0720394744586078
+"1051","Spring","bacterium 1xD42-87",0.332232550385963,0.288356128367739,0.166482488335592
+"1052","Spring","bacterium D16-29",0.344976282880552,0.59751644935537,0.344976282880552
+"1053","Spring","bacterium enrichment culture",0,0,0
+"1054","Spring","bacterium TMED264",0,0,0
+"1055","Spring","Bacteroidaceae bacterium",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1056","Spring","Bacteroidaceae bacterium HV4-6-C5C",0.043122035360069,0.0746895561694212,0.043122035360069
+"1057","Spring","Bacteroidales bacterium",0.146088475268313,0.132568858696699,0.0765386662547005
+"1058","Spring","Bacteroidales bacterium 43_36",0,0,0
+"1059","Spring","Bacteroidales bacterium 52_46",0.043122035360069,0.0746895561694212,0.043122035360069
+"1060","Spring","Bacteroidales bacterium 6E",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1061","Spring","Bacteroidales bacterium KA00344",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1062","Spring","Bacteroidales bacterium WCE2004",0.043122035360069,0.0746895561694212,0.043122035360069
+"1063","Spring","Bacteroidales bacterium WCE2008",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1064","Spring","Bacteroides acidifaciens",0.910887791168873,0.371923536650879,0.214730154003343
+"1065","Spring","Bacteroides barnesiae",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1066","Spring","Bacteroides clarus",0,0,0
+"1067","Spring","Bacteroides congonensis",0.488895930580738,0.33743471556442,0.194818023865043
+"1068","Spring","Bacteroides cutis",0.053248136315229,0.09222847750633,0.053248136315229
+"1069","Spring","Bacteroides fluxus",0.432117961543295,0.249552059825738,0.144078948917216
+"1070","Spring","Bacteroides fragilis",0,0,0
+"1071","Spring","Bacteroides graminisolvens",0.106496272630458,0.18445695501266,0.106496272630458
+"1072","Spring","Bacteroides heparinolyticus",0.156214576223473,0.0252691404607983,0.0145891450472324
+"1073","Spring","Bacteroides ihuae",0.043122035360069,0.0746895561694212,0.043122035360069
+"1074","Spring","Bacteroides ilei",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1075","Spring","Bacteroides intestinalis",0.106496272630458,0.18445695501266,0.106496272630458
+"1076","Spring","Bacteroides luti",0.086244070720138,0.149379112338842,0.086244070720138
+"1077","Spring","Bacteroides neonati",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1078","Spring","Bacteroides nordii",0,0,0
+"1079","Spring","Bacteroides ovatus",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1080","Spring","Bacteroides plebeius",0.043122035360069,0.0746895561694212,0.043122035360069
+"1081","Spring","Bacteroides propionicifaciens",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1082","Spring","Bacteroides rodentium",0.425521693310349,0.147462337725156,0.0851374203809505
+"1083","Spring","Bacteroides salanitronis",0,0,0
+"1084","Spring","Bacteroides salyersiae",0.043122035360069,0.0746895561694212,0.043122035360069
+"1085","Spring","Bacteroides sartorii",0.691298977675011,0.334745709004532,0.193265525203839
+"1086","Spring","Bacteroides sp. 1_1_14",0,0,0
+"1087","Spring","Bacteroides sp. 214",0,0,0
+"1088","Spring","Bacteroides sp. 224",0.053248136315229,0.09222847750633,0.053248136315229
+"1089","Spring","Bacteroides sp. 43_108",0.053248136315229,0.09222847750633,0.053248136315229
+"1090","Spring","Bacteroides sp. 51",0,0,0
+"1091","Spring","Bacteroides sp. 519",0,0,0
+"1092","Spring","Bacteroides sp. 9_1_42FAA",0.043122035360069,0.0746895561694212,0.043122035360069
+"1093","Spring","Bacteroides sp. AF34-31BH",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1094","Spring","Bacteroides sp. AF39-16AC",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1095","Spring","Bacteroides sp. AM37-9",0,0,0
+"1096","Spring","Bacteroides sp. An322",0.043122035360069,0.0746895561694212,0.043122035360069
+"1097","Spring","Bacteroides sp. CAG:189",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1098","Spring","Bacteroides sp. CAG:530",0.043122035360069,0.0746895561694212,0.043122035360069
+"1099","Spring","Bacteroides sp. CAG:714",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1100","Spring","Bacteroides sp. CAG:754",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1101","Spring","Bacteroides sp. CAG:770",0.216058980771647,0.124776029912869,0.0720394744586078
+"1102","Spring","Bacteroides sp. CAG:927",0,0,0
+"1103","Spring","Bacteroides sp. D2",0,0,0
+"1104","Spring","Bacteroides sp. Marseille-P3684",0.053248136315229,0.09222847750633,0.053248136315229
+"1105","Spring","Bacteroides sp. NM69_E16B",0.302303051491785,0.12430984513101,0.0717703225493094
+"1106","Spring","Bacteroides thetaiotaomicron",0,0,0
+"1107","Spring","Bacteroides timonensis",0,0,0
+"1108","Spring","Bacteroides uniformis",1.17667966877372,0.370799529404655,0.214081208117164
+"1109","Spring","Bacteroides vulgatus",0.252584747898771,0.0701800276265358,0.0405184578419158
+"1110","Spring","Bacteroides xylanisolvens",0.299222022740874,0.518267746130723,0.299222022740874
+"1111","Spring","Bacteroides xylanolyticus",0.31595898516916,0.280864684774555,0.162157301360448
+"1112","Spring","Bacteroidetes bacterium",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1113","Spring","Bacteroidia bacterium",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1114","Spring","Barnesiella sp. WM24",0.139492207035367,0.130549619547579,0.075372857988398
+"1115","Spring","Barnesiella viscericola",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1116","Spring","Bifidobacterium bombi",0.043122035360069,0.0746895561694212,0.043122035360069
+"1117","Spring","Bifidobacterium callitrichidarum",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1118","Spring","Bifidobacterium eulemuris",0.053248136315229,0.09222847750633,0.053248136315229
+"1119","Spring","Bifidobacterium samirii",0.053248136315229,0.09222847750633,0.053248136315229
+"1120","Spring","Blastococcus sp. DSM 44270",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1121","Spring","Blautia hydrogenotrophica CAG:147",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1122","Spring","Blautia obeum",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1123","Spring","Blautia producta",0.053248136315229,0.09222847750633,0.053248136315229
+"1124","Spring","Blautia schinkii",0.651706775037157,0.343902944516952,0.198552457591967
+"1125","Spring","Blautia sp. AF19-34",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1126","Spring","Blautia sp. N6H1-15",0.043122035360069,0.0746895561694212,0.043122035360069
+"1127","Spring","Brachybacterium endophyticum",0.053248136315229,0.09222847750633,0.053248136315229
+"1128","Spring","Brachyspira sp. G79",0.053248136315229,0.09222847750633,0.053248136315229
+"1129","Spring","Butyricicoccus porcorum",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1130","Spring","Butyricimonas virosa",0,0,0
+"1131","Spring","Butyrivibrio fibrisolvens",0,0,0
+"1132","Spring","Butyrivibrio proteoclasticus",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1133","Spring","Butyrivibrio sp. AE2015",0.146088475268313,0.132568858696699,0.0765386662547005
+"1134","Spring","Butyrivibrio sp. AE2032",0,0,0
+"1135","Spring","Butyrivibrio sp. AE3004",0.216058980771647,0.124776029912869,0.0720394744586078
+"1136","Spring","Butyrivibrio sp. AE3009",0,0,0
+"1137","Spring","Butyrivibrio sp. CAG:318",0.043122035360069,0.0746895561694212,0.043122035360069
+"1138","Spring","Butyrivibrio sp. FCS014",0,0,0
+"1139","Spring","Butyrivibrio sp. XPD2006",0,0,0
+"1140","Spring","Calditrichaeota bacterium",0.053248136315229,0.09222847750633,0.053248136315229
+"1141","Spring","Caloramator sp. E03",0.086244070720138,0.149379112338842,0.086244070720138
+"1142","Spring","Candidatus Amulumruptor caecigallinarius",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1143","Spring","Candidatus Galacturonibacter soehngenii",0.053248136315229,0.09222847750633,0.053248136315229
+"1144","Spring","Candidatus Gastranaerophilales bacterium HUM_15",0,0,0
+"1145","Spring","Candidatus Koribacter versatilis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1146","Spring","Candidatus Soleaferrea massiliensis",0,0,0
+"1147","Spring","Candidatus Stoquefichus sp. SB1",0,0,0
+"1148","Spring","Candidatus Sulfotelmatomonas gaucii",0,0,0
+"1149","Spring","Capnocytophaga sp. oral taxon 332",0,0,0
+"1150","Spring","Caproiciproducens sp. NJN-50",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1151","Spring","Cellulomonas soli",0.053248136315229,0.09222847750633,0.053248136315229
+"1152","Spring","Cellulomonas sp. WB94",0.043122035360069,0.0746895561694212,0.043122035360069
+"1153","Spring","Cellulosilyticum lentocellum",0,0,0
+"1154","Spring","Chitinophagaceae bacterium",0,0,0
+"1155","Spring","Chlamydia trachomatis",0.053248136315229,0.09222847750633,0.053248136315229
+"1156","Spring","Christensenella minuta",0.086244070720138,0.149379112338842,0.086244070720138
+"1157","Spring","Christensenella sp. AF73-05CM02",0.043122035360069,0.0746895561694212,0.043122035360069
+"1158","Spring","Chryseobacterium sp. Leaf394",0,0,0
+"1159","Spring","Chryseobacterium sp. POL2",0,0,0
+"1160","Spring","Clostridia bacterium UC5.1-1E11",0,0,0
+"1161","Spring","Clostridiaceae bacterium",0.215610176800345,0.373447780847106,0.215610176800345
+"1162","Spring","Clostridiales bacterium",0.575140001300876,0.207736274252991,0.119936593860414
+"1163","Spring","Clostridiales bacterium 41_21_two_genomes",0,0,0
+"1164","Spring","Clostridiales bacterium 44_9",0.053248136315229,0.09222847750633,0.053248136315229
+"1165","Spring","Clostridiales bacterium 59_14",0.043122035360069,0.0746895561694212,0.043122035360069
+"1166","Spring","Clostridiales bacterium CHKCI001",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1167","Spring","Clostridiales bacterium Marseille-P2846",0,0,0
+"1168","Spring","Clostridiales bacterium Marseille-P5551",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1169","Spring","Clostridiales bacterium NK3B98",0.365228484790872,0.39011458889313,0.225232762912249
+"1170","Spring","Clostridiales bacterium oral taxon 876",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1171","Spring","Clostridium beijerinckii",0,0,0
+"1172","Spring","Clostridium estertheticum",0,0,0
+"1173","Spring","Clostridium grantii",0.043122035360069,0.0746895561694212,0.043122035360069
+"1174","Spring","Clostridium hathewayi CAG:224",0.043122035360069,0.0746895561694212,0.043122035360069
+"1175","Spring","Clostridium oryzae",0.159744408945687,0.27668543251899,0.159744408945687
+"1176","Spring","Clostridium saccharoperbutylacetonicum",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1177","Spring","Clostridium sp. 1001271st1 H5",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1178","Spring","Clostridium sp. AF34-10BH",0,0,0
+"1179","Spring","Clostridium sp. AF37-5",0.043122035360069,0.0746895561694212,0.043122035360069
+"1180","Spring","Clostridium sp. C105KSO13",0,0,0
+"1181","Spring","Clostridium sp. CAG:167",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1182","Spring","Clostridium sp. CAG:343",0.043122035360069,0.0746895561694212,0.043122035360069
+"1183","Spring","Clostridium sp. CAG:354_28_25",0.053248136315229,0.09222847750633,0.053248136315229
+"1184","Spring","Clostridium sp. CAG:417",0.053248136315229,0.09222847750633,0.053248136315229
+"1185","Spring","Clostridium sp. CAG:440",0.053248136315229,0.09222847750633,0.053248136315229
+"1186","Spring","Clostridium sp. CAG:510",0.086244070720138,0.149379112338842,0.086244070720138
+"1187","Spring","Clostridium sp. CAG:568",0.219588813493862,0.242114559115376,0.13978490587999
+"1188","Spring","Clostridium sp. CAG:768",0.106496272630458,0.18445695501266,0.106496272630458
+"1189","Spring","Clostridium sp. CAG:967",0.053248136315229,0.09222847750633,0.053248136315229
+"1190","Spring","Clostridium sp. chh4-2",0.043122035360069,0.0746895561694212,0.043122035360069
+"1191","Spring","Clostridium sp. E02",0.043122035360069,0.0746895561694212,0.043122035360069
+"1192","Spring","Clostridium sp. HBUAS56017",0.043122035360069,0.0746895561694212,0.043122035360069
+"1193","Spring","Clostridium sp. KNHs205",0,0,0
+"1194","Spring","Clostridium sp. Marseille-P2415",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1195","Spring","Clostridium sp. Marseille-P2538",0.043122035360069,0.0746895561694212,0.043122035360069
+"1196","Spring","Clostridium sp. Marseille-P299",0,0,0
+"1197","Spring","Clostridium sp. Marseille-P3244",0.043122035360069,0.0746895561694212,0.043122035360069
+"1198","Spring","Clostridium sp. SYSU GA17076",0.043122035360069,0.0746895561694212,0.043122035360069
+"1199","Spring","Clostridium sp. WB02_MRS01",0,0,0
+"1200","Spring","Clostridium transplantifaecale",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1201","Spring","Colidextribacter sp. OB.20",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1202","Spring","Coprobacillus sp. CAG:826",0,0,0
+"1203","Spring","Coprococcus catus",0.172936945411578,0.17989637868877,0.1038632226622
+"1204","Spring","Coprococcus comes",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1205","Spring","Corallococcus sp. CAG:1435",0,0,0
+"1206","Spring","Coriobacteriaceae bacterium",0,0,0
+"1207","Spring","Cuneatibacter caecimuris",0.302303051491785,0.12430984513101,0.0717703225493094
+"1208","Spring","Cytophaga xylanolytica",0,0,0
+"1209","Spring","Defluviitalea raffinosedens",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1210","Spring","Defluviitoga tunisiensis",0.053248136315229,0.09222847750633,0.053248136315229
+"1211","Spring","Demequina flava",0.043122035360069,0.0746895561694212,0.043122035360069
+"1212","Spring","Demequina salsinemoris",0,0,0
+"1213","Spring","Desulfovibrionaceae bacterium",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1214","Spring","Dorea sp. 5-2",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1215","Spring","Drancourtella sp. An57",0,0,0
+"1216","Spring","Dysgonomonas alginatilytica",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1217","Spring","Dysgonomonas macrotermitis",0,0,0
+"1218","Spring","Dysgonomonas sp. 511",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1219","Spring","Dysgonomonas sp. 520",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1220","Spring","Dysgonomonas sp. 521",0,0,0
+"1221","Spring","Echinicola vietnamensis",0,0,0
+"1222","Spring","Eisenbergiella massiliensis",0.043122035360069,0.0746895561694212,0.043122035360069
+"1223","Spring","Eisenbergiella sp. OF01-20",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1224","Spring","Eisenbergiella tayi",0.043122035360069,0.0746895561694212,0.043122035360069
+"1225","Spring","Elusimicrobium minutum",0,0,0
+"1226","Spring","Elusimicrobium sp. An273",0.053248136315229,0.09222847750633,0.053248136315229
+"1227","Spring","Enterocloster clostridioformis",0.053248136315229,0.09222847750633,0.053248136315229
+"1228","Spring","Enterococcus florum",0,0,0
+"1229","Spring","Enterococcus termitis",0.053248136315229,0.09222847750633,0.053248136315229
+"1230","Spring","Erysipelotrichaceae bacterium",0.106496272630458,0.18445695501266,0.106496272630458
+"1231","Spring","Eubacteriaceae bacterium",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1232","Spring","Eubacterium plexicaudatum",0.55841763211277,0.222670472689666,0.12855885734796
+"1233","Spring","Eubacterium ruminantium",0,0,0
+"1234","Spring","Eubacterium sp. CAG:115",0.159744408945687,0.27668543251899,0.159744408945687
+"1235","Spring","Eubacterium sp. CAG:161",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1236","Spring","Eubacterium sp. CAG:180",0.043122035360069,0.0746895561694212,0.043122035360069
+"1237","Spring","Eubacterium sp. CAG:248",0.043122035360069,0.0746895561694212,0.043122035360069
+"1238","Spring","Eubacterium sp. CAG:251",0.043122035360069,0.0746895561694212,0.043122035360069
+"1239","Spring","Eubacterium xylanophilum",0.182614242395436,0.195057294446565,0.112616381456125
+"1240","Spring","Faecalibacterium prausnitzii",0.235862378710665,0.207123422511393,0.11958276374243
+"1241","Spring","Faecalibacterium sp. An122",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1242","Spring","Faecalibacterium sp. An192",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1243","Spring","Faecalibacterium sp. CAG:74",0.245988479665825,0.239870639021506,0.138489378009754
+"1244","Spring","Faecalibacterium sp. CAG:74_58_120",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1245","Spring","Faecalicatena orotica",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1246","Spring","Firmicutes bacterium",0.053248136315229,0.09222847750633,0.053248136315229
+"1247","Spring","Firmicutes bacterium AM10-47",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1248","Spring","Firmicutes bacterium ASF500",0.086244070720138,0.149379112338842,0.086244070720138
+"1249","Spring","Firmicutes bacterium CAG:110",0.086244070720138,0.149379112338842,0.086244070720138
+"1250","Spring","Firmicutes bacterium CAG:137_57_8",0.182614242395436,0.195057294446565,0.112616381456125
+"1251","Spring","Firmicutes bacterium CAG:212",0,0,0
+"1252","Spring","Firmicutes bacterium CAG:24053_14",0.043122035360069,0.0746895561694212,0.043122035360069
+"1253","Spring","Firmicutes bacterium CAG:345",0.56854373306793,0.337994835325566,0.195141409159919
+"1254","Spring","Firmicutes bacterium CAG:41",0,0,0
+"1255","Spring","Firmicutes bacterium CAG:475",0.053248136315229,0.09222847750633,0.053248136315229
+"1256","Spring","Firmicutes bacterium CAG:534",0.172488141440276,0.298758224677685,0.172488141440276
+"1257","Spring","Firmicutes bacterium CAG:646",0.162810844456418,0.18185457842826,0.104993789808922
+"1258","Spring","Firmicutes bacterium CAG:791",0.043122035360069,0.0746895561694212,0.043122035360069
+"1259","Spring","Firmicutes bacterium CAG:882",0,0,0
+"1260","Spring","Firmicutes bacterium HGW-Firmicutes-9",0.043122035360069,0.0746895561694212,0.043122035360069
+"1261","Spring","Flammeovirgaceae bacterium 311",0,0,0
+"1262","Spring","Flavobacteriaceae bacterium CP2B",0,0,0
+"1263","Spring","Flavobacteriales bacterium",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1264","Spring","Flavobacterium sp. A45",0.053248136315229,0.09222847750633,0.053248136315229
+"1265","Spring","Flavonifractor sp. An10",0,0,0
+"1266","Spring","Flavonifractor sp. An306",0.053248136315229,0.09222847750633,0.053248136315229
+"1267","Spring","Fournierella massiliensis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1268","Spring","Fusobacterium sp. CAG:439",0,0,0
+"1269","Spring","Gammaproteobacteria bacterium TMED30",0,0,0
+"1270","Spring","Gemmiger formicilis",0.192740343350596,0.169659869300804,0.0979531712114961
+"1271","Spring","Gemmiger sp. An120",0.043122035360069,0.0746895561694212,0.043122035360069
+"1272","Spring","Gemmiger sp. An194",0.182614242395436,0.195057294446565,0.112616381456125
+"1273","Spring","Gemmiger sp. An50",0.043122035360069,0.0746895561694212,0.043122035360069
+"1274","Spring","Gemmiger sp. An87",0.053248136315229,0.09222847750633,0.053248136315229
+"1275","Spring","Geofilum rhodophaeum",0.053248136315229,0.09222847750633,0.053248136315229
+"1276","Spring","Halanaerobium praevalens",0,0,0
+"1277","Spring","Halocella sp. SP3-1",0.053248136315229,0.09222847750633,0.053248136315229
+"1278","Spring","Herbinix hemicellulosilytica",0.249054915176556,0.21617579825979,0.124809155317572
+"1279","Spring","Herbinix luporum",0.146088475268313,0.132568858696699,0.0765386662547005
+"1280","Spring","Hungateiclostridium straminisolvens",0,0,0
+"1281","Spring","Hungatella effluvii",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1282","Spring","Hungatella hathewayi",0.398673223167083,0.104762153925312,0.0604844577696639
+"1283","Spring","Intestinibacillus massiliensis",0.043122035360069,0.0746895561694212,0.043122035360069
+"1284","Spring","Intestinibacillus sp. Marseille-P6563",0.086244070720138,0.149379112338842,0.086244070720138
+"1285","Spring","Intestinimonas butyriciproducens",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1286","Spring","Isoptericola variabilis",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1287","Spring","Kineothrix alysoides",0.37227355699512,0.147211127071674,0.0849923838425395
+"1288","Spring","Klebsiella oxytoca",0.043122035360069,0.0746895561694212,0.043122035360069
+"1289","Spring","Kosmotoga sp.",0,0,0
+"1290","Spring","Ktedonobacter racemifer",0.043122035360069,0.0746895561694212,0.043122035360069
+"1291","Spring","Labilibaculum filiforme",0.053248136315229,0.09222847750633,0.053248136315229
+"1292","Spring","Labilibaculum sp. 44",0,0,0
+"1293","Spring","Lachnoclostridium phytofermentans",0.086244070720138,0.149379112338842,0.086244070720138
+"1294","Spring","Lachnoclostridium sp. An169",0.74454711399024,0.294422254143349,0.169984767685079
+"1295","Spring","Lachnoclostridium sp. An298",0.053248136315229,0.09222847750633,0.053248136315229
+"1296","Spring","Lachnospira eligens",0.043122035360069,0.0746895561694212,0.043122035360069
+"1297","Spring","Lachnospiraceae bacterium",2.00085999201097,0.608092715098343,0.351082492754279
+"1298","Spring","Lachnospiraceae bacterium 10-1",0.139492207035367,0.130549619547579,0.075372857988398
+"1299","Spring","Lachnospiraceae bacterium 3-1",0.249054915176556,0.21617579825979,0.124809155317572
+"1300","Spring","Lachnospiraceae bacterium A2",0,0,0
+"1301","Spring","Lachnospiraceae bacterium A4",0.282499653552768,0.382774230751327,0.22099480516313
+"1302","Spring","Lachnospiraceae bacterium AC2028",0.043122035360069,0.0746895561694212,0.043122035360069
+"1303","Spring","Lachnospiraceae bacterium AC2031",0.053248136315229,0.09222847750633,0.053248136315229
+"1304","Spring","Lachnospiraceae bacterium G41",0.043122035360069,0.0746895561694212,0.043122035360069
+"1305","Spring","Lachnospiraceae bacterium M18-1",0.106496272630458,0.18445695501266,0.106496272630458
+"1306","Spring","Lachnospiraceae bacterium Marseille-P3773",0.205932879816487,0.185264680723293,0.106962613286923
+"1307","Spring","Lachnospiraceae bacterium MD308",0.043122035360069,0.0746895561694212,0.043122035360069
+"1308","Spring","Lachnospiraceae bacterium MD329",0,0,0
+"1309","Spring","Lachnospiraceae bacterium MD335",0,0,0
+"1310","Spring","Lachnospiraceae bacterium ND2006",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1311","Spring","Lachnospiraceae bacterium NK3A20",0.225736277755505,0.264968965486867,0.152979903550739
+"1312","Spring","Lachnospiraceae bacterium P6B14",0.156214576223473,0.0252691404607983,0.0145891450472324
+"1313","Spring","Lachnospiraceae bacterium V9D3004",0.086244070720138,0.149379112338842,0.086244070720138
+"1314","Spring","Lachnospiraceae bacterium WCA-693-APC-MOT-I",0,0,0
+"1315","Spring","Lachnospiraceae bacterium WCA-9-b2",0.242458646943611,0.126515155572279,0.0730435591262229
+"1316","Spring","Lachnospiraceae bacterium XBB2008",0.043122035360069,0.0746895561694212,0.043122035360069
+"1317","Spring","Lachnospiraceae bacterium XPB1003",0.043122035360069,0.0746895561694212,0.043122035360069
+"1318","Spring","Lachnospiraceae bacterium YSD2013",0.086244070720138,0.149379112338842,0.086244070720138
+"1319","Spring","Lachnotalea glycerini",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1320","Spring","Lachnotalea sp. AF33-28",0.322555253402105,0.177768247757086,0.102634545695922
+"1321","Spring","Lacrimispora aerotolerans",0,0,0
+"1322","Spring","Lacrimispora algidixylanolytica",0.106496272630458,0.18445695501266,0.106496272630458
+"1323","Spring","Lacrimispora amygdalina",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1324","Spring","Lactobacillus composti",0,0,0
+"1325","Spring","Lactobacillus ghanensis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1326","Spring","Lactobacillus mellis",0.043122035360069,0.0746895561694212,0.043122035360069
+"1327","Spring","Lactobacillus psittaci",0.043122035360069,0.0746895561694212,0.043122035360069
+"1328","Spring","Lactobacillus sp. 218-6",0,0,0
+"1329","Spring","Lactobacillus timonensis",0.043122035360069,0.0746895561694212,0.043122035360069
+"1330","Spring","Lactococcus piscium",0,0,0
+"1331","Spring","Lactococcus sp. Hs30E4-3",0,0,0
+"1332","Spring","Marinifilum sp. N1E240",0.043122035360069,0.0746895561694212,0.043122035360069
+"1333","Spring","Marvinbryantia formatexigens",0.828173553170949,0.613453036451896,0.354177275730696
+"1334","Spring","Massilimaliae massiliensis",0,0,0
+"1335","Spring","Mediterranea massiliensis",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1336","Spring","Microbacterium sediminis",0.043122035360069,0.0746895561694212,0.043122035360069
+"1337","Spring","Millionella massiliensis",0.053248136315229,0.09222847750633,0.053248136315229
+"1338","Spring","Mucilaginibacter sp. HME9299",0,0,0
+"1339","Spring","Muribaculaceae bacterium Isolate-002 (NCI)",0.043122035360069,0.0746895561694212,0.043122035360069
+"1340","Spring","Muribaculaceae bacterium Isolate-013 (NCI)",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1341","Spring","Muribaculaceae bacterium Isolate-080 (Janvier)",0.053248136315229,0.09222847750633,0.053248136315229
+"1342","Spring","Muribaculaceae bacterium Isolate-104 (HZI)",0.202866444305756,0.247927098590731,0.143140777110761
+"1343","Spring","Muribaculaceae bacterium Isolate-110 (HZI)",0.764350511929258,0.0415800720591927,0.0240062657962989
+"1344","Spring","Muribaculum sp. H5",0.043122035360069,0.0746895561694212,0.043122035360069
+"1345","Spring","Muribaculum sp. TLL-A4",0.043122035360069,0.0746895561694212,0.043122035360069
+"1346","Spring","Muricauda sp. ARW7G5W",0,0,0
+"1347","Spring","Murimonas intestini",0.900761690213713,0.317496722344538,0.183306818112443
+"1348","Spring","Natranaerovirga hydrolytica",0,0,0
+"1349","Spring","Natranaerovirga pectinivora",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1350","Spring","Neglecta sp. Marseille-P3890",0.043122035360069,0.0746895561694212,0.043122035360069
+"1351","Spring","Neglecta timonensis",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1352","Spring","Neocallimastix californiae",0,0,0
+"1353","Spring","Nonomuraea solani",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1354","Spring","Odoribacter sp. Z80",0,0,0
+"1355","Spring","Oenococcus oeni",0,0,0
+"1356","Spring","Olsenella provencensis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1357","Spring","Olsenella sp. An290",0,0,0
+"1358","Spring","Opitutus sp. ER46",0.209462712538702,0.0985316830499227,0.0568872937325798
+"1359","Spring","Orenia metallireducens",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1360","Spring","Oribacterium sp. WCC10",0.043122035360069,0.0746895561694212,0.043122035360069
+"1361","Spring","Oscillibacter ruminantium",0,0,0
+"1362","Spring","Oscillibacter sp. 1-3",0.043122035360069,0.0746895561694212,0.043122035360069
+"1363","Spring","Oscillibacter sp. PC13",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1364","Spring","Oscillibacter valericigenes",0.043122035360069,0.0746895561694212,0.043122035360069
+"1365","Spring","Paenibacillus antibioticophila",0,0,0
+"1366","Spring","Paenibacillus apiarius",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1367","Spring","Paenibacillus chondroitinus",0.053248136315229,0.09222847750633,0.053248136315229
+"1368","Spring","Paenibacillus daejeonensis",0,0,0
+"1369","Spring","Paenibacillus luteus",0,0,0
+"1370","Spring","Paenibacillus oralis",0.043122035360069,0.0746895561694212,0.043122035360069
+"1371","Spring","Paenibacillus prosopidis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1372","Spring","Paenibacillus sinopodophylli",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1373","Spring","Paenibacillus sp. 1_12",0.162810844456418,0.18185457842826,0.104993789808922
+"1374","Spring","Paenibacillus sp. FSL H7-0737",0.043122035360069,0.0746895561694212,0.043122035360069
+"1375","Spring","Paenibacillus sp. FSL R7-269",0,0,0
+"1376","Spring","Paenibacillus sp. GM2",0,0,0
+"1377","Spring","Paenibacillus sp. IHB B 3415",0.053248136315229,0.09222847750633,0.053248136315229
+"1378","Spring","Paenibacillus sp. VTT E-133291",0.053248136315229,0.09222847750633,0.053248136315229
+"1379","Spring","Parabacteroides distasonis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1380","Spring","Parabacteroides goldsteinii",0.053248136315229,0.09222847750633,0.053248136315229
+"1381","Spring","Parabacteroides johnsonii",0.222655249004593,0.281157502912724,0.162326359991344
+"1382","Spring","Parabacteroides sp. 52",0.053248136315229,0.09222847750633,0.053248136315229
+"1383","Spring","Parabacteroides sp. AF27-14",0.043122035360069,0.0746895561694212,0.043122035360069
+"1384","Spring","Parabacteroides sp. An277",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1385","Spring","Parabacteroides sp. CAG:409",0,0,0
+"1386","Spring","Parabacteroides sp. D13",0,0,0
+"1387","Spring","Paraprevotella clara",0.053248136315229,0.09222847750633,0.053248136315229
+"1388","Spring","Pararcticibacter amylolyticus",0,0,0
+"1389","Spring","Pedobacter chitinilyticus",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1390","Spring","Pedobacter sp.",0,0,0
+"1391","Spring","Pontibacter oryzae",0.043122035360069,0.0746895561694212,0.043122035360069
+"1392","Spring","Porphyromonas bennonis",0.053248136315229,0.09222847750633,0.053248136315229
+"1393","Spring","Prevotella bergensis",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1394","Spring","Prevotella brevis",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1395","Spring","Prevotella copri",0.252584747898771,0.0701800276265358,0.0405184578419158
+"1396","Spring","Prevotella marseillensis",0,0,0
+"1397","Spring","Prevotella oryzae",0.365677288762174,0.110399057900964,0.0637389257974025
+"1398","Spring","Prevotella ruminicola",0,0,0
+"1399","Spring","Prevotella sp. 10(H)",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1400","Spring","Prevotella sp. CAG:1031",0.282499653552768,0.382774230751327,0.22099480516313
+"1401","Spring","Prevotella sp. CAG:1124",0.053248136315229,0.09222847750633,0.053248136315229
+"1402","Spring","Prevotella sp. CAG:279",0.086244070720138,0.149379112338842,0.086244070720138
+"1403","Spring","Prevotella sp. CAG:617",0.149618307990527,0.160704355731477,0.0927827030415137
+"1404","Spring","Prevotella sp. CAG:732",0.053248136315229,0.09222847750633,0.053248136315229
+"1405","Spring","Prevotella sp. CAG:873",0.053248136315229,0.09222847750633,0.053248136315229
+"1406","Spring","Prevotella sp. CAG:924",0.259181016131716,0.099661767081822,0.0575397480526037
+"1407","Spring","Prevotella sp. P2-180",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1408","Spring","Prevotella sp. P3-122",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1409","Spring","Prevotella sp. P5-92",0.286029486274982,0.270854275317199,0.156377788765546
+"1410","Spring","Prevotella sp. tf2-5",0.189210510628382,0.194230053578186,0.112138773718081
+"1411","Spring","Prevotellaceae bacterium HUN156",0.139492207035367,0.130549619547579,0.075372857988398
+"1412","Spring","Prolixibacter sp. SD074",0,0,0
+"1413","Spring","Propionispora hippei",0.043122035360069,0.0746895561694212,0.043122035360069
+"1414","Spring","Propionispora sp. 2/2-37",0,0,0
+"1415","Spring","Proteiniclasticum ruminis",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1416","Spring","Proteobacteria bacterium CAG:495",0,0,0
+"1417","Spring","Pseudobutyrivibrio xylanivorans",0,0,0
+"1418","Spring","Pseudoclostridium thermosuccinogenes",0.043122035360069,0.0746895561694212,0.043122035360069
+"1419","Spring","Pseudoflavonifractor capillosus",0.73705323781469,0.721830696329137,0.416749146834962
+"1420","Spring","Pseudoflavonifractor sp. 60",0.942986117631177,0.752416482954994,0.434407858976777
+"1421","Spring","Pseudoflavonifractor sp. An184",0,0,0
+"1422","Spring","Puniceicoccaceae bacterium",0,0,0
+"1423","Spring","Reichenbachiella faecimaris",0.053248136315229,0.09222847750633,0.053248136315229
+"1424","Spring","Rhodococcus triatomae",0.043122035360069,0.0746895561694212,0.043122035360069
+"1425","Spring","Robiginitalea sediminis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1426","Spring","Robinsoniella peoriensis",0.442244062498455,0.296121123432702,0.170965610326605
+"1427","Spring","Robinsoniella sp. KNHs210",0,0,0
+"1428","Spring","Roseburia hominis",0.371824753023818,0.350336073358184,0.202266626260184
+"1429","Spring","Roseburia intestinalis CAG:13",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1430","Spring","Roseburia inulinivorans",0.119688809096349,0.207307098452289,0.11968880909635
+"1431","Spring","Roseburia sp. 1XD42-69",0.043122035360069,0.0746895561694212,0.043122035360069
+"1432","Spring","Roseburia sp. AM16-25",0.053248136315229,0.09222847750633,0.053248136315229
+"1433","Spring","Roseburia sp. AM51-8",0.146088475268313,0.132568858696699,0.0765386662547005
+"1434","Spring","Roseburia sp. CAG:303",0.043122035360069,0.0746895561694212,0.043122035360069
+"1435","Spring","Roseburia sp. MUC/MUC-530-WT-4D",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1436","Spring","Ruminiclostridium cellobioparum",0.043122035360069,0.0746895561694212,0.043122035360069
+"1437","Spring","Ruminiclostridium hungatei",0.043122035360069,0.0746895561694212,0.043122035360069
+"1438","Spring","Ruminococcaceae bacterium cv2",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1439","Spring","Ruminococcaceae bacterium HV4-5-B5C",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1440","Spring","Ruminococcaceae bacterium YRB3002",0.086244070720138,0.149379112338842,0.086244070720138
+"1441","Spring","Ruminococcus albus",0.139492207035367,0.130549619547579,0.075372857988398
+"1442","Spring","Ruminococcus bromii",0,0,0
+"1443","Spring","Ruminococcus flavefaciens",0.451921359482312,0.0826555197172121,0.0477211865587408
+"1444","Spring","Ruminococcus sp. AF18-22",0.086244070720138,0.149379112338842,0.086244070720138
+"1445","Spring","Ruminococcus sp. AF19-15",0.053248136315229,0.09222847750633,0.053248136315229
+"1446","Spring","Ruminococcus sp. AF31-14BH",0.053248136315229,0.09222847750633,0.053248136315229
+"1447","Spring","Ruminococcus sp. AF46-10NS",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1448","Spring","Ruminococcus sp. AM42-11",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1449","Spring","Ruminococcus sp. CAG:563",0.043122035360069,0.0746895561694212,0.043122035360069
+"1450","Spring","Ruminococcus sp. SW178",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1451","Spring","Runella sp. HYN0085",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1452","Spring","Ruthenibacterium lactatiformans",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1453","Spring","Schaedlerella arabinosiphila",0.525421697707861,0.378368285118848,0.218451031266184
+"1454","Spring","Selenomonas ruminantium",0.159744408945687,0.27668543251899,0.159744408945687
+"1455","Spring","Solitalea canadensis",0.043122035360069,0.0746895561694212,0.043122035360069
+"1456","Spring","Sphingobacterium sp. SSI9",0.043122035360069,0.0746895561694212,0.043122035360069
+"1457","Spring","Staphylococcus sp. CAG:324",0,0,0
+"1458","Spring","Stenotrophomonas indicatrix",0.043122035360069,0.0746895561694212,0.043122035360069
+"1459","Spring","Streptococcus gallolyticus",0.053248136315229,0.09222847750633,0.053248136315229
+"1460","Spring","Streptococcus henryi",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1461","Spring","Streptococcus ovis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1462","Spring","Streptomyces atroolivaceus",0.053248136315229,0.09222847750633,0.053248136315229
+"1463","Spring","Streptomyces sp. SLBN-31",0,0,0
+"1464","Spring","Streptomyces sp. SM11",0.053248136315229,0.09222847750633,0.053248136315229
+"1465","Spring","Subdoligranulum sp. AF14-43",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1466","Spring","Subdoligranulum sp. APC924/74",0.172936945411578,0.17989637868877,0.1038632226622
+"1467","Spring","Subdoligranulum variabile",0.156214576223473,0.0252691404607983,0.0145891450472324
+"1468","Spring","Sunxiuqinia sp. RC1_OXG_1F",0.043122035360069,0.0746895561694212,0.043122035360069
+"1469","Spring","Tenericutes bacterium GWD2_38_27",0.043122035360069,0.0746895561694212,0.043122035360069
+"1470","Spring","Teredinibacter sp. ISS155",0.043122035360069,0.0746895561694212,0.043122035360069
+"1471","Spring","Thermoanaerobacterium sp. RBIITD",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1472","Spring","Thermoclostridium caenicola",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1473","Spring","Treponema azotonutricium",0.053248136315229,0.09222847750633,0.053248136315229
+"1474","Spring","Treponema sp. OMZ 838",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1475","Spring","Unclassified",51.1089082903626,0.780883297813951,0.450843182198567
+"1476","Spring","uncultured bacterium",0.199336611583542,0.052381076962656,0.030242228884832
+"1477","Spring","uncultured bacterium Contig1500",0.096370171675298,0.0848299346504022,0.0489765856057481
+"1478","Spring","uncultured bacterium Contig1759",0.102966439908244,0.0926323403616465,0.0534813066434616
+"1479","Spring","uncultured bacterium Contig4",0.113092540863404,0.0984395311704483,0.0568340898201589
+"1480","Spring","uncultured bacterium fosmid pJB65E1",0.053248136315229,0.09222847750633,0.053248136315229
+"1481","Spring","uncultured bacterium scaffold00056",0.043122035360069,0.0746895561694212,0.043122035360069
+"1482","Spring","uncultured bacterium scaffold00090",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1483","Spring","uncultured Bacteroides sp.",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1484","Spring","uncultured Clostridiales bacterium",0.192740343350596,0.169659869300804,0.0979531712114961
+"1485","Spring","uncultured Clostridium sp.",0.215610176800345,0.373447780847106,0.215610176800345
+"1486","Spring","uncultured Elusimicrobia bacterium",0.202866444305756,0.247927098590731,0.143140777110761
+"1487","Spring","Vallitalea okinawensis",0,0,0
+"1488","Spring","Verrucomicrobia bacterium",0,0,0
+"1489","Spring","Vibrio hangzhouensis",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1490","Spring","Vibrio pacinii",0.0598444045481747,0.103653549226145,0.0598444045481748
+"1491","Spring","Viruses",0,0,0

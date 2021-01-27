@@ -1,0 +1,1487 @@
+---
+title: "Code_Kaiju"
+author: "Edna Chiang"
+date: "1/26/2021"
+output: html_document
+---
+
+### Load Libraries
+```{r}
+library('readr')
+library('pgirmess')
+library('ggplot2')
+library('grid')
+library('phyloseq')
+library('DESeq2')
+library('phangorn')
+library('vegan')
+library('pheatmap')
+library('RColorBrewer')
+library('gplots')
+library('tidyr')
+library('dplyr')
+library('stringr')
+library('lme4')
+library('picante')
+library('ggdendro')
+theme_set(theme_bw())
+set.seed(1)
+```
+
+### Load Functions
+```{r}
+source('scripts/misc.R')
+source('scripts/import.phylum.sum.R')
+source('scripts/import.class.sum.R')
+source('scripts/import.order.sum.R')
+source('scripts/import.family.sum.R')
+source('scripts/import.genus.sum.R')
+source('scripts/import.species.sum.R')
+```
+
+### Kaiju - No Host
+```{r}
+########## Domain ##########
+# Load files
+domain <- read.csv('kaiju/nohost/domain/domain.csv', header=T)
+domain$Season <- ordered(domain$Season, levels=c("Summer", "Winter", "Spring"))
+meta <- read.csv('metadata.csv', header=T)
+meta$Season <- ordered(meta$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Calculate relative abundance for total sequences
+domain.ra <- domain
+domain.ra$Archaea <- (domain.ra$Archaea / domain.ra$Total_Sequences)
+domain.ra$Bacteria <- (domain.ra$Bacteria / domain.ra$Total_Sequences)
+domain.ra$Eukaryota <- (domain.ra$Eukaryota / domain.ra$Total_Sequences)
+domain.ra$Viruses <- (domain.ra$Viruses / domain.ra$Total_Sequences)
+domain.ra$Unclassified <- (domain.ra$Total_Unclassified / domain.ra$Total_Sequences)
+
+# Calculate relative abundance for classified sequences
+domain.clas.ra <- domain
+domain.clas.ra$Archaea <- (domain.clas.ra$Archaea / domain.clas.ra$Total_Classified)
+domain.clas.ra$Bacteria <- (domain.clas.ra$Bacteria / domain.clas.ra$Total_Classified)
+domain.clas.ra$Eukaryota <- (domain.clas.ra$Eukaryota / domain.clas.ra$Total_Classified)
+domain.clas.ra$Viruses <- (domain.clas.ra$Viruses / domain.clas.ra$Total_Classified)
+
+# Summarize all sequences
+domain.sum <- domain.ra %>%
+  group_by(Season) %>%
+  summarize(Archaea_Mean = mean(Archaea)*100,
+            Bacteria_Mean = mean(Bacteria)*100,
+            Eukaryota_Mean = mean(Eukaryota)*100,
+            Viruses_Mean = mean(Viruses)*100,
+            Unclassified_Mean = mean(Unclassified)*100,
+            Archaea_SD = sd(Archaea)*100,
+            Bacteria_SD = sd(Bacteria)*100,
+            Eukaryota_SD = sd(Eukaryota)*100,
+            Viruses_SD = sd(Viruses)*100,
+            Unclassified_SD = sd(Unclassified)*100,
+            Archaea_SE = se(Archaea)*100,
+            Bacteria_SE = se(Bacteria)*100,
+            Eukaryota_SE = se(Eukaryota)*100,
+            Viruses_SE = se(Viruses)*100,
+            Unclassified_SE = se(Unclassified)*100)
+
+# Summarize only classified sequences
+domain.clas.sum <- domain.clas.ra %>%
+  group_by(Season) %>%
+  summarize(Archaea_Mean = mean(Archaea)*100,
+            Bacteria_Mean = mean(Bacteria)*100,
+            Eukaryota_Mean = mean(Eukaryota)*100,
+            Viruses_Mean = mean(Viruses)*100,
+            Archaea_SD = sd(Archaea)*100,
+            Bacteria_SD = sd(Bacteria)*100,
+            Eukaryota_SD = sd(Eukaryota)*100,
+            Viruses_SD = sd(Viruses)*100,
+            Archaea_SE = se(Archaea)*100,
+            Bacteria_SE = se(Bacteria)*100,
+            Eukaryota_SE = se(Eukaryota)*100,
+            Viruses_SE = se(Viruses)*100)
+
+# Create domain all seqs dataframe for plotting
+domain.df <- data.frame(matrix(NA, nrow=15, ncol=5))
+colnames(domain.df) <- c("Season", "Domain", "Mean", "SD", "SE")
+domain.df$Season <- c(rep("Summer", 5), rep("Winter", 5), rep("Spring", 5))
+domain.df$Season <- ordered(domain.df$Season, levels=c("Summer", "Winter", "Spring"))
+domain.df$Domain <- c(rep(c("Archaea", "Bacteria", "Eukaryota", "Viruses", "Unclassified"), 3))
+domain.df$Domain <- ordered(domain.df$Domain, levels=c("Archaea", "Bacteria", "Eukaryota", "Viruses",
+                                                       "Unclassified"))
+domain.df$Mean <- as.numeric(c(domain.sum[1,2:6], domain.sum[2, 2:6], domain.sum[3, 2:6]))
+domain.df$SD <- as.numeric(c(domain.sum[1, 7:11], domain.sum[2, 7:11], domain.sum[3, 7:11]))
+domain.df$SE <- as.numeric(c(domain.sum[1, 12:16], domain.sum[2, 12:16], domain.sum[3, 12:16]))
+
+# Create domain classified seqs dataframe for plotting
+domain.clas.df <- data.frame(matrix(NA, nrow=12, ncol=5))
+colnames(domain.clas.df) <- c("Season", "Domain", "Mean", "SD", "SE")
+domain.clas.df$Season <- c(rep("Summer", 4), rep("Winter", 4), rep("Spring", 4))
+domain.clas.df$Season <- ordered(domain.clas.df$Season, levels=c("Summer", "Winter", "Spring"))
+domain.clas.df$Domain <- c(rep(c("Archaea", "Bacteria", "Eukaryota", "Viruses"), 3))
+domain.clas.df$Domain <- ordered(domain.clas.df$Domain, levels=c("Archaea", "Bacteria", "Eukaryota",
+                                                                "Viruses"))
+domain.clas.df$Mean <- as.numeric(c(domain.clas.sum[1,2:5], domain.clas.sum[2, 2:5],
+                                    domain.clas.sum[3, 2:5]))
+domain.clas.df$SD <- as.numeric(c(domain.clas.sum[1, 6:9], domain.clas.sum[2, 6:9],
+                                  domain.clas.sum[3, 6:9]))
+domain.clas.df$SE <- as.numeric(c(domain.clas.sum[1, 10:13], domain.clas.sum[2, 10:13],
+                                  domain.clas.sum[3, 10:13]))
+
+# Barplot for all sequences
+ggplot(domain.df, aes(x=Domain, y=Mean, fill=Domain)) +
+  geom_bar(stat="identity") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.5,60)) +
+  facet_grid(Season ~ .) +
+  scale_fill_brewer(palette="Set1") +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+# Barplot for classified sequences
+ggplot(domain.clas.df, aes(x=Domain, y=Mean, fill=Domain)) +
+  geom_bar(stat="identity") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.5,100)) +
+  facet_grid(Season ~ .) +
+  scale_fill_brewer(palette="Set1") +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+########## Phylum ##########
+phy.sum <- import.phylum.sum('kaiju/nohost/phylum')
+
+# Summarize phyla to get top 10
+phy.sum.sum <- phy.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+  # Top 10 phyla = Unclassified, Bacteroidetes, Firmicutes, Verrucomicrobia, Proteobacteria, Actinobacteria, Candidatus Melainabacteria, Spirochaetes, Tenericutes, Elusimicrobia (and Fusobacteria)
+
+# Only look at top 10 phyla
+top.total <- c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia")
+clas.total <- c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria")
+
+# Pull out top 10 phyla - Including Unclassified
+phy.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(phy.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
+for (i in 1:length(top.total)){
+  top <- which(phy.sum$Phylum == top.total[i])
+  for (j in 1:length(top)){
+    phy.total$Season[(j + 3*(i-1))] <- as.character(phy.sum$Season[top[j]])
+    phy.total$Phylum[(j + 3*(i-1))] <- phy.sum$Phylum[top[j]]
+    phy.total$Mean[(j + 3*(i-1))] <- phy.sum$Mean[top[j]]
+    phy.total$SD[(j + 3*(i-1))] <- phy.sum$SD[top[j]]
+    phy.total$SE[(j + 3*(i-1))] <- phy.sum$SE[top[j]]
+  }
+}
+phy.total$Phylum <- ordered(phy.total$Phylum, levels=c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia"))
+phy.total$Season <- ordered(phy.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 phyla (including unclassified)
+ggplot(phy.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,63)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+# Pull out top 10 phyla (Only classified)
+phy.clas.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(phy.clas.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
+for (i in 1:length(clas.total)){
+  top <- which(phy.sum$Phylum == clas.total[i])
+  for (j in 1:length(top)){
+    phy.clas.total$Season[(j + 3*(i-1))] <- as.character(phy.sum$Season[top[j]])
+    phy.clas.total$Phylum[(j + 3*(i-1))] <- phy.sum$Phylum[top[j]]
+    phy.clas.total$Mean[(j + 3*(i-1))] <- phy.sum$Mean[top[j]]
+    phy.clas.total$SD[(j + 3*(i-1))] <- phy.sum$SD[top[j]]
+    phy.clas.total$SE[(j + 3*(i-1))] <- phy.sum$SE[top[j]]
+  }
+}
+phy.clas.total$Phylum <- ordered(phy.clas.total$Phylum, levels=c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria"))
+phy.clas.total$Season <- ordered(phy.clas.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+
+# Barplot for top 10 phyla (only classified)
+ggplot(phy.clas.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,45)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+########## Class ##########
+cla.sum <- import.class.sum('kaiju/nohost/class')
+
+# Summarize classes to get top 10
+cla.sum.sum <- cla.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 10 classes
+top.class <- c("Bacteroidia", "Clostridia", "Verrucomicrobiae", "Deltaproteobacteria", "Bacilli", "Alphaproteobacteria", "Erysipelotrichia", "Negativicutes", "Coriobacteriia", "Gammaproteobacteria")
+
+# Pull out top 10 classes - Including Unclassified
+cla.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(cla.total) <- c("Season", "Class", "Mean", "SD", "SE")
+for (i in 1:length(top.class)){
+  top <- which(cla.sum$Class == top.class[i])
+  for (j in 1:length(top)){
+    cla.total$Season[(j + 3*(i-1))] <- as.character(cla.sum$Season[top[j]])
+    cla.total$Class[(j + 3*(i-1))] <- cla.sum$Class[top[j]]
+    cla.total$Mean[(j + 3*(i-1))] <- cla.sum$Mean[top[j]]
+    cla.total$SD[(j + 3*(i-1))] <- cla.sum$SD[top[j]]
+    cla.total$SE[(j + 3*(i-1))] <- cla.sum$SE[top[j]]
+  }
+}
+cla.total$Class <- ordered(cla.total$Class, levels=c("Bacteroidia", "Clostridia", "Verrucomicrobiae", "Deltaproteobacteria", "Bacilli", "Alphaproteobacteria", "Erysipelotrichia", "Negativicutes", "Coriobacteriia", "Gammaproteobacteria"))
+cla.total$Season <- ordered(cla.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 classes (no unclassified)
+ggplot(cla.total, aes(x=Class, y=Mean, fill=Class)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,42)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Classes") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+########## Order ##########
+ord.sum <- import.order.sum('kaiju/nohost/order')
+
+# Summarize orders to get top 10
+ord.sum.sum <- ord.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 10 orders
+top.order <- c("Bacteroidales", "Clostridiales", "Verrucomicrobiales", "Desulfovibrionales", "Lactobacillales", "Erysipelotrichales", "Rhodospirillales", "Bacillales", "Acidaminococcales", "Flavobacteriales")
+
+# Pull out top 10 orders - Including Unclassified
+ord.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(ord.total) <- c("Season", "Order", "Mean", "SD", "SE")
+for (i in 1:length(top.order)){
+  top <- which(ord.sum$Order == top.order[i])
+  for (j in 1:length(top)){
+    ord.total$Season[(j + 3*(i-1))] <- as.character(ord.sum$Season[top[j]])
+    ord.total$Order[(j + 3*(i-1))] <- ord.sum$Order[top[j]]
+    ord.total$Mean[(j + 3*(i-1))] <- ord.sum$Mean[top[j]]
+    ord.total$SD[(j + 3*(i-1))] <- ord.sum$SD[top[j]]
+    ord.total$SE[(j + 3*(i-1))] <- ord.sum$SE[top[j]]
+  }
+}
+ord.total$Order <- ordered(ord.total$Order, levels=c("Bacteroidales", "Clostridiales", "Verrucomicrobiales", "Desulfovibrionales", "Lactobacillales", "Erysipelotrichales", "Rhodospirillales", "Bacillales", "Acidaminococcales", "Flavobacteriales"))
+ord.total$Season <- ordered(ord.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 orders (no unclassified)
+ggplot(ord.total, aes(x=Order, y=Mean, fill=Order)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,42)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Orders") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+
+########## Family ##########
+fam.sum <- import.family.sum('kaiju/nohost/family')
+
+# Summarize families to get top 10
+fam.sum.sum <- fam.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 10 orders
+top.family <- c("Bacteroidaceae", "Lachnospiraceae", "Prevotellaceae", "Akkermansiaceae", "Tannerellaceae", "Ruminococcaceae", "Muribaculaceae", "Rikenellaceae", "Clostridiaceae", "Eubacteriaceae")
+
+# Pull out top 10 families - Including Unclassified
+fam.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(fam.total) <- c("Season", "Family", "Mean", "SD", "SE")
+for (i in 1:length(top.family)){
+  top <- which(fam.sum$Family == top.family[i])
+  for (j in 1:length(top)){
+    fam.total$Season[(j + 3*(i-1))] <- as.character(fam.sum$Season[top[j]])
+    fam.total$Family[(j + 3*(i-1))] <- fam.sum$Family[top[j]]
+    fam.total$Mean[(j + 3*(i-1))] <- fam.sum$Mean[top[j]]
+    fam.total$SD[(j + 3*(i-1))] <- fam.sum$SD[top[j]]
+    fam.total$SE[(j + 3*(i-1))] <- fam.sum$SE[top[j]]
+  }
+}
+fam.total$Family <- ordered(fam.total$Family, levels=c("Bacteroidaceae", "Lachnospiraceae", "Prevotellaceae", "Akkermansiaceae", "Tannerellaceae", "Ruminococcaceae", "Muribaculaceae", "Rikenellaceae", "Clostridiaceae", "Eubacteriaceae"))
+fam.total$Season <- ordered(fam.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 orders (no unclassified)
+ggplot(fam.total, aes(x=Family, y=Mean, fill=Family)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.3,16)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Families") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+
+
+########## Genus ##########
+gen.sum <- import.genus.sum('kaiju/nohost/genus')
+
+# Summarize genera to get top 10
+gen.sum.sum <- gen.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 10 genera
+top.genus <- c("Bacteroides", "Prevotella", "Akkermansia", "Parabacteroides", "Alistipes", "Clostridium", "Eubacterium", "Ruminococcus", "Oscillibacter", "Roseburia")
+
+# Pull out top 10 genera - Including Unclassified
+gen.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(gen.total) <- c("Season", "Genus", "Mean", "SD", "SE")
+for (i in 1:length(top.genus)){
+  top <- which(gen.sum$Genus == top.genus[i])
+  for (j in 1:length(top)){
+    gen.total$Season[(j + 3*(i-1))] <- as.character(gen.sum$Season[top[j]])
+    gen.total$Genus[(j + 3*(i-1))] <- gen.sum$Genus[top[j]]
+    gen.total$Mean[(j + 3*(i-1))] <- gen.sum$Mean[top[j]]
+    gen.total$SD[(j + 3*(i-1))] <- gen.sum$SD[top[j]]
+    gen.total$SE[(j + 3*(i-1))] <- gen.sum$SE[top[j]]
+  }
+}
+gen.total$Genus <- ordered(gen.total$Genus, levels=c("Bacteroides", "Prevotella", "Akkermansia", "Parabacteroides", "Alistipes", "Clostridium", "Eubacterium", "Ruminococcus", "Oscillibacter", "Roseburia"))
+gen.total$Season <- ordered(gen.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 orders (no unclassified)
+ggplot(gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.2,16)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Genera") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+```
+
+### Kaiju - All CAZymes
+```{r}
+########## Phylum ##########
+phy.sum <- import.phylum.sum('kaiju/all_cazymes/phylum', 33)
+
+# Summarize phyla to get top 10
+phy.sum.sum <- phy.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+  # Top 10 phyla = Unclassified, Bacteroidetes, Firmicutes, Verrucomicrobia, Proteobacteria, Actinobacteria, Candidatus Melainabacteria, Spirochaetes, Tenericutes, Elusimicrobia (and Fusobacteria)
+
+# Only look at top 10 phyla
+top.total <- c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia")
+clas.total <- c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria")
+
+# Pull out top 10 phyla - Including Unclassified
+phy.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(phy.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
+for (i in 1:length(top.total)){
+  top <- which(phy.sum$Phylum == top.total[i])
+  for (j in 1:length(top)){
+    phy.total$Season[(j + 3*(i-1))] <- as.character(phy.sum$Season[top[j]])
+    phy.total$Phylum[(j + 3*(i-1))] <- phy.sum$Phylum[top[j]]
+    phy.total$Mean[(j + 3*(i-1))] <- phy.sum$Mean[top[j]]
+    phy.total$SD[(j + 3*(i-1))] <- phy.sum$SD[top[j]]
+    phy.total$SE[(j + 3*(i-1))] <- phy.sum$SE[top[j]]
+  }
+}
+phy.total$Phylum <- ordered(phy.total$Phylum, levels=c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia"))
+phy.total$Season <- ordered(phy.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 phyla (including unclassified)
+ggplot(phy.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,63)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+# Pull out top 10 phyla (Only classified)
+phy.clas.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(phy.clas.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
+for (i in 1:length(clas.total)){
+  top <- which(phy.sum$Phylum == clas.total[i])
+  for (j in 1:length(top)){
+    phy.clas.total$Season[(j + 3*(i-1))] <- as.character(phy.sum$Season[top[j]])
+    phy.clas.total$Phylum[(j + 3*(i-1))] <- phy.sum$Phylum[top[j]]
+    phy.clas.total$Mean[(j + 3*(i-1))] <- phy.sum$Mean[top[j]]
+    phy.clas.total$SD[(j + 3*(i-1))] <- phy.sum$SD[top[j]]
+    phy.clas.total$SE[(j + 3*(i-1))] <- phy.sum$SE[top[j]]
+  }
+}
+phy.clas.total$Phylum <- ordered(phy.clas.total$Phylum, levels=c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria"))
+phy.clas.total$Season <- ordered(phy.clas.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+
+# Barplot for top 10 phyla (only classified)
+ggplot(phy.clas.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,45)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+########## Phylum ##########
+phy.sum <- import.phylum.sum('kaiju/nohost/phylum')
+
+# Summarize phyla to get top 10
+phy.sum.sum <- phy.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+  # Top 10 phyla = Unclassified, Bacteroidetes, Firmicutes, Verrucomicrobia, Proteobacteria, Actinobacteria, Candidatus Melainabacteria, Spirochaetes, Tenericutes, Elusimicrobia (and Fusobacteria)
+
+# Only look at top 10 phyla
+top.total <- c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia")
+clas.total <- c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria")
+
+# Pull out top 10 phyla - Including Unclassified
+phy.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(phy.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
+for (i in 1:length(top.total)){
+  top <- which(phy.sum$Phylum == top.total[i])
+  for (j in 1:length(top)){
+    phy.total$Season[(j + 3*(i-1))] <- as.character(phy.sum$Season[top[j]])
+    phy.total$Phylum[(j + 3*(i-1))] <- phy.sum$Phylum[top[j]]
+    phy.total$Mean[(j + 3*(i-1))] <- phy.sum$Mean[top[j]]
+    phy.total$SD[(j + 3*(i-1))] <- phy.sum$SD[top[j]]
+    phy.total$SE[(j + 3*(i-1))] <- phy.sum$SE[top[j]]
+  }
+}
+phy.total$Phylum <- ordered(phy.total$Phylum, levels=c("Unclassified", "Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia"))
+phy.total$Season <- ordered(phy.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 phyla (including unclassified)
+ggplot(phy.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,63)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+# Pull out top 10 phyla (Only classified)
+phy.clas.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(phy.clas.total) <- c("Season", "Phylum", "Mean", "SD", "SE")
+for (i in 1:length(clas.total)){
+  top <- which(phy.sum$Phylum == clas.total[i])
+  for (j in 1:length(top)){
+    phy.clas.total$Season[(j + 3*(i-1))] <- as.character(phy.sum$Season[top[j]])
+    phy.clas.total$Phylum[(j + 3*(i-1))] <- phy.sum$Phylum[top[j]]
+    phy.clas.total$Mean[(j + 3*(i-1))] <- phy.sum$Mean[top[j]]
+    phy.clas.total$SD[(j + 3*(i-1))] <- phy.sum$SD[top[j]]
+    phy.clas.total$SE[(j + 3*(i-1))] <- phy.sum$SE[top[j]]
+  }
+}
+phy.clas.total$Phylum <- ordered(phy.clas.total$Phylum, levels=c("Bacteroidetes", "Firmicutes", "Verrucomicrobia", "Proteobacteria", "Actinobacteria", "Candidatus Melainabacteria", "Spirochaetes", "Tenericutes", "Elusimicrobia", "Fusobacteria"))
+phy.clas.total$Season <- ordered(phy.clas.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+
+# Barplot for top 10 phyla (only classified)
+ggplot(phy.clas.total, aes(x=Phylum, y=Mean, fill=Phylum)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,45)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Phyla") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+########## Class ##########
+cla.sum <- import.class.sum('kaiju/nohost/class')
+
+# Summarize classes to get top 10
+cla.sum.sum <- cla.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 10 classes
+top.class <- c("Bacteroidia", "Clostridia", "Verrucomicrobiae", "Deltaproteobacteria", "Bacilli", "Alphaproteobacteria", "Erysipelotrichia", "Negativicutes", "Coriobacteriia", "Gammaproteobacteria")
+
+# Pull out top 10 classes - Including Unclassified
+cla.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(cla.total) <- c("Season", "Class", "Mean", "SD", "SE")
+for (i in 1:length(top.class)){
+  top <- which(cla.sum$Class == top.class[i])
+  for (j in 1:length(top)){
+    cla.total$Season[(j + 3*(i-1))] <- as.character(cla.sum$Season[top[j]])
+    cla.total$Class[(j + 3*(i-1))] <- cla.sum$Class[top[j]]
+    cla.total$Mean[(j + 3*(i-1))] <- cla.sum$Mean[top[j]]
+    cla.total$SD[(j + 3*(i-1))] <- cla.sum$SD[top[j]]
+    cla.total$SE[(j + 3*(i-1))] <- cla.sum$SE[top[j]]
+  }
+}
+cla.total$Class <- ordered(cla.total$Class, levels=c("Bacteroidia", "Clostridia", "Verrucomicrobiae", "Deltaproteobacteria", "Bacilli", "Alphaproteobacteria", "Erysipelotrichia", "Negativicutes", "Coriobacteriia", "Gammaproteobacteria"))
+cla.total$Season <- ordered(cla.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 classes (no unclassified)
+ggplot(cla.total, aes(x=Class, y=Mean, fill=Class)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,42)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Classes") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+########## Order ##########
+ord.sum <- import.order.sum('kaiju/nohost/order')
+
+# Summarize orders to get top 10
+ord.sum.sum <- ord.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 10 orders
+top.order <- c("Bacteroidales", "Clostridiales", "Verrucomicrobiales", "Desulfovibrionales", "Lactobacillales", "Erysipelotrichales", "Rhodospirillales", "Bacillales", "Acidaminococcales", "Flavobacteriales")
+
+# Pull out top 10 orders - Including Unclassified
+ord.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(ord.total) <- c("Season", "Order", "Mean", "SD", "SE")
+for (i in 1:length(top.order)){
+  top <- which(ord.sum$Order == top.order[i])
+  for (j in 1:length(top)){
+    ord.total$Season[(j + 3*(i-1))] <- as.character(ord.sum$Season[top[j]])
+    ord.total$Order[(j + 3*(i-1))] <- ord.sum$Order[top[j]]
+    ord.total$Mean[(j + 3*(i-1))] <- ord.sum$Mean[top[j]]
+    ord.total$SD[(j + 3*(i-1))] <- ord.sum$SD[top[j]]
+    ord.total$SE[(j + 3*(i-1))] <- ord.sum$SE[top[j]]
+  }
+}
+ord.total$Order <- ordered(ord.total$Order, levels=c("Bacteroidales", "Clostridiales", "Verrucomicrobiales", "Desulfovibrionales", "Lactobacillales", "Erysipelotrichales", "Rhodospirillales", "Bacillales", "Acidaminococcales", "Flavobacteriales"))
+ord.total$Season <- ordered(ord.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 orders (no unclassified)
+ggplot(ord.total, aes(x=Order, y=Mean, fill=Order)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.1,42)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Orders") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+
+########## Family ##########
+fam.sum <- import.family.sum('kaiju/nohost/family')
+
+# Summarize families to get top 10
+fam.sum.sum <- fam.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 10 orders
+top.family <- c("Bacteroidaceae", "Lachnospiraceae", "Prevotellaceae", "Akkermansiaceae", "Tannerellaceae", "Ruminococcaceae", "Muribaculaceae", "Rikenellaceae", "Clostridiaceae", "Eubacteriaceae")
+
+# Pull out top 10 families - Including Unclassified
+fam.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(fam.total) <- c("Season", "Family", "Mean", "SD", "SE")
+for (i in 1:length(top.family)){
+  top <- which(fam.sum$Family == top.family[i])
+  for (j in 1:length(top)){
+    fam.total$Season[(j + 3*(i-1))] <- as.character(fam.sum$Season[top[j]])
+    fam.total$Family[(j + 3*(i-1))] <- fam.sum$Family[top[j]]
+    fam.total$Mean[(j + 3*(i-1))] <- fam.sum$Mean[top[j]]
+    fam.total$SD[(j + 3*(i-1))] <- fam.sum$SD[top[j]]
+    fam.total$SE[(j + 3*(i-1))] <- fam.sum$SE[top[j]]
+  }
+}
+fam.total$Family <- ordered(fam.total$Family, levels=c("Bacteroidaceae", "Lachnospiraceae", "Prevotellaceae", "Akkermansiaceae", "Tannerellaceae", "Ruminococcaceae", "Muribaculaceae", "Rikenellaceae", "Clostridiaceae", "Eubacteriaceae"))
+fam.total$Season <- ordered(fam.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 orders (no unclassified)
+ggplot(fam.total, aes(x=Family, y=Mean, fill=Family)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.3,16)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Families") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+
+
+
+
+
+
+########## Genus ##########
+gen.sum <- import.genus.sum('kaiju/nohost/genus')
+
+# Summarize genera to get top 10
+gen.sum.sum <- gen.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+# Only look at top 10 genera
+top.genus <- c("Bacteroides", "Prevotella", "Akkermansia", "Parabacteroides", "Alistipes", "Clostridium", "Eubacterium", "Ruminococcus", "Oscillibacter", "Roseburia")
+
+# Pull out top 10 genera - Including Unclassified
+gen.total <- data.frame(matrix(nrow=30, ncol=5))
+colnames(gen.total) <- c("Season", "Genus", "Mean", "SD", "SE")
+for (i in 1:length(top.genus)){
+  top <- which(gen.sum$Genus == top.genus[i])
+  for (j in 1:length(top)){
+    gen.total$Season[(j + 3*(i-1))] <- as.character(gen.sum$Season[top[j]])
+    gen.total$Genus[(j + 3*(i-1))] <- gen.sum$Genus[top[j]]
+    gen.total$Mean[(j + 3*(i-1))] <- gen.sum$Mean[top[j]]
+    gen.total$SD[(j + 3*(i-1))] <- gen.sum$SD[top[j]]
+    gen.total$SE[(j + 3*(i-1))] <- gen.sum$SE[top[j]]
+  }
+}
+gen.total$Genus <- ordered(gen.total$Genus, levels=c("Bacteroides", "Prevotella", "Akkermansia", "Parabacteroides", "Alistipes", "Clostridium", "Eubacterium", "Ruminococcus", "Oscillibacter", "Roseburia"))
+gen.total$Season <- ordered(gen.total$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Barplot for top 10 orders (no unclassified)
+ggplot(gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
+  geom_bar(stat="identity", color="black") +
+  facet_grid(Season ~ .) +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_y_continuous(limits=c(-0.2,16)) +
+  facet_grid(Season ~ .) +
+  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush")) +
+  xlab("Genera") +
+  ylab("Mean Relative Abundance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face="bold"),
+        legend.title = element_text(face="bold"))
+```
+
+### Kaiju - CE11
+```{r}
+########## Phylum ##########
+phy.GH10.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH10/phylum')
+#write.csv(phy.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH10.sum.sum <- phy.GH10.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH10.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH10/class')
+#write.csv(cla.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH10.sum.sum <- cla.GH10.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH10.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH10/order')
+#write.csv(ord.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH10.sum.sum <- ord.GH10.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH10.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH10/family')
+#write.csv(fam.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH10.sum.sum <- fam.GH10.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH10.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH10/genus')
+#write.csv(gen.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH10.sum.sum <- gen.GH10.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH10.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH10/species')
+#write.csv(spe.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH10.sum.sum <- spe.GH10.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+
+```
+
+### Kaiju - CE12
+```{r}
+```
+
+### dbCAN - Kaiju on GH10
+```{r}
+########## Phylum ##########
+phy.GH10.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH10/phylum')
+#write.csv(phy.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH10.sum.sum <- phy.GH10.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH10.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH10/class')
+#write.csv(cla.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH10.sum.sum <- cla.GH10.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH10.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH10/order')
+#write.csv(ord.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH10.sum.sum <- ord.GH10.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH10.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH10/family')
+#write.csv(fam.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH10.sum.sum <- fam.GH10.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH10.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH10/genus')
+#write.csv(gen.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH10.sum.sum <- gen.GH10.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH10.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH10/species')
+#write.csv(spe.GH10.sum, file = "kaiju/sep_sig_cazymes/GH10/GH10.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH10.sum.sum <- spe.GH10.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+
+### Kaiju - GH106
+```{r}
+```
+
+### Kaiju - GH115
+```{r}
+```
+
+### dbCAN - Kaiju on GH20
+```{r}
+########## Phylum ##########
+phy.GH20.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH20/phylum')
+#write.csv(phy.GH20.sum, file = "kaiju/sep_sig_cazymes/GH20/GH20.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH20.sum.sum <- phy.GH20.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH20.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH20/class')
+#write.csv(cla.GH20.sum, file = "kaiju/sep_sig_cazymes/GH20/GH20.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH20.sum.sum <- cla.GH20.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH20.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH20/order')
+#write.csv(ord.GH20.sum, file = "kaiju/sep_sig_cazymes/GH20/GH20.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH20.sum.sum <- ord.GH20.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH20.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH20/family')
+#write.csv(fam.GH20.sum, file = "kaiju/sep_sig_cazymes/GH20/GH20.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH20.sum.sum <- fam.GH20.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH20.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH20/genus')
+#write.csv(gen.GH20.sum, file = "kaiju/sep_sig_cazymes/GH20/GH20.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH20.sum.sum <- gen.GH20.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Species ##########
+spe.GH20.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH20/species')
+#write.csv(spe.GH20.sum, file = "kaiju/sep_sig_cazymes/GH20/GH20.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH20.sum.sum <- spe.GH20.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### Kaiju - GH3
+```{r}
+```
+
+### Kaiju - GH32
+```{r}
+```
+
+### Kaiju - GH39
+```{r}
+```
+
+### Kaiju - GH42
+```{r}
+```
+
+### Kaiju - GH43
+```{r}
+```
+
+### Kaiju - GH5
+```{r}
+```
+
+### Kaiju - GH59
+```{r}
+```
+
+### Kaiju - GH78
+```{r}
+```
+
+### dbCAN - Kaiju on GH84
+```{r}
+########## Phylum ##########
+phy.GH84.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GH84/phylum')
+#write.csv(phy.GH84.sum, file = "kaiju/sep_sig_cazymes/GH84/GH84.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH84.sum.sum <- phy.GH84.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH84.sum <- import.class.sum('kaiju/sep_sig_cazymes/GH84/class')
+#write.csv(cla.GH84.sum, file = "kaiju/sep_sig_cazymes/GH84/GH84.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH84.sum.sum <- cla.GH84.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH84.sum <- import.order.sum('kaiju/sep_sig_cazymes/GH84/order')
+#write.csv(ord.GH84.sum, file = "kaiju/sep_sig_cazymes/GH84/GH84.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH84.sum.sum <- ord.GH84.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH84.sum <- import.family.sum('kaiju/sep_sig_cazymes/GH84/family')
+#write.csv(fam.GH84.sum, file = "kaiju/sep_sig_cazymes/GH84/GH84.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH84.sum.sum <- fam.GH84.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH84.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GH84/genus')
+#write.csv(gen.GH84.sum, file = "kaiju/sep_sig_cazymes/GH84/GH84.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH84.sum.sum <- gen.GH84.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH84.sum <- import.species.sum('kaiju/sep_sig_cazymes/GH84/species')
+#write.csv(spe.GH84.sum, file = "kaiju/sep_sig_cazymes/GH84/GH84.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH84.sum.sum <- spe.GH84.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### Kaiju - GT101
+```{r}
+########## Phylum ##########
+phy.GT101.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT101/phylum')
+#write.csv(phy.GT101.sum, file = "kaiju/sep_sig_cazymes/GT101/GT101.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GT101.sum.sum <- phy.GT101.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GT101.sum <- import.class.sum('kaiju/sep_sig_cazymes/GT101/class')
+#write.csv(cla.GT101.sum, file = "kaiju/sep_sig_cazymes/GT101/GT101.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GT101.sum.sum <- cla.GT101.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GT101.sum <- import.order.sum('kaiju/sep_sig_cazymes/GT101/order')
+#write.csv(ord.GT101.sum, file = "kaiju/sep_sig_cazymes/GT101/GT101.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GT101.sum.sum <- ord.GT101.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GT101.sum <- import.family.sum('kaiju/sep_sig_cazymes/GT101/family')
+#write.csv(fam.GT101.sum, file = "kaiju/sep_sig_cazymes/GT101/GT101.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GT101.sum.sum <- fam.GT101.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GT101.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GT101/genus')
+#write.csv(gen.GT101.sum, file = "kaiju/sep_sig_cazymes/GT101/GT101.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GT101.sum.sum <- gen.GT101.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GT101.sum <- import.species.sum('kaiju/sep_sig_cazymes/GT101/species')
+#write.csv(spe.GT101.sum, file = "kaiju/sep_sig_cazymes/GT101/GT101.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GT101.sum.sum <- spe.GT101.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### dbCAN - Kaiju on GT3
+```{r}
+########## Phylum ##########
+phy.GT3.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT3/phylum')
+#write.csv(phy.GT3.sum, file = "kaiju/sep_sig_cazymes/GT3/GT3.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GT3.sum.sum <- phy.GT3.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GT3.sum <- import.class.sum('kaiju/sep_sig_cazymes/GT3/class')
+#write.csv(cla.GT3.sum, file = "kaiju/sep_sig_cazymes/GT3/GT3.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GT3.sum.sum <- cla.GT3.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GT3.sum <- import.order.sum('kaiju/sep_sig_cazymes/GT3/order')
+#write.csv(ord.GT3.sum, file = "kaiju/sep_sig_cazymes/GT3/GT3.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GT3.sum.sum <- ord.GT3.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GT3.sum <- import.family.sum('kaiju/sep_sig_cazymes/GT3/family')
+#write.csv(fam.GT3.sum, file = "kaiju/sep_sig_cazymes/GT3/GT3.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GT3.sum.sum <- fam.GT3.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GT3.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GT3/genus')
+#write.csv(gen.GT3.sum, file = "kaiju/sep_sig_cazymes/GT3/GT3.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GT3.sum.sum <- gen.GT3.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GT3.sum <- import.species.sum('kaiju/sep_sig_cazymes/GT3/species')
+#write.csv(spe.GT3.sum, file = "kaiju/sep_sig_cazymes/GT3/GT3.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GT3.sum.sum <- spe.GT3.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+
+
+
+
+
+
+### Kaiju - GT4
+```{r}
+########## Phylum ##########
+phy.GT4.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT4/phylum')
+#write.csv(phy.GT4.sum, file = "kaiju/sep_sig_cazymes/GT4/GT4.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GT4.sum.sum <- phy.GT4.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GT4.sum <- import.class.sum('kaiju/sep_sig_cazymes/GT4/class')
+#write.csv(cla.GT4.sum, file = "kaiju/sep_sig_cazymes/GT4/GT4.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GT4.sum.sum <- cla.GT4.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GT4.sum <- import.order.sum('kaiju/sep_sig_cazymes/GT4/order')
+#write.csv(ord.GT4.sum, file = "kaiju/sep_sig_cazymes/GT4/GT4.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GT4.sum.sum <- ord.GT4.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GT4.sum <- import.family.sum('kaiju/sep_sig_cazymes/GT4/family')
+#write.csv(fam.GT4.sum, file = "kaiju/sep_sig_cazymes/GT4/GT4.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GT4.sum.sum <- fam.GT4.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GT4.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GT4/genus')
+#write.csv(gen.GT4.sum, file = "kaiju/sep_sig_cazymes/GT4/GT4.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GT4.sum.sum <- gen.GT4.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GT4.sum <- import.species.sum('kaiju/sep_sig_cazymes/GT4/species')
+#write.csv(spe.GT4.sum, file = "kaiju/sep_sig_cazymes/GT4/GT4.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GT4.sum.sum <- spe.GT4.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### Kaiju - GT41
+```{r}
+########## Phylum ##########
+phy.GT41.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT41/phylum')
+#write.csv(phy.GT41.sum, file = "kaiju/sep_sig_cazymes/GT41/GT41.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GT41.sum.sum <- phy.GT41.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GT41.sum <- import.class.sum('kaiju/sep_sig_cazymes/GT41/class')
+#write.csv(cla.GT41.sum, file = "kaiju/sep_sig_cazymes/GT41/GT41.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GT41.sum.sum <- cla.GT41.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GT41.sum <- import.order.sum('kaiju/sep_sig_cazymes/GT41/order')
+#write.csv(ord.GT41.sum, file = "kaiju/sep_sig_cazymes/GT41/GT41.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GT41.sum.sum <- ord.GT41.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GT41.sum <- import.family.sum('kaiju/sep_sig_cazymes/GT41/family')
+#write.csv(fam.GT41.sum, file = "kaiju/sep_sig_cazymes/GT41/GT41.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GT41.sum.sum <- fam.GT41.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GT41.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GT41/genus')
+#write.csv(gen.GT41.sum, file = "kaiju/sep_sig_cazymes/GT41/GT41.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GT41.sum.sum <- gen.GT41.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GT41.sum <- import.species.sum('kaiju/sep_sig_cazymes/GT41/species')
+#write.csv(spe.GT41.sum, file = "kaiju/sep_sig_cazymes/GT41/GT41.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GT41.sum.sum <- spe.GT41.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### Kaiju - GT9
+```{r}
+########## Phylum ##########
+phy.GT9.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/GT9/phylum')
+#write.csv(phy.GT9.sum, file = "kaiju/sep_sig_cazymes/GT9/GT9.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GT9.sum.sum <- phy.GT9.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GT9.sum <- import.class.sum('kaiju/sep_sig_cazymes/GT9/class')
+#write.csv(cla.GT9.sum, file = "kaiju/sep_sig_cazymes/GT9/GT9.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GT9.sum.sum <- cla.GT9.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GT9.sum <- import.order.sum('kaiju/sep_sig_cazymes/GT9/order')
+#write.csv(ord.GT9.sum, file = "kaiju/sep_sig_cazymes/GT9/GT9.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GT9.sum.sum <- ord.GT9.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GT9.sum <- import.family.sum('kaiju/sep_sig_cazymes/GT9/family')
+#write.csv(fam.GT9.sum, file = "kaiju/sep_sig_cazymes/GT9/GT9.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GT9.sum.sum <- fam.GT9.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GT9.sum <- import.genus.sum('kaiju/sep_sig_cazymes/GT9/genus')
+#write.csv(gen.GT9.sum, file = "kaiju/sep_sig_cazymes/GT9/GT9.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GT9.sum.sum <- gen.GT9.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GT9.sum <- import.species.sum('kaiju/sep_sig_cazymes/GT9/species')
+#write.csv(spe.GT9.sum, file = "kaiju/sep_sig_cazymes/GT9/GT9.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GT9.sum.sum <- spe.GT9.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### Kaiju - PL1
+```{r}
+########## Phylum ##########
+phy.PL1.sum <- import.phylum.sum('kaiju/sep_sig_cazymes/PL1/phylum')
+#write.csv(phy.PL1.sum, file = "kaiju/sep_sig_cazymes/PL1/PL1.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.PL1.sum.sum <- phy.PL1.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.PL1.sum <- import.class.sum('kaiju/sep_sig_cazymes/PL1/class')
+#write.csv(cla.PL1.sum, file = "kaiju/sep_sig_cazymes/PL1/PL1.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.PL1.sum.sum <- cla.PL1.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.PL1.sum <- import.order.sum('kaiju/sep_sig_cazymes/PL1/order')
+#write.csv(ord.PL1.sum, file = "kaiju/sep_sig_cazymes/PL1/PL1.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.PL1.sum.sum <- ord.PL1.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.PL1.sum <- import.family.sum('kaiju/sep_sig_cazymes/PL1/family')
+#write.csv(fam.PL1.sum, file = "kaiju/sep_sig_cazymes/PL1/PL1.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.PL1.sum.sum <- fam.PL1.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.PL1.sum <- import.genus.sum('kaiju/sep_sig_cazymes/PL1/genus')
+#write.csv(gen.PL1.sum, file = "kaiju/sep_sig_cazymes/PL1/PL1.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.PL1.sum.sum <- gen.PL1.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.PL1.sum <- import.species.sum('kaiju/sep_sig_cazymes/PL1/species')
+#write.csv(spe.PL1.sum, file = "kaiju/sep_sig_cazymes/PL1/PL1.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.PL1.sum.sum <- spe.PL1.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+
+
+

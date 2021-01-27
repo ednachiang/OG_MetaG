@@ -2,13 +2,19 @@
 # y = These are the variables you want to group by
 # USE ' ' AROUND BOTH X & Y!!!
 
-import.class.sum <- function(x, numRows) {
+import.class.sum <- function(x) {
+  first <- list.files(x)[1]
+  first.id <- substr(first, 1,4)
+  first.df <- assign(paste0("phylum.", first.id), 
+                     read.table(paste0(x,"/",first), sep="\t", header=T))
+  numRows <- (nrow(first.df)-1)
+  # nrow is based on (# classes - 1) in sample 3715 because this is the first sample used to populate the dataframe
+  # nrow will change as we populate the dataframe with all samples
+  # The -1 is because we combined reads assigned to "unclassified" and "cannot be assigned to a (non-viral) class" (aka not classified at class level, but classified at a higher taxonomic level)
+  
   n <- as.numeric(length(list.files(x)))
   # Initialize output dataframe
   class <- data.frame(matrix(ncol=2, nrow=numRows))
-    # nrow is based on (# classes - 1) in sample 3715 because this is the first sample used to populate the dataframe
-    # nrow will change as we populate the dataframe with all samples
-    # The -1 is because we combined reads assigned to "unclassified" and "cannot be assigned to a (non-viral) class" (aka not classified at class level, but classified at a higher taxonomic level)
   colnames(class) <- c("Class", "Reads_3715")
     # I'll populate the dataframe sample-by-sample, so I'm only naming the colnames for the first sample
   

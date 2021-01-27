@@ -1,0 +1,76 @@
+"","Season","Species","Mean","SD","SE"
+"1","Summer","Amphiplicatus metriothermophilus",2.08333333333333,3.60843918243516,2.08333333333333
+"2","Summer","Anaerocolumna sp. CBA3638",2.08333333333333,3.60843918243516,2.08333333333333
+"3","Summer","Anaerosporobacter mobilis",2.22222222222222,3.84900179459751,2.22222222222222
+"4","Summer","bacterium 0.1xD8-71",0,0,0
+"5","Summer","Bacteroidales bacterium",2.22222222222222,3.84900179459751,2.22222222222222
+"6","Summer","Bacteroides heparinolyticus",2.22222222222222,3.84900179459751,2.22222222222222
+"7","Summer","Bacteroides ilei",2.08333333333333,3.60843918243516,2.08333333333333
+"8","Summer","Bacteroidetes bacterium",5.92592592592593,5.59246995205241,3.22881403225235
+"9","Summer","Chryseobacterium camelliae",8.00925925925926,2.69434898647249,1.55558311263069
+"10","Summer","Clostridium sp. CAG:62_40_43",2.22222222222222,3.84900179459751,2.22222222222222
+"11","Summer","Clostridium sp. KNHs205",0,0,0
+"12","Summer","Clostridium sp. Marseille-P2415",0,0,0
+"13","Summer","Comamonadaceae bacterium PBBC2",2.08333333333333,3.60843918243516,2.08333333333333
+"14","Summer","Firmicutes bacterium CAG:534",4.30555555555556,3.73453601659688,2.15613537448056
+"15","Summer","Gynuella sunshinyii",8.00925925925926,2.69434898647249,1.55558311263069
+"16","Summer","Lachnospiraceae bacterium V9D3004",2.22222222222222,3.84900179459751,2.22222222222222
+"17","Summer","Marinicaulis flavus",0,0,0
+"18","Summer","Martelella sp. AD-3",3.7037037037037,6.41500299099584,3.7037037037037
+"19","Summer","Muribaculaceae bacterium Isolate-110 (HZI)",8.00925925925926,2.69434898647249,1.55558311263069
+"20","Summer","Novosphingobium sp. FSW06-99",0,0,0
+"21","Summer","Prevotella sp. P5-92",4.30555555555556,3.73453601659688,2.15613537448056
+"22","Summer","Sphingosinicella sp. CPCC 101087",0,0,0
+"23","Summer","Unclassified",32.3611111111111,11.9048115078332,6.87324612869923
+"24","Summer","uncultured Bacteroides sp.",5.92592592592593,5.59246995205241,3.22881403225235
+"25","Summer","Viruses",0,0,0
+"26","Winter","Amphiplicatus metriothermophilus",0,0,0
+"27","Winter","Anaerocolumna sp. CBA3638",0,0,0
+"28","Winter","Anaerosporobacter mobilis",0,0,0
+"29","Winter","bacterium 0.1xD8-71",0,0,0
+"30","Winter","Bacteroidales bacterium",0,0,0
+"31","Winter","Bacteroides heparinolyticus",33.3333333333333,57.7350269189626,33.3333333333333
+"32","Winter","Bacteroides ilei",3.7037037037037,6.41500299099584,3.7037037037037
+"33","Winter","Bacteroidetes bacterium",10.3703703703704,10.0205550062731,5.78537013030123
+"34","Winter","Chryseobacterium camelliae",0,0,0
+"35","Winter","Clostridium sp. CAG:62_40_43",0,0,0
+"36","Winter","Clostridium sp. KNHs205",3.7037037037037,6.41500299099584,3.7037037037037
+"37","Winter","Clostridium sp. Marseille-P2415",0,0,0
+"38","Winter","Comamonadaceae bacterium PBBC2",0,0,0
+"39","Winter","Firmicutes bacterium CAG:534",0,0,0
+"40","Winter","Gynuella sunshinyii",0,0,0
+"41","Winter","Lachnospiraceae bacterium V9D3004",0,0,0
+"42","Winter","Marinicaulis flavus",0,0,0
+"43","Winter","Martelella sp. AD-3",0,0,0
+"44","Winter","Muribaculaceae bacterium Isolate-110 (HZI)",10.3703703703704,10.0205550062731,5.78537013030123
+"45","Winter","Novosphingobium sp. FSW06-99",0,0,0
+"46","Winter","Prevotella sp. P5-92",0,0,0
+"47","Winter","Sphingosinicella sp. CPCC 101087",0,0,0
+"48","Winter","Unclassified",34.8148148148148,31.1375548992351,17.9772757029801
+"49","Winter","uncultured Bacteroides sp.",3.7037037037037,6.41500299099584,3.7037037037037
+"50","Winter","Viruses",0,0,0
+"51","Spring","Amphiplicatus metriothermophilus",0,0,0
+"52","Spring","Anaerocolumna sp. CBA3638",0,0,0
+"53","Spring","Anaerosporobacter mobilis",2.56410256410256,4.44115591684328,2.56410256410256
+"54","Spring","bacterium 0.1xD8-71",2.56410256410256,4.44115591684328,2.56410256410256
+"55","Spring","Bacteroidales bacterium",2.56410256410256,4.44115591684328,2.56410256410256
+"56","Spring","Bacteroides heparinolyticus",2.56410256410256,4.44115591684328,2.56410256410256
+"57","Spring","Bacteroides ilei",0,0,0
+"58","Spring","Bacteroidetes bacterium",0,0,0
+"59","Spring","Chryseobacterium camelliae",2.56410256410256,4.44115591684328,2.56410256410256
+"60","Spring","Clostridium sp. CAG:62_40_43",7.69230769230769,7.69230769230769,4.44115591684328
+"61","Spring","Clostridium sp. KNHs205",0,0,0
+"62","Spring","Clostridium sp. Marseille-P2415",2.56410256410256,4.44115591684328,2.56410256410256
+"63","Spring","Comamonadaceae bacterium PBBC2",0,0,0
+"64","Spring","Firmicutes bacterium CAG:534",6.26780626780627,5.69087873374307,3.28563036885208
+"65","Spring","Gynuella sunshinyii",5.12820512820513,4.44115591684328,2.56410256410256
+"66","Spring","Lachnospiraceae bacterium V9D3004",0,0,0
+"67","Spring","Marinicaulis flavus",2.56410256410256,4.44115591684328,2.56410256410256
+"68","Spring","Martelella sp. AD-3",6.26780626780627,5.69087873374307,3.28563036885208
+"69","Spring","Muribaculaceae bacterium Isolate-110 (HZI)",3.7037037037037,6.41500299099584,3.7037037037037
+"70","Spring","Novosphingobium sp. FSW06-99",3.7037037037037,6.41500299099584,3.7037037037037
+"71","Spring","Prevotella sp. P5-92",8.83190883190883,1.97384707415257,1.13960113960114
+"72","Spring","Sphingosinicella sp. CPCC 101087",2.56410256410256,4.44115591684328,2.56410256410256
+"73","Spring","Unclassified",32.7635327635328,10.8224614890157,6.24835105397758
+"74","Spring","uncultured Bacteroides sp.",5.12820512820513,4.44115591684328,2.56410256410256
+"75","Spring","Viruses",0,0,0

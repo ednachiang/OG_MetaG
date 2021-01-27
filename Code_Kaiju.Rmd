@@ -1676,3 +1676,1464 @@ spe.PL1.sum.sum <- spe.PL1.sum %>%
 
 
 
+
+
+### Mucin All
+```{r}
+########## Phylum ##########
+phy.muc.sum <- import.phylum.sum('kaiju/mucin_all/phylum')
+#write.csv(phy.muc.sum, file = "kaiju/mucin_all/muc.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.muc.sum.sum <- phy.muc.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.muc.sum <- import.class.sum('kaiju/mucin_all/class')
+#write.csv(cla.muc.sum, file = "kaiju/mucin_all/muc.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.muc.sum.sum <- cla.muc.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.muc.sum <- import.order.sum('kaiju/mucin_all/order')
+#write.csv(ord.muc.sum, file = "kaiju/mucin_all/muc.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.muc.sum.sum <- ord.muc.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.muc.sum <- import.family.sum('kaiju/mucin_all/family')
+#write.csv(fam.muc.sum, file = "kaiju/mucin_all/muc.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.muc.sum.sum <- fam.muc.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.muc.sum <- import.genus.sum('kaiju/mucin_all/genus')
+#write.csv(gen.muc.sum, file = "kaiju/mucin_all/muc.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.muc.sum.sum <- gen.muc.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.muc.sum <- import.species.sum('kaiju/mucin_all/species')
+#write.csv(spe.muc.sum, file = "kaiju/mucin_all/muc.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.muc.sum.sum <- spe.muc.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### 4.1.3.3
+```{r}
+########## Phylum ##########
+phy.4.1.3.3.sum <- import.phylum.sum('kaiju/mucin_sep/4.1.3.3/phylum')
+#write.csv(phy.4.1.3.3.sum, file = "kaiju/mucin_sep/4.1.3.3/4.1.3.3.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.4.1.3.3.sum.sum <- phy.4.1.3.3.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.4.1.3.3.sum <- import.class.sum('kaiju/mucin_sep/4.1.3.3/class')
+#write.csv(cla.4.1.3.3.sum, file = "kaiju/mucin_sep/4.1.3.3/4.1.3.3.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.4.1.3.3.sum.sum <- cla.4.1.3.3.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.4.1.3.3.sum <- import.order.sum('kaiju/mucin_sep/4.1.3.3/order')
+#write.csv(ord.4.1.3.3.sum, file = "kaiju/mucin_sep/4.1.3.3/4.1.3.3.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.4.1.3.3.sum.sum <- ord.4.1.3.3.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.4.1.3.3.sum <- import.family.sum('kaiju/mucin_sep/4.1.3.3/family')
+#write.csv(fam.4.1.3.3.sum, file = "kaiju/mucin_sep/4.1.3.3/4.1.3.3.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.4.1.3.3.sum.sum <- fam.4.1.3.3.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.4.1.3.3.sum <- import.genus.sum('kaiju/mucin_sep/4.1.3.3/genus')
+#write.csv(gen.4.1.3.3.sum, file = "kaiju/mucin_sep/4.1.3.3/4.1.3.3.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.4.1.3.3.sum.sum <- gen.4.1.3.3.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.4.1.3.3.sum <- import.species.sum('kaiju/mucin_sep/4.1.3.3/species')
+#write.csv(spe.4.1.3.3.sum, file = "kaiju/mucin_sep/4.1.3.3/4.1.3.3.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.4.1.3.3.sum.sum <- spe.4.1.3.3.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+
+
+
+### GH101_3.2.1.97 #####################
+```{r}
+########## Phylum ##########
+phy.GH101_3.2.1.97.sum <- import.phylum.sum('kaiju/mucin_sep/GH101_3.2.1.97/phylum')
+write.csv(phy.GH101_3.2.1.97.sum, file = "kaiju/mucin_sep/GH101_3.2.1.97/GH101_3.2.1.97.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.muc.sum.sum <- phy.muc.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH101_3.2.1.97.sum <- import.class.sum('kaiju/mucin_sep/GH101_3.2.1.97/class')
+write.csv(cla.GH101_3.2.1.97.sum, file = "kaiju/mucin_sep/GH101_3.2.1.97/GH101_3.2.1.97.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.muc.sum.sum <- cla.muc.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH101_3.2.1.97.sum <- import.order.sum('kaiju/mucin_sep/GH101_3.2.1.97/order')
+write.csv(ord.GH101_3.2.1.97.sum, file = "kaiju/mucin_sep/GH101_3.2.1.97/GH101_3.2.1.97.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.muc.sum.sum <- ord.muc.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH101_3.2.1.97.sum <- import.family.sum('kaiju/mucin_sep/GH101_3.2.1.97/family')
+write.csv(fam.GH101_3.2.1.97.sum, file = "kaiju/mucin_sep/GH101_3.2.1.97/GH101_3.2.1.97.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.muc.sum.sum <- fam.muc.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH101_3.2.1.97.sum <- import.genus.sum('kaiju/mucin_sep/GH101_3.2.1.97/genus')
+write.csv(gen.GH101_3.2.1.97.sum, file = "kaiju/mucin_sep/GH101_3.2.1.97/GH101_3.2.1.97.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.muc.sum.sum <- gen.muc.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH101_3.2.1.97.sum <- import.species.sum('kaiju/mucin_sep/GH101_3.2.1.97/species')
+write.csv(spe.GH101_3.2.1.97.sum, file = "kaiju/mucin_sep/GH101_3.2.1.97/GH101_3.2.1.97.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.muc.sum.sum <- spe.muc.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### GH110_3.2.1.22
+```{r}
+########## Phylum ##########
+phy.GH110_3.2.1.22.sum <- import.phylum.sum('kaiju/mucin_sep/GH110_3.2.1.22/phylum')
+#write.csv(phy.GH110_3.2.1.22.sum, file = "kaiju/mucin_sep/GH110_3.2.1.22/GH110_3.2.1.22.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH110_3.2.1.22.sum.sum <- phy.GH110_3.2.1.22.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH110_3.2.1.22.sum <- import.class.sum('kaiju/mucin_sep/GH110_3.2.1.22/class')
+#write.csv(cla.GH110_3.2.1.22.sum, file = "kaiju/mucin_sep/GH110_3.2.1.22/GH110_3.2.1.22.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH110_3.2.1.22.sum.sum <- cla.GH110_3.2.1.22.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH110_3.2.1.22.sum <- import.order.sum('kaiju/mucin_sep/GH110_3.2.1.22/order')
+#write.csv(ord.GH110_3.2.1.22.sum, file = "kaiju/mucin_sep/GH110_3.2.1.22/GH110_3.2.1.22.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH110_3.2.1.22.sum.sum <- ord.GH110_3.2.1.22.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH110_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH110_3.2.1.22/family')
+#write.csv(fam.GH110_3.2.1.22.sum, file = "kaiju/mucin_sep/GH110_3.2.1.22/GH110_3.2.1.22.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH110_3.2.1.22.sum.sum <- fam.GH110_3.2.1.22.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH110_3.2.1.22.sum <- import.genus.sum('kaiju/mucin_sep/GH110_3.2.1.22/genus')
+#write.csv(gen.GH110_3.2.1.22.sum, file = "kaiju/mucin_sep/GH110_3.2.1.22/GH110_3.2.1.22.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH110_3.2.1.22.sum.sum <- gen.GH110_3.2.1.22.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH110_3.2.1.22.sum <- import.species.sum('kaiju/mucin_sep/GH110_3.2.1.22/species')
+#write.csv(spe.GH110_3.2.1.22.sum, file = "kaiju/mucin_sep/GH110_3.2.1.22/GH110_3.2.1.22.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH110_3.2.1.22.sum.sum <- spe.GH110_3.2.1.22.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### GH112_2.4.1.211
+```{r}
+########## Phylum ##########
+phy.GH112_2.4.1.211.sum <- import.phylum.sum('kaiju/mucin_sep/GH112_2.4.1.211/phylum')
+#write.csv(phy.GH112_2.4.1.211.sum, file = "kaiju/mucin_sep/GH112_2.4.1.211/GH112_2.4.1.211.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH112_2.4.1.211.sum.sum <- phy.GH112_2.4.1.211.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH112_2.4.1.211.sum <- import.class.sum('kaiju/mucin_sep/GH112_2.4.1.211/class')
+#write.csv(cla.GH112_2.4.1.211.sum, file = "kaiju/mucin_sep/GH112_2.4.1.211/GH112_2.4.1.211.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH112_2.4.1.211.sum.sum <- cla.GH112_2.4.1.211.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH112_2.4.1.211.sum <- import.order.sum('kaiju/mucin_sep/GH112_2.4.1.211/order')
+#write.csv(ord.GH112_2.4.1.211.sum, file = "kaiju/mucin_sep/GH112_2.4.1.211/GH112_2.4.1.211.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH112_2.4.1.211.sum.sum <- ord.GH112_2.4.1.211.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH112_2.4.1.211.sum <- import.family.sum('kaiju/mucin_sep/GH112_2.4.1.211/family')
+#write.csv(fam.GH112_2.4.1.211.sum, file = "kaiju/mucin_sep/GH112_2.4.1.211/GH112_2.4.1.211.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH112_2.4.1.211.sum.sum <- fam.GH112_2.4.1.211.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH112_2.4.1.211.sum <- import.genus.sum('kaiju/mucin_sep/GH112_2.4.1.211/genus')
+#write.csv(gen.GH112_2.4.1.211.sum, file = "kaiju/mucin_sep/GH112_2.4.1.211/GH112_2.4.1.211.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH112_2.4.1.211.sum.sum <- gen.GH112_2.4.1.211.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH112_2.4.1.211.sum <- import.species.sum('kaiju/mucin_sep/GH112_2.4.1.211/species')
+#write.csv(spe.GH112_2.4.1.211.sum, file = "kaiju/mucin_sep/GH112_2.4.1.211/GH112_2.4.1.211.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH112_2.4.1.211.sum.sum <- spe.GH112_2.4.1.211.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+
+### GH130_2.4.1.281
+```{r}
+########## Phylum ##########
+phy.GH130_2.4.1.281.sum <- import.phylum.sum('kaiju/mucin_sep/GH130_2.4.1.281/phylum')
+#write.csv(phy.GH130_2.4.1.281.sum, file = "kaiju/mucin_sep/GH130_2.4.1.281/GH130_2.4.1.281.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH130_2.4.1.281.sum.sum <- phy.GH130_2.4.1.281.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH130_2.4.1.281.sum <- import.class.sum('kaiju/mucin_sep/GH130_2.4.1.281/class')
+#write.csv(cla.GH130_2.4.1.281.sum, file = "kaiju/mucin_sep/GH130_2.4.1.281/GH130_2.4.1.281.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH130_2.4.1.281.sum.sum <- cla.GH130_2.4.1.281.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH130_2.4.1.281.sum <- import.order.sum('kaiju/mucin_sep/GH130_2.4.1.281/order')
+#write.csv(ord.GH130_2.4.1.281.sum, file = "kaiju/mucin_sep/GH130_2.4.1.281/GH130_2.4.1.281.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH130_2.4.1.281.sum.sum <- ord.GH130_2.4.1.281.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH130_2.4.1.281.sum <- import.family.sum('kaiju/mucin_sep/GH130_2.4.1.281/family')
+#write.csv(fam.GH130_2.4.1.281.sum, file = "kaiju/mucin_sep/GH130_2.4.1.281/GH130_2.4.1.281.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH130_2.4.1.281.sum.sum <- fam.GH130_2.4.1.281.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH130_2.4.1.281.sum <- import.genus.sum('kaiju/mucin_sep/GH130_2.4.1.281/genus')
+#write.csv(gen.GH130_2.4.1.281.sum, file = "kaiju/mucin_sep/GH130_2.4.1.281/GH130_2.4.1.281.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH130_2.4.1.281.sum.sum <- gen.GH130_2.4.1.281.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH130_2.4.1.281.sum <- import.species.sum('kaiju/mucin_sep/GH130_2.4.1.281/species')
+#write.csv(spe.GH130_2.4.1.281.sum, file = "kaiju/mucin_sep/GH130_2.4.1.281/GH130_2.4.1.281.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH130_2.4.1.281.sum.sum <- spe.GH130_2.4.1.281.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### GH130_2.4.1.320
+```{r}
+########## Phylum ##########
+phy.GH130_2.4.1.320.sum <- import.phylum.sum('kaiju/mucin_sep/GH130_2.4.1.320/phylum')
+#write.csv(phy.GH130_2.4.1.320.sum, file = "kaiju/mucin_sep/GH130_2.4.1.320/GH130_2.4.1.320.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH130_2.4.1.320.sum.sum <- phy.GH130_2.4.1.320.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH130_2.4.1.320.sum <- import.class.sum('kaiju/mucin_sep/GH130_2.4.1.320/class')
+#write.csv(cla.GH130_2.4.1.320.sum, file = "kaiju/mucin_sep/GH130_2.4.1.320/GH130_2.4.1.320.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH130_2.4.1.320.sum.sum <- cla.GH130_2.4.1.320.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH130_2.4.1.320.sum <- import.order.sum('kaiju/mucin_sep/GH130_2.4.1.320/order')
+#write.csv(ord.GH130_2.4.1.320.sum, file = "kaiju/mucin_sep/GH130_2.4.1.320/GH130_2.4.1.320.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH130_2.4.1.320.sum.sum <- ord.GH130_2.4.1.320.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH130_2.4.1.320.sum <- import.family.sum('kaiju/mucin_sep/GH130_2.4.1.320/family')
+#write.csv(fam.GH130_2.4.1.320.sum, file = "kaiju/mucin_sep/GH130_2.4.1.320/GH130_2.4.1.320.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH130_2.4.1.320.sum.sum <- fam.GH130_2.4.1.320.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH130_2.4.1.320.sum <- import.genus.sum('kaiju/mucin_sep/GH130_2.4.1.320/genus')
+#write.csv(gen.GH130_2.4.1.320.sum, file = "kaiju/mucin_sep/GH130_2.4.1.320/GH130_2.4.1.320.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH130_2.4.1.320.sum.sum <- gen.GH130_2.4.1.320.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH130_2.4.1.320.sum <- import.species.sum('kaiju/mucin_sep/GH130_2.4.1.320/species')
+#write.csv(spe.GH130_2.4.1.320.sum, file = "kaiju/mucin_sep/GH130_2.4.1.320/GH130_2.4.1.320.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH130_2.4.1.320.sum.sum <- spe.GH130_2.4.1.320.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH20_3.2.1.52 #############
+```{r}
+########## Phylum ##########
+phy.GH20_3.2.1.52.sum <- import.phylum.sum('kaiju/mucin_sep/GH20_3.2.1.52/phylum')
+write.csv(phy.GH20_3.2.1.52.sum, file = "kaiju/mucin_sep/GH20_3.2.1.52/GH20_3.2.1.52.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.muc.sum.sum <- phy.muc.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH20_3.2.1.52.sum <- import.class.sum('kaiju/mucin_sep/GH20_3.2.1.52/class')
+write.csv(cla.GH20_3.2.1.52.sum, file = "kaiju/mucin_sep/GH20_3.2.1.52/GH20_3.2.1.52.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.muc.sum.sum <- cla.muc.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH20_3.2.1.52.sum <- import.order.sum('kaiju/mucin_sep/GH20_3.2.1.52/order')
+write.csv(ord.GH20_3.2.1.52.sum, file = "kaiju/mucin_sep/GH20_3.2.1.52/GH20_3.2.1.52.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.muc.sum.sum <- ord.muc.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH20_3.2.1.52.sum <- import.family.sum('kaiju/mucin_sep/GH20_3.2.1.52/family')
+write.csv(fam.GH20_3.2.1.52.sum, file = "kaiju/mucin_sep/GH20_3.2.1.52/GH20_3.2.1.52.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.muc.sum.sum <- fam.muc.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH20_3.2.1.52.sum <- import.genus.sum('kaiju/mucin_sep/GH20_3.2.1.52/genus')
+write.csv(gen.GH20_3.2.1.52.sum, file = "kaiju/mucin_sep/GH20_3.2.1.52/GH20_3.2.1.52.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.muc.sum.sum <- gen.muc.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH20_3.2.1.52.sum <- import.species.sum('kaiju/mucin_sep/GH20_3.2.1.52/species')
+write.csv(spe.GH20_3.2.1.52.sum, file = "kaiju/mucin_sep/GH20_3.2.1.52/GH20_3.2.1.52.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.muc.sum.sum <- spe.muc.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH27_3.2.1.22 
+```{r}
+########## Phylum ##########
+phy.GH27_3.2.1.22.sum <- import.phylum.sum('kaiju/mucin_sep/GH27_3.2.1.22/phylum')
+#write.csv(phy.GH27_3.2.1.22.sum, file = "kaiju/mucin_sep/GH27_3.2.1.22/GH27_3.2.1.22.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH27_3.2.1.22.sum.sum <- phy.GH27_3.2.1.22.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH27_3.2.1.22.sum <- import.class.sum('kaiju/mucin_sep/GH27_3.2.1.22/class')
+#write.csv(cla.GH27_3.2.1.22.sum, file = "kaiju/mucin_sep/GH27_3.2.1.22/GH27_3.2.1.22.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH27_3.2.1.22.sum.sum <- cla.GH27_3.2.1.22.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH27_3.2.1.22.sum <- import.order.sum('kaiju/mucin_sep/GH27_3.2.1.22/order')
+#write.csv(ord.GH27_3.2.1.22.sum, file = "kaiju/mucin_sep/GH27_3.2.1.22/GH27_3.2.1.22.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH27_3.2.1.22.sum.sum <- ord.GH27_3.2.1.22.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH27_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH27_3.2.1.22/family')
+#write.csv(fam.GH27_3.2.1.22.sum, file = "kaiju/mucin_sep/GH27_3.2.1.22/GH27_3.2.1.22.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH27_3.2.1.22.sum.sum <- fam.GH27_3.2.1.22.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH27_3.2.1.22.sum <- import.genus.sum('kaiju/mucin_sep/GH27_3.2.1.22/genus')
+#write.csv(gen.GH27_3.2.1.22.sum, file = "kaiju/mucin_sep/GH27_3.2.1.22/GH27_3.2.1.22.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH27_3.2.1.22.sum.sum <- gen.GH27_3.2.1.22.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH27_3.2.1.22.sum <- import.species.sum('kaiju/mucin_sep/GH27_3.2.1.22/species')
+#write.csv(spe.GH27_3.2.1.22.sum, file = "kaiju/mucin_sep/GH27_3.2.1.22/GH27_3.2.1.22.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH27_3.2.1.22.sum.sum <- spe.GH27_3.2.1.22.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH29_3.2.1.51 
+```{r}
+########## Phylum ##########
+phy.GH29_3.2.1.51.sum <- import.phylum.sum('kaiju/mucin_sep/GH29_3.2.1.51/phylum')
+#write.csv(phy.GH29_3.2.1.51.sum, file = "kaiju/mucin_sep/GH29_3.2.1.51/GH29_3.2.1.51.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH29_3.2.1.51.sum.sum <- phy.GH29_3.2.1.51.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH29_3.2.1.51.sum <- import.class.sum('kaiju/mucin_sep/GH29_3.2.1.51/class')
+#write.csv(cla.GH29_3.2.1.51.sum, file = "kaiju/mucin_sep/GH29_3.2.1.51/GH29_3.2.1.51.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH29_3.2.1.51.sum.sum <- cla.GH29_3.2.1.51.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH29_3.2.1.51.sum <- import.order.sum('kaiju/mucin_sep/GH29_3.2.1.51/order')
+#write.csv(ord.GH29_3.2.1.51.sum, file = "kaiju/mucin_sep/GH29_3.2.1.51/GH29_3.2.1.51.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH29_3.2.1.51.sum.sum <- ord.GH29_3.2.1.51.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH29_3.2.1.51.sum <- import.family.sum('kaiju/mucin_sep/GH29_3.2.1.51/family')
+#write.csv(fam.GH29_3.2.1.51.sum, file = "kaiju/mucin_sep/GH29_3.2.1.51/GH29_3.2.1.51.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH29_3.2.1.51.sum.sum <- fam.GH29_3.2.1.51.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH29_3.2.1.51.sum <- import.genus.sum('kaiju/mucin_sep/GH29_3.2.1.51/genus')
+#write.csv(gen.GH29_3.2.1.51.sum, file = "kaiju/mucin_sep/GH29_3.2.1.51/GH29_3.2.1.51.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH29_3.2.1.51.sum.sum <- gen.GH29_3.2.1.51.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH29_3.2.1.51.sum <- import.species.sum('kaiju/mucin_sep/GH29_3.2.1.51/species')
+#write.csv(spe.GH29_3.2.1.51.sum, file = "kaiju/mucin_sep/GH29_3.2.1.51/GH29_3.2.1.51.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH29_3.2.1.51.sum.sum <- spe.GH29_3.2.1.51.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH2_3.2.1.23 
+```{r}
+########## Phylum ##########
+phy.GH2_3.2.1.23.sum <- import.phylum.sum('kaiju/mucin_sep/GH2_3.2.1.23/phylum')
+#write.csv(phy.GH2_3.2.1.23.sum, file = "kaiju/mucin_sep/GH2_3.2.1.23/GH2_3.2.1.23.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH2_3.2.1.23.sum.sum <- phy.GH2_3.2.1.23.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH2_3.2.1.23.sum <- import.class.sum('kaiju/mucin_sep/GH2_3.2.1.23/class')
+#write.csv(cla.GH2_3.2.1.23.sum, file = "kaiju/mucin_sep/GH2_3.2.1.23/GH2_3.2.1.23.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH2_3.2.1.23.sum.sum <- cla.GH2_3.2.1.23.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH2_3.2.1.23.sum <- import.order.sum('kaiju/mucin_sep/GH2_3.2.1.23/order')
+#write.csv(ord.GH2_3.2.1.23.sum, file = "kaiju/mucin_sep/GH2_3.2.1.23/GH2_3.2.1.23.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH2_3.2.1.23.sum.sum <- ord.GH2_3.2.1.23.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH2_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH2_3.2.1.23/family')
+#write.csv(fam.GH2_3.2.1.23.sum, file = "kaiju/mucin_sep/GH2_3.2.1.23/GH2_3.2.1.23.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH2_3.2.1.23.sum.sum <- fam.GH2_3.2.1.23.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH2_3.2.1.23.sum <- import.genus.sum('kaiju/mucin_sep/GH2_3.2.1.23/genus')
+#write.csv(gen.GH2_3.2.1.23.sum, file = "kaiju/mucin_sep/GH2_3.2.1.23/GH2_3.2.1.23.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH2_3.2.1.23.sum.sum <- gen.GH2_3.2.1.23.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH2_3.2.1.23.sum <- import.species.sum('kaiju/mucin_sep/GH2_3.2.1.23/species')
+#write.csv(spe.GH2_3.2.1.23.sum, file = "kaiju/mucin_sep/GH2_3.2.1.23/GH2_3.2.1.23.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH2_3.2.1.23.sum.sum <- spe.GH2_3.2.1.23.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH2_3.2.1.25 
+```{r}
+########## Phylum ##########
+phy.GH2_3.2.1.25.sum <- import.phylum.sum('kaiju/mucin_sep/GH2_3.2.1.25/phylum')
+#write.csv(phy.GH2_3.2.1.25.sum, file = "kaiju/mucin_sep/GH2_3.2.1.25/GH2_3.2.1.25.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH2_3.2.1.25.sum.sum <- phy.GH2_3.2.1.25.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH2_3.2.1.25.sum <- import.class.sum('kaiju/mucin_sep/GH2_3.2.1.25/class')
+#write.csv(cla.GH2_3.2.1.25.sum, file = "kaiju/mucin_sep/GH2_3.2.1.25/GH2_3.2.1.25.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH2_3.2.1.25.sum.sum <- cla.GH2_3.2.1.25.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH2_3.2.1.25.sum <- import.order.sum('kaiju/mucin_sep/GH2_3.2.1.25/order')
+#write.csv(ord.GH2_3.2.1.25.sum, file = "kaiju/mucin_sep/GH2_3.2.1.25/GH2_3.2.1.25.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH2_3.2.1.25.sum.sum <- ord.GH2_3.2.1.25.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH2_3.2.1.25.sum <- import.family.sum('kaiju/mucin_sep/GH2_3.2.1.25/family')
+#write.csv(fam.GH2_3.2.1.25.sum, file = "kaiju/mucin_sep/GH2_3.2.1.25/GH2_3.2.1.25.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH2_3.2.1.25.sum.sum <- fam.GH2_3.2.1.25.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH2_3.2.1.25.sum <- import.genus.sum('kaiju/mucin_sep/GH2_3.2.1.25/genus')
+#write.csv(gen.GH2_3.2.1.25.sum, file = "kaiju/mucin_sep/GH2_3.2.1.25/GH2_3.2.1.25.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH2_3.2.1.25.sum.sum <- gen.GH2_3.2.1.25.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH2_3.2.1.25.sum <- import.species.sum('kaiju/mucin_sep/GH2_3.2.1.25/species')
+#write.csv(spe.GH2_3.2.1.25.sum, file = "kaiju/mucin_sep/GH2_3.2.1.25/GH2_3.2.1.25.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH2_3.2.1.25.sum.sum <- spe.GH2_3.2.1.25.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH31_3.2.1.20 
+```{r}
+########## Phylum ##########
+phy.GH31_3.2.1.20.sum <- import.phylum.sum('kaiju/mucin_sep/GH31_3.2.1.20/phylum')
+#write.csv(phy.GH31_3.2.1.20.sum, file = "kaiju/mucin_sep/GH31_3.2.1.20/GH31_3.2.1.20.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH31_3.2.1.20.sum.sum <- phy.GH31_3.2.1.20.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH31_3.2.1.20.sum <- import.class.sum('kaiju/mucin_sep/GH31_3.2.1.20/class')
+#write.csv(cla.GH31_3.2.1.20.sum, file = "kaiju/mucin_sep/GH31_3.2.1.20/GH31_3.2.1.20.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH31_3.2.1.20.sum.sum <- cla.GH31_3.2.1.20.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH31_3.2.1.20.sum <- import.order.sum('kaiju/mucin_sep/GH31_3.2.1.20/order')
+#write.csv(ord.GH31_3.2.1.20.sum, file = "kaiju/mucin_sep/GH31_3.2.1.20/GH31_3.2.1.20.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH31_3.2.1.20.sum.sum <- ord.GH31_3.2.1.20.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH31_3.2.1.20.sum <- import.family.sum('kaiju/mucin_sep/GH31_3.2.1.20/family')
+#write.csv(fam.GH31_3.2.1.20.sum, file = "kaiju/mucin_sep/GH31_3.2.1.20/GH31_3.2.1.20.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH31_3.2.1.20.sum.sum <- fam.GH31_3.2.1.20.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH31_3.2.1.20.sum <- import.genus.sum('kaiju/mucin_sep/GH31_3.2.1.20/genus')
+#write.csv(gen.GH31_3.2.1.20.sum, file = "kaiju/mucin_sep/GH31_3.2.1.20/GH31_3.2.1.20.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH31_3.2.1.20.sum.sum <- gen.GH31_3.2.1.20.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH31_3.2.1.20.sum <- import.species.sum('kaiju/mucin_sep/GH31_3.2.1.20/species')
+#write.csv(spe.GH31_3.2.1.20.sum, file = "kaiju/mucin_sep/GH31_3.2.1.20/GH31_3.2.1.20.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH31_3.2.1.20.sum.sum <- spe.GH31_3.2.1.20.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH35_3.2.1.23 
+```{r}
+########## Phylum ##########
+phy.GH35_3.2.1.23.sum <- import.phylum.sum('kaiju/mucin_sep/GH35_3.2.1.23/phylum')
+#write.csv(phy.GH35_3.2.1.23.sum, file = "kaiju/mucin_sep/GH35_3.2.1.23/GH35_3.2.1.23.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH35_3.2.1.23.sum.sum <- phy.GH35_3.2.1.23.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH35_3.2.1.23.sum <- import.class.sum('kaiju/mucin_sep/GH35_3.2.1.23/class')
+#write.csv(cla.GH35_3.2.1.23.sum, file = "kaiju/mucin_sep/GH35_3.2.1.23/GH35_3.2.1.23.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH35_3.2.1.23.sum.sum <- cla.GH35_3.2.1.23.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH35_3.2.1.23.sum <- import.order.sum('kaiju/mucin_sep/GH35_3.2.1.23/order')
+#write.csv(ord.GH35_3.2.1.23.sum, file = "kaiju/mucin_sep/GH35_3.2.1.23/GH35_3.2.1.23.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH35_3.2.1.23.sum.sum <- ord.GH35_3.2.1.23.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH35_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH35_3.2.1.23/family')
+#write.csv(fam.GH35_3.2.1.23.sum, file = "kaiju/mucin_sep/GH35_3.2.1.23/GH35_3.2.1.23.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH35_3.2.1.23.sum.sum <- fam.GH35_3.2.1.23.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH35_3.2.1.23.sum <- import.genus.sum('kaiju/mucin_sep/GH35_3.2.1.23/genus')
+#write.csv(gen.GH35_3.2.1.23.sum, file = "kaiju/mucin_sep/GH35_3.2.1.23/GH35_3.2.1.23.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH35_3.2.1.23.sum.sum <- gen.GH35_3.2.1.23.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH35_3.2.1.23.sum <- import.species.sum('kaiju/mucin_sep/GH35_3.2.1.23/species')
+#write.csv(spe.GH35_3.2.1.23.sum, file = "kaiju/mucin_sep/GH35_3.2.1.23/GH35_3.2.1.23.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH35_3.2.1.23.sum.sum <- spe.GH35_3.2.1.23.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### GH36_3.2.1.22 
+```{r}
+########## Phylum ##########
+phy.GH36_3.2.1.22.sum <- import.phylum.sum('kaiju/mucin_sep/GH36_3.2.1.22/phylum')
+#write.csv(phy.GH36_3.2.1.22.sum, file = "kaiju/mucin_sep/GH36_3.2.1.22/GH36_3.2.1.22.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH36_3.2.1.22.sum.sum <- phy.GH36_3.2.1.22.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH36_3.2.1.22.sum <- import.class.sum('kaiju/mucin_sep/GH36_3.2.1.22/class')
+#write.csv(cla.GH36_3.2.1.22.sum, file = "kaiju/mucin_sep/GH36_3.2.1.22/GH36_3.2.1.22.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH36_3.2.1.22.sum.sum <- cla.GH36_3.2.1.22.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH36_3.2.1.22.sum <- import.order.sum('kaiju/mucin_sep/GH36_3.2.1.22/order')
+#write.csv(ord.GH36_3.2.1.22.sum, file = "kaiju/mucin_sep/GH36_3.2.1.22/GH36_3.2.1.22.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH36_3.2.1.22.sum.sum <- ord.GH36_3.2.1.22.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH36_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH36_3.2.1.22/family')
+#write.csv(fam.GH36_3.2.1.22.sum, file = "kaiju/mucin_sep/GH36_3.2.1.22/GH36_3.2.1.22.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH36_3.2.1.22.sum.sum <- fam.GH36_3.2.1.22.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH36_3.2.1.22.sum <- import.genus.sum('kaiju/mucin_sep/GH36_3.2.1.22/genus')
+#write.csv(gen.GH36_3.2.1.22.sum, file = "kaiju/mucin_sep/GH36_3.2.1.22/GH36_3.2.1.22.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH36_3.2.1.22.sum.sum <- gen.GH36_3.2.1.22.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH36_3.2.1.22.sum <- import.species.sum('kaiju/mucin_sep/GH36_3.2.1.22/species')
+#write.csv(spe.GH36_3.2.1.22.sum, file = "kaiju/mucin_sep/GH36_3.2.1.22/GH36_3.2.1.22.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH36_3.2.1.22.sum.sum <- spe.GH36_3.2.1.22.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### GH38_3.2.1.24 #############
+```{r}
+########## Phylum ##########
+phy.GH38_3.2.1.24.sum <- import.phylum.sum('kaiju/mucin_sep/GH38_3.2.1.24/phylum')
+write.csv(phy.GH38_3.2.1.24.sum, file = "kaiju/mucin_sep/GH38_3.2.1.24/GH38_3.2.1.24.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.muc.sum.sum <- phy.muc.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH38_3.2.1.24.sum <- import.class.sum('kaiju/mucin_sep/GH38_3.2.1.24/class')
+write.csv(cla.GH38_3.2.1.24.sum, file = "kaiju/mucin_sep/GH38_3.2.1.24/GH38_3.2.1.24.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.muc.sum.sum <- cla.muc.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH38_3.2.1.24.sum <- import.order.sum('kaiju/mucin_sep/GH38_3.2.1.24/order')
+write.csv(ord.GH38_3.2.1.24.sum, file = "kaiju/mucin_sep/GH38_3.2.1.24/GH38_3.2.1.24.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.muc.sum.sum <- ord.muc.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH38_3.2.1.24.sum <- import.family.sum('kaiju/mucin_sep/GH38_3.2.1.24/family')
+write.csv(fam.GH38_3.2.1.24.sum, file = "kaiju/mucin_sep/GH38_3.2.1.24/GH38_3.2.1.24.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.muc.sum.sum <- fam.muc.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH38_3.2.1.24.sum <- import.genus.sum('kaiju/mucin_sep/GH38_3.2.1.24/genus')
+write.csv(gen.GH38_3.2.1.24.sum, file = "kaiju/mucin_sep/GH38_3.2.1.24/GH38_3.2.1.24.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.muc.sum.sum <- gen.muc.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH38_3.2.1.24.sum <- import.species.sum('kaiju/mucin_sep/GH38_3.2.1.24/species')
+write.csv(spe.GH38_3.2.1.24.sum, file = "kaiju/mucin_sep/GH38_3.2.1.24/GH38_3.2.1.24.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.muc.sum.sum <- spe.muc.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+
+
+
+
+
+### GH3_3.2.1.52 ################
+```{r}
+########## Phylum ##########
+phy.GH3_3.2.1.52.sum <- import.phylum.sum('kaiju/mucin_sep/GH3_3.2.1.52/phylum')
+write.csv(phy.GH3_3.2.1.52.sum, file = "kaiju/mucin_sep/GH3_3.2.1.52/GH3_3.2.1.52.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.muc.sum.sum <- phy.muc.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH3_3.2.1.52.sum <- import.class.sum('kaiju/mucin_sep/GH3_3.2.1.52/class')
+write.csv(cla.GH3_3.2.1.52.sum, file = "kaiju/mucin_sep/GH3_3.2.1.52/GH3_3.2.1.52.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.muc.sum.sum <- cla.muc.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH3_3.2.1.52.sum <- import.order.sum('kaiju/mucin_sep/GH3_3.2.1.52/order')
+write.csv(ord.GH3_3.2.1.52.sum, file = "kaiju/mucin_sep/GH3_3.2.1.52/GH3_3.2.1.52.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.muc.sum.sum <- ord.muc.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH3_3.2.1.52.sum <- import.family.sum('kaiju/mucin_sep/GH3_3.2.1.52/family')
+write.csv(fam.GH3_3.2.1.52.sum, file = "kaiju/mucin_sep/GH3_3.2.1.52/GH3_3.2.1.52.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.muc.sum.sum <- fam.muc.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH3_3.2.1.52.sum <- import.genus.sum('kaiju/mucin_sep/GH3_3.2.1.52/genus')
+write.csv(gen.GH3_3.2.1.52.sum, file = "kaiju/mucin_sep/GH3_3.2.1.52/GH3_3.2.1.52.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.muc.sum.sum <- gen.muc.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH3_3.2.1.52.sum <- import.species.sum('kaiju/mucin_sep/GH3_3.2.1.52/species')
+write.csv(spe.GH3_3.2.1.52.sum, file = "kaiju/mucin_sep/GH3_3.2.1.52/GH3_3.2.1.52.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.muc.sum.sum <- spe.muc.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+### GH42_3.2.1.23
+```{r}
+########## Phylum ##########
+phy.GH42_3.2.1.23.sum <- import.phylum.sum('kaiju/mucin_sep/GH42_3.2.1.23/phylum')
+#write.csv(phy.GH42_3.2.1.23.sum, file = "kaiju/mucin_sep/GH42_3.2.1.23/GH42_3.2.1.23.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH42_3.2.1.23.sum.sum <- phy.GH42_3.2.1.23.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH42_3.2.1.23.sum <- import.class.sum('kaiju/mucin_sep/GH42_3.2.1.23/class')
+#write.csv(cla.GH42_3.2.1.23.sum, file = "kaiju/mucin_sep/GH42_3.2.1.23/GH42_3.2.1.23.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH42_3.2.1.23.sum.sum <- cla.GH42_3.2.1.23.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH42_3.2.1.23.sum <- import.order.sum('kaiju/mucin_sep/GH42_3.2.1.23/order')
+#write.csv(ord.GH42_3.2.1.23.sum, file = "kaiju/mucin_sep/GH42_3.2.1.23/GH42_3.2.1.23.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH42_3.2.1.23.sum.sum <- ord.GH42_3.2.1.23.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH42_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH42_3.2.1.23/family')
+#write.csv(fam.GH42_3.2.1.23.sum, file = "kaiju/mucin_sep/GH42_3.2.1.23/GH42_3.2.1.23.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH42_3.2.1.23.sum.sum <- fam.GH42_3.2.1.23.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH42_3.2.1.23.sum <- import.genus.sum('kaiju/mucin_sep/GH42_3.2.1.23/genus')
+#write.csv(gen.GH42_3.2.1.23.sum, file = "kaiju/mucin_sep/GH42_3.2.1.23/GH42_3.2.1.23.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH42_3.2.1.23.sum.sum <- gen.GH42_3.2.1.23.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH42_3.2.1.23.sum <- import.species.sum('kaiju/mucin_sep/GH42_3.2.1.23/species')
+#write.csv(spe.GH42_3.2.1.23.sum, file = "kaiju/mucin_sep/GH42_3.2.1.23/GH42_3.2.1.23.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH42_3.2.1.23.sum.sum <- spe.GH42_3.2.1.23.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH4_3.2.1.22 #################
+```{r}
+########## Phylum ##########
+phy.GH4_3.2.1.22.sum <- import.phylum.sum('kaiju/mucin_sep/GH4_3.2.1.22/phylum')
+write.csv(phy.GH4_3.2.1.22.sum, file = "kaiju/mucin_sep/GH4_3.2.1.22/GH4_3.2.1.22.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.muc.sum.sum <- phy.muc.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH4_3.2.1.22.sum <- import.class.sum('kaiju/mucin_sep/GH4_3.2.1.22/class')
+write.csv(cla.GH4_3.2.1.22.sum, file = "kaiju/mucin_sep/GH4_3.2.1.22/GH4_3.2.1.22.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.muc.sum.sum <- cla.muc.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH4_3.2.1.22.sum <- import.order.sum('kaiju/mucin_sep/GH4_3.2.1.22/order')
+write.csv(ord.GH4_3.2.1.22.sum, file = "kaiju/mucin_sep/GH4_3.2.1.22/GH4_3.2.1.22.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.muc.sum.sum <- ord.muc.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH4_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH4_3.2.1.22/family')
+write.csv(fam.GH4_3.2.1.22.sum, file = "kaiju/mucin_sep/GH4_3.2.1.22/GH4_3.2.1.22.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.muc.sum.sum <- fam.muc.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH4_3.2.1.22.sum <- import.genus.sum('kaiju/mucin_sep/GH4_3.2.1.22/genus')
+write.csv(gen.GH4_3.2.1.22.sum, file = "kaiju/mucin_sep/GH4_3.2.1.22/GH4_3.2.1.22.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.muc.sum.sum <- gen.muc.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH4_3.2.1.22.sum <- import.species.sum('kaiju/mucin_sep/GH4_3.2.1.22/species')
+write.csv(spe.GH4_3.2.1.22.sum, file = "kaiju/mucin_sep/GH4_3.2.1.22/GH4_3.2.1.22.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.muc.sum.sum <- spe.muc.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH67_3.2.1.139
+```{r}
+########## Phylum ##########
+phy.GH67_3.2.1.139.sum <- import.phylum.sum('kaiju/mucin_sep/GH67_3.2.1.139/phylum')
+#write.csv(phy.GH67_3.2.1.139.sum, file = "kaiju/mucin_sep/GH67_3.2.1.139/GH67_3.2.1.139.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH67_3.2.1.139.sum.sum <- phy.GH67_3.2.1.139.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH67_3.2.1.139.sum <- import.class.sum('kaiju/mucin_sep/GH67_3.2.1.139/class')
+#write.csv(cla.GH67_3.2.1.139.sum, file = "kaiju/mucin_sep/GH67_3.2.1.139/GH67_3.2.1.139.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH67_3.2.1.139.sum.sum <- cla.GH67_3.2.1.139.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH67_3.2.1.139.sum <- import.order.sum('kaiju/mucin_sep/GH67_3.2.1.139/order')
+#write.csv(ord.GH67_3.2.1.139.sum, file = "kaiju/mucin_sep/GH67_3.2.1.139/GH67_3.2.1.139.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH67_3.2.1.139.sum.sum <- ord.GH67_3.2.1.139.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH67_3.2.1.139.sum <- import.family.sum('kaiju/mucin_sep/GH67_3.2.1.139/family')
+#write.csv(fam.GH67_3.2.1.139.sum, file = "kaiju/mucin_sep/GH67_3.2.1.139/GH67_3.2.1.139.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH67_3.2.1.139.sum.sum <- fam.GH67_3.2.1.139.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH67_3.2.1.139.sum <- import.genus.sum('kaiju/mucin_sep/GH67_3.2.1.139/genus')
+#write.csv(gen.GH67_3.2.1.139.sum, file = "kaiju/mucin_sep/GH67_3.2.1.139/GH67_3.2.1.139.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH67_3.2.1.139.sum.sum <- gen.GH67_3.2.1.139.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH67_3.2.1.139.sum <- import.species.sum('kaiju/mucin_sep/GH67_3.2.1.139/species')
+#write.csv(spe.GH67_3.2.1.139.sum, file = "kaiju/mucin_sep/GH67_3.2.1.139/GH67_3.2.1.139.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH67_3.2.1.139.sum.sum <- spe.GH67_3.2.1.139.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH84_3.2.1.169
+```{r}
+########## Phylum ##########
+phy.GH84_3.2.1.169.sum <- import.phylum.sum('kaiju/mucin_sep/GH84_3.2.1.169/phylum')
+#write.csv(phy.GH84_3.2.1.169.sum, file = "kaiju/mucin_sep/GH84_3.2.1.169/GH84_3.2.1.169.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH84_3.2.1.169.sum.sum <- phy.GH84_3.2.1.169sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH84_3.2.1.169.sum <- import.class.sum('kaiju/mucin_sep/GH84_3.2.1.169/class')
+#write.csv(cla.GH84_3.2.1.169.sum, file = "kaiju/mucin_sep/GH84_3.2.1.169/GH84_3.2.1.169.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH84_3.2.1.169.sum.sum <- cla.GH84_3.2.1.169sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH84_3.2.1.169.sum <- import.order.sum('kaiju/mucin_sep/GH84_3.2.1.169/order')
+#write.csv(ord.GH84_3.2.1.169.sum, file = "kaiju/mucin_sep/GH84_3.2.1.169/GH84_3.2.1.169.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH84_3.2.1.169.sum.sum <- ord.GH84_3.2.1.169sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH84_3.2.1.169.sum <- import.family.sum('kaiju/mucin_sep/GH84_3.2.1.169/family')
+#write.csv(fam.GH84_3.2.1.169.sum, file = "kaiju/mucin_sep/GH84_3.2.1.169/GH84_3.2.1.169.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH84_3.2.1.169.sum.sum <- fam.GH84_3.2.1.169sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH84_3.2.1.169.sum <- import.genus.sum('kaiju/mucin_sep/GH84_3.2.1.169/genus')
+#write.csv(gen.GH84_3.2.1.169.sum, file = "kaiju/mucin_sep/GH84_3.2.1.169/GH84_3.2.1.169.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH84_3.2.1.169.sum.sum <- gen.GH84_3.2.1.169sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH84_3.2.1.169.sum <- import.species.sum('kaiju/mucin_sep/GH84_3.2.1.169/species')
+#write.csv(spe.GH84_3.2.1.169.sum, file = "kaiju/mucin_sep/GH84_3.2.1.169/GH84_3.2.1.169.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH84_3.2.1.169.sum.sum <- spe.GH84_3.2.1.169sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+
+### GH95_3.2.1.51
+```{r}
+########## Phylum ##########
+phy.GH95_3.2.1.51.sum <- import.phylum.sum('kaiju/mucin_sep/GH95_3.2.1.51/phylum')
+#write.csv(phy.GH95_3.2.1.51.sum, file = "kaiju/mucin_sep/GH95_3.2.1.51/GH95_3.2.1.51.phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.GH95_3.2.1.51.sum.sum <- phy.GH95_3.2.1.51.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Class ##########
+cla.GH95_3.2.1.51.sum <- import.class.sum('kaiju/mucin_sep/GH95_3.2.1.51/class')
+#write.csv(cla.GH95_3.2.1.51.sum, file = "kaiju/mucin_sep/GH95_3.2.1.51/GH95_3.2.1.51.cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.GH95_3.2.1.51.sum.sum <- cla.GH95_3.2.1.51.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.GH95_3.2.1.51.sum <- import.order.sum('kaiju/mucin_sep/GH95_3.2.1.51/order')
+#write.csv(ord.GH95_3.2.1.51.sum, file = "kaiju/mucin_sep/GH95_3.2.1.51/GH95_3.2.1.51.ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.GH95_3.2.1.51.sum.sum <- ord.GH95_3.2.1.51.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Family ##########
+fam.GH95_3.2.1.51.sum <- import.family.sum('kaiju/mucin_sep/GH95_3.2.1.51/family')
+#write.csv(fam.GH95_3.2.1.51.sum, file = "kaiju/mucin_sep/GH95_3.2.1.51/GH95_3.2.1.51.fam.sum.csv")
+
+# Summarize families to get top 10
+fam.GH95_3.2.1.51.sum.sum <- fam.GH95_3.2.1.51.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Genus ##########
+gen.GH95_3.2.1.51.sum <- import.genus.sum('kaiju/mucin_sep/GH95_3.2.1.51/genus')
+#write.csv(gen.GH95_3.2.1.51.sum, file = "kaiju/mucin_sep/GH95_3.2.1.51/GH95_3.2.1.51.gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.GH95_3.2.1.51.sum.sum <- gen.GH95_3.2.1.51.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+########## Species ##########
+spe.GH95_3.2.1.51.sum <- import.species.sum('kaiju/mucin_sep/GH95_3.2.1.51/species')
+#write.csv(spe.GH95_3.2.1.51.sum, file = "kaiju/mucin_sep/GH95_3.2.1.51/GH95_3.2.1.51.spe.sum.csv")
+
+# Summarize species to get top 10
+spe.GH95_3.2.1.51.sum.sum <- spe.GH95_3.2.1.51.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```
+
+# Summarize species to get top 10
+spe.muc.sum.sum <- spe.muc.sum %>%
+  group_by(Species) %>%
+  summarize(Mean = mean(Mean))
+```

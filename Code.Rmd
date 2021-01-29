@@ -1669,26 +1669,24 @@ cog.cat.phy <- merge_phyloseq(otu_table(cog.cat.norm, taxa_are_rows=T), cog.cat.
 ```
 ### COG - Load physeq object
 ```{r}
-load("cog.phy")
-load("cog.cat.phy")
+load("cog.phy.Rdata")
+load("cog.cat.phy.Rdata")
 ```
 ### COG Category - Kruskal-Wallis
 ```{r}
 # Load data
-cog.cat.norm <- read.csv('cog/cog.category.normalized.csv', header = T)
-rownames(cog.cat.norm) <- cog.cat.norm[,1]
-cog.cat.norm <- cog.cat.norm[,-1]
-colnames(cog.cat.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.cat <- data.frame(otu_table(cog.cat.phy))
+colnames(cog.cat) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 
 # Format data
-cog.cat.df <- data.frame(t(cog.cat.norm))
+cog.cat.df <- data.frame(t(cog.cat))
 cog.cat.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 cog.cat.df$Season <- ordered(cog.cat.df$Season, levels=c("Summer", "Winter", "Spring"))
 
-# Run Kruskal-Wallis on all COGs
-cog.cat.kw <- data.frame(matrix(nrow = 1, ncol = nrow(cog.cat.norm)))
-colnames(cog.cat.kw) <- rownames(cog.cat.norm)
-for(i in 1:nrow(cog.cat.norm)){
+# Run Kruskal-Wallis on all categories
+cog.cat.kw <- data.frame(matrix(nrow = 1, ncol = nrow(cog.cat)))
+colnames(cog.cat.kw) <- rownames(cog.cat)
+for(i in 1:nrow(cog.cat)){
   cogName <- colnames(cog.cat.df)[i]
   kw <- kruskal.test(formula = reformulate("Season", cogName), data = cog.cat.df)
   cog.cat.kw[,i] <- kw$p.value

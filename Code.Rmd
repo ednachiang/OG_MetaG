@@ -1667,11 +1667,66 @@ cog.cat.phy <- merge_phyloseq(otu_table(cog.cat.norm, taxa_are_rows=T), cog.cat.
 #save(cog.cat.phy, file = "cog.cat.phy.Rdata")
 #write.csv(data.frame(otu_table(cog.cat.phy)), file = "cog/cog.category.normalized.csv")
 ```
-### COG - Load physeq object
+### COG - Load physeq objects
 ```{r}
 load("cog.phy.Rdata")
 load("cog.cat.phy.Rdata")
 meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
+```
+### COG - General COG Stats
+```{r}
+# Load data
+cog.stats <- read.csv('cog/cog.stats.csv', row.names = 1, header = T)
+cog.stats <- as.matrix(cog.stats)
+
+# Test normality - % COGs from ORFs
+hist(cog.stats[3,])
+qqnorm(cog.stats[3,])
+qqline(cog.stats[3,])
+shapiro.test(cog.stats[3,])
+  # p-value = 0.108
+  # Normal
+
+# Test normality - Unique COGs
+hist(cog.stats[4,])
+qqnorm(cog.stats[4,])
+qqline(cog.stats[4,])
+shapiro.test(cog.stats[4,])
+  # p-value = 0.1712
+  # Normal
+
+# Format for ANOVA
+cog.stats <- data.frame(t(cog.stats))
+rownames(cog.stats) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.stats$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+
+# Test w/ ANOVA
+summary(aov(Prop_COGs ~ Season, data = cog.stats))
+  # p-value = 0.634
+summary(aov(Unique_COGs ~ Season, data = cog.stats))
+  # p-value = 0.51
+
+ggplot(cog.stats, aes(x=Season, y=Prop_COGs, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  ylab("% ORFs annotated as COG (%)") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(37, 40, 43, 46, 49), limits=c(37, 49)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"))
+
+ggplot(cog.stats, aes(x=Season, y=Unique_COGs, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  ylab("Unique COGs") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(3200, 3400, 3600), limits=c(3200, 3600)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"))
 ```
 ### COG Category - Kruskal-Wallis
 ```{r}

@@ -1476,7 +1476,7 @@ fam.GH130_2.4.1.320.sum.sum <- fam.GH130_2.4.1.320.sum %>%
 
 
 
-### COG - Normalize by Universal Single-Copy Genes (Don't run!)
+### COG - Normalize by Universal Single-Copy Genes (DON'T RUN!)
 ```{r}
 # Import raw COG count table
 cog.counts <- read.csv('cog/COG.table.tab', header = T, sep = "\t")
@@ -1538,6 +1538,140 @@ for(i in 1:ncol(cog.cat)){
 
 ```
 
+### COG - Create phyloseq objects (DON'T RUN!)
+```{r}
+### Count-level ###
+
+# Load data
+cog.norm <- read.csv('cog/cog.normalized.tab', header = T, sep = "\t")
+
+# Identify COGs that appear in only 1 sample
+cog.rem <- list()
+for(i in 1:nrow(cog.norm)){
+  empty <- length(which(cog.norm[i,] == 0))
+    # Identifies number of samples without COG
+  if(empty > 7){
+    # If COG appears in only 1 sample
+    cog.rem <- append(cog.rem, i)
+      # Create list of COGs that appear in only 1 sample
+  }
+}
+cog.rem.row <- as.numeric(cog.rem)
+  # Convert list to numeric
+
+# Remove COGs that appear in only 1 sample
+cog.norm.rem <- cog.norm[-cog.rem.row,]
+colnames(cog.norm.rem) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+
+# Format data
+cog.df <- data.frame(t(cog.norm.rem))
+rownames(cog.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+cog.df$Season <- ordered(cog.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Load COG "tax_table"
+cog.cat <- read.csv('cog/cog.classifications.tab', header = T, sep = "\t")
+cog.tax <- data.frame(cog.cat[,-2:-3])
+
+# Prepare phyloseq object inputs
+cog.otu <- otu_table(cog.norm.rem, taxa_are_rows = T)
+cog.tax <- tax_table(cog.tax)
+taxa_names(cog.tax) <- cog.tax[,1]
+meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
+
+# Create phyloseq object
+cog.phy <- merge_phyloseq(cog.otu, cog.tax, sample_data(meta))
+#save(cog.phy, file = "cog.phy.Rdata")
+
+
+
+### Category-level ###
+
+# Create phyloseq object
+colnames(cog.cat) <- c("COG", "Category", "Annotation")
+cog.cat.tax <- data.frame(cog.cat$Category)
+cog.cat.tax[,2] <- cog.cat$COG
+colnames(cog.cat.tax) <- c("Category", "COG")
+cog.cat.tax <- tax_table(cog.cat.tax)
+taxa_names(cog.cat.tax) <- cog.cat.tax[,2]
+cog.cat.phy <- merge_phyloseq(cog.otu, cog.cat.tax, sample_data(meta))
+colnames(tax_table(cog.cat.tax)) <- c("Category", "COG")
+
+# Merge by category
+cog.cat.phy <- tax_glom(cog.cat.phy, taxrank = "Category")
+
+# Create updated COG category counts
+cog.cat.otu <- data.frame(otu_table(cog.cat.phy))
+cog.cat.tax <- data.frame(tax_table(cog.cat.phy))
+cog.cat.norm <- data.frame(matrix(nrow = 25, ncol = 9))
+rownames(cog.cat.norm) <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Y", "Z")
+colnames(cog.cat.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+match <- which(grepl("A", cog.cat.tax[,1]))
+cog.cat.norm[1,] <- cog.cat.otu[81,] + cog.cat.otu[106,] + cog.cat.otu[115,] + cog.cat.otu[118,]
+match <- which(grepl("B", cog.cat.tax[,1]))
+cog.cat.norm[2,] <- cog.cat.otu[3,] + cog.cat.otu[62,] + cog.cat.otu[80,] + cog.cat.otu[103,] + cog.cat.otu[109,] + cog.cat.otu[122,] + cog.cat.otu[129,]
+match <- which(grepl("C", cog.cat.tax[,1]))
+cog.cat.norm[3,] <- cog.cat.otu[20,] + cog.cat.otu[29,] + cog.cat.otu[33,] + cog.cat.otu[36,] + cog.cat.otu[40,] + cog.cat.otu[42,] + cog.cat.otu[52,] + cog.cat.otu[75,] + cog.cat.otu[97,] + cog.cat.otu[98,] + cog.cat.otu[102,] + cog.cat.otu[134,]
+match <- which(grepl("D", cog.cat.tax[,1]))
+cog.cat.norm[4,] <- cog.cat.otu[58,] + cog.cat.otu[73,] + cog.cat.otu[79,] + cog.cat.otu[103,] + cog.cat.otu[104,] + cog.cat.otu[105,] + cog.cat.otu[106,] + cog.cat.otu[107,] + cog.cat.otu[110,] + cog.cat.otu[112,] + cog.cat.otu[113,] + cog.cat.otu[114,] + cog.cat.otu[115,] + cog.cat.otu[117,] + cog.cat.otu[119,] + cog.cat.otu[120,] + cog.cat.otu[121,] + cog.cat.otu[122,] + cog.cat.otu[127,]
+match <- which(grepl("E", cog.cat.tax[,1]))
+cog.cat.norm[5,] <- cog.cat.otu[1,] + cog.cat.otu[2,] + cog.cat.otu[4,] + cog.cat.otu[7,] + cog.cat.otu[9,] + cog.cat.otu[13,] + cog.cat.otu[14,] + cog.cat.otu[17,] + cog.cat.otu[18,] + cog.cat.otu[20,] + cog.cat.otu[21,] + cog.cat.otu[24,] + cog.cat.otu[43,] + cog.cat.otu[48,] + cog.cat.otu[56,] + cog.cat.otu[86,] + cog.cat.otu[89,]
+match <- which(grepl("F", cog.cat.tax[,1]))
+cog.cat.norm[6,] <- cog.cat.otu[6,] + cog.cat.otu[12,] + cog.cat.otu[17,] + cog.cat.otu[18,] + cog.cat.otu[31,] + cog.cat.otu[35,] + cog.cat.otu[65,] + cog.cat.otu[77,]
+match <- which(grepl("G", cog.cat.tax[,1]))
+cog.cat.norm[7,] <- cog.cat.otu[4,] + cog.cat.otu[11,] + cog.cat.otu[15,] + cog.cat.otu[21,] + cog.cat.otu[31,] + cog.cat.otu[43,] + cog.cat.otu[74,] + cog.cat.otu[75,] + cog.cat.otu[76,] + cog.cat.otu[82,] + cog.cat.otu[86,] + cog.cat.otu[94,] + cog.cat.otu[95,] + cog.cat.otu[108,] + cog.cat.otu[128,]
+match <- which(grepl("H", cog.cat.tax[,1]))
+cog.cat.norm[8,] <- cog.cat.otu[1,] + cog.cat.otu[2,] + cog.cat.otu[5,] + cog.cat.otu[33,] + cog.cat.otu[38,] + cog.cat.otu[52,] + cog.cat.otu[53,] + cog.cat.otu[54,] + cog.cat.otu[55,] + cog.cat.otu[57,] + cog.cat.otu[77,] + cog.cat.otu[94,] + cog.cat.otu[98,]
+match <- which(grepl("I", cog.cat.tax[,1]))
+cog.cat.norm[9,] <- cog.cat.otu[8,] + cog.cat.otu[37,] + cog.cat.otu[47,] + cog.cat.otu[50,] + cog.cat.otu[51,] + cog.cat.otu[55,] + cog.cat.otu[71,] + cog.cat.otu[116,] + cog.cat.otu[134,]
+match <- which(grepl("J", cog.cat.tax[,1]))
+cog.cat.norm[10,] <- cog.cat.otu[5,] + cog.cat.otu[7,] + cog.cat.otu[22,] + cog.cat.otu[27,] + cog.cat.otu[35,] + cog.cat.otu[60,] + cog.cat.otu[79,] + cog.cat.otu[81,] + cog.cat.otu[125,] + cog.cat.otu[133,]
+match <- which(grepl("K", cog.cat.tax[,1]))
+cog.cat.norm[11,] <- cog.cat.otu[10,] + cog.cat.otu[16,] + cog.cat.otu[27,] + cog.cat.otu[28,] + cog.cat.otu[34,] + cog.cat.otu[45,] + cog.cat.otu[56,] + cog.cat.otu[59,] + cog.cat.otu[62,] + cog.cat.otu[70,] + cog.cat.otu[76,] + cog.cat.otu[87,] + cog.cat.otu[90,] + cog.cat.otu[91,] + cog.cat.otu[96,] + cog.cat.otu[104,] + cog.cat.otu[105,] + cog.cat.otu[109,] + cog.cat.otu[112,] + cog.cat.otu[115,] + cog.cat.otu[120,] + cog.cat.otu[127,] + cog.cat.otu[129,]
+match <- which(grepl("L", cog.cat.tax[,1]))
+cog.cat.norm[12,] <- cog.cat.otu[25,] + cog.cat.otu[27,] + cog.cat.otu[28,] + cog.cat.otu[34,] + cog.cat.otu[46,] + cog.cat.otu[59,] + cog.cat.otu[67,] + cog.cat.otu[101,] + cog.cat.otu[103,] + cog.cat.otu[106,] + cog.cat.otu[127,] + cog.cat.otu[129,]
+match <- which(grepl("M", cog.cat.tax[,1]))
+cog.cat.norm[13,] <- cog.cat.otu[9,] + cog.cat.otu[15,] + cog.cat.otu[19,] + cog.cat.otu[37,] + cog.cat.otu[47,] + cog.cat.otu[60,] + cog.cat.otu[69,] + cog.cat.otu[88,] + cog.cat.otu[95,] + cog.cat.otu[100,] + cog.cat.otu[131,]
+match <- which(grepl("N", cog.cat.tax[,1]))
+cog.cat.norm[14,] <- cog.cat.otu[49,] + cog.cat.otu[63,] + cog.cat.otu[68,] + cog.cat.otu[78,] + cog.cat.otu[84,] + cog.cat.otu[87,] + cog.cat.otu[92,] + cog.cat.otu[99,] + cog.cat.otu[130,] + cog.cat.otu[131,]
+match <- which(grepl("O", cog.cat.tax[,1]))
+cog.cat.norm[15,] <- cog.cat.otu[10,] + cog.cat.otu[29,] + cog.cat.otu[32,] + cog.cat.otu[44,] + cog.cat.otu[63,] + cog.cat.otu[66,] + cog.cat.otu[67,] + cog.cat.otu[68,] + cog.cat.otu[78,] + cog.cat.otu[96,] + cog.cat.otu[99,] + cog.cat.otu[102,] + cog.cat.otu[108,] + cog.cat.otu[117,] + cog.cat.otu[121,] + cog.cat.otu[123,] + cog.cat.otu[125,] + cog.cat.otu[128,] + cog.cat.otu[131,] + cog.cat.otu[133,]
+match <- which(grepl("P", cog.cat.tax[,1]))
+cog.cat.norm[16,] <- cog.cat.otu[6,] + cog.cat.otu[14,] + cog.cat.otu[21,] + cog.cat.otu[40,] + cog.cat.otu[54,] + cog.cat.otu[72,] + cog.cat.otu[83,] + cog.cat.otu[88,] + cog.cat.otu[92,] + cog.cat.otu[93,] + cog.cat.otu[132,]
+match <- which(grepl("Q", cog.cat.tax[,1]))
+cog.cat.norm[17,] <- cog.cat.otu[3,] + cog.cat.otu[8,] + cog.cat.otu[26,] + cog.cat.otu[51,] + cog.cat.otu[57,] + cog.cat.otu[61,] + cog.cat.otu[85,] + cog.cat.otu[89,] + cog.cat.otu[91,] + cog.cat.otu[97,] + cog.cat.otu[132,]
+match <- which(grepl("R", cog.cat.tax[,1]))
+cog.cat.norm[18,] <- cog.cat.otu[12,] + cog.cat.otu[16,] + cog.cat.otu[21,] + cog.cat.otu[23,] + cog.cat.otu[24,] + cog.cat.otu[25,] + cog.cat.otu[26,] + cog.cat.otu[28,] + cog.cat.otu[31,] + cog.cat.otu[36,] + cog.cat.otu[43,] + cog.cat.otu[51,] + cog.cat.otu[52,] + cog.cat.otu[53,] + cog.cat.otu[71,] + cog.cat.otu[82,] + cog.cat.otu[83,] + cog.cat.otu[94,] + cog.cat.otu[100,] + cog.cat.otu[113,] + cog.cat.otu[114,]
+match <- which(grepl("S", cog.cat.tax[,1]))
+cog.cat.norm[19,] <- cog.cat.otu[64,]
+match <- which(grepl("T", cog.cat.tax[,1]))
+cog.cat.norm[20,] <- cog.cat.otu[28,] + cog.cat.otu[39,] + cog.cat.otu[45,] + cog.cat.otu[48,] + cog.cat.otu[49,] + cog.cat.otu[66,] + cog.cat.otu[73,] + cog.cat.otu[74,] + cog.cat.otu[85,] + cog.cat.otu[90,] + cog.cat.otu[92,] + cog.cat.otu[93,] + cog.cat.otu[96,] + cog.cat.otu[99,] + cog.cat.otu[103,] + cog.cat.otu[104,] + cog.cat.otu[105,] + cog.cat.otu[107,] + cog.cat.otu[114,]
+match <- which(grepl("U", cog.cat.tax[,1]))
+cog.cat.norm[21,] <- cog.cat.otu[41,] + cog.cat.otu[44,] + cog.cat.otu[46,] + cog.cat.otu[68,] + cog.cat.otu[69,] + cog.cat.otu[78,] + cog.cat.otu[84,] + cog.cat.otu[87,] + cog.cat.otu[92,] + cog.cat.otu[103,] + cog.cat.otu[108,] + cog.cat.otu[110,] + cog.cat.otu[111,] + cog.cat.otu[116,] + cog.cat.otu[126,]
+match <- which(grepl("V", cog.cat.tax[,1]))
+cog.cat.norm[22,] <- cog.cat.otu[30,]
+match <- which(grepl("W", cog.cat.tax[,1]))
+cog.cat.norm[23,] <- cog.cat.otu[126,]
+match <- which(grepl("Y", cog.cat.tax[,1]))
+cog.cat.norm[24,] <- cog.cat.otu[111,]
+match <- which(grepl("Z", cog.cat.tax[,1]))
+cog.cat.norm[25,] <- cog.cat.otu[114,] + cog.cat.otu[119,] + cog.cat.otu[123,] + cog.cat.otu[124,]
+
+# Created updated COG category physeq object
+cog.cat.tax <- cog.cat.norm
+cog.cat.tax.cat <- data.frame(rownames(cog.cat.norm))
+cog.cat.tax.tax <- tax_table(cog.cat.tax.cat)
+colnames(cog.cat.tax.tax) <- "Category"
+rownames(cog.cat.tax.tax) <- cog.cat.tax.tax[,1]
+cog.cat.phy <- merge_phyloseq(otu_table(cog.cat.norm, taxa_are_rows=T), cog.cat.tax.tax, sample_data(meta))
+#save(cog.cat.phy, file = "cog.cat.phy.Rdata")
+#write.csv(data.frame(otu_table(cog.cat.phy)), file = "cog/cog.category.normalized.csv")
+```
+### COG - Load physeq object
+```{r}
+load("cog.phy")
+load("cog.cat.phy")
+```
 ### COG Category - Kruskal-Wallis
 ```{r}
 # Load data
@@ -1691,6 +1825,105 @@ ggplot(cog.den.data$segments) +
         axis.title.y = element_text(face="bold", size=20))
 #dev.off()
 
+
+
+
+
+### PCA
+cog.pca.data <- plotPCA(cog.norm, intgroup = "Season", returnData = T)
+
+
+dbcan.pca.data <- plotPCA(dbcan.vsd, intgroup="Season", returnData=T)
+dbcan.pca.perc <- round(100*attr(dbcan.pca.data, "percentVar"))
+# PCA variance explained = 62%
+
+#tiff("dbcan.pca.tiff", width=8, height=6, units="in", res=300)
+ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
+  geom_point(size=5) +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  xlab(paste0("PC1: ", dbcan.pca.perc[1], "% variance")) +
+  ylab(paste0("PC2: ", dbcan.pca.perc[2], "% variance")) +
+  ggtitle("Euclidean Distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust=0.5, size=20))
+#dev.off()
+
+
+### Test normality
+hist(dbcan.dist)
+qqnorm(dbcan.dist)
+qqline(dbcan.dist)
+shapiro.test(dbcan.dist)
+  # p-value = 0.5035
+  # Normal
+
+### Run PERMANOVA on DESEq Euclidean distance
+dbcan.dist <- dist(t(assay(dbcan.vsd)))
+adonis(dbcan.dist ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.00721
+beta.tax = betadisper(d=dbcan.dist, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.652
+
+
+
+### Pairwise PERMANOVA Comparisons
+dbcan.dist.matrix <- as.matrix(dbcan.dist)
+dbcan.dist.df <- data.frame(dbcan.dist.matrix)
+
+# Summer vs. Winter
+dbcan.sw.dist.df <- dbcan.dist.df[,-5]
+dbcan.sw.dist.df <- dbcan.sw.dist.df[,-7:-8]
+dbcan.sw.dist.df <- dbcan.sw.dist.df[-5,]
+dbcan.sw.dist.df <- dbcan.sw.dist.df[-7:-8,]
+dbcan.sw.dist <- as.dist(dbcan.sw.dist.df)
+meta.sw <- meta[-which(meta$Season == "Spring"),]
+adonis(dbcan.sw.dist ~ Season, data=meta.sw, permutations= 99999)
+  # p-value = 0.1
+
+# Summer vs. Spring
+dbcan.sp.dist.df <- dbcan.dist.df[,-3:-4]
+dbcan.sp.dist.df <- dbcan.sp.dist.df[,-5]
+dbcan.sp.dist.df <- dbcan.sp.dist.df[-3:-4,]
+dbcan.sp.dist.df <- dbcan.sp.dist.df[-5,]
+dbcan.sp.dist <- as.dist(dbcan.sp.dist.df)
+meta.sp <- meta[-which(meta$Season == "Winter"),]
+adonis(dbcan.sp.dist ~ Season, data=meta.sp, permutations= 99999)
+  # p-value = 0.2
+
+# Spring vs. Winter
+dbcan.wp.dist.df <- dbcan.dist.df[,-3:-4]
+dbcan.wp.dist.df <- dbcan.wp.dist.df[,-5]
+dbcan.wp.dist.df <- dbcan.wp.dist.df[-3:-4,]
+dbcan.wp.dist.df <- dbcan.wp.dist.df[-5,]
+dbcan.wp.dist <- as.dist(dbcan.wp.dist.df)
+meta.wp <- meta[-which(meta$Season == "Summer"),]
+adonis(dbcan.wp.dist ~ Season, data=meta.wp, permutations= 99999)
+  # p-value = 0.2
+
+
+### Pairwise Welch's T-Test Comparisons
+
+# Summer vs. Winter
+meta.sw$Season <- ordered(meta.sw$Season, levels=c("Summer","Winter"))
+WT.test(dbcan.sw.dist, meta.sw$Season)
+  # p-value = 0.123
+
+# Summer vs. Spring
+meta.sp$Season <- ordered(meta.sp$Season, levels=c("Summer","Spring"))
+WT.test(dbcan.sp.dist, meta.sp$Season)
+  # P-value = 0.205
+
+# Winter vs. Spring
+meta.wp$Season <- ordered(meta.wp$Season, levels=c("Winter","Springr"))
+WT.test(dbcan.sp.dist, meta.sp$Season)
+  # p-value = 0.205
 ```
 ### KEGG - Kruskal-Wallis
 ```{r}

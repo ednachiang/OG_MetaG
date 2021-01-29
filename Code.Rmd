@@ -1671,6 +1671,7 @@ cog.cat.phy <- merge_phyloseq(otu_table(cog.cat.norm, taxa_are_rows=T), cog.cat.
 ```{r}
 load("cog.phy.Rdata")
 load("cog.cat.phy.Rdata")
+meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
 ```
 ### COG Category - Kruskal-Wallis
 ```{r}
@@ -1776,16 +1777,16 @@ test <- psmelt(cog.df)
 levene.test(cog.df[,1:3872], group = "Season")
 ```
 
-### COG - Clustering
+### COG - Clustering - Count-level
 ```{r}
 # https://sites.google.com/site/mb3gustame/reference/dissimilarity
-
-colnames(cog.norm) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
+cog <- data.frame(otu_table(cog.phy))
+colnames(cog) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
                         "3773", "3775")
-cog.dist <- dist(t(cog.norm))
+cog.dist <- dist(t(cog))
 cog.dist.matrix <- as.matrix(cog.dist)
-rownames(cog.dist.matrix) <- cog.df$Season
-colnames(cog.dist.matrix) <- cog.df$Season
+rownames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+colnames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 
 # Heatmap
 pheatmap(cog.dist.matrix, clustering_distance_rows = cog.dist, 
@@ -1827,20 +1828,13 @@ ggplot(cog.den.data$segments) +
 
 
 
-### PCA
-cog.pca.data <- plotPCA(cog.norm, intgroup = "Season", returnData = T)
+### PCA - Euclidean
+cog.pca <- ordinate(physeq = cog.phy, method = "PCoA", distance = "euclidean")
 
-
-dbcan.pca.data <- plotPCA(dbcan.vsd, intgroup="Season", returnData=T)
-dbcan.pca.perc <- round(100*attr(dbcan.pca.data, "percentVar"))
-# PCA variance explained = 62%
-
-#tiff("dbcan.pca.tiff", width=8, height=6, units="in", res=300)
-ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
+plot_ordination(physeq = cog.phy, ordination = cog.pca, axes = c(1, 2),
+                color="Season") + 
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  xlab(paste0("PC1: ", dbcan.pca.perc[1], "% variance")) +
-  ylab(paste0("PC2: ", dbcan.pca.perc[2], "% variance")) +
   ggtitle("Euclidean Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -1849,80 +1843,172 @@ ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
         legend.title = element_text(size=20),
         legend.text = element_text(size=18),
         plot.title = element_text(hjust=0.5, size=20))
-#dev.off()
+  
+ 
 
 
 ### Test normality
-hist(dbcan.dist)
-qqnorm(dbcan.dist)
-qqline(dbcan.dist)
-shapiro.test(dbcan.dist)
-  # p-value = 0.5035
+hist(cog.dist)
+qqnorm(cog.dist)
+qqline(cog.dist)
+shapiro.test(cog.dist)
+  # p-value = 0.1578
   # Normal
 
 ### Run PERMANOVA on DESEq Euclidean distance
-dbcan.dist <- dist(t(assay(dbcan.vsd)))
-adonis(dbcan.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.00721
-beta.tax = betadisper(d=dbcan.dist, group=meta$Season)
+adonis(cog.dist ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.05682
+beta.tax = betadisper(d=cog.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.652
+  # p-value = 0.492
 
 
 
-### Pairwise PERMANOVA Comparisons
-dbcan.dist.matrix <- as.matrix(dbcan.dist)
-dbcan.dist.df <- data.frame(dbcan.dist.matrix)
 
-# Summer vs. Winter
-dbcan.sw.dist.df <- dbcan.dist.df[,-5]
-dbcan.sw.dist.df <- dbcan.sw.dist.df[,-7:-8]
-dbcan.sw.dist.df <- dbcan.sw.dist.df[-5,]
-dbcan.sw.dist.df <- dbcan.sw.dist.df[-7:-8,]
-dbcan.sw.dist <- as.dist(dbcan.sw.dist.df)
-meta.sw <- meta[-which(meta$Season == "Spring"),]
-adonis(dbcan.sw.dist ~ Season, data=meta.sw, permutations= 99999)
-  # p-value = 0.1
+### PCA - Bray-Curtis
+cog.pca.bc <- ordinate(physeq = cog.phy, method = "PCoA", distance = "bray")
 
-# Summer vs. Spring
-dbcan.sp.dist.df <- dbcan.dist.df[,-3:-4]
-dbcan.sp.dist.df <- dbcan.sp.dist.df[,-5]
-dbcan.sp.dist.df <- dbcan.sp.dist.df[-3:-4,]
-dbcan.sp.dist.df <- dbcan.sp.dist.df[-5,]
-dbcan.sp.dist <- as.dist(dbcan.sp.dist.df)
-meta.sp <- meta[-which(meta$Season == "Winter"),]
-adonis(dbcan.sp.dist ~ Season, data=meta.sp, permutations= 99999)
-  # p-value = 0.2
+plot_ordination(physeq = cog.phy, ordination = cog.pca.bc, axes = c(1, 2),
+                color="Season") + 
+  geom_point(size=5) +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Euclidean Distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust=0.5, size=20))
 
-# Spring vs. Winter
-dbcan.wp.dist.df <- dbcan.dist.df[,-3:-4]
-dbcan.wp.dist.df <- dbcan.wp.dist.df[,-5]
-dbcan.wp.dist.df <- dbcan.wp.dist.df[-3:-4,]
-dbcan.wp.dist.df <- dbcan.wp.dist.df[-5,]
-dbcan.wp.dist <- as.dist(dbcan.wp.dist.df)
-meta.wp <- meta[-which(meta$Season == "Summer"),]
-adonis(dbcan.wp.dist ~ Season, data=meta.wp, permutations= 99999)
-  # p-value = 0.2
-
-
-### Pairwise Welch's T-Test Comparisons
-
-# Summer vs. Winter
-meta.sw$Season <- ordered(meta.sw$Season, levels=c("Summer","Winter"))
-WT.test(dbcan.sw.dist, meta.sw$Season)
-  # p-value = 0.123
-
-# Summer vs. Spring
-meta.sp$Season <- ordered(meta.sp$Season, levels=c("Summer","Spring"))
-WT.test(dbcan.sp.dist, meta.sp$Season)
-  # P-value = 0.205
-
-# Winter vs. Spring
-meta.wp$Season <- ordered(meta.wp$Season, levels=c("Winter","Springr"))
-WT.test(dbcan.sp.dist, meta.sp$Season)
-  # p-value = 0.205
+### Run PERMANOVA on DESEq Bray-Curtis
+cog.bray <- phyloseq::distance(physeq=cog.phy, method="bray")
+adonis(cog.bray ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.05678
+beta.tax = betadisper(d=cog.bray, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.618
 ```
+
+### COG - Clustering - Category-level
+### COG - Clustering - Count-level
+```{r}
+# https://sites.google.com/site/mb3gustame/reference/dissimilarity
+cog.cat <- data.frame(otu_table(cog.cat.phy))
+colnames(cog.cat) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
+                        "3773", "3775")
+cog.cat.dist <- dist(t(cog.cat))
+cog.cat.dist.matrix <- as.matrix(cog.cat.dist)
+rownames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+colnames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+
+# Heatmap
+pheatmap(cog.cat.dist.matrix, clustering_distance_rows = cog.cat.dist, 
+         clustering_distance_cols = cog.cat.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
+
+
+# Dendrogram
+cog.cat.hclust <- hclust(cog.cat.dist)
+cog.cat.den <- as.dendrogram(cog.cat.hclust)
+cog.cat.den.data <- dendro_data(cog.cat.den, type = "rectangle")
+cog.cat.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
+cog.cat.den.data$labels[,3] <- ordered(cog.cat.den.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
+
+
+#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
+ggplot(cog.cat.den.data$segments) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_text(data = cog.cat.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
+            hjust=0, size=5) +
+  ylab("Euclidean Distance") +
+  xlab("Season") +
+  labs(colour = "Season") +
+  coord_flip() +
+  scale_y_reverse() +
+  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size=20),
+        panel.border = element_blank(),
+        axis.line.x = element_line(),
+        legend.title = element_text(face="bold"),
+        axis.title.x = element_text(face="bold", size=20),
+        axis.title.y = element_text(face="bold", size=20))
+#dev.off()
+
+
+
+
+
+### PCA - Euclidean
+cog.cat.pca <- ordinate(physeq = cog.cat.phy, method = "PCoA", distance = "euclidean")
+
+plot_ordination(physeq = cog.cat.phy, ordination = cog.cat.pca, axes = c(1, 2),
+                color="Season") + 
+  geom_point(size=5) +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Euclidean Distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust=0.5, size=20))
+  
+ 
+
+
+### Test normality
+hist(cog.cat.dist)
+qqnorm(cog.cat.dist)
+qqline(cog.cat.dist)
+shapiro.test(cog.cat.dist)
+  # p-value = 0.001808
+  # Not Normal
+
+### Run PERMANOVA on DESEq Euclidean distance
+adonis(cog.cat.dist ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.3561
+beta.tax = betadisper(d=cog.cat.dist, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.493
+
+
+
+
+### PCA - Bray-Curtis
+cog.cat.pca.bc <- ordinate(physeq = cog.cat.phy, method = "PCoA", distance = "bray")
+
+plot_ordination(physeq = cog.cat.phy, ordination = cog.cat.pca.bc, axes = c(1, 2),
+                color="Season") + 
+  geom_point(size=5) +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Euclidean Distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust=0.5, size=20))
+
+### Run PERMANOVA on DESEq Bray-Curtis
+cog.cat.bray <- phyloseq::distance(physeq=cog.cat.phy, method="bray")
+adonis(cog.cat.bray ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.5051
+beta.tax = betadisper(d=cog.cat.bray, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.579
+```
+
+
 ### KEGG - Kruskal-Wallis
 ```{r}
 # Load data

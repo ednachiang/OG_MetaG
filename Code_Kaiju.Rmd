@@ -1,5 +1,5 @@
 ---
-title: "Code_Kaiju"
+title: "Kaiju Code"
 author: "Edna Chiang"
 date: "1/26/2021"
 output: html_document

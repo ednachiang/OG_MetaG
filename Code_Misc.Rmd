@@ -1,0 +1,64 @@
+---
+title: "Misc Code"
+author: "Edna Chiang"
+date: "March 3, 2017"
+output: html_document
+---
+### Load Libraries
+```{r}
+library('readr')
+library('pgirmess')
+library('ggplot2')
+library('grid')
+library('phyloseq')
+library('DESeq2')
+library('phangorn')
+library('vegan')
+library('pheatmap')
+library('RColorBrewer')
+library('gplots')
+library('tidyr')
+library('dplyr')
+library('stringr')
+library('lme4')
+library('picante')
+library('ggdendro')
+library('fitdistrplus')
+theme_set(theme_bw())
+set.seed(1)
+```
+
+### Load Functions
+```{r}
+source('scripts/misc.R')
+source('scripts/simper.R')
+source('scripts/pairwise.adonis.R')
+```
+
+### MicrobeCensus - Average Genome Size
+```{r}
+# Load data
+mc <- read.csv('MicrobeCensus/Summary.csv', row.names = 1)
+mc.ma <- as.matrix(mc)
+
+# Test normality
+hist(mc.ma[2,])
+qqnorm(mc.ma[2,])
+qqline(mc.ma[2,])
+shapiro.test(mc.ma[2,])
+  # p-value = 0.03487
+  # Not Normal
+
+# Format for Kruskal-Wallis
+mc <- t(mc)
+mc <- data.frame(mc)
+mc$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+mc$Season <- ordered(mc$Season, levels=c("Summer", "Winter", "Spring"))
+
+# Kruskal-Wallis
+kruskal.test(formula = AGS ~ Season, data = mc)
+  # p-value = 0.4298
+```
+
+
+

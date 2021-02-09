@@ -1,0 +1,28 @@
+Category1,Category2,Pathway,KOID
+Metabolism,Carbohydrate Metabolism,Glycolysis / Gluconeogenesis,K00001
+Metabolism,Lipid Metabolism,Fatty Acid Degradation,K00001
+Metabolism,Amino Acid Metabolism,Tyrosine Metabolism,K00001
+Metabolism,Metabolism of Cofactors and Vitamins,Retinol Metabolism,K00001
+Metabolism,Xenobiotics Biodegradation and Metabolism,Chloroalkane and Chloroalkene Degradation,K00001
+Metabolism,Xenobiotics Biodegradation and Metabolism,Naphthalene Degradation,K00001
+Metabolism,Xenobiotics Biodegradation and Metabolism,Metabolism of Xenobiotics by Cytochrome P450,K00001
+Metabolism,Carbohydrate Metabolism,Glycolysis / Gluconeogenesis,K00002
+Metabolism,Carbohydrate Metabolism,Pentose and Glucuronate Interconversions,K00002
+Metabolism,Carbohydrate Metabolism,Ascorbate and Aldarate Metabolism,K00002
+Metabolism,Lipid Metabolism,Glycerolipid Metabolism,K00002
+Metabolism,Xenobiotics Biodegradation and Metabolism,Caprolactam Degradation,K00002
+Metabolism,Amino Acid Metabolism,"Glycine, Serine and Threonine Metabolism",K00003
+Metabolism,Amino Acid Metabolism,Cysteine and Methionine Metabolism,K00003
+Metabolism,Amino Acid Metabolism,Lysine Biosynthesis,K00003
+Metabolism,Carbohydrate Metabolism,Butanoate Metabolism,K00004
+Metabolism,Carbohydrate Metabolism,Propanoate Metabolism,K00005
+Metabolism,Lipid Metabolism,Glycerolipid Metabolism,K00005
+Environmental Information Processing,Signal Transduction,MAPK Signaling Pathway - Yeast,K00006
+Metabolism,Lipid Metabolism,Glycerophospholipid Metabolism,K00006
+Metabolism,Carbohydrate Metabolism,Pentose and Glucuronate Interconversions,K00007
+Metabolism,Carbohydrate Metabolism,Fructose and Mannose Metabolism,K00007
+Metabolism,Carbohydrate Metabolism,Pentose and Glucuronate Interconversions,K00008
+Metabolism,Carbohydrate Metabolism,Fructose and Mannose Metabolism,K00008
+Metabolism,Carbohydrate Metabolism,Fructose and Mannose Metabolism,K00009
+Metabolism,Carbohydrate Metabolism,Inositol Phosphate Metabolism,K00010
+Metabolism,Biosynthesis of Other Secondary Metabolites,Streptomycin Biosynthesis,K00010

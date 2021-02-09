@@ -38,6 +38,241 @@ source('scripts/pairwise.adonis.R')
 
 
 
+### KEGG - Cat1 Kruskal-Wallis
+```{r}
+# Load data
+kegg1 <- read.csv('KEGG/musicc_outputs/test1/cat1.csv', header=T, row.names=1)
+kegg2 <- read.csv('KEGG/musicc_outputs/test2/cat1.csv', header=T, row.names=1)
+kegg3 <- read.csv('KEGG/musicc_outputs/test3/cat1.csv', header=T, row.names=1)
+kegg4 <- read.csv('KEGG/musicc_outputs/test4/cat1.csv', header=T, row.names=1)
+
+
+
+# Format data
+kegg1.df <- data.frame(t(kegg1))
+rownames(kegg1.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg1.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg1.df$Season <- ordered(kegg1.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg2.df <- data.frame(t(kegg2))
+rownames(kegg2.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg2.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg2.df$Season <- ordered(kegg2.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg3.df <- data.frame(t(kegg3))
+rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg4.df <- data.frame(t(kegg4))
+rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+
+# Run Kruskal-Wallis on normalized KEGG counts
+kegg1.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg1)))
+colnames(kegg1.kw) <- rownames(kegg1)
+for(i in 1:nrow(kegg1)){
+  koid <- colnames(kegg1.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg1.df)
+  kegg1.kw[,i] <- kw$p.value
+}
+kegg1.kw[2,] <- p.adjust(kegg1.kw[1,], method = "fdr")
+which(kegg1.kw[2,] < 0.05)
+
+kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
+colnames(kegg2.kw) <- rownames(kegg2)
+for(i in 1:nrow(kegg2)){
+  koid <- colnames(kegg2.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg2.df)
+  kegg2.kw[,i] <- kw$p.value
+}
+kegg2.kw[2,] <- p.adjust(kegg2.kw[1,], method = "fdr")
+which(kegg2.kw[2,] < 0.05)
+
+kegg3.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
+colnames(kegg3.kw) <- rownames(kegg3)
+for(i in 1:nrow(kegg3)){
+  koid <- colnames(kegg3.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg3.df)
+  kegg3.kw[,i] <- kw$p.value
+}
+kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
+which(kegg3.kw[2,] < 0.05)
+
+kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
+colnames(kegg4.kw) <- rownames(kegg4)
+for(i in 1:nrow(kegg4)){
+  koid <- colnames(kegg4.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
+  kegg4.kw[,i] <- kw$p.value
+}
+kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
+which(kegg4.kw[2,] < 0.05)
+```
+
+
+### KEGG - Cat2 Kruskal-Wallis
+```{r}
+# Load data
+kegg1 <- read.csv('KEGG/musicc_outputs/test1/Cat2.csv', header=T, row.names=1)
+kegg1 <- kegg1[,-ncol(kegg1)]
+kegg2 <- read.csv('KEGG/musicc_outputs/test2/Cat2.csv', header=T, row.names=1)
+kegg2 <- kegg2[,-ncol(kegg2)]
+kegg3 <- read.csv('KEGG/musicc_outputs/test3/Cat2.csv', header=T, row.names=1)
+kegg3 <- kegg3[,-ncol(kegg3)]
+kegg4 <- read.csv('KEGG/musicc_outputs/test4/Cat2.csv', header=T, row.names=1)
+kegg4 <- kegg4[,-ncol(kegg4)]
+
+
+# Format data
+kegg1.df <- data.frame(t(kegg1))
+rownames(kegg1.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg1.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg1.df$Season <- ordered(kegg1.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg2.df <- data.frame(t(kegg2))
+rownames(kegg2.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg2.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg2.df$Season <- ordered(kegg2.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg3.df <- data.frame(t(kegg3))
+rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg4.df <- data.frame(t(kegg4))
+rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+
+# Run Kruskal-Wallis on normalized KEGG counts
+kegg1.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg1)))
+colnames(kegg1.kw) <- rownames(kegg1)
+for(i in 1:nrow(kegg1)){
+  koid <- colnames(kegg1.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg1.df)
+  kegg1.kw[,i] <- kw$p.value
+}
+kegg1.kw[2,] <- p.adjust(kegg1.kw[1,], method = "fdr")
+which(kegg1.kw[2,] < 0.05)
+
+kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
+colnames(kegg2.kw) <- rownames(kegg2)
+for(i in 1:nrow(kegg2)){
+  koid <- colnames(kegg2.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg2.df)
+  kegg2.kw[,i] <- kw$p.value
+}
+kegg2.kw[2,] <- p.adjust(kegg2.kw[1,], method = "fdr")
+which(kegg2.kw[2,] < 0.05)
+
+kegg3.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
+colnames(kegg3.kw) <- rownames(kegg3)
+for(i in 1:nrow(kegg3)){
+  koid <- colnames(kegg3.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg3.df)
+  kegg3.kw[,i] <- kw$p.value
+}
+kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
+which(kegg3.kw[2,] < 0.05)
+
+kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
+colnames(kegg4.kw) <- rownames(kegg4)
+for(i in 1:nrow(kegg4)){
+  koid <- colnames(kegg4.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
+  kegg4.kw[,i] <- kw$p.value
+}
+kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
+which(kegg4.kw[2,] < 0.05)
+```
+
+
+### KEGG - Path Kruskal-Wallis
+```{r}
+# Load data
+kegg1 <- read.csv('KEGG/musicc_outputs/test1/path.csv', header=T, row.names=1)
+kegg1 <- kegg1[,-ncol(kegg1)]
+kegg1 <- kegg1[,-ncol(kegg1)]
+kegg2 <- read.csv('KEGG/musicc_outputs/test2/path.csv', header=T, row.names=1)
+kegg2 <- kegg2[,-ncol(kegg2)]
+kegg2 <- kegg2[,-ncol(kegg2)]
+kegg3 <- read.csv('KEGG/musicc_outputs/test3/path.csv', header=T, row.names=1)
+kegg3 <- kegg3[,-ncol(kegg3)]
+kegg3 <- kegg3[,-ncol(kegg3)]
+kegg4 <- read.csv('KEGG/musicc_outputs/test4/path.csv', header=T, row.names=1)
+kegg4 <- kegg4[,-ncol(kegg4)]
+kegg4 <- kegg4[,-ncol(kegg4)]
+
+
+# Format data
+kegg1.df <- data.frame(t(kegg1))
+rownames(kegg1.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg1.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg1.df$Season <- ordered(kegg1.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg2.df <- data.frame(t(kegg2))
+rownames(kegg2.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg2.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg2.df$Season <- ordered(kegg2.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg3.df <- data.frame(t(kegg3))
+rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+kegg4.df <- data.frame(t(kegg4))
+rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
+
+
+# Run Kruskal-Wallis on normalized KEGG counts
+kegg1.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg1)))
+colnames(kegg1.kw) <- rownames(kegg1)
+for(i in 1:nrow(kegg1)){
+  koid <- colnames(kegg1.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg1.df)
+  kegg1.kw[,i] <- kw$p.value
+}
+kegg1.kw[2,] <- p.adjust(kegg1.kw[1,], method = "fdr")
+which(kegg1.kw[2,] < 0.05)
+
+kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
+colnames(kegg2.kw) <- rownames(kegg2)
+for(i in 1:nrow(kegg2)){
+  koid <- colnames(kegg2.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg2.df)
+  kegg2.kw[,i] <- kw$p.value
+}
+kegg2.kw[2,] <- p.adjust(kegg2.kw[1,], method = "fdr")
+which(kegg2.kw[2,] < 0.05)
+
+kegg3.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
+colnames(kegg3.kw) <- rownames(kegg3)
+for(i in 1:nrow(kegg3)){
+  koid <- colnames(kegg3.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg3.df)
+  kegg3.kw[,i] <- kw$p.value
+}
+kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
+which(kegg3.kw[2,] < 0.05)
+
+kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
+colnames(kegg4.kw) <- rownames(kegg4)
+for(i in 1:nrow(kegg4)){
+  koid <- colnames(kegg4.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
+  kegg4.kw[,i] <- kw$p.value
+}
+kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
+which(kegg4.kw[2,] < 0.05)
+```
+
+
 
 ### KEGG - Kruskal-Wallis
 ```{r}
@@ -80,7 +315,7 @@ kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring
 # Run Kruskal-Wallis on normalized KEGG counts
 kegg1.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg1)))
 colnames(kegg1.kw) <- kegg1[,1]
-for(i in 1:nrow(kegg1.df)){
+for(i in 1:nrow(kegg1)){
   koid <- colnames(kegg1.df)[i]
   kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg1.df)
   kegg1.kw[,i] <- kw$p.value
@@ -90,7 +325,7 @@ which(kegg1.kw[2,] < 0.05)
 
 kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
 colnames(kegg2.kw) <- kegg2[,1]
-for(i in 1:nrow(kegg2.df)){
+for(i in 1:nrow(kegg2)){
   koid <- colnames(kegg2.df)[i]
   kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg2.df)
   kegg2.kw[,i] <- kw$p.value
@@ -100,7 +335,7 @@ which(kegg2.kw[2,] < 0.05)
 
 kegg3.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
 colnames(kegg3.kw) <- kegg3[,1]
-for(i in 1:nrow(kegg3.df)){
+for(i in 1:nrow(kegg3)){
   koid <- colnames(kegg3.df)[i]
   kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg3.df)
   kegg3.kw[,i] <- kw$p.value
@@ -110,7 +345,7 @@ which(kegg3.kw[2,] < 0.05)
 
 kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
 colnames(kegg4.kw) <- kegg4[,1]
-for(i in 1:nrow(kegg4.df)){
+for(i in 1:nrow(kegg4)){
   koid <- colnames(kegg4.df)[i]
   kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
   kegg4.kw[,i] <- kw$p.value

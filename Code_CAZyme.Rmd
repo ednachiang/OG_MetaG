@@ -25,6 +25,7 @@ library('lme4')
 library('picante')
 library('ggdendro')
 library('fitdistrplus')
+library('amap')
 theme_set(theme_bw())
 set.seed(1)
 ```
@@ -76,42 +77,48 @@ ggplot(prodigalCounts, aes(x=Season, y=CAZymePercentage, fill=Season)) +
         legend.title = element_text(face="bold"))
 #dev.off()
 ```
-### dbCAN - Create phyloseq object
+### dbCAN - Create phyloseq object (DO NOT RUN!!!)
 ```{r}
 # Load data
-otu <- read.csv('dbcan/dbcan_otu_table.csv', row.names=1)
-colnames(otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-otu.tab <- otu_table(otu, taxa_are_rows=T)
-tax <- read.csv('dbcan/dbcan_tax_table.csv', row.names=1)
-tax <- tax_table(tax)
-colnames(tax) <- c("Class", "Family")
-taxa_names(tax) <- tax[,2]
+#otu <- read.csv('dbcan/dbcan_otu_table.csv', row.names=1)
+#colnames(otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+#tax <- read.csv('dbcan/dbcan_tax_table.csv', row.names=1)
+#tax <- tax_table(tax)
+#colnames(tax) <- c("Class", "Family")
+#taxa_names(tax) <- tax[,2]
 meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
-meta.ord <- meta
+#meta.ord <- meta
+
+# Remove CAZymes that appear in only 1 sample
+cazy.rem <- list()
+for(i in 1:nrow(otu)){
+  empty <- length(which(otu[i,] == 0))
+    # Identifies # of samples w/o CAZyme
+  if(empty > 7){
+    # If CAZyme appears in only 1 sample
+    cazy.rem <- append(cazy.rem, i)
+      # Create list of CAZymes that appear in only 1 sample
+  }
+}
+cazy.rem.row <- as.numeric(cazy.rem)
+  # Convert list to numeric
+
+# Remove CAZymes that appear in only 1 sample
+otu.rem <- otu[-cazy.rem.row,]
+  # 16 CAZymes = GH107, GT67, GH149, GT68, GT42, PL16, PL2, PL28, GT52, GH34, GT61, GT77, GH12, PL18, GT85, GT93
+
+# Convert trimmed CAZyme table to otu_table
+otu.rem.tab <- otu_table(otu.rem, taxa_are_rows = T)
+
 
 # Create phyloseq object
-dbcan.phy <- merge_phyloseq(otu.tab, tax, sample_data(meta.ord))
-
-# Trim CAZymes w/ count < 4
-# 3 samples per season, so 4 seemed like a somewhat reasonable arbitrary cutoff
-# Cutoff = 4 also ensures that no normalized counts < 3, so no further cutoffs needed
-dbcan.cut.phy <- prune_taxa(taxa_sums(dbcan.phy) > 3, dbcan.phy)
-
-# Identify trimmed CAZymes (count < 4)
-#all <- rownames(tax_table(dbcan.phy))
-#remain <- rownames(tax_table(dbcan.cut.phy))
-#for (i in all){
-#  if (i %in% remain == F){
-#    print(i)
-#  }
-#}
-# GH12, GH17, GH34, GH52, GH100, GH107, GH118, GH149, GH153, GT29, GT37, GT42, GT52, GT58, GT60, GT67, GT68, GT77, GT85, GT93, GT97, CE5, CE13, PL2, PL14, PL16, PL18, PL28
-
+dbcan.phy <- merge_phyloseq(otu.rem.tab, tax, sample_data(meta.ord))
+#save(dbcan.phy, file = "dbcan.phy.Rdata")
 
 # Normalized Counts At Family-level
 # https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
-#otu.cut <- data.frame(otu_table(dbcan.cut.phy))
-#dbcan.dds <- DESeqDataSetFromMatrix(countData = otu.cut, colData = meta, design = ~ Season)
+#otu.rem <- data.frame(otu_table(dbcan.phy))
+#dbcan.dds <- DESeqDataSetFromMatrix(countData = otu.rem, colData = meta, design = ~ Season)
 #dbcan.dds <- estimateSizeFactors(dbcan.dds)
 #dbcan.norm <- counts(dbcan.dds, normalized=T)
 #write.csv(dbcan.norm, file="dbcan/dbcan.Normalized.Counts.Family.csv")
@@ -120,9 +127,10 @@ dbcan.fam.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Family.csv', row.names
 dbcan.fam.norm.otu <- otu_table(dbcan.fam.norm, taxa_are_rows=T)
 sample_names(dbcan.fam.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 dbcan.fam.norm.phy <- merge_phyloseq(dbcan.fam.norm.otu, sample_data(dbcan.phy), tax_table(dbcan.phy))
+#save(dbcan.fam.norm.phy, file = "dbcan.fam.norm.phy.RData")
 
 # Normalize Counts to Class-Level
-#dbcan.class <- tax_glom(dbcan.cut.phy, taxrank="Class")
+#dbcan.class <- tax_glom(dbcan.phy, taxrank="Class")
 #dbcan.class.otu <- data.frame(otu_table(dbcan.class))
 #dbcan.dds <- DESeqDataSetFromMatrix(countData = dbcan.class.otu, colData = meta, design = ~ Season)
 #dbcan.dds <- estimateSizeFactors(dbcan.dds)
@@ -140,17 +148,24 @@ rownames(dbcan.class.norm) <- c("Polysaccharide Lyase", "Glycosyltransferase", "
 #dbcan.wp <- subset_samples(dbcan99, Season != "Summer")
   # Winter & Spring
 ```
+### dbCAN - Load phyloseq object
+```{r}
+# Load data
+meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
+load("dbcan.phy.Rdata")
+dbcan.fam.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Family.csv', row.names=1)
+load("dbcan.fam.norm.phy.RData")
+dbcan.class.norm <- read.csv('dbcan/dbcan.Normalized.Counts.Class.csv', row.names=1)
+rownames(dbcan.class.norm) <- c("Polysaccharide Lyase", "Glycosyltransferase", "Glycoside Hydrolase", "Carbohydrate Esterase")
+```
+
+
 ### dbCAN - Count unique CAZyme families
 ```{r}
 # Subset out samples by season
-phy.sum <- subset_samples(dbcan.cut.phy, Season == "Summer")
-phy.win <- subset_samples(dbcan.cut.phy, Season == "Winter")
-phy.spr <- subset_samples(dbcan.cut.phy, Season == "Spring")
-
-# Remove CAZyme families with no counts
-phy.sum <- prune_taxa(taxa_sums(phy.sum) > 0, phy.sum)
-phy.win <- prune_taxa(taxa_sums(phy.win) > 0, phy.win)
-phy.spr <- prune_taxa(taxa_sums(phy.spr) > 0, phy.spr)
+phy.sum <- subset_samples(dbcan.phy, Season == "Summer")
+phy.win <- subset_samples(dbcan.phy, Season == "Winter")
+phy.spr <- subset_samples(dbcan.phy, Season == "Spring")
 
 
 # Pull out unique CAZyme families in each season and order alphabetically
@@ -165,37 +180,37 @@ spr.fam <- sort(spr.fam)
 # Summer - Count # of CAZymes in each class
 class <- substr(sum.fam,1,2)
 length(which(class == "GH"))
-  # 122
+  # 129
 length(which(class == "GT"))
-  # 60
+  # 67
 length(which(class == "CE"))
-  # 13
+  # 15
 length(which(class == "PL"))
-  # 26
+  # 28
 
 
 # Winter - Count # of CAZymes in each class
 class <- substr(win.fam,1,2)
 length(which(class == "GH"))
-  # 117
+  # 129
 length(which(class == "GT"))
-  # 60
+  # 67
 length(which(class == "CE"))
-  # 13
+  # 15
 length(which(class == "PL"))
-  # 25
+  # 28
 
 
 # Spring - Count # of CAZymes in each class
 class <- substr(spr.fam,1,2)
 length(which(class == "GH"))
-  # 124
+  # 129
 length(which(class == "GT"))
-  # 63
+  # 67
 length(which(class == "CE"))
-  # 13
+  # 15
 length(which(class == "PL"))
-  # 26
+  # 28
 
 ```
 
@@ -209,7 +224,7 @@ row.names(class.tax) <- class.tax[,1]
 colnames(class.tax) <- "Class"
 dbcan.class.norm.otu <- otu_table(dbcan.class.norm, taxa_are_rows=T)
 colnames(dbcan.class.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-dbcan.class.phy <- merge_phyloseq(dbcan.class.norm.otu, class.tax, sample_data(meta.ord))
+dbcan.class.phy <- merge_phyloseq(dbcan.class.norm.otu, class.tax, sample_data(meta))
 
 # Summarize data
 dbcan.class.df <- psmelt(dbcan.class.phy)
@@ -245,37 +260,6 @@ ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
 #dev.off()
 
 
-
-
-# # Summarize data
-# dbcan.class.diet.sum <- dbcan.class.df %>%
-#   group_by(Class, Diet) %>%
-#   summarize(Mean = mean(Abundance),
-#             SD = sd(Abundance),
-#             SE = se(Abundance))
-# dbcan.class.diet.sum$Class <- ordered(dbcan.class.diet.sum$Class, c("Glycoside Hydrolase",
-#                                                                   "Glycosyltransferase",
-#                                                                   "Carbohydrate Esterase",
-#                                                                   "Polysaccharide Lyase"))
-# dbcan.class.diet.sum$Diet <- ordered(dbcan.class.diet.sum$Diet, levels=c("Feeding", "Fasting"))
-# 
-# # Plot barplot
-# ggplot(dbcan.class.diet.sum, aes(x=Diet, y=Mean, fill=Diet)) +
-#   geom_bar(stat="identity", color="black") +
-#   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
-#   scale_y_continuous(limits=c(0,9500)) +
-#   facet_grid(. ~ Class) +
-#   scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3")) +
-#   xlab("CAZyme Class") +
-#   ylab("Mean Normalized Counts") +
-#   theme(panel.grid.major = element_blank(),
-#         panel.grid.minor = element_blank(),
-#         strip.background = element_blank(),
-#         strip.text = element_text(face="bold"),
-#         strip.text.x = element_text(size=11),
-#         legend.title = element_text(face="bold"),
-#         panel.spacing = unit(0.5, "lines"),
-#         axis.title.x = element_text(margin = margin(t = 15)))
 ```
 
 ### dbCAN - Test class-level
@@ -289,12 +273,12 @@ hist(ce$Abundance)
 qqnorm(ce$Abundance)
 qqline(ce$Abundance)
 shapiro.test(ce$Abundance)
-  # p-value = 0.6811
+  # p-value = 0.6876
   # Normal
 
 # Test CE w/ ANOVA
 summary(aov(Abundance ~ Season, data = ce))
-  # p-value = 0.332
+  # p-value = 0.33
 
 
 
@@ -306,7 +290,7 @@ hist(gh$Abundance)
 qqnorm(gh$Abundance)
 qqline(gh$Abundance)
 shapiro.test(gh$Abundance)
-  # p-value = 0.4749
+  # p-value = 0.4787
   # Normal
 
 # Test GH w/ ANOVA
@@ -315,9 +299,9 @@ summary(aov(Abundance ~ Season, data = gh))
 
 # GH posthoc test w/ Tukey's
 TukeyHSD(aov(Abundance ~ Season, data = gh))
-  # Summer-Spring = 0.0297554*
-  # Winter-Spring = 0.0076492**
-  # Winter-Summer = 0.4762540
+  # Summer-Spring = 0.0296082*
+  # Winter-Spring = 0.0076523**
+  # Winter-Summer = 0.4785787
 
 
 
@@ -329,18 +313,18 @@ hist(gt$Abundance)
 qqnorm(gt$Abundance)
 qqline(gt$Abundance)
 shapiro.test(gt$Abundance)
-  # p-value = 0.4515
+  # p-value = 0.4392
   # Normal
 
 # Test GT w/ ANOVA
 summary(aov(Abundance ~ Season, data = gt))
-  # p-value = 0.0074
+  # p-value = 0.00722
 
 # GT posthoc test w/ Tukey's
 TukeyHSD(aov(Abundance ~ Season, data = gt))
-  # Summer-Spring = 0.3591323
-  # Winter-Spring = 0.0067560**
-  # Winter-Summer = 0.0347394*
+  # Summer-Spring = 0.35088173
+  # Winter-Spring = 0.0065675**
+  # Winter-Summer = 0.0343926*
 
 
 
@@ -352,22 +336,22 @@ hist(pl$Abundance)
 qqnorm(pl$Abundance)
 qqline(pl$Abundance)
 shapiro.test(pl$Abundance)
-  # p-value = 0.08667
+  # p-value = 0.08761
   # Normal
 
 # Test PL w/ ANOVA
 summary(aov(Abundance ~ Season, data = pl))
-  # p-value = 0.116
+  # p-value = 0.114
 
 
 
 
 ### Adjust Pvals
-p.adjust(c(0.332, 0.00789, 0.0074, 0.116), method="BH")
-  # CE = 0.33200
+p.adjust(c(0.33, 0.00789, 0.00722, 0.114), method="BH")
+  # CE = 0.33000
   # GH = 0.01578 *
   # GT = 0.01578 *
-  # PL = 0.15467
+  # PL = 0.15200
 
 
 ```
@@ -394,30 +378,28 @@ p.adjust(c(0.332, 0.00789, 0.0074, 0.116), method="BH")
 
 ### Test DESeq2 to determine fit type
 # https://support.bioconductor.org/p/81094/
-#dbcan.dds <- phyloseq_to_deseq2(dbcan.cut.phy, ~Season)
+#dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
 #dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
 #dbcan.dds <- dbcan.dds[rowSums(counts(dbcan.dds)) > 1,]
 #dbcan.local <- DESeq(dbcan.dds, fitType = "local")
 #dbcan.par <- DESeq(dbcan.dds, fitType = "parametric")
 #mad(log(mcols(dbcan.local)$dispGeneEst) - log(mcols(dbcan.local)$dispFit))
-  # 9.744673
+  # 10.71774
 #mad(log(mcols(dbcan.par)$dispGeneEst) - log(mcols(dbcan.par)$dispFit))
-  # 7.288668
+  # 7.483878
 # Parametric is a better fit (lower median absolute residual) than local
 
 ### Convert phyloseq object to deseq2 object
-dbcan.dds <- phyloseq_to_deseq2(dbcan.cut.phy, ~Season)
+dbcan.dds <- phyloseq_to_deseq2(dbcan.phy, ~Season)
   # Design variable must be unordered otherwise you get an error
 dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Spring"))
 
 # DESeq DataStructure for analyses
 dbcan.dds <- DESeq(dbcan.dds)
 
-# vst-transformed data for visualizations (VST = variance stabilizing transformation)
-  # Choosing vst instead of rlog due to these two threads:
-    # https://support.bioconductor.org/p/104615/#104650
-    # https://support.bioconductor.org/p/123969/
-dbcan.vsd <- varianceStabilizingTransformation(dbcan.dds)
+# Transformed data for visualizations
+# log2(n+1)
+dbcan.transform <- normTransform(dbcan.dds)
 ```
 ### dbCAN - DESeq - find overrep genes
 ```{r}
@@ -425,7 +407,7 @@ dbcan.vsd <- varianceStabilizingTransformation(dbcan.dds)
 dbcan.sw <- results(dbcan.dds, contrast=c("Season", "Summer", "Winter"))
 dbcan.sw.sig <- dbcan.sw[which(dbcan.sw$padj < 0.05),]
   # Enriched in Summer compared to Winter (positive log2FoldChange)
-    # GT101, PL1, GH43, GH115, CE12, GH10, GH59
+    # GT101, PL1, GH43, GH115, CE12, GH10
 dbcan.sp <- results(dbcan.dds, contrast=c("Season", "Summer", "Spring"))
 dbcan.sp.sig <- dbcan.sp[which(dbcan.sp$padj < 0.05),]
   # Enriched in Summer compared to Spring (positive log2FoldChange)
@@ -440,43 +422,42 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
     # GH3, GH32, GH43, GH5, GH78, GH115, GH42, CE12, GH106, GH10, GH39
 ```
 
-### dbCAN - DESeq - Diet
-```{r}
-dbcan.diet.dds <- phyloseq_to_deseq2(dbcan.cut.phy, ~Diet)
-dbcan.diet.dds <- DESeq(dbcan.diet.dds)
-dbcan.diet.results <- results(dbcan.diet.dds)
-dbcan.diet.sig <- dbcan.diet.results[which(dbcan.diet.results$padj < 0.05),]
-dbcan.diet.sig[which(dbcan.diet.sig$log2FoldChange > 0),]
-  # Enriched in feeding compared to fasting
-  # PL1, GH43, GH115, CE12, GH106, GH10, GH39, GH59
-dbcan.diet.sig[which(dbcan.diet.sig$log2FoldChange < 0),]
-  # Enriched in fasting compared to feeding
-  # GT4, GT9, CE11, GH84
-```
-### dbCAN - DESeq heatmap of normalized counts
+
+### dbCAN - DESeq heatmap of normalized + transformed counts
 ```{r}
 # Note: I tried merging the samples by season so the heatmap only displays Summer, Winter, and Spring, but I get an error that say I have insufficient data. Therefore, I display each sample separately.
 
 # Excluding some families because they has such high counts that it makes the heatmap hard to interpret visually
 # I'll make a separate plot for just GH43, GH3, GT4, and GT41
 
-dbcan.sig <- subset_taxa(dbcan.heatmap.phy, Family == "GT101" | Family == "GH59" | Family == "PL1" |
-                           Family == "GH10" | Family == "GH115" | Family == "CE12" | Family == "GH5" |
-                           Family == "GH32" | Family == "GH39" | Family == "GH42" | Family == "GH78" |
-                           Family == "GH106" | Family == "GH20" | Family == "GH84" | Family == "GT3" |
-                           Family == "GH9" | Family == "CE11")
+dbcan.sig.transform <- data.frame(assay(dbcan.transform))
+dbcan.sig.transform <- otu_table(dbcan.sig.transform, taxa_are_rows = T)
+colnames(dbcan.sig.transform) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772",
+                             "3773" , "3775")
+dbcan.sig <- merge_phyloseq(dbcan.sig.transform, tax_table(dbcan.phy),
+                            sample_data(dbcan.phy))
+dbcan.sig <- subset_taxa(dbcan.sig, Family == "GT101" | Family == "PL1" |
+                           Family == "GH10" | Family == "GH43" | Family == "GH115" |
+                           Family == "CE12" | Family == "GH3" | Family == "GH5" |
+                           Family == "GH32" | Family == "GH39" | Family == "GH42" |
+                           Family == "GH78" | Family == "GH106" | Family == "GH20" |
+                           Family == "GH84" | Family == "GT3" | Family == "GT4" |
+                           Family == "GT9" | Family == "GT41" | Family == "CE11")
 
 
 
-#tiff("dbcan.heatmap.tiff", width=9, height=10, units="in", res=300)
-plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GH9", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "CE12", "GH115", "GH10", "PL1", "GH59", "GT101")) +
+#tiff("dbcan.heatmap.tiff", width=8.4, height=10, units="in", res=300)
+plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GT41", "GT9", "GT4", "GT3", "GH84", "GH20", "GH106", "GH78", "GH42", "GH39", "GH32", "GH5", "GH3", "CE12", "GH115", "GH43", "GH10", "PL1", "GT101")) +
   geom_tile(colour="gray40") +
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Normalized\nCounts\n"),
-                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
-                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
+  scale_fill_gradientn(name=expression("Transformed\nNormalized\nCounts\n"), limits = c(3,10.2),
+                       breaks = c(3, 4, 5,6,7,8,9,10),
+                       labels = c("3", "4", "5", "6", "7", "8", "9", "10"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
   theme(axis.text.x = element_blank(),
         axis.text.y = element_text(size=20),
         axis.ticks.x = element_blank(),
@@ -490,35 +471,6 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
                                frame.colour="black",
                                frame.linewidth=1))
 #dev.off()
-
-### GH43, GH3, GT4, and GT41 plot
-dbcan.high <- subset_taxa(dbcan.fam.norm.phy, Family == "GH43" | Family == "GH3" | Family == "GT4" |
-                            Family == "GT41")
-#tiff("dbcan.high.heatmap.tiff", width=9, height=3.3, units="in", res=300)
-plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("GT41", "GT4", "GH3", "GH43")) +
-  geom_tile(colour="gray40") +
-  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
-  xlab("Season\n\n") +
-  ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Normalized\nCounts\n"), limits=c(300,1200),
-                       breaks=c(300, 600, 900, 1200), 
-                       labels=c("300", "600", "900", "1200"),
-                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
-                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
-   theme(axis.text.x = element_blank(),
-        axis.text.y = element_text(size=20),
-        axis.ticks.x = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.border=element_blank(),
-        axis.title.x = element_text(size=20, face="bold"),
-        axis.title.y = element_text(size=20, face="bold"),
-        legend.title = element_text(size=20, face="bold"),
-        legend.text = element_text(size=20)) +
-  guides(fill = guide_colorbar(barheight = unit(2,"in"),
-                               frame.colour="black",
-                               frame.linewidth=1))
-#dev.off()
-
 ```
 
 
@@ -530,15 +482,13 @@ plot_heatmap(dbcan.high, sample.label = "Season", sample.order = c("3715", "3717
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
 # http://bioconductor.org/packages/devel/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
 
-dbcan.dist <- dist(t(assay(dbcan.vsd)))
+dbcan.dist <- Dist(t(assay(dbcan.transform)), method = "kendall")
 dbcan.dist.matrix <- as.matrix(dbcan.dist)
-rownames(dbcan.dist.matrix) <- dbcan.vsd$Season
-colnames(dbcan.dist.matrix) <- dbcan.vsd$Season
+rownames(dbcan.dist.matrix) <- dbcan.transform$Season
+colnames(dbcan.dist.matrix) <- dbcan.transform$Season
 
 # Heatmap
-pheatmap(dbcan.dist.matrix, clustering_distance_rows = dbcan.dist, clustering_distance_cols = dbcan.dist,
-         col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
-                 "#bd0026", "#800026"))
+#pheatmap(dbcan.dist.matrix, clustering_distance_rows = dbcan.dist, clustering_distance_cols = dbcan.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
 
 # Dendrogram
 dbcan.hclust <- hclust(dbcan.dist)
@@ -552,7 +502,7 @@ ggplot(dbcan.den.data$segments) +
   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
   geom_text(data = dbcan.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Euclidean Distance") +
+  ylab("Kendall Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -575,9 +525,9 @@ ggplot(dbcan.den.data$segments) +
 
 ### dbCAN - Sample dist PCA & PERMANOVA
 ```{r}
-dbcan.pca.data <- plotPCA(dbcan.vsd, intgroup="Season", returnData=T)
+dbcan.pca.data <- plotPCA(dbcan.transform, intgroup="Season", returnData=T)
 dbcan.pca.perc <- round(100*attr(dbcan.pca.data, "percentVar"))
-# PCA variance explained = 62%
+# PCA variance explained (total) = 53%
 
 #tiff("dbcan.pca.tiff", width=8, height=6, units="in", res=300)
 ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
@@ -585,7 +535,7 @@ ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   xlab(paste0("PC1: ", dbcan.pca.perc[1], "% variance")) +
   ylab(paste0("PC2: ", dbcan.pca.perc[2], "% variance")) +
-  ggtitle("Euclidean Distance") +
+  ggtitle("Kendall Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -601,17 +551,17 @@ hist(dbcan.dist)
 qqnorm(dbcan.dist)
 qqline(dbcan.dist)
 shapiro.test(dbcan.dist)
-  # p-value = 0.5035
+  # p-value = 0.6043
   # Normal
 
-### Run PERMANOVA on DESEq Euclidean distance
-dbcan.dist <- dist(t(assay(dbcan.vsd)))
+### Run PERMANOVA on DESEq Kendall distance
+dbcan.dist <- Dist(t(assay(dbcan.transform)), method = "kendall")
 adonis(dbcan.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.00721
+  # p-value = 0.01064
 beta.tax = betadisper(d=dbcan.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.652
+  # p-value = 0.69
 
 
 
@@ -637,7 +587,7 @@ dbcan.sp.dist.df <- dbcan.sp.dist.df[-5,]
 dbcan.sp.dist <- as.dist(dbcan.sp.dist.df)
 meta.sp <- meta[-which(meta$Season == "Winter"),]
 adonis(dbcan.sp.dist ~ Season, data=meta.sp, permutations= 99999)
-  # p-value = 0.2
+  # p-value = 0.3
 
 # Spring vs. Winter
 dbcan.wp.dist.df <- dbcan.dist.df[,-3:-4]
@@ -647,25 +597,7 @@ dbcan.wp.dist.df <- dbcan.wp.dist.df[-5,]
 dbcan.wp.dist <- as.dist(dbcan.wp.dist.df)
 meta.wp <- meta[-which(meta$Season == "Summer"),]
 adonis(dbcan.wp.dist ~ Season, data=meta.wp, permutations= 99999)
-  # p-value = 0.2
-
-
-### Pairwise Welch's T-Test Comparisons
-
-# Summer vs. Winter
-meta.sw$Season <- ordered(meta.sw$Season, levels=c("Summer","Winter"))
-WT.test(dbcan.sw.dist, meta.sw$Season)
-  # p-value = 0.123
-
-# Summer vs. Spring
-meta.sp$Season <- ordered(meta.sp$Season, levels=c("Summer","Spring"))
-WT.test(dbcan.sp.dist, meta.sp$Season)
-  # P-value = 0.205
-
-# Winter vs. Spring
-meta.wp$Season <- ordered(meta.wp$Season, levels=c("Winter","Springr"))
-WT.test(dbcan.sp.dist, meta.sp$Season)
-  # p-value = 0.205
+  # p-value = 0.3
 ```
 
 ### dbCAN - Mucin-degrading CAZymes
@@ -736,15 +668,19 @@ ggplot(muc.sum.df, aes(x=Season, y=Total_MucinDeg, fill=Season)) +
 
 
 ### DESeq2
-dbcan.muc <- subset_taxa(dbcan.phy, Family == "GH2" | Family == "GH3" | Family == "GH4" | 
-                           Family == "GH16" | Family == "GH18" | Family == "GH20" | Family == "GH27" |
-                           Family == "GH29" | Family == "GH31" | Family == "GH33" | Family == "GH35" |
-                           Family == "GH36" | Family == "GH38" | Family == "GH42" | Family == "GH67" |
-                           Family == "GH76" | Family == "GH84" | Family == "GH85" | Family == "GH89" |
-                           Family == "GH92" | Family == "GH95" | Family == "GH97" | Family == "GH98" |
-                           Family == "GH101" | Family == "GH109" | Family == "GH110" |
-                           Family == "GH112" | Family == "GH123" | Family == "GH125" |
-                           Family == "GH129" | Family == "GH130" | Family == "GH163")
+dbcan.muc <- subset_taxa(dbcan.phy, Family == "GH2" | Family == "GH3" | 
+                           Family == "GH4" | Family == "GH16" | Family == "GH18" |
+                           Family == "GH20" | Family == "GH27" | Family == "GH29" |
+                           Family == "GH31" | Family == "GH33" | Family == "GH35" |
+                           Family == "GH36" | Family == "GH38" | Family == "GH42" |
+                           Family == "GH67" | Family == "GH76" | Family == "GH84" |
+                           Family == "GH85" | Family == "GH89" | Family == "GH92" |
+                           Family == "GH95" | Family == "GH97" | Family == "GH98" |
+                           Family == "GH101" | Family == "GH109" |
+                           Family == "GH110" | Family == "GH112" |
+                           Family == "GH123" | Family == "GH125" |
+                           Family == "GH129" | Family == "GH130" | 
+                           Family == "GH163")
 
 
 
@@ -809,62 +745,68 @@ ggplot(prodigalCounts, aes(x=Season, y=MucinGenePercentage, fill=Season)) +
         legend.title = element_text(face="bold"))
 #dev.off()
 ```
-### Mucin - Create phyloseq object
+
+### Mucin - Create phyloseq object (DON'T RUN!!!)
 ```{r}
 # Load data
 muc.otu <- read.csv('mucin/mucinCount.csv', row.names=1)
 colnames(muc.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-muc.otu.tab <- otu_table(muc.otu, taxa_are_rows=T)
 muc.tax <- read.csv('mucin/mucinClassification.csv', row.names=1)
 muc.tax <- tax_table(muc.tax)
 colnames(muc.tax) <- c("GH_Class", "GH_Family", "EC1", "EC2", "EC3", "EC4", "FullName")
 taxa_names(muc.tax) <- muc.tax[,7]
 meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
-meta.ord <- meta
 
+
+# Remove enzyme genes that appear in only 1 sample
+muc.rem <- list()
+for(i in 1:nrow(muc.otu)){
+  empty <- length(which(muc.otu[i,] == 0))
+    # Identifies # of samples w/o CAZyme
+  if(empty > 7){
+    # If CAZyme appears in only 1 sample
+    muc.rem <- append(muc.rem, i)
+      # Create list of CAZymes that appear in only 1 sample
+  }
+}
+muc.rem.row <- as.numeric(muc.rem)
+  # Convert list to numeric
+
+# Remove CAZymes that appear in only 1 sample
+muc.otu.rem <- muc.otu[-muc.rem.row,]
+  # 8 enzyme genes: GH16_3.2.1.23, GH16_3.2.1.103, GH4_3.2.1.24, 3.2.1.1.2, 3.1.6.3, 3.1.6.4, 3.1.6.8, 3.1.6.14
+
+# Convert trimmed CAZyme table to otu_table
+muc.otu.rem.tab <- otu_table(muc.otu.rem, taxa_are_rows = T)
 
 # Create phyloseq object
-mucin.phy <- merge_phyloseq(muc.otu.tab, muc.tax, sample_data(meta.ord))
-
-# Remove CAZymes w/ count < 4
-# 4 to stay consistent with how I trimmed all CAZymes
-mucin.cut.phy <- prune_taxa(taxa_sums(mucin.phy) > 3, mucin.phy)
-
-# Identify trimmed CAZymes (count < 4)
-#all <- rownames(tax_table(mucin.phy))
-#remain <- rownames(tax_table(mucin.cut.phy))
-#for (i in all){
-#  if (i %in% remain == F){
-#    print(i)
-#  }
-#}
-# GH16_3.2.1.23, GH16_3.2.1.103, GH4_3.2.1.24, 3.1.1.2, 3.1.6.3, 3.1.6.4, 3.1.6.8, 3.1.6.14
-
+mucin.phy <- merge_phyloseq(muc.otu.rem.tab, muc.tax, sample_data(meta))
+#save(mucin.phy, file = "mucin.phy.RData")
 
 # Normalized Counts
-#muc.cut.otu <- data.frame(otu_table(mucin.cut.phy))
-#mucin.dds <- DESeqDataSetFromMatrix(countData = muc.cut.otu, colData = meta, design = ~ Season)
-#mucin.dds <- estimateSizeFactors(mucin.dds)
-#mucin.norm <- counts(mucin.dds, normalized=T)
-#write.csv(mucin.norm, file = "mucin/mucin.normalized.counts.csv")
+muc.cut.otu <- data.frame(otu_table(mucin.phy))
+mucin.dds <- DESeqDataSetFromMatrix(countData = muc.cut.otu, colData = meta, design = ~ Season)
+mucin.dds <- estimateSizeFactors(mucin.dds)
+mucin.norm <- counts(mucin.dds, normalized=T)
+write.csv(mucin.norm, file = "mucin/mucin.normalized.counts.csv")
 mucin.norm <- read.csv('mucin/mucin.normalized.counts.csv', row.names=1)
 muc.norm.otu <- otu_table(mucin.norm, taxa_are_rows=T)
 sample_names(muc.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 muc.norm.phy <- merge_phyloseq(muc.norm.otu, sample_data(mucin.phy), tax_table(mucin.phy))
-
+#save(muc.norm.phy, file = "muc.norm.phy.RData")
+```
+### Mucin - Load Data
+```{r}
+load("mucin.phy.RData")
+load("muc.norm.phy.RData")
+meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
 ```
 ### Mucin - Count unique mucin-deg genes
 ```{r}
 # Subset out samples by season
-phy.sum <- subset_samples(mucin.cut.phy, Season == "Summer")
-phy.win <- subset_samples(mucin.cut.phy, Season == "Winter")
-phy.spr <- subset_samples(mucin.cut.phy, Season == "Spring")
-
-# Remove annotations with no counts
-phy.sum <- prune_taxa(taxa_sums(phy.sum) > 0, phy.sum)
-phy.win <- prune_taxa(taxa_sums(phy.win) > 0, phy.win)
-phy.spr <- prune_taxa(taxa_sums(phy.spr) > 0, phy.spr)
-
+phy.sum <- subset_samples(mucin.phy, Season == "Summer")
+phy.win <- subset_samples(mucin.phy, Season == "Winter")
+phy.spr <- subset_samples(mucin.phy, Season == "Spring")
 
 # Pull out unique muc-deg gene annotations in each season and order alphabetically
 sum.gene <- get_taxa_unique(phy.sum, "FullName")
@@ -880,156 +822,14 @@ length(sum.gene)
 length(win.gene)
   # 21
 length(spr.gene)
-  #21
+  # 21
 
 ```
-### Mucin - Kaiju
-```{r}
-########## Phylum ##########
-muc.phy.sum <- import.phylum.sum('kaiju/mucin_all/phylum',7)
 
-# Summarize phyla to get top 10
-muc.phy.sum.sum <- muc.phy.sum %>%
-  group_by(Phylum) %>%
-  summarize(Mean = mean(Mean))
-
-
-
-########## Class ##########
-muc.cla.sum <- import.class.sum('kaiju/mucin_all/class', 11)
-
-# Summarize classes to get top 10
-muc.cla.sum.sum <- muc.cla.sum %>%
-  group_by(Class) %>%
-  summarize(Mean = mean(Mean))
-
-
-
-########## Order ##########
-muc.ord.sum <- import.order.sum('kaiju/mucin_all/order', 14)
-
-# Summarize orders to get top 10
-muc.ord.sum.sum <- muc.ord.sum %>%
-  group_by(Order) %>%
-  summarize(Mean = mean(Mean))
-
-
-
-########## Family ##########
-muc.fam.sum <- import.family.sum('kaiju/mucin_all/family', 27)
-
-# Summarize families to get top 10
-muc.fam.sum.sum <- muc.fam.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-
-########## Genus ##########
-muc.gen.sum <- import.genus.sum('kaiju/mucin_all/genus',35)
-
-# Summarize genera to get top 10
-muc.gen.sum.sum <- muc.gen.sum %>%
-  group_by(Genus) %>%
-  summarize(Mean = mean(Mean))
-
-# Only look at top 11 genera (excluding unclassified, but using the % calculated with unclassified
-top.muc.genus <- c("Bacteroides", "Prevotella", "Parabacteroides", "Clostridium", "Alistipes", "Roseburia", "Blautia", "Paenibacillus", "Faecalibacterium", "Ruminococcus", "Akkermansia")
-
-
-
-# Pull out top 11 genera
-muc.gen.total <- data.frame(matrix(nrow=33, ncol=5))
-colnames(muc.gen.total) <- c("Season", "Genus", "Mean", "SD", "SE")
-for (i in 1:length(top.muc.genus)){
-  top <- which(muc.gen.sum$Genus == top.muc.genus[i])
-  for (j in 1:length(top)){
-    muc.gen.total$Season[(j + 3*(i-1))] <- as.character(muc.gen.sum$Season[top[j]])
-    muc.gen.total$Genus[(j + 3*(i-1))] <- muc.gen.sum$Genus[top[j]]
-    muc.gen.total$Mean[(j + 3*(i-1))] <- muc.gen.sum$Mean[top[j]]
-    muc.gen.total$SD[(j + 3*(i-1))] <- muc.gen.sum$SD[top[j]]
-    muc.gen.total$SE[(j + 3*(i-1))] <- muc.gen.sum$SE[top[j]]
-  }
-}
-muc.gen.total$Genus <- ordered(muc.gen.total$Genus, levels=c("Bacteroides", "Prevotella", "Parabacteroides", "Clostridium", "Alistipes", "Roseburia", "Blautia", "Paenibacillus", "Faecalibacterium", "Ruminococcus", "Akkermansia"))
-muc.gen.total$Season <- ordered(muc.gen.total$Season, levels=c("Summer", "Winter", "Spring"))
-
-# Barplot for top 11 genera
-ggplot(muc.gen.total, aes(x=Genus, y=Mean, fill=Genus)) +
-  geom_bar(stat="identity", color="black") +
-  facet_grid(Season ~ .) +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
-  scale_y_continuous(limits=c(-5,45)) +
-  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush", "lightpink")) +
-  xlab("Genera") +
-  ylab("Mean Relative Abundance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.background = element_blank(),
-        strip.text = element_text(face="bold"),
-        legend.title = element_text(face="bold"))
-
-
-# Pull out top 5 genera - All seasons combined
-muc.gen.combined <- muc.gen.total %>%
-  group_by(Genus) %>%
-    summarize(Mean = mean(Mean),
-              SD = sd(Mean),
-              SE = se(Mean))
-muc.gen.combined$SD[1] = sd(muc.gen.total$Mean[1:3])
-muc.gen.combined$SD[2] = sd(muc.gen.total$Mean[4:6])
-muc.gen.combined$SD[3] = sd(muc.gen.total$Mean[7:9])
-muc.gen.combined$SD[4] = sd(muc.gen.total$Mean[10:12])
-muc.gen.combined$SD[5] = sd(muc.gen.total$Mean[13:15])
-muc.gen.combined$SD[6] = sd(muc.gen.total$Mean[16:18])
-muc.gen.combined$SD[7] = sd(muc.gen.total$Mean[19:21])
-muc.gen.combined$SD[8] = sd(muc.gen.total$Mean[22:24])
-muc.gen.combined$SD[9] = sd(muc.gen.total$Mean[25:27])
-muc.gen.combined$SD[10] = sd(muc.gen.total$Mean[28:30])
-muc.gen.combined$SD[11] = sd(muc.gen.total$Mean[31:33])
-muc.gen.combined$SE[1] = (sd(muc.gen.total$Mean[1:3])/3)
-muc.gen.combined$SE[2] = (sd(muc.gen.total$Mean[4:6])/3)
-muc.gen.combined$SE[3] = (sd(muc.gen.total$Mean[7:9])/3)
-muc.gen.combined$SE[4] = (sd(muc.gen.total$Mean[10:12])/3)
-muc.gen.combined$SE[5] = (sd(muc.gen.total$Mean[13:15])/3)
-muc.gen.combined$SE[6] = (sd(muc.gen.total$Mean[16:18])/3)
-muc.gen.combined$SE[7] = (sd(muc.gen.total$Mean[19:21])/3)
-muc.gen.combined$SE[8] = (sd(muc.gen.total$Mean[22:24])/3)
-muc.gen.combined$SE[9] = (sd(muc.gen.total$Mean[25:27])/3)
-muc.gen.combined$SE[10] = (sd(muc.gen.total$Mean[28:30])/3)
-muc.gen.combined$SE[11] = (sd(muc.gen.total$Mean[31:33])/3)
-  
-# Barplot for top 5 genera - All seasons combined
-tiff("muc.gen.tiff", width=9, height=5, units="in", res= 300)
-ggplot(muc.gen.combined, aes(x=Genus, y=Mean, fill=Genus)) +
-  geom_bar(stat="identity", color="black") +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
-  scale_y_continuous(limits=c(0,26), breaks=c(0,6.5,13,19.5,26)) +
-  scale_fill_manual(values=c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ffff33", "#a65628", "gainsboro", "gray47", "black", "lavenderblush", "lightpink")) +
-  xlab("Genera") +
-  ylab("Mean Relative Abundance (%)") +
-  ggtitle("Mucin-Degradation Genes Genus-level Classification") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.background = element_blank(),
-        strip.text = element_text(face="bold"),
-        legend.title = element_text(face="bold"),
-        plot.title=element_text(hjust=0.5, face="bold"),
-        axis.text.x = element_text(angle=30, hjust=1))
-dev.off()
-
-
-########## Species ##########
-muc.spe.sum <- import.species.sum('kaiju/mucin_all/species',87)
-
-# Summarize species to get top 10
-muc.spe.sum.sum <- muc.spe.sum %>%
-  group_by(Species) %>%
-  summarize(Mean = mean(Mean))
-```
 ### Mucin - Enzyme bar plots
 ```{r}
 # Summarize data
-mucin.df <- psmelt(muc.ra.phy)
+mucin.df <- psmelt(muc.norm.phy)
 mucin.sum <- mucin.df %>%
   group_by(FullName, Season) %>%
   summarize(Mean = mean(Abundance),
@@ -1044,11 +844,11 @@ mucin.sum$Season = ordered(mucin.sum$Season, levels=c("Summer", "Winter", "Sprin
 ggplot(mucin.sum, aes(x=Season, y=Mean, fill=Season)) +
   geom_bar(stat="identity", color="black") +
   geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
-  scale_y_continuous(limits=c(0,2e-2)) +
+  #scale_y_continuous(limits=c(0,2e-2)) +
   facet_grid(. ~ FullName) +
   scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   xlab("Mucin-Degrading Gene Classification") +
-  ylab("Mean Relative Abundance") +
+  ylab("Mean Normalized Counts") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         strip.background = element_blank(),
@@ -1071,21 +871,21 @@ ggplot(mucin.sum, aes(x=Season, y=Mean, fill=Season)) +
 
 ### Test DESeq2 to determine fit type
 # https://support.bioconductor.org/p/81094/
-#mucin.dds <- phyloseq_to_deseq2(mucin.cut.phy, ~Season)
+#mucin.dds <- phyloseq_to_deseq2(mucin.phy, ~Season)
 #mucin.dds$Season <- factor(mucin.dds$Season, levels=c("Summer", "Winter", "Spring"))
 #mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
 #mucin.local <- DESeq(mucin.dds, fitType = "local")
 #mucin.par <- DESeq(mucin.dds, fitType = "parametric")
 #mad(log(mcols(mucin.local)$dispGeneEst) - log(mcols(mucin.local)$dispFit))
-  # 0.8548652
+  # 0.8725067
 #mad(log(mcols(mucin.par)$dispGeneEst) - log(mcols(mucin.par)$dispFit))
-  # 0.8548652
+  # 0.8725067
 # No difference in fit type, but DESeq says local is better
 
 
 
 ### Convert phyloseq object to deseq2 object
-mucin.dds <- phyloseq_to_deseq2(mucin.cut.phy, ~Season)
+mucin.dds <- phyloseq_to_deseq2(mucin.phy, ~Season)
   # Design variable must be unordered otherwise you get an error
 mucin.dds$Season <- factor(mucin.dds$Season, levels=c("Summer", "Winter", "Spring"))
 mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
@@ -1095,8 +895,9 @@ mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
 mucin.dds <- DESeq(mucin.dds)
   # DESeq choose fitType = local
 
-# vst-transformed data for visualizations
-muc.vsd <- varianceStabilizingTransformation(mucin.dds)
+# Transform data for visualizations
+# log2(n+1)
+muc.transform <- normTransform(mucin.dds)
 ```
 
 ### Mucin - DESeq - find overrep genes
@@ -1121,20 +922,19 @@ mucin.wp.sig[which(mucin.wp.sig$log2FoldChange < 0),]
 
 
 
-### Mucin - DESeq - Diet
-```{r}
-muc.diet.dds <- phyloseq_to_deseq2(mucin.cut.phy, ~Diet)
-muc.diet.dds <- DESeq(muc.diet.dds)
-muc.diet.results <- results(muc.diet.dds)
-muc.diet.sig <- muc.diet.results[which(muc.diet.results$padj < 0.05),]
-muc.diet.sig[which(muc.diet.sig$log2FoldChange > 0),]
-  # Enriched in feeding compared to fasting
-  # GH36_3.2.1.22
-```
+
 ### Mucin - Heatmap of normalized counts
 ```{r}
-mucin.sig <- subset_taxa(muc.norm.phy, FullName == "GH112_2.4.1.211" | FullName == "GH36_3.2.1.22" |
-                           FullName == "GH42_3.2.1.23" | FullName == "GH84_3.2.1.169" |
+muc.sig.transform <- data.frame(assay(muc.transform))
+muc.sig.transform <- otu_table(muc.sig.transform, taxa_are_rows = T)
+colnames(muc.sig.transform) <- c("3715", "3717", "3723", "3733", "3734", "3744",
+                                "3772", "3773" , "3775")
+muc.sig <- merge_phyloseq(muc.sig.transform, tax_table(mucin.phy),
+                          sample_data(mucin.phy))
+mucin.sig <- subset_taxa(muc.sig, FullName == "GH112_2.4.1.211" |
+                           FullName == "GH36_3.2.1.22" |
+                           FullName == "GH42_3.2.1.23" |
+                           FullName == "GH84_3.2.1.169" |
                            FullName == "GH110_3.2.1.22")
                            
   
@@ -1147,11 +947,12 @@ plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717"
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("Mucin-Degrading Enzyme Gene\n\n") +
-  scale_fill_gradientn(name=expression("Normalized\nCounts\n"), limits=c(0, 100),
-                       breaks=c(0, 25, 50, 75, 100), 
-                       labels=c("0", "25", "50", "75", "100"),
-                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c",
-                                   "#fc4e2a", "#e31a1c", "#bd0026", "#800026")) +
+  scale_fill_gradientn(name=expression("Transformed\nNormalized\nCounts\n"), limits=c(2.5, 7.0),
+                       breaks=c(2.5, 4, 5.5, 7.0), 
+                       labels=c("2.5", "4", "5.5", "7.0"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
   theme(axis.text.x = element_blank(),
         axis.text.y = element_text(size=20),
         axis.ticks.x = element_blank(),
@@ -1179,10 +980,10 @@ plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717"
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
 # http://bioconductor.org/packages/devel/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
 
-muc.dist <- dist(t(assay(muc.vsd)))
+muc.dist <- Dist(t(assay(muc.transform)), method = "kendall")
 muc.dist.matrix <- as.matrix(muc.dist)
-rownames(muc.dist.matrix) <- muc.vsd$Season
-colnames(muc.dist.matrix) <- muc.vsd$Season
+rownames(muc.dist.matrix) <- muc.transform$Season
+colnames(muc.dist.matrix) <- muc.transform$Season
 
 # Heatmap
 pheatmap(muc.dist.matrix, clustering_distance_rows = muc.dist, clustering_distance_cols = muc.dist,
@@ -1201,7 +1002,7 @@ ggplot(muc.den.data$segments) +
   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
   geom_text(data = muc.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Euclidean Distance") +
+  ylab("Kendall Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -1223,9 +1024,9 @@ ggplot(muc.den.data$segments) +
 
 ### Mucin - DESeq sample dist PCA & PERMANOVA
 ```{r}
-muc.pca.data <- plotPCA(muc.vsd, intgroup="Season", returnData=T)
+muc.pca.data <- plotPCA(muc.transform, intgroup="Season", returnData=T)
 muc.pca.perc <- round(100*attr(muc.pca.data, "percentVar"))
-# PCA variance explained = 71%
+# PCA total variance explained = 67%
 
 #tiff("mucin.pca.tiff", width=8, height=6, units="in", res=300)
 ggplot(muc.pca.data, aes(PC1, PC2, color=Season)) +
@@ -1233,7 +1034,7 @@ ggplot(muc.pca.data, aes(PC1, PC2, color=Season)) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   xlab(paste0("PC1: ", muc.pca.perc[1], "% variance")) +
   ylab(paste0("PC2: ", muc.pca.perc[2], "% variance")) +
-  ggtitle("Euclidean Distance") +
+  ggtitle("Kendall Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -1249,18 +1050,18 @@ hist(muc.dist)
 qqnorm(muc.dist)
 qqline(muc.dist)
 shapiro.test(muc.dist)
-  # p-value = 0.2705
+  # p-value = 0.3546
   # Normal
 
 
-### Run PERMANOVA on DESEq Euclidean distance
-muc.dist <- dist(t(assay(muc.vsd)))
+### Run PERMANOVA on DESEq Kendall distance
+muc.dist <- Dist(t(assay(muc.transform)), method = "kendall")
 adonis(muc.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.00366
+  # p-value = 0.00717
 beta.tax = betadisper(d=muc.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.812
+  # p-value = 0.663
 
 
 
@@ -1299,155 +1100,4 @@ adonis(muc.wp.dist ~ Season, data=meta.wp, permutations= 99999)
   # p-value = 0.1
 
 
-### Pairwise Welch's T-Test Comparisons
-
-# Summer vs. Winter
-meta.sw$Season <- ordered(meta.sw$Season, levels=c("Summer","Winter"))
-WT.test(muc.sw.dist, meta.sw$Season)
-  # p-value = 0.107
-
-# Summer vs. Spring
-meta.sp$Season <- ordered(meta.sp$Season, levels=c("Summer","Spring"))
-WT.test(muc.sp.dist, meta.sp$Season)
-  # P-value = 0.099
-
-# Winter vs. Spring
-meta.wp$Season <- ordered(meta.wp$Season, levels=c("Winter","Springr"))
-WT.test(muc.sp.dist, meta.sp$Season)
-  # p-value = 0.098
 ```
-### Mucin - Family-Level for each mucin enzyme
-```{r}
-# I chose Family-level because that was the taxon that gave the most taxonomic resolution without too many being unclassified
-
-### 4.1.3.3
-fam.4.1.3.3.sum <- import.family.sum('kaiju/mucin_sep/4.1.3.3/family',2)
-# Summarize families
-fam.4.1.3.3.sum.sum <- fam.4.1.3.3.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH2_3.2.1.23
-fam.GH2_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH2_3.2.1.23/family',10)
-# Summarize families
-fam.GH2_3.2.1.23.sum.sum <- fam.GH2_3.2.1.23.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH2_3.2.1.25
-fam.GH2_3.2.1.25.sum <- import.family.sum('kaiju/mucin_sep/GH2_3.2.1.25/family',3)
-# Summarize families
-fam.GH2_3.2.1.25.sum.sum <- fam.GH2_3.2.1.25.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH3_3.2.1.52
-# Not found in some samples
-
-### GH4_3.2.1.22
-# Not found in some samples
-
-### GH20_3.2.1.52
-# Not found in some samples
-
-### GH27_3.2.1.22
-fam.GH27_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH27_3.2.1.22/family',4)
-# Summarize families
-fam.GH27_3.2.1.22.sum.sum <- fam.GH27_3.2.1.22.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH29_3.2.1.51
-fam.GH29_3.2.1.51.sum <- import.family.sum('kaiju/mucin_sep/GH29_3.2.1.51/family',7)
-# Summarize families
-fam.GH29_3.2.1.51.sum.sum <- fam.GH29_3.2.1.51.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH31_3.2.1.20
-fam.GH31_3.2.1.20.sum <- import.family.sum('kaiju/mucin_sep/GH31_3.2.1.20/family',6)
-# Summarize families
-fam.GH31_3.2.1.20.sum.sum <- fam.GH31_3.2.1.20.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH35_3.2.1.23
-fam.GH35_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH35_3.2.1.23/family',5)
-# Summarize families
-fam.GH35_3.2.1.23.sum.sum <- fam.GH35_3.2.1.23.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH36_3.2.1.22
-fam.GH36_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH36_3.2.1.22/family',13)
-# Summarize families
-fam.GH36_3.2.1.22.sum.sum <- fam.GH36_3.2.1.22.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH38_3.2.1.24
-# Not found in some samples
-
-### GH42_3.2.1.23
-fam.GH42_3.2.1.23.sum <- import.family.sum('kaiju/mucin_sep/GH42_3.2.1.23/family',4)
-# Summarize families
-fam.GH42_3.2.1.23.sum.sum <- fam.GH42_3.2.1.23.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH67_3.2.1.139
-fam.GH67_3.2.1.139.sum <- import.family.sum('kaiju/mucin_sep/GH67_3.2.1.139/family',7)
-# Summarize families
-fam.GH67_3.2.1.139.sum.sum <- fam.GH67_3.2.1.139.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH84_3.2.1.169
-fam.GH84_3.2.1.169.sum <- import.family.sum('kaiju/mucin_sep/GH84_3.2.1.169/family',10)
-# Summarize families
-fam.GH84_3.2.1.169.sum.sum <- fam.GH84_3.2.1.169.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH95_3.2.1.51
-fam.GH95_3.2.1.51.sum <- import.family.sum('kaiju/mucin_sep/GH95_3.2.1.51/family',7)
-# Summarize families
-fam.GH95_3.2.1.51.sum.sum <- fam.GH95_3.2.1.51.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH101_3.2.1.97
-# Not found in some samples
-
-### GH110_3.2.1.22
-fam.GH110_3.2.1.22.sum <- import.family.sum('kaiju/mucin_sep/GH110_3.2.1.22/family',6)
-# Summarize families
-fam.GH110_3.2.1.22.sum.sum <- fam.GH110_3.2.1.22.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH112_2.4.1.211
-fam.GH112_2.4.1.211.sum <- import.family.sum('kaiju/mucin_sep/GH112_2.4.1.211/family',6)
-# Summarize families
-fam.GH112_2.4.1.211.sum.sum <- fam.GH112_2.4.1.211.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH130_2.4.1.281
-fam.GH130_2.4.1.281.sum <- import.family.sum('kaiju/mucin_sep/GH130_2.4.1.281/family',8)
-# Summarize families
-fam.GH130_2.4.1.281.sum.sum <- fam.GH130_2.4.1.281.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-
-### GH130_2.4.1.320
-fam.GH130_2.4.1.320.sum <- import.family.sum('kaiju/mucin_sep/GH130_2.4.1.320/family',7)
-# Summarize families
-fam.GH130_2.4.1.320.sum.sum <- fam.GH130_2.4.1.320.sum %>%
-  group_by(Family) %>%
-  summarize(Mean = mean(Mean))
-```
-
-
-
-

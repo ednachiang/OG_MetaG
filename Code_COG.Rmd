@@ -409,7 +409,6 @@ colnames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring",
 pheatmap(cog.dist.matrix, clustering_distance_rows = cog.dist, 
          clustering_distance_cols = cog.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
 
-
 # Dendrogram
 cog.hclust <- hclust(cog.dist)
 cog.den <- as.dendrogram(cog.hclust)
@@ -440,6 +439,68 @@ ggplot(cog.den.data$segments) +
         axis.title.x = element_text(face="bold", size=20),
         axis.title.y = element_text(face="bold", size=20))
 #dev.off()
+
+
+
+
+
+
+
+
+
+##### Kendall #####
+cog <- data.frame(otu_table(cog.phy))
+colnames(cog) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
+                        "3773", "3775")
+cog.distk <- Dist(t(cog), method = "kendall")
+cog.distk.matrix <- as.matrix(cog.distk)
+rownames(cog.distk.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+colnames(cog.distk.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+
+# Heatmap
+pheatmap(cog.distk.matrix, clustering_distance_rows = cog.dist, 
+         clustering_distance_cols = cog.distk, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
+
+# Dendrogram
+cog.hclustk <- hclust(cog.distk)
+cog.denk <- as.dendrogram(cog.hclustk)
+cog.denk.data <- dendro_data(cog.denk, type = "rectangle")
+cog.denk.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
+cog.denk.data$labels[,3] <- ordered(cog.denk.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
+
+
+#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
+ggplot(cog.denk.data$segments) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_text(data = cog.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
+            hjust=0, size=5) +
+  ylab("Kendall Distance") +
+  xlab("Season") +
+  labs(colour = "Season") +
+  coord_flip() +
+  scale_y_reverse() +
+  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size=20),
+        panel.border = element_blank(),
+        axis.line.x = element_line(),
+        legend.title = element_text(face="bold"),
+        axis.title.x = element_text(face="bold", size=20),
+        axis.title.y = element_text(face="bold", size=20))
+#dev.off()
+
+adonis(cog.distk ~ Season, meta, permutations = 99999)
+  # p-value = 0.01811
+
+
+
+
+
+
+
 
 
 
@@ -510,7 +571,6 @@ p$tab
 ```
 
 ### COG - Clustering - Category-level
-### COG - Clustering - Count-level
 ```{r}
 # https://sites.google.com/site/mb3gustame/reference/dissimilarity
 cog.cat <- data.frame(otu_table(cog.cat.phy))
@@ -524,7 +584,6 @@ colnames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spri
 # Heatmap
 pheatmap(cog.cat.dist.matrix, clustering_distance_rows = cog.cat.dist, 
          clustering_distance_cols = cog.cat.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
-
 
 # Dendrogram
 cog.cat.hclust <- hclust(cog.cat.dist)
@@ -555,7 +614,69 @@ ggplot(cog.cat.den.data$segments) +
         legend.title = element_text(face="bold"),
         axis.title.x = element_text(face="bold", size=20),
         axis.title.y = element_text(face="bold", size=20))
+
+
+
+
+
+
+
+
+
+
+##### Kendall #####
+cog.cat.distk <- Dist(t(cog.cat), method = "kendall")
+cog.cat.distk.matrix <- as.matrix(cog.cat.distk)
+rownames(cog.cat.distk.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+colnames(cog.cat.distk.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+
+# Heatmap
+pheatmap(cog.cat.distk.matrix, clustering_distance_rows = cog.cat.distk, 
+         clustering_distance_cols = cog.cat.distk, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
+
+# Dendrogram
+cog.cat.hclustk <- hclust(cog.cat.distk)
+cog.cat.denk <- as.dendrogram(cog.cat.hclustk)
+cog.cat.denk.data <- dendro_data(cog.cat.denk, type = "rectangle")
+cog.cat.denk.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
+cog.cat.denk.data$labels[,3] <- ordered(cog.cat.denk.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
+
+
+#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
+ggplot(cog.cat.denk.data$segments) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_text(data = cog.cat.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
+            hjust=0, size=5) +
+  ylab("Kendall Distance") +
+  xlab("Season") +
+  labs(colour = "Season") +
+  coord_flip() +
+  scale_y_reverse() +
+  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size=20),
+        panel.border = element_blank(),
+        axis.line.x = element_line(),
+        legend.title = element_text(face="bold"),
+        axis.title.x = element_text(face="bold", size=20),
+        axis.title.y = element_text(face="bold", size=20))
 #dev.off()
+
+
+adonis(cog.cat.distk ~ Season, meta, permutations = 99999)
+  # p-value = 0.00351
+
+
+
+
+
+
+
+
+
 
 
 
@@ -624,4 +745,5 @@ p <- permutest(beta.tax)
 p$tab
   # p-value = 0.579
 ```
+
 

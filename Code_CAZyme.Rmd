@@ -26,6 +26,7 @@ library('picante')
 library('ggdendro')
 library('fitdistrplus')
 library('amap')
+library('labdsv')
 theme_set(theme_bw())
 set.seed(1)
 ```
@@ -397,9 +398,8 @@ dbcan.dds$Season <- factor(dbcan.dds$Season, levels=c("Summer", "Winter", "Sprin
 # DESeq DataStructure for analyses
 dbcan.dds <- DESeq(dbcan.dds)
 
-# Transformed data for visualizations
-# log2(n+1)
-dbcan.transform <- normTransform(dbcan.dds)
+# Hellinger-transformed data for visualizations
+dbcan.hell <- hellinger(t(assay(dbcan.dds)))
 ```
 ### dbCAN - DESeq - find overrep genes
 ```{r}
@@ -430,11 +430,10 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 # Excluding some families because they has such high counts that it makes the heatmap hard to interpret visually
 # I'll make a separate plot for just GH43, GH3, GT4, and GT41
 
-dbcan.sig.transform <- data.frame(assay(dbcan.transform))
-dbcan.sig.transform <- otu_table(dbcan.sig.transform, taxa_are_rows = T)
-colnames(dbcan.sig.transform) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772",
-                             "3773" , "3775")
-dbcan.sig <- merge_phyloseq(dbcan.sig.transform, tax_table(dbcan.phy),
+dbcan.hell.otu <- otu_table(t(dbcan.hell), taxa_are_rows = T)
+colnames(dbcan.hell.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744",
+                              "3772", "3773" , "3775")
+dbcan.sig <- merge_phyloseq(dbcan.hell.otu, tax_table(dbcan.phy),
                             sample_data(dbcan.phy))
 dbcan.sig <- subset_taxa(dbcan.sig, Family == "GT101" | Family == "PL1" |
                            Family == "GH10" | Family == "GH43" | Family == "GH115" |
@@ -452,9 +451,9 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Transformed\nNormalized\nCounts\n"), limits = c(3,10.2),
-                       breaks = c(3, 4, 5,6,7,8,9,10),
-                       labels = c("3", "4", "5", "6", "7", "8", "9", "10"),
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"), limits = c(0.02,0.27),
+                       breaks = c(0.02, 0.07, 0.12, 0.17, 0.22, 0.27),
+                       labels = c("0.02", "0.07", "0.12", "0.17", "0.22", "0.27"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
                                    "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
                                    "#bd0026", "#800026", "#33000f")) +
@@ -482,16 +481,16 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
 # http://bioconductor.org/packages/devel/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
 
-dbcan.dist <- Dist(t(assay(dbcan.transform)), method = "kendall")
+dbcan.dist <- dist(dbcan.hell, method = "euclidean")
 dbcan.dist.matrix <- as.matrix(dbcan.dist)
-rownames(dbcan.dist.matrix) <- dbcan.transform$Season
-colnames(dbcan.dist.matrix) <- dbcan.transform$Season
+rownames(dbcan.dist.matrix) <- meta$Season
+colnames(dbcan.dist.matrix) <- meta$Season
 
 # Heatmap
 #pheatmap(dbcan.dist.matrix, clustering_distance_rows = dbcan.dist, clustering_distance_cols = dbcan.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
 
 # Dendrogram
-dbcan.hclust <- hclust(dbcan.dist)
+dbcan.hclust <- hclust(dbcan.dist, method = "average")
 dbcan.den <- as.dendrogram(dbcan.hclust)
 dbcan.den.data <- dendro_data(dbcan.den, type="rectangle")
 dbcan.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
@@ -502,7 +501,7 @@ ggplot(dbcan.den.data$segments) +
   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
   geom_text(data = dbcan.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Kendall Distance") +
+  ylab("Hellinger Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -523,19 +522,19 @@ ggplot(dbcan.den.data$segments) +
 
 ```
 
-### dbCAN - Sample dist PCA & PERMANOVA
+### dbCAN - Sample dist PCoA & PERMANOVA
 ```{r}
-dbcan.pca.data <- plotPCA(dbcan.transform, intgroup="Season", returnData=T)
-dbcan.pca.perc <- round(100*attr(dbcan.pca.data, "percentVar"))
-# PCA variance explained (total) = 53%
+dbcan.pcoa <- pcoa(dbcan.dist)
+  # Total var explained = 65.1
+dbcan.phy.ord <- dbcan.phy
+sample_data(dbcan.phy.ord)$Season <- ordered(sample_data(dbcan.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
-#tiff("dbcan.pca.tiff", width=8, height=6, units="in", res=300)
-ggplot(dbcan.pca.data, aes(PC1, PC2, color=Season)) +
+#tiff("dbcan.pcoa.tiff", width=8, height=6, units="in", res=300)
+plot_ordination(physeq = dbcan.phy.ord, ordination = dbcan.pcoa, axes = c(1,2),
+                color = "Season") +
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  xlab(paste0("PC1: ", dbcan.pca.perc[1], "% variance")) +
-  ylab(paste0("PC2: ", dbcan.pca.perc[2], "% variance")) +
-  ggtitle("Kendall Distance") +
+  ggtitle("Hellinger Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -551,17 +550,16 @@ hist(dbcan.dist)
 qqnorm(dbcan.dist)
 qqline(dbcan.dist)
 shapiro.test(dbcan.dist)
-  # p-value = 0.6043
+  # p-value = 0.4953
   # Normal
 
 ### Run PERMANOVA on DESEq Kendall distance
-dbcan.dist <- Dist(t(assay(dbcan.transform)), method = "kendall")
 adonis(dbcan.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.01064
-beta.tax = betadisper(d=dbcan.dist, group=meta$Season)
+  # p-value = 0.0072
+beta.tax = betadisper(d=dbcan.dist, group=meta$Season) 
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.69
+  # p-value = 0.587
 
 
 
@@ -587,7 +585,7 @@ dbcan.sp.dist.df <- dbcan.sp.dist.df[-5,]
 dbcan.sp.dist <- as.dist(dbcan.sp.dist.df)
 meta.sp <- meta[-which(meta$Season == "Winter"),]
 adonis(dbcan.sp.dist ~ Season, data=meta.sp, permutations= 99999)
-  # p-value = 0.3
+  # p-value = 0.2
 
 # Spring vs. Winter
 dbcan.wp.dist.df <- dbcan.dist.df[,-3:-4]
@@ -597,7 +595,7 @@ dbcan.wp.dist.df <- dbcan.wp.dist.df[-5,]
 dbcan.wp.dist <- as.dist(dbcan.wp.dist.df)
 meta.wp <- meta[-which(meta$Season == "Summer"),]
 adonis(dbcan.wp.dist ~ Season, data=meta.wp, permutations= 99999)
-  # p-value = 0.3
+  # p-value = 0.2
 ```
 
 ### dbCAN - Mucin-degrading CAZymes
@@ -895,9 +893,8 @@ mucin.dds <- mucin.dds[rowSums(counts(mucin.dds)) > 1,]
 mucin.dds <- DESeq(mucin.dds)
   # DESeq choose fitType = local
 
-# Transform data for visualizations
-# log2(n+1)
-muc.transform <- normTransform(mucin.dds)
+# Hellinger-transform data for visualizations
+muc.hell <- hellinger(t(assay(mucin.dds)))
 ```
 
 ### Mucin - DESeq - find overrep genes
@@ -925,11 +922,10 @@ mucin.wp.sig[which(mucin.wp.sig$log2FoldChange < 0),]
 
 ### Mucin - Heatmap of normalized counts
 ```{r}
-muc.sig.transform <- data.frame(assay(muc.transform))
-muc.sig.transform <- otu_table(muc.sig.transform, taxa_are_rows = T)
-colnames(muc.sig.transform) <- c("3715", "3717", "3723", "3733", "3734", "3744",
+muc.hell.otu <- otu_table(t(muc.hell), taxa_are_rows = T)
+colnames(muc.hell.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744",
                                 "3772", "3773" , "3775")
-muc.sig <- merge_phyloseq(muc.sig.transform, tax_table(mucin.phy),
+muc.sig <- merge_phyloseq(muc.hell.otu, tax_table(mucin.phy),
                           sample_data(mucin.phy))
 mucin.sig <- subset_taxa(muc.sig, FullName == "GH112_2.4.1.211" |
                            FullName == "GH36_3.2.1.22" |
@@ -947,12 +943,12 @@ plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717"
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("Mucin-Degrading Enzyme Gene\n\n") +
-  scale_fill_gradientn(name=expression("Transformed\nNormalized\nCounts\n"), limits=c(2.5, 7.0),
-                       breaks=c(2.5, 4, 5.5, 7.0), 
-                       labels=c("2.5", "4", "5.5", "7.0"),
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"), limits=c(0.11, 0.48),
+                       breaks=c(0.11, 0.18, 0.25, 0.33, 0.40, 0.48), 
+                       labels=c("0.11", "0.18", "0.25", "0.33", "0.40", "0.48"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
                                    "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
-                                   "#bd0026", "#800026", "#33000f")) +
+                                   "#bd0026")) +
   theme(axis.text.x = element_blank(),
         axis.text.y = element_text(size=20),
         axis.ticks.x = element_blank(),
@@ -980,18 +976,18 @@ plot_heatmap(mucin.sig, sample.label = "Season", sample.order = c("3715", "3717"
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#exploring-and-exporting-results
 # http://bioconductor.org/packages/devel/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
 
-muc.dist <- Dist(t(assay(muc.transform)), method = "kendall")
+muc.dist <- dist(muc.hell, method = "euclidean")
 muc.dist.matrix <- as.matrix(muc.dist)
 rownames(muc.dist.matrix) <- muc.transform$Season
 colnames(muc.dist.matrix) <- muc.transform$Season
 
 # Heatmap
-pheatmap(muc.dist.matrix, clustering_distance_rows = muc.dist, clustering_distance_cols = muc.dist,
+#pheatmap(muc.dist.matrix, clustering_distance_rows = muc.dist, clustering_distance_cols = muc.dist,
          col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
                  "#bd0026", "#800026"))
 
 # Dendrogram
-muc.hclust <- hclust(muc.dist)
+muc.hclust <- hclust(muc.dist, method = "average")
 muc.den <- as.dendrogram(muc.hclust)
 muc.den.data <- dendro_data(muc.den, type="rectangle")
 muc.den.data$labels[,3] <- c("Spring", "Spring", "Summer", "Summer", "Summer", "Spring", "Winter", "Winter", "Winter")
@@ -1024,16 +1020,16 @@ ggplot(muc.den.data$segments) +
 
 ### Mucin - DESeq sample dist PCA & PERMANOVA
 ```{r}
-muc.pca.data <- plotPCA(muc.transform, intgroup="Season", returnData=T)
-muc.pca.perc <- round(100*attr(muc.pca.data, "percentVar"))
-# PCA total variance explained = 67%
+muc.pcoa <- pcoa(muc.dist)
+  # Total var explained = 71.8
+mucin.phy.ord <- mucin.phy
+sample_data(mucin.phy.ord)$Season <- ordered(sample_data(mucin.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
-#tiff("mucin.pca.tiff", width=8, height=6, units="in", res=300)
-ggplot(muc.pca.data, aes(PC1, PC2, color=Season)) +
+#tiff("mucin.pcoa.tiff", width=8, height=6, units="in", res=300)
+plot_ordination(physeq = mucin.phy.ord, ordination = muc.pcoa, axes = c(1,2),
+                color = "Season") +
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  xlab(paste0("PC1: ", muc.pca.perc[1], "% variance")) +
-  ylab(paste0("PC2: ", muc.pca.perc[2], "% variance")) +
   ggtitle("Kendall Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -1050,18 +1046,17 @@ hist(muc.dist)
 qqnorm(muc.dist)
 qqline(muc.dist)
 shapiro.test(muc.dist)
-  # p-value = 0.3546
+  # p-value = 0.4856
   # Normal
 
 
 ### Run PERMANOVA on DESEq Kendall distance
-muc.dist <- Dist(t(assay(muc.transform)), method = "kendall")
 adonis(muc.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.00717
+  # p-value = 0.00358
 beta.tax = betadisper(d=muc.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.663
+  # p-value = 0.598
 
 
 

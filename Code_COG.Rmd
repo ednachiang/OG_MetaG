@@ -25,6 +25,8 @@ library('lme4')
 library('picante')
 library('ggdendro')
 library('fitdistrplus')
+library('amap')
+library('labdsv')
 theme_set(theme_bw())
 set.seed(1)
 ```
@@ -354,75 +356,36 @@ which(cog.kw[2,] < 0.05)
 
 ```
 
-### COG - Variance stabilizing transformation
-```{r}
-a <- as.numeric(cog.norm[,1])
-b <- as.numeric(cog.norm[,2])
-c <- as.numeric(cog.norm[,3])
-d <- as.numeric(cog.norm[,4])
-e <- as.numeric(cog.norm[,5])
-f <- as.numeric(cog.norm[,6])
-g <- as.numeric(cog.norm[,7])
-h <- as.numeric(cog.norm[,8])
-i <- as.numeric(cog.norm[,9])
-cog.num <- c(a,b,c,d,e,f,g,h,i)
-cog.num <- na.omit(cog.num)
-descdist(test, discrete = F, boot=1000)
-  # min:  0   max:  17.58868 
-  # median:  0.1220457 
-  # mean:  0.4213211 
-  # estimated sd:  0.797082 
-  # estimated skewness:  6.432063 
-  # estimated kurtosis:  75.04978 
 
-test <- cog.num[-which(cog.num == 0)]
-fw <- fitdist(test, "weibull")
-fg <- fitdist(test, "gamma")
-fe <- fitdist(test, "exp")
-
-par(mfrow = c(2, 2))
-plot.legend <- c("Weibull", "gamma", "expo")
-denscomp(list(fw, fg, fe), legendtext = plot.legend)
-qqcomp(list(fw, fg, fe), legendtext = plot.legend)
-cdfcomp(list(fw, fg, fe), legendtext = plot.legend)
-ppcomp(list(fw, fg, fe), legendtext = plot.legend)
-
-gofstat(list(fw, fg, fe))
-
-# Levene test
-test <- psmelt(cog.df)
-levene.test(cog.df[,1:3872], group = "Season")
-```
-
-### COG - Clustering - Count-level
+### COG - Clustering
 ```{r}
 # https://sites.google.com/site/mb3gustame/reference/dissimilarity
 cog <- data.frame(otu_table(cog.phy))
 colnames(cog) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
                         "3773", "3775")
-cog.dist <- dist(t(cog))
+cog.hell <- hellinger(t(cog))
+cog.dist <- dist(cog.hell, method = "euclidean")
 cog.dist.matrix <- as.matrix(cog.dist)
 rownames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 colnames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 
 # Heatmap
-pheatmap(cog.dist.matrix, clustering_distance_rows = cog.dist, 
-         clustering_distance_cols = cog.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
+#pheatmap(cog.dist.matrix, clustering_distance_rows = cog.dist, clustering_distance_cols = cog.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
 
 # Dendrogram
-cog.hclust <- hclust(cog.dist)
+cog.hclust <- hclust(cog.dist, method = "average")
 cog.den <- as.dendrogram(cog.hclust)
 cog.den.data <- dendro_data(cog.den, type = "rectangle")
 cog.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
 cog.den.data$labels[,3] <- ordered(cog.den.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
 
 
-#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
+#tiff("cog.dendro.tiff", width=10, height=5, units="in", res=300)
 ggplot(cog.den.data$segments) +
   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
   geom_text(data = cog.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Euclidean Distance") +
+  ylab("Hellinger Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -446,74 +409,19 @@ ggplot(cog.den.data$segments) +
 
 
 
+### PCoA
+cog.pcoa <- pcoa(cog.dist)
+  # Total variance explained = 62.4
+cog.phy.ord <- cog.phy
+sample_data(cog.phy.ord)$Season <- ordered(sample_data(cog.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
 
-##### Kendall #####
-cog <- data.frame(otu_table(cog.phy))
-colnames(cog) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
-                        "3773", "3775")
-cog.distk <- Dist(t(cog), method = "kendall")
-cog.distk.matrix <- as.matrix(cog.distk)
-rownames(cog.distk.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-colnames(cog.distk.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-
-# Heatmap
-pheatmap(cog.distk.matrix, clustering_distance_rows = cog.dist, 
-         clustering_distance_cols = cog.distk, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
-
-# Dendrogram
-cog.hclustk <- hclust(cog.distk)
-cog.denk <- as.dendrogram(cog.hclustk)
-cog.denk.data <- dendro_data(cog.denk, type = "rectangle")
-cog.denk.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
-cog.denk.data$labels[,3] <- ordered(cog.denk.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
-
-
-#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
-ggplot(cog.denk.data$segments) +
-  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
-  geom_text(data = cog.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
-            hjust=0, size=5) +
-  ylab("Kendall Distance") +
-  xlab("Season") +
-  labs(colour = "Season") +
-  coord_flip() +
-  scale_y_reverse() +
-  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.text.y = element_blank(),
-        axis.text.x = element_text(size=20),
-        panel.border = element_blank(),
-        axis.line.x = element_line(),
-        legend.title = element_text(face="bold"),
-        axis.title.x = element_text(face="bold", size=20),
-        axis.title.y = element_text(face="bold", size=20))
-#dev.off()
-
-adonis(cog.distk ~ Season, meta, permutations = 99999)
-  # p-value = 0.01811
-
-
-
-
-
-
-
-
-
-
-
-
-### PCA - Euclidean
-cog.pca <- ordinate(physeq = cog.phy, method = "PCoA", distance = "euclidean")
-
-plot_ordination(physeq = cog.phy, ordination = cog.pca, axes = c(1, 2),
-                color="Season") + 
+#tiff("cog.pcoa.tiff", width=8, height=6, units="in", res=300)
+plot_ordination(physeq = cog.phy.ord, ordination = cog.pcoa, axes = c(1,2),
+                color = "Season") +
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
+  ggtitle("Kendall Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -521,8 +429,11 @@ plot_ordination(physeq = cog.phy, ordination = cog.pca, axes = c(1, 2),
         legend.title = element_text(size=20),
         legend.text = element_text(size=18),
         plot.title = element_text(hjust=0.5, size=20))
-  
- 
+#dev.off()
+
+
+
+
 
 
 ### Test normality
@@ -530,124 +441,51 @@ hist(cog.dist)
 qqnorm(cog.dist)
 qqline(cog.dist)
 shapiro.test(cog.dist)
-  # p-value = 0.1578
+  # p-value = 0.05018
   # Normal
 
 ### Run PERMANOVA on DESEq Euclidean distance
 adonis(cog.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.05682
+  # p-value = 0.02092
 beta.tax = betadisper(d=cog.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.492
+  # p-value = 0.727
 
 
-
-
-### PCA - Bray-Curtis
-cog.pca.bc <- ordinate(physeq = cog.phy, method = "PCoA", distance = "bray")
-
-plot_ordination(physeq = cog.phy, ordination = cog.pca.bc, axes = c(1, 2),
-                color="Season") + 
-  geom_point(size=5) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.title.x = element_text(size=20),
-        axis.title.y = element_text(size=20),
-        legend.title = element_text(size=20),
-        legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
-
-### Run PERMANOVA on DESEq Bray-Curtis
-cog.bray <- phyloseq::distance(physeq=cog.phy, method="bray")
-adonis(cog.bray ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.05678
-beta.tax = betadisper(d=cog.bray, group=meta$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.618
 ```
 
-### COG - Clustering - Category-level
+### COG Category - Clustering
 ```{r}
 # https://sites.google.com/site/mb3gustame/reference/dissimilarity
 cog.cat <- data.frame(otu_table(cog.cat.phy))
 colnames(cog.cat) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
                         "3773", "3775")
-cog.cat.dist <- dist(t(cog.cat))
+cog.cat.hell <- hellinger(t(cog.cat))
+cog.cat.dist <- dist(cog.cat.hell, method = "euclidean")
 cog.cat.dist.matrix <- as.matrix(cog.cat.dist)
 rownames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 colnames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 
+
+
 # Heatmap
-pheatmap(cog.cat.dist.matrix, clustering_distance_rows = cog.cat.dist, 
-         clustering_distance_cols = cog.cat.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
+#pheatmap(cog.cat.dist.matrix, clustering_distance_rows = cog.cat.dist, clustering_distance_cols = cog.cat.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
 
 # Dendrogram
-cog.cat.hclust <- hclust(cog.cat.dist)
+cog.cat.hclust <- hclust(cog.cat.dist, method = "average")
 cog.cat.den <- as.dendrogram(cog.cat.hclust)
 cog.cat.den.data <- dendro_data(cog.cat.den, type = "rectangle")
 cog.cat.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
 cog.cat.den.data$labels[,3] <- ordered(cog.cat.den.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
 
 
-#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
+#tiff("cog.cat.dendro.tiff", width=10, height=5, units="in", res=300)
 ggplot(cog.cat.den.data$segments) +
   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
   geom_text(data = cog.cat.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Euclidean Distance") +
-  xlab("Season") +
-  labs(colour = "Season") +
-  coord_flip() +
-  scale_y_reverse() +
-  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.text.y = element_blank(),
-        axis.text.x = element_text(size=20),
-        panel.border = element_blank(),
-        axis.line.x = element_line(),
-        legend.title = element_text(face="bold"),
-        axis.title.x = element_text(face="bold", size=20),
-        axis.title.y = element_text(face="bold", size=20))
-
-
-
-
-
-
-
-
-
-
-##### Kendall #####
-cog.cat.distk <- Dist(t(cog.cat), method = "kendall")
-cog.cat.distk.matrix <- as.matrix(cog.cat.distk)
-rownames(cog.cat.distk.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-colnames(cog.cat.distk.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-
-# Heatmap
-pheatmap(cog.cat.distk.matrix, clustering_distance_rows = cog.cat.distk, 
-         clustering_distance_cols = cog.cat.distk, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
-
-# Dendrogram
-cog.cat.hclustk <- hclust(cog.cat.distk)
-cog.cat.denk <- as.dendrogram(cog.cat.hclustk)
-cog.cat.denk.data <- dendro_data(cog.cat.denk, type = "rectangle")
-cog.cat.denk.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
-cog.cat.denk.data$labels[,3] <- ordered(cog.cat.denk.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
-
-
-#tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
-ggplot(cog.cat.denk.data$segments) +
-  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
-  geom_text(data = cog.cat.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
-            hjust=0, size=5) +
-  ylab("Kendall Distance") +
+  ylab("Hellinger Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -666,30 +504,22 @@ ggplot(cog.cat.denk.data$segments) +
 #dev.off()
 
 
-adonis(cog.cat.distk ~ Season, meta, permutations = 99999)
-  # p-value = 0.00351
 
 
 
+### PCoA
+cog.cat.pcoa <- pcoa(cog.cat.dist)
+  # Total variance explained = 71.4%
+cog.cat.phy.ord <- cog.cat.phy
+sample_data(cog.cat.phy.ord)$Season <- ordered(sample_data(cog.cat.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
 
-
-
-
-
-
-
-
-
-
-### PCA - Euclidean
-cog.cat.pca <- ordinate(physeq = cog.cat.phy, method = "PCoA", distance = "euclidean")
-
-plot_ordination(physeq = cog.cat.phy, ordination = cog.cat.pca, axes = c(1, 2),
+#tiff("cog.cat.pcoa.tiff", width=10, height=5, units="in", res=300)
+plot_ordination(physeq = cog.cat.phy.ord, ordination = cog.cat.pcoa, axes = c(1, 2),
                 color="Season") + 
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
+  ggtitle("Hellinger Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -697,7 +527,7 @@ plot_ordination(physeq = cog.cat.phy, ordination = cog.cat.pca, axes = c(1, 2),
         legend.title = element_text(size=20),
         legend.text = element_text(size=18),
         plot.title = element_text(hjust=0.5, size=20))
-  
+#dev.off()
  
 
 
@@ -706,44 +536,16 @@ hist(cog.cat.dist)
 qqnorm(cog.cat.dist)
 qqline(cog.cat.dist)
 shapiro.test(cog.cat.dist)
-  # p-value = 0.001808
-  # Not Normal
+  # p-value = 0.334
+  # Normal
 
 ### Run PERMANOVA on DESEq Euclidean distance
 adonis(cog.cat.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.3561
+  # p-value = 0.1269
 beta.tax = betadisper(d=cog.cat.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.493
-
-
-
-
-### PCA - Bray-Curtis
-cog.cat.pca.bc <- ordinate(physeq = cog.cat.phy, method = "PCoA", distance = "bray")
-
-plot_ordination(physeq = cog.cat.phy, ordination = cog.cat.pca.bc, axes = c(1, 2),
-                color="Season") + 
-  geom_point(size=5) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.title.x = element_text(size=20),
-        axis.title.y = element_text(size=20),
-        legend.title = element_text(size=20),
-        legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
-
-### Run PERMANOVA on DESEq Bray-Curtis
-cog.cat.bray <- phyloseq::distance(physeq=cog.cat.phy, method="bray")
-adonis(cog.cat.bray ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.5051
-beta.tax = betadisper(d=cog.cat.bray, group=meta$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.579
+  # p-value = 0.219
 ```
 
 

@@ -25,6 +25,8 @@ library('lme4')
 library('picante')
 library('ggdendro')
 library('fitdistrplus')
+library('amap')
+library('labdsv')
 theme_set(theme_bw())
 set.seed(1)
 ```
@@ -106,7 +108,7 @@ kegg3.phy <- merge_phyloseq(kegg3.otu, cat3.tax, sample_data(meta))
 kegg1 <- read.csv('KEGG/musicc_outputs/test1/cat1.csv', header=T, row.names=1)
 kegg2 <- read.csv('KEGG/musicc_outputs/test2/cat1.csv', header=T, row.names=1)
 kegg3 <- read.csv('KEGG/musicc_outputs/test3/cat1.csv', header=T, row.names=1)
-kegg4 <- read.csv('KEGG/musicc_outputs/test4/cat1.csv', header=T, row.names=1)
+#kegg4 <- read.csv('KEGG/musicc_outputs/test4/cat1.csv', header=T, row.names=1)
 
 
 
@@ -126,10 +128,10 @@ rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
 kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
 
-kegg4.df <- data.frame(t(kegg4))
-rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
+#kegg4.df <- data.frame(t(kegg4))
+#rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+#kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+#kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
 
 
 # Run Kruskal-Wallis on normalized KEGG counts
@@ -163,15 +165,15 @@ for(i in 1:nrow(kegg3)){
 kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
 which(kegg3.kw[2,] < 0.05)
 
-kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
-colnames(kegg4.kw) <- rownames(kegg4)
-for(i in 1:nrow(kegg4)){
-  koid <- colnames(kegg4.df)[i]
-  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
-  kegg4.kw[,i] <- kw$p.value
-}
-kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
-which(kegg4.kw[2,] < 0.05)
+#kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
+#colnames(kegg4.kw) <- rownames(kegg4)
+#for(i in 1:nrow(kegg4)){
+#  koid <- colnames(kegg4.df)[i]
+#  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
+#  kegg4.kw[,i] <- kw$p.value
+#}
+#kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
+#which(kegg4.kw[2,] < 0.05)
 ```
 
 
@@ -184,8 +186,8 @@ kegg2 <- read.csv('KEGG/musicc_outputs/test2/Cat2.csv', header=T, row.names=1)
 kegg2 <- kegg2[,-ncol(kegg2)]
 kegg3 <- read.csv('KEGG/musicc_outputs/test3/Cat2.csv', header=T, row.names=1)
 kegg3 <- kegg3[,-ncol(kegg3)]
-kegg4 <- read.csv('KEGG/musicc_outputs/test4/Cat2.csv', header=T, row.names=1)
-kegg4 <- kegg4[,-ncol(kegg4)]
+#kegg4 <- read.csv('KEGG/musicc_outputs/test4/Cat2.csv', header=T, row.names=1)
+#kegg4 <- kegg4[,-ncol(kegg4)]
 
 
 # Format data
@@ -204,10 +206,10 @@ rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
 kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
 
-kegg4.df <- data.frame(t(kegg4))
-rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
+#kegg4.df <- data.frame(t(kegg4))
+#rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+#kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+#kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
 
 
 # Run Kruskal-Wallis on normalized KEGG counts
@@ -241,15 +243,15 @@ for(i in 1:nrow(kegg3)){
 kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
 which(kegg3.kw[2,] < 0.05)
 
-kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
-colnames(kegg4.kw) <- rownames(kegg4)
-for(i in 1:nrow(kegg4)){
-  koid <- colnames(kegg4.df)[i]
-  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
-  kegg4.kw[,i] <- kw$p.value
-}
-kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
-which(kegg4.kw[2,] < 0.05)
+#kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
+#colnames(kegg4.kw) <- rownames(kegg4)
+#for(i in 1:nrow(kegg4)){
+#  koid <- colnames(kegg4.df)[i]
+#  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
+#  kegg4.kw[,i] <- kw$p.value
+#}
+#kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
+#which(kegg4.kw[2,] < 0.05)
 ```
 
 
@@ -265,9 +267,9 @@ kegg2 <- kegg2[,-ncol(kegg2)]
 kegg3 <- read.csv('KEGG/musicc_outputs/test3/path.csv', header=T, row.names=1)
 kegg3 <- kegg3[,-ncol(kegg3)]
 kegg3 <- kegg3[,-ncol(kegg3)]
-kegg4 <- read.csv('KEGG/musicc_outputs/test4/path.csv', header=T, row.names=1)
-kegg4 <- kegg4[,-ncol(kegg4)]
-kegg4 <- kegg4[,-ncol(kegg4)]
+#kegg4 <- read.csv('KEGG/musicc_outputs/test4/path.csv', header=T, row.names=1)
+#kegg4 <- kegg4[,-ncol(kegg4)]
+#kegg4 <- kegg4[,-ncol(kegg4)]
 
 
 # Format data
@@ -286,10 +288,10 @@ rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
 kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
 
-kegg4.df <- data.frame(t(kegg4))
-rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
+#kegg4.df <- data.frame(t(kegg4))
+#rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+#kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+#kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
 
 
 # Run Kruskal-Wallis on normalized KEGG counts
@@ -323,15 +325,15 @@ for(i in 1:nrow(kegg3)){
 kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
 which(kegg3.kw[2,] < 0.05)
 
-kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
-colnames(kegg4.kw) <- rownames(kegg4)
-for(i in 1:nrow(kegg4)){
-  koid <- colnames(kegg4.df)[i]
-  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
-  kegg4.kw[,i] <- kw$p.value
-}
-kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
-which(kegg4.kw[2,] < 0.05)
+#kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
+#colnames(kegg4.kw) <- rownames(kegg4)
+#for(i in 1:nrow(kegg4)){
+#  koid <- colnames(kegg4.df)[i]
+#  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
+#  kegg4.kw[,i] <- kw$p.value
+#}
+#kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
+#which(kegg4.kw[2,] < 0.05)
 ```
 
 
@@ -339,39 +341,33 @@ which(kegg4.kw[2,] < 0.05)
 ### KEGG - KOID Kruskal-Wallis
 ```{r}
 # Load data
-kegg1 <- read.csv('KEGG/musicc_outputs/KEGG_MUSiCC_all1.tab', header=T, sep = "\t")
-kegg2 <- read.csv('KEGG/musicc_outputs/KEGG_MUSiCC_all2.tab', header=T, sep = "\t")
-kegg3 <- read.csv('KEGG/musicc_outputs/KEGG_MUSiCC_all3.tab', header=T, sep = "\t")
-kegg4 <- read.csv('KEGG/musicc_outputs/KEGG_MUSiCC_all4.tab', header=T, sep = "\t")
+kegg1 <- read.csv('KEGG/musicc_outputs/KEGG_MUSiCC_all1.tab', header=T, sep = "\t", row.names = 1)
+kegg2 <- read.csv('KEGG/musicc_outputs/KEGG_MUSiCC_all2.tab', header=T, sep = "\t", row.names = 1)
+kegg3 <- read.csv('KEGG/musicc_outputs/KEGG_MUSiCC_all3.tab', header=T, sep = "\t", row.names = 1)
+#kegg4 <- read.csv('KEGG/musicc_outputs/KEGG_MUSiCC_all4.tab', header=T, sep = "\t", row.names = 1)
 
 # Format data
 kegg1.df <- data.frame(t(kegg1))
-colnames(kegg1.df) <- kegg1.df[1,]
-kegg1.df <- kegg1.df[-1,]
 rownames(kegg1.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg1.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg1.df$Season <- ordered(kegg1.df$Season, levels=c("Summer", "Winter", "Spring"))
 
 kegg2.df <- data.frame(t(kegg2))
-colnames(kegg2.df) <- kegg2.df[1,]
-kegg2.df <- kegg2.df[-1,]
 rownames(kegg2.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg2.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg2.df$Season <- ordered(kegg2.df$Season, levels=c("Summer", "Winter", "Spring"))
 
 kegg3.df <- data.frame(t(kegg3))
-colnames(kegg3.df) <- kegg3.df[1,]
-kegg3.df <- kegg3.df[-1,]
 rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
 
-kegg4.df <- data.frame(t(kegg4))
-colnames(kegg4.df) <- kegg4.df[1,]
-kegg4.df <- kegg4.df[-1,]
-rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
+#kegg4.df <- data.frame(t(kegg4))
+#colnames(kegg4.df) <- kegg4.df[1,]
+#kegg4.df <- kegg4.df[-1,]
+#rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+#kegg4.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+#kegg4.df$Season <- ordered(kegg4.df$Season, levels=c("Summer", "Winter", "Spring"))
 
 
 # Run Kruskal-Wallis on normalized KEGG counts
@@ -405,15 +401,15 @@ for(i in 1:nrow(kegg3)){
 kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
 which(kegg3.kw[2,] < 0.05)
 
-kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
-colnames(kegg4.kw) <- kegg4[,1]
-for(i in 1:nrow(kegg4)){
-  koid <- colnames(kegg4.df)[i]
-  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
-  kegg4.kw[,i] <- kw$p.value
-}
-kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
-which(kegg4.kw[2,] < 0.05)
+#kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
+#colnames(kegg4.kw) <- kegg4[,1]
+#for(i in 1:nrow(kegg4)){
+#  koid <- colnames(kegg4.df)[i]
+#  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg4.df)
+#  kegg4.kw[,i] <- kw$p.value
+#}
+#kegg4.kw[2,] <- p.adjust(kegg4.kw[1,], method = "fdr")
+#which(kegg4.kw[2,] < 0.05)
 ```
 
 
@@ -421,19 +417,15 @@ which(kegg4.kw[2,] < 0.05)
 ```{r}
 kegg1 <- read.csv('KEGG/musicc_outputs/test1/cat1.csv', header=T, row.names=1)
 
-
-kegg1.cat1.dist <- dist(t(kegg1))
+kegg1.cat1.hell <- hellinger(kegg1)
+kegg1.cat1.dist <- dist(t(kegg1.cat1.hell), method = "euclidean")
 kegg1.cat1.dist.matrix <- as.matrix(kegg1.cat1.dist)
 rownames(kegg1.cat1.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 colnames(kegg1.cat1.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 
-# Heatmap
-pheatmap(kegg1.cat1.dist.matrix, clustering_distance_rows = kegg1.cat1.dist, 
-         clustering_distance_cols = kegg1.cat1.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
-
 
 # Dendrogram
-kegg1.cat1.hclust <- hclust(kegg1.cat1.dist)
+kegg1.cat1.hclust <- hclust(kegg1.cat1.dist, method = "average")
 kegg1.cat1.den <- as.dendrogram(kegg1.cat1.hclust)
 kegg1.cat1.den.data <- dendro_data(kegg1.cat1.den, type = "rectangle")
 kegg1.cat1.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
@@ -446,7 +438,7 @@ ggplot(kegg1.cat1.den.data$segments) +
   geom_text(data = kegg1.cat1.den.data$labels, 
             aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Euclidean Distance") +
+  ylab("Hellinger Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -468,14 +460,18 @@ ggplot(kegg1.cat1.den.data$segments) +
 
 
 
-### PCA - Euclidean
-cat1.pca <- ordinate(physeq = kegg1.phy, method = "PCoA", distance = "euclidean")
+### PCoA
+cat1.pcoa <- pcoa(kegg1.cat1.dist)
+rownames(cat1.pcoa$vectors) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cat1.phy.ord <- kegg1.phy
+sample_data(cat1.phy.ord)$Season <- ordered(sample_data(cat1.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
-plot_ordination(physeq = kegg1.phy, ordination = cat1.pca, axes = c(1, 2),
-                color="Season") + 
+
+plot_ordination(physeq = cat1.phy.ord, ordination = cat1.pcoa, axes = c(1,2),
+                color = "Season") +
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
+  ggtitle("Hellinger Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -492,44 +488,54 @@ hist(kegg1.cat1.dist)
 qqnorm(kegg1.cat1.dist)
 qqline(kegg1.cat1.dist)
 shapiro.test(kegg1.cat1.dist)
-  # p-value = 0.03504
-  # Not Normal
+  # p-value = 0.0794
+  # Normal
 
-### Run PERMANOVA on Euclidean distance
+### Run PERMANOVA on Hellinger distance
 adonis(kegg1.cat1.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.287
+  # p-value = 0.03138
 beta.tax = betadisper(d=kegg1.cat1.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.764
+  # p-value = 0.537
 
 
 
 
-### PCA - Bray-Curtis
-cat1.pca.bc <- ordinate(physeq = kegg1.phy, method = "PCoA", distance = "bray")
+### Pairwise PERMANOVA comparisons
+kegg1.cat1.dist.matrix <- as.matrix(kegg1.cat1.dist)
+kegg1.cat1.dist.df <- data.frame(kegg1.cat1.dist.matrix)
 
-plot_ordination(physeq = kegg1.phy, ordination = cat1.pca.bc, axes = c(1, 2),
-                color="Season") + 
-  geom_point(size=5) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.title.x = element_text(size=20),
-        axis.title.y = element_text(size=20),
-        legend.title = element_text(size=20),
-        legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
 
-### Run PERMANOVA on Bray-Curtis
-cat1.bray <- phyloseq::distance(physeq=kegg1.phy, method="bray")
-adonis(cat1.bray ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.2069
-beta.tax = betadisper(d=cat1.bray, group=meta$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.736
+# Summer vs. Winter
+kegg1.cat1.sw.dist.df <- kegg1.cat1.dist.df[,-5]
+kegg1.cat1.sw.dist.df <- kegg1.cat1.sw.dist.df[,-7:-8]
+kegg1.cat1.sw.dist.df <- kegg1.cat1.sw.dist.df[-5,]
+kegg1.cat1.sw.dist.df <- kegg1.cat1.sw.dist.df[-7:-8,]
+kegg1.cat1.sw.dist <- as.dist(kegg1.cat1.sw.dist.df)
+meta.sw <- meta[-which(meta$Season == "Spring"),]
+adonis(kegg1.cat1.sw.dist ~ Season, data=meta.sw, permutations= 99999)
+  # p-value = 0.2
+
+# Summer vs. Spring
+kegg1.cat1.sp.dist.df <- kegg1.cat1.dist.df[,-3:-4]
+kegg1.cat1.sp.dist.df <- kegg1.cat1.sp.dist.df[,-5]
+kegg1.cat1.sp.dist.df <- kegg1.cat1.sp.dist.df[-3:-4,]
+kegg1.cat1.sp.dist.df <- kegg1.cat1.sp.dist.df[-5,]
+kegg1.cat1.sp.dist <- as.dist(kegg1.cat1.sp.dist.df)
+meta.sp <- meta[-which(meta$Season == "Winter"),]
+adonis(kegg1.cat1.sp.dist ~ Season, data=meta.sp, permutations= 99999)
+  # p-value = 0.2
+
+# Spring vs. Winter
+kegg1.cat1.wp.dist.df <- kegg1.cat1.dist.df[,-3:-4]
+kegg1.cat1.wp.dist.df <- kegg1.cat1.wp.dist.df[,-5]
+kegg1.cat1.wp.dist.df <- kegg1.cat1.wp.dist.df[-3:-4,]
+kegg1.cat1.wp.dist.df <- kegg1.cat1.wp.dist.df[-5,]
+kegg1.cat1.wp.dist <- as.dist(kegg1.cat1.wp.dist.df)
+meta.wp <- meta[-which(meta$Season == "Summer"),]
+adonis(kegg1.cat1.wp.dist ~ Season, data=meta.wp, permutations= 99999)
+  # p-value = 0.2
 ```
 
 ### KEGG - Cat2 Cluster Analysis
@@ -537,18 +543,16 @@ p$tab
 kegg1 <- read.csv('KEGG/musicc_outputs/test1/cat2.csv', header=T, row.names=1)
 kegg1 <- kegg1[,-ncol(kegg1)]
 
-kegg1.cat2.dist <- dist(t(kegg1))
+kegg1.cat2.hell <- hellinger(kegg1)
+kegg1.cat2.dist <- dist(t(kegg1.cat1.hell), method = "euclidean")
 kegg1.cat2.dist.matrix <- as.matrix(kegg1.cat2.dist)
 rownames(kegg1.cat2.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 colnames(kegg1.cat2.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 
-# Heatmap
-pheatmap(kegg1.cat2.dist.matrix, clustering_distance_rows = kegg1.cat2.dist, 
-         clustering_distance_cols = kegg1.cat2.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
 
 
 # Dendrogram
-kegg1.cat2.hclust <- hclust(kegg1.cat2.dist)
+kegg1.cat2.hclust <- hclust(kegg1.cat2.dist, method = "average")
 kegg1.cat2.den <- as.dendrogram(kegg1.cat2.hclust)
 kegg1.cat2.den.data <- dendro_data(kegg1.cat2.den, type = "rectangle")
 kegg1.cat2.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
@@ -556,12 +560,13 @@ kegg1.cat2.den.data$labels[,3] <- ordered(kegg1.cat2.den.data$labels[,3], levels
 
 
 #tiff("dbcan.dendro.tiff", width=10, height=5, units="in", res=300)
-ggplot(kegg1.cat2.den.data$segments) +
+plot_ordination(physeq = cat2.phy.ord, ordination = cat2.pcoa, axes = c(1,2),
+                color = "Season") +
   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
   geom_text(data = kegg1.cat2.den.data$labels, 
             aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Euclidean Distance") +
+  ylab("Hellinger Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -583,14 +588,18 @@ ggplot(kegg1.cat2.den.data$segments) +
 
 
 
-### PCA - Euclidean
-cat2.pca <- ordinate(physeq = kegg2.phy, method = "PCoA", distance = "euclidean")
+### PCoA
+cat2.pcoa <- pcoa(kegg1.cat2.dist)
+rownames(cat2.pcoa$vectors) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cat2.phy.ord <- kegg1.phy
+sample_data(cat2.phy.ord)$Season <- ordered(sample_data(cat2.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
-plot_ordination(physeq = kegg2.phy, ordination = cat2.pca, axes = c(1, 2),
+
+plot_ordination(physeq = cat2.phy.ord, ordination = cat2.pcoa, axes = c(1, 2),
                 color="Season") + 
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
+  ggtitle("Hellinger Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -607,44 +616,53 @@ hist(kegg1.cat2.dist)
 qqnorm(kegg1.cat2.dist)
 qqline(kegg1.cat2.dist)
 shapiro.test(kegg1.cat2.dist)
-  # p-value = 0.01897
+  # p-value = 0.0794
   # Not Normal
 
-### Run PERMANOVA on Euclidean distance
+### Run PERMANOVA on Hellinger distance
 adonis(kegg1.cat2.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.1712
+  # p-value = 0.03081
 beta.tax = betadisper(d=kegg1.cat2.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.566
+  # p-value = 0.509
 
 
 
+### Pairwise PERMANOVA comparisons
+kegg1.cat2.dist.matrix <- as.matrix(kegg1.cat2.dist)
+kegg1.cat2.dist.df <- data.frame(kegg1.cat2.dist.matrix)
 
-### PCA - Bray-Curtis
-cat2.pca.bc <- ordinate(physeq = kegg2.phy, method = "PCoA", distance = "bray")
 
-plot_ordination(physeq = kegg2.phy, ordination = cat2.pca.bc, axes = c(1, 2),
-                color="Season") + 
-  geom_point(size=5) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.title.x = element_text(size=20),
-        axis.title.y = element_text(size=20),
-        legend.title = element_text(size=20),
-        legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
+# Summer vs. Winter
+kegg1.cat2.sw.dist.df <- kegg1.cat2.dist.df[,-5]
+kegg1.cat2.sw.dist.df <- kegg1.cat2.sw.dist.df[,-7:-8]
+kegg1.cat2.sw.dist.df <- kegg1.cat2.sw.dist.df[-5,]
+kegg1.cat2.sw.dist.df <- kegg1.cat2.sw.dist.df[-7:-8,]
+kegg1.cat2.sw.dist <- as.dist(kegg1.cat2.sw.dist.df)
+meta.sw <- meta[-which(meta$Season == "Spring"),]
+adonis(kegg1.cat2.sw.dist ~ Season, data=meta.sw, permutations= 99999)
+  # p-value = 0.2
 
-### Run PERMANOVA on Bray-Curtis
-cat2.bray <- phyloseq::distance(physeq=kegg2.phy, method="bray")
-adonis(cat2.bray ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.253
-beta.tax = betadisper(d=cat2.bray, group=meta$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.673
+# Summer vs. Spring
+kegg1.cat2.sp.dist.df <- kegg1.cat2.dist.df[,-3:-4]
+kegg1.cat2.sp.dist.df <- kegg1.cat2.sp.dist.df[,-5]
+kegg1.cat2.sp.dist.df <- kegg1.cat2.sp.dist.df[-3:-4,]
+kegg1.cat2.sp.dist.df <- kegg1.cat2.sp.dist.df[-5,]
+kegg1.cat2.sp.dist <- as.dist(kegg1.cat2.sp.dist.df)
+meta.sp <- meta[-which(meta$Season == "Winter"),]
+adonis(kegg1.cat2.sp.dist ~ Season, data=meta.sp, permutations= 99999)
+  # p-value = 0.2
+
+# Spring vs. Winter
+kegg1.cat2.wp.dist.df <- kegg1.cat2.dist.df[,-3:-4]
+kegg1.cat2.wp.dist.df <- kegg1.cat2.wp.dist.df[,-5]
+kegg1.cat2.wp.dist.df <- kegg1.cat2.wp.dist.df[-3:-4,]
+kegg1.cat2.wp.dist.df <- kegg1.cat2.wp.dist.df[-5,]
+kegg1.cat2.wp.dist <- as.dist(kegg1.cat2.wp.dist.df)
+meta.wp <- meta[-which(meta$Season == "Summer"),]
+adonis(kegg1.cat2.wp.dist ~ Season, data=meta.wp, permutations= 99999)
+  # p-value = 0.2
 ```
 
 
@@ -654,18 +672,15 @@ kegg1 <- read.csv('KEGG/musicc_outputs/test1/path.csv', header=T, row.names=1)
 kegg1 <- kegg1[,-ncol(kegg1)]
 kegg1 <- kegg1[,-ncol(kegg1)]
 
-kegg1.path.dist <- dist(t(kegg1))
+kegg1.path.hell <- hellinger(kegg1)
+kegg1.path.dist <- dist(t(kegg1.path.hell), method = "euclidean")
 kegg1.path.dist.matrix <- as.matrix(kegg1.path.dist)
 rownames(kegg1.path.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 colnames(kegg1.path.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 
-# Heatmap
-pheatmap(kegg1.path.dist.matrix, clustering_distance_rows = kegg1.path.dist, 
-         clustering_distance_cols = kegg1.path.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
-
 
 # Dendrogram
-kegg1.path.hclust <- hclust(kegg1.path.dist)
+kegg1.path.hclust <- hclust(kegg1.path.dist, method = "average")
 kegg1.path.den <- as.dendrogram(kegg1.path.hclust)
 kegg1.path.den.data <- dendro_data(kegg1.path.den, type = "rectangle")
 kegg1.path.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
@@ -678,7 +693,7 @@ ggplot(kegg1.path.den.data$segments) +
   geom_text(data = kegg1.path.den.data$labels, 
             aes(x, y, label=label, colour=label, fontface = "bold"),
             hjust=0, size=5) +
-  ylab("Euclidean Distance") +
+  ylab("Hellinger Distance") +
   xlab("Season") +
   labs(colour = "Season") +
   coord_flip() +
@@ -700,14 +715,17 @@ ggplot(kegg1.path.den.data$segments) +
 
 
 
-### PCA - Euclidean
-path.pca <- ordinate(physeq = kegg3.phy, method = "PCoA", distance = "euclidean")
+### PCoA
+path.pcoa <- pcoa(kegg1.path.dist)
+rownames(path.pcoa$vectors) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+path.phy.ord <- kegg1.phy
+sample_data(path.phy.ord)$Season <- ordered(sample_data(path.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
-plot_ordination(physeq = kegg3.phy, ordination = path.pca, axes = c(1, 2),
+plot_ordination(physeq = path.phy.ord, ordination = path.pcoa, axes = c(1, 2),
                 color="Season") + 
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
+  ggtitle("Hellinger Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -724,42 +742,18 @@ hist(kegg1.path.dist)
 qqnorm(kegg1.path.dist)
 qqline(kegg1.path.dist)
 shapiro.test(kegg1.path.dist)
-  # p-value = 0.02788
+  # p-value = 0.01237
   # Not Normal
 
 ### Run PERMANOVA on Euclidean distance
 adonis(kegg1.path.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.01144
+  # p-value = 0.2285
 beta.tax = betadisper(d=kegg1.path.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.493
+  # p-value = 0.789
 
 
 
 
-### PCA - Bray-Curtis
-path.pca.bc <- ordinate(physeq = kegg3.phy, method = "PCoA", distance = "bray")
-
-plot_ordination(physeq = kegg3.phy, ordination = path.pca.bc, axes = c(1, 2),
-                color="Season") + 
-  geom_point(size=5) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Euclidean Distance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.title.x = element_text(size=20),
-        axis.title.y = element_text(size=20),
-        legend.title = element_text(size=20),
-        legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
-
-### Run PERMANOVA on Bray-Curtis
-path.bray <- phyloseq::distance(physeq=kegg3.phy, method="bray")
-adonis(path.bray ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.1573
-beta.tax = betadisper(d=path.bray, group=meta$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.537
 ```

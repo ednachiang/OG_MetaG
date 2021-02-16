@@ -117,16 +117,22 @@ kegg1.df <- data.frame(t(kegg1))
 rownames(kegg1.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg1.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg1.df$Season <- ordered(kegg1.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg1.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg1.df$Diet <- ordered(kegg1.df$Diet, levels=c("Feed", "Fast"))
 
 kegg2.df <- data.frame(t(kegg2))
 rownames(kegg2.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg2.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg2.df$Season <- ordered(kegg2.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg2.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg2.df$Diet <- ordered(kegg1.df$Diet, levels=c("Feed", "Fast"))
 
 kegg3.df <- data.frame(t(kegg3))
 rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg3.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg3.df$Diet <- ordered(kegg1.df$Diet, levels=c("Feed", "Fast"))
 
 #kegg4.df <- data.frame(t(kegg4))
 #rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
@@ -145,6 +151,16 @@ for(i in 1:nrow(kegg1)){
 kegg1.kw[2,] <- p.adjust(kegg1.kw[1,], method = "fdr")
 which(kegg1.kw[2,] < 0.05)
 
+kegg1.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg1)))
+colnames(kegg1.wil) <- rownames(kegg1)
+for(i in 1:nrow(kegg1)){
+  koid <- colnames(kegg1.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg1.df)
+  kegg1.wil[,i] <- wil$p.value
+}
+kegg1.wil[2,] <- p.adjust(kegg1.wil[1,], method = "fdr")
+which(kegg1.wil[2,] < 0.05)
+
 kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
 colnames(kegg2.kw) <- rownames(kegg2)
 for(i in 1:nrow(kegg2)){
@@ -155,6 +171,17 @@ for(i in 1:nrow(kegg2)){
 kegg2.kw[2,] <- p.adjust(kegg2.kw[1,], method = "fdr")
 which(kegg2.kw[2,] < 0.05)
 
+kegg2.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
+colnames(kegg2.wil) <- rownames(kegg2)
+for(i in 1:nrow(kegg2)){
+  koid <- colnames(kegg2.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg2.df)
+  kegg2.wil[,i] <- wil$p.value
+}
+kegg2.wil[2,] <- p.adjust(kegg2.wil[1,], method = "fdr")
+which(kegg2.wil[2,] < 0.05)
+
+
 kegg3.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
 colnames(kegg3.kw) <- rownames(kegg3)
 for(i in 1:nrow(kegg3)){
@@ -164,6 +191,17 @@ for(i in 1:nrow(kegg3)){
 }
 kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
 which(kegg3.kw[2,] < 0.05)
+
+kegg3.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
+colnames(kegg3.wil) <- rownames(kegg3)
+for(i in 1:nrow(kegg3)){
+  koid <- colnames(kegg3.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg3.df)
+  kegg3.wil[,i] <- wil$p.value
+}
+kegg3.wil[2,] <- p.adjust(kegg3.wil[1,], method = "fdr")
+which(kegg3.wil[2,] < 0.05)
+
 
 #kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
 #colnames(kegg4.kw) <- rownames(kegg4)
@@ -195,16 +233,22 @@ kegg1.df <- data.frame(t(kegg1))
 rownames(kegg1.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg1.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg1.df$Season <- ordered(kegg1.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg1.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg1.df$Diet <- ordered(kegg1.df$Diet, levels=c("Feed", "Fast"))
 
 kegg2.df <- data.frame(t(kegg2))
 rownames(kegg2.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg2.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg2.df$Season <- ordered(kegg2.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg2.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg2.df$Diet <- ordered(kegg2.df$Diet, levels=c("Feed", "Fast"))
 
 kegg3.df <- data.frame(t(kegg3))
 rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg3.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg3.df$Diet <- ordered(kegg3.df$Diet, levels=c("Feed", "Fast"))
 
 #kegg4.df <- data.frame(t(kegg4))
 #rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
@@ -223,6 +267,16 @@ for(i in 1:nrow(kegg1)){
 kegg1.kw[2,] <- p.adjust(kegg1.kw[1,], method = "fdr")
 which(kegg1.kw[2,] < 0.05)
 
+kegg1.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg1)))
+colnames(kegg1.wil) <- rownames(kegg1)
+for(i in 1:nrow(kegg1)){
+  koid <- colnames(kegg1.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg1.df)
+  kegg1.wil[,i] <- wil$p.value
+}
+kegg1.wil[2,] <- p.adjust(kegg1.wil[1,], method = "fdr")
+which(kegg1.wil[2,] < 0.05)
+
 kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
 colnames(kegg2.kw) <- rownames(kegg2)
 for(i in 1:nrow(kegg2)){
@@ -233,6 +287,16 @@ for(i in 1:nrow(kegg2)){
 kegg2.kw[2,] <- p.adjust(kegg2.kw[1,], method = "fdr")
 which(kegg2.kw[2,] < 0.05)
 
+kegg2.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
+colnames(kegg2.wil) <- rownames(kegg2)
+for(i in 1:nrow(kegg2)){
+  koid <- colnames(kegg2.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg2.df)
+  kegg2.wil[,i] <- wil$p.value
+}
+kegg2.wil[2,] <- p.adjust(kegg2.wil[1,], method = "fdr")
+which(kegg2.wil[2,] < 0.05)
+
 kegg3.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
 colnames(kegg3.kw) <- rownames(kegg3)
 for(i in 1:nrow(kegg3)){
@@ -242,6 +306,16 @@ for(i in 1:nrow(kegg3)){
 }
 kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
 which(kegg3.kw[2,] < 0.05)
+
+kegg3.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
+colnames(kegg3.wil) <- rownames(kegg3)
+for(i in 1:nrow(kegg3)){
+  koid <- colnames(kegg3.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg3.df)
+  kegg3.wil[,i] <- wil$p.value
+}
+kegg3.wil[2,] <- p.adjust(kegg3.wil[1,], method = "fdr")
+which(kegg3.wil[2,] < 0.05)
 
 #kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
 #colnames(kegg4.kw) <- rownames(kegg4)
@@ -277,16 +351,32 @@ kegg1.df <- data.frame(t(kegg1))
 rownames(kegg1.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg1.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg1.df$Season <- ordered(kegg1.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg1.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg1.df$Diet <- ordered(kegg1.df$Diet, levels=c("Feed", "Fast"))
 
 kegg2.df <- data.frame(t(kegg2))
 rownames(kegg2.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg2.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg2.df$Season <- ordered(kegg2.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg2.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg2.df$Diet <- ordered(kegg2.df$Diet, levels=c("Feed", "Fast"))
+
+kegg2.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
+colnames(kegg2.wil) <- rownames(kegg2)
+for(i in 1:nrow(kegg2)){
+  koid <- colnames(kegg2.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg2.df)
+  kegg2.wil[,i] <- wil$p.value
+}
+kegg2.wil[2,] <- p.adjust(kegg2.wil[1,], method = "fdr")
+which(kegg2.wil[2,] < 0.05)
 
 kegg3.df <- data.frame(t(kegg3))
 rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg3.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg3.df$Diet <- ordered(kegg3.df$Diet, levels=c("Feed", "Fast"))
 
 #kegg4.df <- data.frame(t(kegg4))
 #rownames(kegg4.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
@@ -304,6 +394,17 @@ for(i in 1:nrow(kegg1)){
 }
 kegg1.kw[2,] <- p.adjust(kegg1.kw[1,], method = "fdr")
 which(kegg1.kw[2,] < 0.05)
+
+kegg1.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg1)))
+colnames(kegg1.wil) <- rownames(kegg1)
+for(i in 1:nrow(kegg1)){
+  koid <- colnames(kegg1.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg1.df)
+  kegg1.wil[,i] <- wil$p.value
+}
+kegg1.wil[2,] <- p.adjust(kegg1.wil[1,], method = "fdr")
+which(kegg1.wil[2,] < 0.05)
+
 
 kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
 colnames(kegg2.kw) <- rownames(kegg2)
@@ -324,6 +425,16 @@ for(i in 1:nrow(kegg3)){
 }
 kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
 which(kegg3.kw[2,] < 0.05)
+
+kegg3.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
+colnames(kegg3.wil) <- rownames(kegg3)
+for(i in 1:nrow(kegg3)){
+  koid <- colnames(kegg3.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg3.df)
+  kegg3.wil[,i] <- wil$p.value
+}
+kegg3.wil[2,] <- p.adjust(kegg3.wil[1,], method = "fdr")
+which(kegg3.wil[2,] < 0.05)
 
 #kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
 #colnames(kegg4.kw) <- rownames(kegg4)
@@ -351,16 +462,22 @@ kegg1.df <- data.frame(t(kegg1))
 rownames(kegg1.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg1.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg1.df$Season <- ordered(kegg1.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg1.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg1.df$Diet <- ordered(kegg1.df$Diet, levels=c("Feed", "Fast"))
 
 kegg2.df <- data.frame(t(kegg2))
 rownames(kegg2.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg2.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg2.df$Season <- ordered(kegg2.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg2.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg2.df$Diet <- ordered(kegg2.df$Diet, levels=c("Feed", "Fast"))
 
 kegg3.df <- data.frame(t(kegg3))
 rownames(kegg3.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 kegg3.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 kegg3.df$Season <- ordered(kegg3.df$Season, levels=c("Summer", "Winter", "Spring"))
+kegg3.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+kegg3.df$Diet <- ordered(kegg3.df$Diet, levels=c("Feed", "Fast"))
 
 #kegg4.df <- data.frame(t(kegg4))
 #colnames(kegg4.df) <- kegg4.df[1,]
@@ -381,8 +498,28 @@ for(i in 1:nrow(kegg1)){
 kegg1.kw[2,] <- p.adjust(kegg1.kw[1,], method = "fdr")
 which(kegg1.kw[2,] < 0.05)
 
+kegg1.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg1)))
+colnames(kegg1.wil) <- rownames(kegg1)
+for(i in 1:nrow(kegg1)){
+  koid <- colnames(kegg1.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg1.df)
+  kegg1.wil[,i] <- wil$p.value
+}
+kegg1.wil[2,] <- p.adjust(kegg1.wil[1,], method = "fdr")
+which(kegg1.wil[2,] < 0.05)
+
 kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
 colnames(kegg2.kw) <- kegg2[,1]
+for(i in 1:nrow(kegg2)){
+  koid <- colnames(kegg2.df)[i]
+  kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg2.df)
+  kegg2.kw[,i] <- kw$p.value
+}
+kegg2.kw[2,] <- p.adjust(kegg2.kw[1,], method = "fdr")
+which(kegg2.kw[2,] < 0.05)
+
+kegg2.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg2)))
+colnames(kegg2.kw) <- rownames(kegg2)
 for(i in 1:nrow(kegg2)){
   koid <- colnames(kegg2.df)[i]
   kw <- kruskal.test(formula = reformulate("Season", koid), data = kegg2.df)
@@ -400,6 +537,16 @@ for(i in 1:nrow(kegg3)){
 }
 kegg3.kw[2,] <- p.adjust(kegg3.kw[1,], method = "fdr")
 which(kegg3.kw[2,] < 0.05)
+
+kegg3.wil <- data.frame(matrix(nrow = 1, ncol = nrow(kegg3)))
+colnames(kegg3.wil) <- rownames(kegg3)
+for(i in 1:nrow(kegg3)){
+  koid <- colnames(kegg3.df)[i]
+  wil <- wilcox.test(formula = reformulate("Diet", koid), data = kegg3.df)
+  kegg3.wil[,i] <- wil$p.value
+}
+kegg3.wil[2,] <- p.adjust(kegg3.wil[1,], method = "fdr")
+which(kegg3.wil[2,] < 0.05)
 
 #kegg4.kw <- data.frame(matrix(nrow = 1, ncol = nrow(kegg4)))
 #colnames(kegg4.kw) <- kegg4[,1]

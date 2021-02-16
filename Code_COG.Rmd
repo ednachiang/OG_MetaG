@@ -369,9 +369,6 @@ cog.dist.matrix <- as.matrix(cog.dist)
 rownames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 colnames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 
-# Heatmap
-#pheatmap(cog.dist.matrix, clustering_distance_rows = cog.dist, clustering_distance_cols = cog.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
-
 # Dendrogram
 cog.hclust <- hclust(cog.dist, method = "average")
 cog.den <- as.dendrogram(cog.hclust)
@@ -421,7 +418,7 @@ plot_ordination(physeq = cog.phy.ord, ordination = cog.pcoa, axes = c(1,2),
                 color = "Season") +
   geom_point(size=5) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Kendall Distance") +
+  ggtitle("Hellinger Distance") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
@@ -444,14 +441,51 @@ shapiro.test(cog.dist)
   # p-value = 0.05018
   # Normal
 
-### Run PERMANOVA on DESEq Euclidean distance
+### Run PERMANOVA on Hellinger distance
 adonis(cog.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.02092
+  # p-value = 0.02111
 beta.tax = betadisper(d=cog.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.727
+  # p-value = 0.738
 
+
+
+
+### Pairwise PERMANOVA comparisons
+cog.dist.matrix <- as.matrix(cog.dist)
+cog.dist.df <- data.frame(cog.dist.matrix)
+
+
+# Summer vs. Winter
+cog.sw.dist.df <- cog.dist.df[,-5]
+cog.sw.dist.df <- cog.sw.dist.df[,-7:-8]
+cog.sw.dist.df <- cog.sw.dist.df[-5,]
+cog.sw.dist.df <- cog.sw.dist.df[-7:-8,]
+cog.sw.dist <- as.dist(cog.sw.dist.df)
+meta.sw <- meta[-which(meta$Season == "Spring"),]
+adonis(cog.sw.dist ~ Season, data=meta.sw, permutations= 99999)
+  # p-value = 0.2
+
+# Summer vs. Spring
+cog.sp.dist.df <- cog.dist.df[,-3:-4]
+cog.sp.dist.df <- cog.sp.dist.df[,-5]
+cog.sp.dist.df <- cog.sp.dist.df[-3:-4,]
+cog.sp.dist.df <- cog.sp.dist.df[-5,]
+cog.sp.dist <- as.dist(cog.sp.dist.df)
+meta.sp <- meta[-which(meta$Season == "Winter"),]
+adonis(cog.sp.dist ~ Season, data=meta.sp, permutations= 99999)
+  # p-value = 0.2
+
+# Spring vs. Winter
+cog.wp.dist.df <- cog.dist.df[,-3:-4]
+cog.wp.dist.df <- cog.wp.dist.df[,-5]
+cog.wp.dist.df <- cog.wp.dist.df[-3:-4,]
+cog.wp.dist.df <- cog.wp.dist.df[-5,]
+cog.wp.dist <- as.dist(cog.wp.dist.df)
+meta.wp <- meta[-which(meta$Season == "Summer"),]
+adonis(cog.wp.dist ~ Season, data=meta.wp, permutations= 99999)
+  # p-value = 0.2
 
 ```
 
@@ -468,9 +502,6 @@ rownames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spri
 colnames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 
 
-
-# Heatmap
-#pheatmap(cog.cat.dist.matrix, clustering_distance_rows = cog.cat.dist, clustering_distance_cols = cog.cat.dist, col = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"))
 
 # Dendrogram
 cog.cat.hclust <- hclust(cog.cat.dist, method = "average")
@@ -539,7 +570,7 @@ shapiro.test(cog.cat.dist)
   # p-value = 0.334
   # Normal
 
-### Run PERMANOVA on DESEq Euclidean distance
+### Run PERMANOVA on Hellinger distance
 adonis(cog.cat.dist ~ Season, data=meta, permutations = 99999)
   # p-value = 0.1269
 beta.tax = betadisper(d=cog.cat.dist, group=meta$Season)

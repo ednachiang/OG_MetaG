@@ -424,31 +424,6 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 ```
 
 
-### dbCAN - Test DESeq nbinom stats
-```{r}
-test <- phyloseq_to_deseq2(dbcan.phy, ~ Season)
-test$Season <- factor(test$Season, levels=c("Summer", "Winter", "Spring"))
-test.dds <- DESeq(test)
-test1 <- estimateSizeFactors(test)
-#sizeFactors(test1) <- rep(1,9)
-test2 <- estimateDispersions(test1)
-test3 <- nbinomWaldTest(test2)
-new <- data.frame(results(test3))
-
-old.df <- data.frame(mcols(dbcan.dds,use.names=TRUE))
-new.df <- data.frame(mcols(test3,use.names=TRUE))
-
-
-test.sw <- results(test3, contrast=c("Season", "Summer", "Winter"))
-test.sw.sig <- test.sw[which(test.sw$padj < 0.05),]
-
-test.sp <- results(test3, contrast=c("Season", "Summer", "Spring"))
-test.sp.sig <- test.sp[which(test.sp$padj < 0.05),]
-
-test.wp <- results(test3, contrast=c("Season", "Winter", "Spring"))
-test.wp.sig <- test.wp[which(test.wp$padj < 0.05),]
-```
-
 
 ### dbCAN - DESeq heatmap of normalized + transformed counts
 ```{r}

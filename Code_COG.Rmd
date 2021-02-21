@@ -307,21 +307,7 @@ cog.cat.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer
 cog.cat.df$Season <- ordered(cog.cat.df$Season, levels=c("Summer", "Winter", "Spring"))
 cog.cat.mat <- as.matrix(t(cog.cat.df))
 
-# Run Friedman on all categories
-cog.cat.fr <- data.frame(matrix(nrow = 1, ncol = nrow(cog.cat)))
-colnames(cog.cat.fr) <- rownames(cog.cat)
-for(i in 1:nrow(cog.cat)){
-  cogName <- colnames(cog.cat.df)[i]
-  cogMatch <- which(rownames(cog.cat.mat) == cogName)
-  cogCatMatrix <- matrix(,nrow = 2, ncol = 9)
-  cogCatMatrix[1,] <- cog.cat.mat[cogMatch,]
-  cogCatMatrix[2,] <- as.character(cog.cat.df$Season)
-  colnames(cogCatMatrix) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-  fr <- friedman.test(cogCatMatrix)
-  cog.cat.fr[,i] <- fr$p.value
-}
-cog.cat.fr[2,] <- p.adjust(cog.cat.fr[1,], method = "fdr")
-which(cog.cat.fr[2,] < 0.05)
+
 
 
 # Run Kruskal-Wallis on all categories
@@ -367,21 +353,6 @@ cog.df$Season <- ordered(cog.df$Season, levels=c("Summer", "Winter", "Spring"))
 cog.mat <- as.matrix(t(cog.df))
 
 
-# Run Friedman test
-cog.fr <- data.frame(matrix(nrow = 1, ncol = ncol(cog.df)))
-colnames(cog.fr) <- colnames(cog.df)
-for(i in 1:ncol(cog.df)){
-  cogName <- colnames(cog.df)[i]
-  cogMatch <- which(rownames(cog.mat) == cogName)
-  cogMatrix <- matrix(,nrow = 2, ncol = 9)
-  cogMatrix[1,] <- cog.mat[cogMatch,]
-  cogMatrix[2,] <- as.character(cog.df$Season)
-  colnames(cogMatrix) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-  fr <- friedman.test(cogMatrix)
-  cog.fr[,i] <- fr$p.value
-}
-cog.fr[2,] <- p.adjust(cog.fr[1,], method = "fdr")
-which(cog.fr[2,] < 0.05)
 
 
 # Run Kruskal-Wallis on all COGs

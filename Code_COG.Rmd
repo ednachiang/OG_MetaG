@@ -240,6 +240,74 @@ meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
 ```
 
 
+### COG - Calculate % ORFs classified to COG
+```{r}
+prodigalCounts <- read.csv('cog/prodigalCounts.csv', row.names = 1)
+prodigalCounts <- as.matrix(prodigalCounts)
+
+# Test normality
+hist(prodigalCounts[3,])
+qqnorm(prodigalCounts[3,])
+qqline(prodigalCounts[3,])
+shapiro.test(prodigalCounts[3,])
+  # p-value = 0.108
+  # Normal
+
+# Format for ANOVA
+prodigalCounts <- read.csv('cog/prodigalCounts.csv', row.names=1)
+prodigalCounts <- t(prodigalCounts)
+prodigalCounts <- data.frame(prodigalCounts)
+prodigalCounts$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+prodigalCounts$Season <- ordered(prodigalCounts$Season, levels=c("Summer", "Winter", "Spring"))
+prodigalCounts$Diet <- c("Feeding", "Feeding", "Fasting", "Fasting", "Feeding", "Feeding", "Fasting", "Feeding", "Feeding")
+prodigalCounts$Diet <- ordered(prodigalCounts$Diet, levels=c("Feeding", "Fasting"))
+colnames(prodigalCounts) <- c("Total_ORFs", "Total_COGs", "COGPercentage", "Season", "Diet")
+
+# Test w/ ANOVA
+summary(aov(COGPercentage ~ Season, data = prodigalCounts))
+  # p-value = 0.634
+summary(aov(COGPercentage ~ Diet, data = prodigalCounts))
+  # p-value = 0.37
+
+### Dot plot
+#tiff("cog.prop.tiff", width=5, height=4, units="in", res= 300)
+ggplot(prodigalCounts, aes(x=Season, y=COGPercentage, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  ylab("% ORFs annotated as COG (%)") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(37, 40, 43, 46, 49), limits=c(37, 49)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"))
+#dev.off()
+```
+### COG - Number of unique COGs
+```{r}
+phy.sum <- subset_samples(cog.phy, Season == "Summer")
+phy.win <- subset_samples(cog.phy, Season == "Winter")
+phy.spr <- subset_samples(cog.phy, Season == "Spring")
+
+
+# Count # unique COGs in each season
+sum.cog <- data.frame(otu_table(phy.sum))
+sum.rem <- which(rowSums(sum.cog) == 0)
+sum.cog <- sum.cog[-sum.rem,]
+nrow(sum.cog)
+  # 3673
+win.cog <- data.frame(otu_table(phy.win))
+win.rem <- which(rowSums(win.cog) == 0)
+win.cog <- win.cog[-win.rem,]
+nrow(win.cog)
+  # 3544
+spr.cog <- data.frame(otu_table(phy.spr))
+spr.rem <- which(rowSums(spr.cog) == 0)
+spr.cog <- spr.cog[-spr.rem,]
+nrow(spr.cog)
+  # 3698
+
+```
 ### COG - General COG Stats
 ```{r}
 # Load data
@@ -320,6 +388,30 @@ for(i in 1:nrow(cog.cat)){
 }
 cog.cat.kw[2,] <- p.adjust(cog.cat.kw[1,], method = "fdr")
 which(cog.cat.kw[2,] < 0.05)
+
+
+
+
+### Try Diet
+# Format data
+cog.cat.df <- data.frame(t(cog.cat))
+rownames(cog.cat.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.cat.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+cog.cat.df$Diet <- ordered(cog.cat.df$Diet, levels=c("Feed", "Fast"))
+cog.cat.mat <- as.matrix((cog.cat.df))
+DietVar <- cog.cat.df$Diet
+
+# Run Wilcoxon on all COGs
+cog.cat.wil <- data.frame(matrix(nrow = 1, ncol = nrow(cog.cat)))
+colnames(cog.cat.wil) <- rownames(cog.cat)
+for(i in 1:nrow(cog.cat)){
+  cogName <- colnames(cog.cat.df)[i]
+  wil <- wilcox.test(as.numeric(cog.cat.mat[,i]) ~ DietVar, cog.cat.mat)
+    cog.cat.wil[,i] <- wil$p.value
+}
+cog.cat.wil[2,] <- p.adjust(cog.cat.wil[1,], method = "fdr")
+which(cog.cat.wil[2,] < 0.05)
+
 ```
 
 

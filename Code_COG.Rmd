@@ -323,6 +323,8 @@ which(cog.cat.kw[2,] < 0.05)
 ```
 
 
+
+
 ### COG - Kruskal-Wallis
 ```{r}
 # Load data
@@ -365,6 +367,30 @@ for(i in 1:nrow(cog.norm.rem)){
 }
 cog.kw[2,] <- p.adjust(cog.kw[1,], method = "fdr")
 which(cog.kw[2,] < 0.05)
+
+
+
+
+### Try Diet
+# Format data
+cog.df <- data.frame(t(cog.norm))
+rownames(cog.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+cog.df$Diet <- c("Feed", "Feed", "Fast", "Fast", "Feed", "Feed", "Fast", "Feed", "Feed")
+cog.df$Diet <- ordered(cog.df$Diet, levels=c("Feed", "Fast"))
+cog.mat <- as.matrix((cog.df))
+DietVar <- cog.df$Diet
+
+# Run Wilcoxon on all COGs
+cog.wil <- data.frame(matrix(nrow = 1, ncol = nrow(cog.norm.rem)))
+colnames(cog.wil) <- rownames(cog.norm.rem)
+for(i in 1:nrow(cog.norm.rem)){
+  cogName <- colnames(cog.df)[i]
+  wil <- wilcox.test(as.numeric(cog.mat[,i]) ~ DietVar, cog.mat)
+    cog.wil[,i] <- wil$p.value
+}
+cog.wil[2,] <- p.adjust(cog.wil[1,], method = "fdr")
+which(cog.wil[2,] < 0.05)
+
 
 ```
 
@@ -476,7 +502,7 @@ cog.sw.dist.df <- cog.sw.dist.df[-5,]
 cog.sw.dist.df <- cog.sw.dist.df[-7:-8,]
 cog.sw.dist <- as.dist(cog.sw.dist.df)
 meta.sw <- meta[-which(meta$Season == "Spring"),]
-adonis(cog.sw.dist ~ Season, data=meta.sw, permutations= 99999)
+adonis2(cog.sw.dist ~ Season, data=meta.sw, permutations= 99999)
   # p-value = 0.2
 
 # Summer vs. Spring

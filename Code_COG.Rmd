@@ -75,6 +75,48 @@ for(i in 1:ncol(cog.usg.df)){
   cog.usg.avg[,i] <- avg
 }
 
+# Test normality
+hist(as.numeric(cog.usg.avg))
+qqnorm(as.numeric(cog.usg.avg))
+qqline(as.numeric(cog.usg.avg))
+shapiro.test(as.numeric(cog.usg.avg))
+  # p-value = 0.9902
+  # Normal
+
+# Format for ANOVA
+usg.df <- data.frame(t(cog.usg.avg))
+usg.df <- t(usg.df)
+usg.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+usg.df$Season <- ordered(usg.df$Season, levels=c("Summer", "Winter", "Spring"))
+usg.df$Diet <- c("Feeding", "Feeding", "Fasting", "Fasting", "Feeding", "Feeding", "Fasting", "Feeding", "Feeding")
+usg.df$Diet <- ordered(usg.df$Diet, levels=c("Feeding", "Fasting"))
+colnames(usg.df) <- c("Counts", "Season", "Diet")
+
+# Test w/ ANOVA
+summary(aov(Counts ~ Season, data = usg.df))
+  # p-value = 0.235
+summary(aov(Counts ~ Diet, data = usg.df))
+  # p-value = 0.35
+
+
+### Dot plot
+#tiff("cog.usg.tiff", width=5, height=4, units="in", res= 300)
+ggplot(usg.df, aes(x=Season, y=Counts, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1, stackratio=1.15) +
+  ylab("Number of universal single copy genes") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(73, 99, 125, 151, 178, 204), limits=c(73, 204)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=11),
+        legend.title = element_text(face="bold"))
+#dev.off()
+
+
+
+
+
 # Normalize COG counts by dividing by avg universal single-copy COGs for each sample
 cog.norm <- data.frame(matrix(nrow = nrow(cog.counts), ncol = ncol(cog.counts)))
 rownames(cog.norm) <- rownames(cog.counts)
@@ -422,7 +464,7 @@ which(cog.cat.wil[2,] < 0.05)
 # Load data
 cog.norm <- read.csv('cog/cog.normalized.tab', header = T, sep = "\t")
 
-# Identify COGs that appear in only 1 sample
+# Identify COGs that appear in < 3 samples
 cog.rem <- list()
 for(i in 1:nrow(cog.norm)){
   empty <- length(which(cog.norm[i,] == 0))
@@ -430,13 +472,13 @@ for(i in 1:nrow(cog.norm)){
   if(empty > 7){
     # If COG appears in only 1 sample
     cog.rem <- append(cog.rem, i)
-      # Create list of COGs that appear in only 1 sample
+      # Create list of COGs that appear in < 3 samples
   }
 }
 cog.rem.row <- as.numeric(cog.rem)
   # Convert list to numeric
 
-# Remove COGs that appear in only 1 sample
+# Remove COGs that appear in < 3 samples
 cog.norm.rem <- cog.norm[-cog.rem.row,]
 
 # Format data
@@ -445,7 +487,6 @@ rownames(cog.df) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3
 cog.df$Season <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
 cog.df$Season <- ordered(cog.df$Season, levels=c("Summer", "Winter", "Spring"))
 cog.mat <- as.matrix(t(cog.df))
-
 
 
 

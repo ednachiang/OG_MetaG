@@ -1,0 +1,22 @@
+### Load packages
+```{r}
+library('ShotgunFunctionalizeR')
+```
+
+### Load data
+```{r}
+cog <- readGeneFamilies("GitHub/OG_MetaG/cog/cog.shotgunFunctionalize.tab")
+
+cog.sw <- getSamples(cog, samples = c(1,2,3,4,6,7))
+
+cog.sw.stat <- testGeneFamilies.dircomp(cog.sw, groups = c("Summer", "Summer", "Winter", "Winter", "Summer", "Winter"))
+
+
+cog <- read.table('GitHub/OG_MetaG/cog/cog.normalized.tab', sep = "\t")
+cog.sw <- cog[,-5]
+cog.sw <- cog.sw[,-7:-8]
+cog.sw$GeneFamily <- rownames(cog.sw)
+cog.sw <- as.matrix(cog.sw)
+colnames(cog.sw) <- c("Summer1", "Summer2", "Winter1", "Winter2", "Summer3", "Winter3", "GeneFamily")
+cog.sw.stat <- testGeneFamilies.dircomp(cog.sw, groups = c("Summer", "Summer", "Winter", "Winter", "Summer", "Winter"))
+```

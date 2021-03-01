@@ -1,0 +1,45 @@
+query id	subject id	% identity	alignment length	mismatches	gap opens	q. start	q. end	s. start	s. end	evalue	bit score	COG#	functional categories					COG protein description	
+NODE_1_length_1155394_cov_17.351033_3	gnl|CDD|227359	28.571	399	224	14	4	351	26	414	3.40E-48	167	86	COG5026	G					Hexokinase
+NODE_1_length_1155394_cov_17.351033_5	gnl|CDD|224815	40.303	330	164	6	262	589	3	301	3.96E-79	253	51	COG1903	H					Cobalamin biosynthesis protein CbiD
+NODE_1_length_1155394_cov_17.351033_6	gnl|CDD|225430	51.626	246	117	2	356	599	7	252	1.29E-100	303	41	COG2875	H					Precorrin-4 methylase
+NODE_1_length_1155394_cov_17.351033_7	gnl|CDD|225151	35.938	192	105	5	250	429	2	187	1.35E-37	132	41	COG2242	H					Precorrin-6B methylase 2
+NODE_1_length_1155394_cov_17.351033_8	gnl|CDD|223942	50.403	248	118	4	5	250	4	248	5.29E-116	338	52	COG1010	H					Precorrin-3B methylase
+NODE_1_length_1155394_cov_17.351033_9	gnl|CDD|227087	45.37	108	55	3	3	108	9	114	5.18E-32	106	97	COG4744	S					Uncharacterized conserved protein
+NODE_1_length_1155394_cov_17.351033_10	gnl|CDD|223881	22.472	178	127	3	28	195	31	207	9.00E-17	72.7	82	COG0811	U					Biopolymer transport proteins
+NODE_1_length_1155394_cov_17.351033_12	gnl|CDD|224346	30.547	1280	801	30	36	1251	22	1277	0	788	93	COG1429	H					Cobalamin biosynthesis protein CobN and related Mg-chelatases
+NODE_1_length_1155394_cov_17.351033_14	gnl|CDD|224544	22.484	765	510	20	48	783	57	767	2.47E-60	215	94	COG1629	P					"Outer membrane receptor proteins, mostly Fe transport"
+NODE_1_length_1155394_cov_17.351033_15	gnl|CDD|227159	46.215	251	127	3	38	280	2	252	3.42E-83	249	79	COG4822	H					"Cobalamin biosynthesis protein CbiK, Co2+ chelatase"
+NODE_1_length_1155394_cov_17.351033_16	gnl|CDD|227112	22.581	744	462	26	7	688	8	699	3.56E-58	206	99	COG4771	P					Outer membrane receptor for ferrienterochelin and colicins
+NODE_1_length_1155394_cov_17.351033_18	gnl|CDD|225532	38.532	545	321	9	19	559	6	540	1.57E-125	376	96	COG2985	R					Predicted permease
+NODE_1_length_1155394_cov_17.351033_19	gnl|CDD|225514	30.738	244	164	4	3	242	8	250	4.09E-41	138	94	COG2966	S					Uncharacterized conserved protein
+NODE_1_length_1155394_cov_17.351033_20	gnl|CDD|226137	29.167	144	101	1	1	143	1	144	5.40E-15	65.4	88	COG3610	S					Uncharacterized conserved protein
+NODE_1_length_1155394_cov_17.351033_22	gnl|CDD|224710	41.031	446	233	12	9	435	3	437	4.87E-149	428	96	COG1797	H					"Cobyrinic acid a,c-diamide synthase"
+NODE_1_length_1155394_cov_17.351033_23	gnl|CDD|225007	46.061	165	84	2	3	167	6	165	1.22E-58	179	86	COG2096	S					Uncharacterized conserved protein
+NODE_1_length_1155394_cov_17.351033_24	gnl|CDD|223715	35.458	251	157	5	555	803	81	328	6.29E-57	195	31	COG0642	T					Signal transduction histidine kinase
+NODE_1_length_1155394_cov_17.351033_25	gnl|CDD|223912	19.617	209	158	2	189	396	86	285	3.55E-10	57.6	52	COG0842	V					"ABC-type multidrug transport system, permease component"
+NODE_1_length_1155394_cov_17.351033_26	gnl|CDD|223912	25.743	202	148	2	179	379	80	280	7.25E-10	56.5	51	COG0842	V					"ABC-type multidrug transport system, permease component"
+NODE_1_length_1155394_cov_17.351033_27	gnl|CDD|224482	27.519	258	181	4	6	263	11	262	7.46E-25	100	77	COG1566	V					Multidrug resistance efflux pump
+NODE_1_length_1155394_cov_17.351033_28	gnl|CDD|224455	19.432	458	328	5	18	470	22	443	2.80E-33	128	92	COG1538	M	U				Outer membrane protein
+NODE_1_length_1155394_cov_17.351033_29	gnl|CDD|226194	22.222	99	69	3	1	98	1	92	3.21E-11	52.4	91	COG3668	R					Plasmid stabilization system protein
+NODE_1_length_1155394_cov_17.351033_32	gnl|CDD|224409	46.186	485	256	4	8	491	4	484	0	546	98	COG1492	H					Cobyric acid synthase
+NODE_1_length_1155394_cov_17.351033_33	gnl|CDD|223157	34.185	313	172	11	47	337	54	354	1.00E-74	231	86	COG0079	E					Histidinol-phosphate/aromatic aminotransferase and cobyric acid decarboxylase
+NODE_1_length_1155394_cov_17.351033_34	gnl|CDD|224189	42.994	314	167	5	12	315	4	315	9.57E-95	281	95	COG1270	H					Cobalamin biosynthesis protein CobD/CbiB
+NODE_1_length_1155394_cov_17.351033_35	gnl|CDD|223483	29.412	187	120	6	1	176	3	188	4.73E-27	98.7	97	COG0406	G					"Fructose-2,6-bisphosphatase"
+NODE_1_length_1155394_cov_17.351033_36	gnl|CDD|223445	30.204	245	161	4	3	244	5	242	2.59E-34	120	98	COG0368	H					Cobalamin-5-phosphate synthase
+NODE_1_length_1155394_cov_17.351033_37	gnl|CDD|224949	30.383	339	220	3	6	342	10	334	3.06E-77	238	97	COG2038	H					NaMN:DMB phosphoribosyltransferase
+NODE_1_length_1155394_cov_17.351033_38	gnl|CDD|224998	40.23	174	95	3	31	196	2	174	3.40E-62	188	83	COG2087	H					Adenosyl cobinamide kinase/adenosyl cobinamide phosphate guanylyltransferase
+NODE_1_length_1155394_cov_17.351033_56	gnl|CDD|223931	43.662	71	40	0	171	241	194	264	7.28E-13	64.2	28	COG0863	L					DNA modification methylase
+NODE_1_length_1155394_cov_17.351033_67	gnl|CDD|226974	25.912	548	361	18	56	593	18	530	4.23E-67	225	90	COG4626	R					"Phage terminase-like protein, large subunit"
+NODE_1_length_1155394_cov_17.351033_68	gnl|CDD|227039	28.056	360	235	10	35	386	44	387	8.63E-47	162	83	COG4695	S					Phage-related protein
+NODE_1_length_1155394_cov_17.351033_69	gnl|CDD|226263	30.303	198	113	8	7	192	1	185	1.49E-27	100	83	COG3740	R					Phage head maturation protease
+NODE_1_length_1155394_cov_17.351033_72	gnl|CDD|227901	29.333	75	53	0	2	76	3	77	7.00E-10	49.4	66	COG5614	R					Bacteriophage head-tail adaptor
+NODE_1_length_1155394_cov_17.351033_82	gnl|CDD|225650	39.024	41	20	1	49	84	103	143	1.71E-06	42.4	27	COG3108	S					Uncharacterized protein conserved in bacteria
+NODE_1_length_1155394_cov_17.351033_89	gnl|CDD|227282	26.14	658	407	17	25	651	40	649	6.63E-66	232	58	COG4946	S					Uncharacterized protein related to the periplasmic component of the Tol biopolymer transport system
+NODE_1_length_1155394_cov_17.351033_92	gnl|CDD|223519	32.296	514	299	18	8	497	11	499	1.18E-140	411	98	COG0442	J					Prolyl-tRNA synthetase
+NODE_1_length_1155394_cov_17.351033_93	gnl|CDD|225841	35.115	131	78	1	1	124	1	131	2.71E-31	105	98	COG3304	S					Predicted membrane protein
+NODE_1_length_1155394_cov_17.351033_94	gnl|CDD|225463	17.568	444	239	24	982	1399	878	1220	1.28E-06	50	27	COG2911	S					Uncharacterized protein conserved in bacteria
+NODE_1_length_1155394_cov_17.351033_95	gnl|CDD|223607	47.416	329	163	4	3	328	1	322	2.69E-158	443	96	COG0533	O					Metal-dependent proteases with possible chaperone activity
+NODE_1_length_1155394_cov_17.351033_96	gnl|CDD|223986	34.241	257	160	5	1	251	2	255	1.30E-66	209	61	COG1058	R					Predicted nucleotide-utilizing enzyme related to molybdopterin-biosynthesis enzyme MoeA
+NODE_1_length_1155394_cov_17.351033_97	gnl|CDD|223305	47.368	76	39	1	1	75	1	76	3.22E-24	84.3	86	COG0227	J					Ribosomal protein L28
+NODE_1_length_1155394_cov_17.351033_98	gnl|CDD|223345	50.909	55	19	2	9	62	3	50	3.53E-10	46.9	86	COG0267	J					Ribosomal protein L33
+NODE_1_length_1155394_cov_17.351033_100	gnl|CDD|223626	52.09	311	145	3	9	316	31	340	1.45E-144	408	96	COG0552	U					Signal recognition particle GTPase

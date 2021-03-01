@@ -2,6 +2,7 @@ import os
 	# Import os to iterate over files in a directory
 import pandas as pd
     # Import pandas to use dataframes
+import sys
 
 ##### CHANGE THESE PARAMETERS ACCORDINGLY
 directoryFaa = 'test_createAnvioProdigal/faa/'
@@ -16,6 +17,7 @@ def convert_list_to_string(org_list, seperator=' '):
     #    Returns the concatenated string """
     return seperator.join(org_list)
 
+# Find ORF name
 def findContigName(line):
     lineSplit = line.split()
     info = lineSplit[1]
@@ -26,7 +28,7 @@ def findContigName(line):
     return(name)
 
 
-
+# Find start & stop positions for ORF
 def findStartStop(line):
     lineSplit = line.split('CDS')
     lineSplit.pop(0)
@@ -43,17 +45,14 @@ def findStartStop(line):
    
     return start, stop
     
- 
+# Find ORF ID (#_#) and partial
 def findInfo(line):
     lineSplit = line.split(";")
     ID = lineSplit[0]
     ID = ID.replace('/note="ID=', '')
     ID = ID.replace(' ', '')
-    
-    lineChar = convert_list_to_string(lineSplit)
-    lineCharSplit = lineChar.split()
 
-    partial = lineCharSplit[1]
+    partial = lineSplit[1]
     partialUse = partial.replace('partial=', '')
     return ID, partialUse
 
@@ -64,41 +63,46 @@ def findInfoFinal(prodigalPath, faaPath):
     prodigalInput = open(prodigalPath, mode = 'r')
     #faaInput = open(faaPath, mode = 'r')
     counter = 0
-    df1 = pd.DataFrame()
     df = pd.DataFrame(columns = ['gene_callers_id', 'contig', 'start', 'stop', 'direction', 'partial', 'call_type', 'source', 'version', 'aa_sequence'])
 
     for line1 in prodigalInput.readlines():
+
+        #if counter % 10000 == 0:
+            #print(str(sys.getsizeof(df)) + ' bytes #1')
         
-        if '//' in line1:
+        if '//' in line1 or 'FEATURES' in line1:
+            # This indicates info for a new contig
+            print(str(sys.getsizeof(df)) + ' bytes ONE')
             continue
 
         if 'DEFINITION' in line1:
+            # Save ORF name
             contigName = findContigName(line1)
-            continue
-
-        if 'FEATURES' in line1:
+            print(str(sys.getsizeof(df)) + ' bytes TWO')
             continue
 
         if 'CDS' in line1:
+            # Line w/ start/stop info
             start, stop = findStartStop(line1)
             counter += 1
             df.at[counter,'start'] = start
             df.at[counter,'stop'] = stop
             df.at[counter,'contig'] = contigName
-            #print(df)
-            #continue
+            print(str(sys.getsizeof(df)) + ' bytes THREE')
+            continue
+
         if '/' in line1:
             ID, partial = findInfo(line1)
             df.at[counter, 'gene_callers_id'] = ID
             df.at[counter, 'partial'] = partial
+            print(str(sys.getsizeof(df)) + ' bytes FOUR')
             #print(df)
             #continue
-
+        
     print('First part done')
     faaInput = open(faaPath, mode = 'r')
 
     for line2 in faaInput.readlines():
-        #print(line2)
         if '>' in line2:
             line2Split = line2.split('#')
             direction = line2Split[3]
@@ -115,6 +119,9 @@ def findInfoFinal(prodigalPath, faaPath):
             for line3 in df.iterrows():
                 row = line3[0]
                 dfID = df.at[row, 'gene_callers_id']
+                if row % 100 == 0:
+                    print(str(sys.getsizeof(df)) + 'bytes')
+                    print(line3)
 
                 if dfID == ID2:
                     df.at[row, 'direction'] = direction

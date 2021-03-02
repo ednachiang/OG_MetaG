@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:casava="http://www.illumina.com/casava/alignment" xmlns:str="http://exslt.org/strings">
+<style type="text/css">
+body {
+    font-size: 70%; /*The biggest table so far is the demultiplex summary. Verify if it is still viewable if you change this*/
+}
+
+/* Firefox and probably others: force right scrollbar to make sure that percentage colun widths are calculated
+   same way as in data table */
+#ScrollableTableHeaderDiv {overflow: scroll; overflow-x: hidden; border-left: 1px gray solid; border-bottom: 0px gray solid; 
+            padding:0px; margin: 0px;
+
+    border-width: 1px 1px 1px 1px;
+    border-style: inset inset inset inset;
+}
+    #print;
+/*IE 7 and 8 only. Disable the header table right scrollbar so that it does not get painted on top of the
+  last column heading*/
+*+html #ScrollableTableHeaderDiv {overflow: hidden; overflow-x: hidden; border-left: 1px gray solid; border-bottom: 0px gray solid; 
+            padding:0px; margin: 0px;
+
+    border-width: 1px 1px 1px 1px;
+    border-style: inset inset inset inset;
+}
+
+/*IE 6 only (unverified). Disable the header table right scrollbar so that it does not get painted on top of the
+  last column heading*/
+* html #ScrollableTableHeaderDiv {overflow: hidden; overflow-x: hidden; border-left: 1px gray solid; border-bottom: 0px gray solid; 
+            padding:0px; margin: 0px;
+
+    border-width: 1px 1px 1px 1px;
+    border-style: inset inset inset inset;
+}
+
+#ScrollableTableBodyDiv {overflow: scroll; overflow-x: hidden; max-height: 400px; 
+            padding:0px; margin: 0px;
+    border-width: 1px 1px 1px 1px;
+    border-style: inset inset inset inset;
+    word-break: break-all; /*enables breaking of word at any characater in IE. Firefox only breaks at delimeters*/
+}
+
+
+table {
+    border-width: 1px 1px 1px 1px;
+    border-spacing: 0px;
+    border-style: inset inset inset inset;
+    border-collapse: collapse;
+    background-color: white;
+}
+table td, th {
+    border-width: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-style: inset inset inset inset;
+    background-color: white;
+}
+</style>
+
+
+<body>
+<h1>Flowcell: H5N37BCXX</h1>
+<h2>Barcode lane statistics</h2>
+<div ID="ScrollableTableHeaderDiv"><table width="100%">
+<col width="4%">
+<col width="5%">
+<col width="19%">
+<col width="8%">
+<col width="7%">
+<col width="5%">
+<col width="12%">
+<col width="7%">
+<col width="4%">
+<col width="5%">
+<col width="4%">
+<col width="5%">
+<col width="6%">
+<col width="5%">
+<col>
+<tr>
+<th>Lane</th>
+<th>Sample ID</th>
+<th>Sample Ref</th>
+<th>Index</th>
+<th>Description</th>
+<th>Control</th>
+<th>Project</th>
+<th>Yield (Mbases)</th>
+<th>% PF</th>
+<th># Reads</th>
+<th>% of raw clusters per lane</th>
+<th>% Perfect Index Reads</th>
+<th>% One Mismatch Reads (Index)</th>
+<th>% of &gt;= Q30 Bases (PF)</th>
+<th>Mean Quality Score (PF)</th>
+</tr>
+</table></div>
+<div ID="ScrollableTableBodyDiv"><table width="100%">
+<col width="4%">
+<col width="5%">
+<col width="19%">
+<col width="8%">
+<col width="7%">
+<col width="5%">
+<col width="12%">
+<col width="7%">
+<col width="4%">
+<col width="5%">
+<col width="4%">
+<col width="5%">
+<col width="6%">
+<col width="5%">
+<col><tr><td>1</td><td>3715</td><td></td><td>CGATGT</td><td>3715</td><td>N</td><td>Carey</td><td>5,526</td><td>100.00</td><td>36,597,576</td><td>14.12</td><td>98.96</td><td>1.04</td><td>78.43</td><td>32.06</td></tr>
+<tr><td>1</td><td>3717</td><td></td><td>TGACCA</td><td>3717</td><td>N</td><td>Carey</td><td>4,940</td><td>100.00</td><td>32,714,618</td><td>12.62</td><td>99.01</td><td>0.99</td><td>94.71</td><td>37.65</td></tr>
+<tr><td>1</td><td>3723</td><td></td><td>AGTCAA</td><td>3723</td><td>N</td><td>Carey</td><td>3,712</td><td>100.00</td><td>24,580,216</td><td>9.49</td><td>94.78</td><td>5.22</td><td>88.30</td><td>35.62</td></tr>
+<tr><td>1</td><td>3733</td><td></td><td>CTTGTA</td><td>3733</td><td>N</td><td>Carey</td><td>3,812</td><td>100.00</td><td>25,243,420</td><td>9.74</td><td>99.22</td><td>0.78</td><td>88.72</td><td>35.80</td></tr>
+<tr><td>1</td><td>3734</td><td></td><td>ATGTCA</td><td>3734</td><td>N</td><td>Carey</td><td>4,983</td><td>100.00</td><td>32,997,174</td><td>12.73</td><td>99.26</td><td>0.74</td><td>95.49</td><td>37.84</td></tr>
+<tr><td>1</td><td>3744</td><td></td><td>ACAGTG</td><td>3744</td><td>N</td><td>Carey</td><td>3,869</td><td>100.00</td><td>25,619,996</td><td>9.89</td><td>96.16</td><td>3.84</td><td>89.25</td><td>35.97</td></tr>
+<tr><td>1</td><td>3772</td><td></td><td>AGTTCC</td><td>3772</td><td>N</td><td>Carey</td><td>3,482</td><td>100.00</td><td>23,059,632</td><td>8.90</td><td>98.88</td><td>1.12</td><td>87.58</td><td>35.46</td></tr>
+<tr><td>1</td><td>3773</td><td></td><td>GTCCGC</td><td>3773</td><td>N</td><td>Carey</td><td>4,242</td><td>100.00</td><td>28,090,666</td><td>10.84</td><td>98.59</td><td>1.41</td><td>89.47</td><td>35.97</td></tr>
+<tr><td>1</td><td>3775</td><td></td><td>CCGTCC</td><td>3775</td><td>N</td><td>Carey</td><td>4,245</td><td>100.00</td><td>28,114,020</td><td>10.85</td><td>99.08</td><td>0.92</td><td>89.09</td><td>35.94</td></tr>
+</table></div>
+<p>CASAVA-1.8.2</p>
+</body>
+</html>

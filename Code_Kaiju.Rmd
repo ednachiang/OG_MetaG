@@ -229,6 +229,82 @@ spe.sum.sum <- spe.sum %>%
 
 ```
 
+
+### Assembly
+```{r}
+########## Phylum ##########
+phy.sum <- import.phylum.sum('kaiju/spades/phylum')
+#write.csv(phy.sum, file = "kaiju/spades/phy.sum.csv")
+
+# Summarize phyla to get top 10
+phy.sum.sum <- phy.sum %>%
+  group_by(Phylum) %>%
+  summarize(Mean = mean(Mean))
+  # Top 10 phyla = Unclassified, Bacteroidetes, Firmicutes, Verrucomicrobia, Proteobacteria, Actinobacteria, Candidatus Melainabacteria, Spirochaetes, Tenericutes, Elusimicrobia (and Fusobacteria)
+
+
+
+
+########## Class ##########
+cla.sum <- import.class.sum('kaiju/spades/class')
+#write.csv(cla.sum, file = "kaiju/spades/cla.sum.csv")
+
+# Summarize classes to get top 10
+cla.sum.sum <- cla.sum %>%
+  group_by(Class) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+########## Order ##########
+ord.sum <- import.order.sum('kaiju/spades/order')
+#write.csv(ord.sum, file = "kaiju/spades/ord.sum.csv")
+
+# Summarize orders to get top 10
+ord.sum.sum <- ord.sum %>%
+  group_by(Order) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+
+########## Family ##########
+fam.sum <- import.family.sum('kaiju/spades/family')
+#write.csv(fam.sum, file = "kaiju/spades/fam.sum.csv")
+
+# Summarize families to get top 10
+fam.sum.sum <- fam.sum %>%
+  group_by(Family) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+
+########## Genus ##########
+gen.sum <- import.genus.sum('kaiju/spades/genus')
+#write.csv(gen.sum, file = "kaiju/spades/gen.sum.csv")
+
+# Summarize genera to get top 10
+gen.sum.sum <- gen.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+
+
+########## Species ##########
+spe.sum <- import.species.sum('kaiju/spades/species')
+write.csv(spe.sum, file = "kaiju/spades/spe.sum.csv")
+
+# Summarize genera to get top 10
+spe.sum.sum <- spe.sum %>%
+  group_by(Genus) %>%
+  summarize(Mean = mean(Mean))
+
+
+```
+
+
 ### All CAZymes
 ```{r}
 ########## Phylum ##########

@@ -1,0 +1,33 @@
+gene_callers_id	t_domain	t_phylum	t_class	t_order	t_family	t_genus	t_species
+16	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Bacteroidaceae	 Bacteroides	 Bacteroides sp. CAG:927
+22	NA	NA	NA	NA	NA	NA	NA
+36	Bacteria	 Firmicutes	 Bacillales	 Bacilli	 Planococcaceae	 Caryophanon	 Caryophanon latum
+48	NA	NA	NA	NA	NA	NA	NA
+58	NA	NA	NA	NA	NA	NA	NA
+84	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 NA	 NA	 NA
+103	NA	NA	NA	NA	NA	NA	NA
+221	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 NA	 NA	 Bacteroidales bacterium 52_46
+242	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 NA
+251	NA	NA	NA	NA	NA	NA	NA
+280	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 Candidatus Amulumruptor	 Candidatus Amulumruptor caecigallinarius
+294	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 NA
+310	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 Muribaculaceae bacterium Isolate-104 (HZI)
+328	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Porphyromonadaceae	 NA	 Porphyromonadaceae bacterium
+360	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 NA	 NA	 Bacteroidales bacterium 52_46
+378	NA	NA	NA	NA	NA	NA	NA
+411	NA	NA	NA	NA	NA	NA	NA
+433	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 NA	 NA	 NA
+518	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 NA
+529	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 Muribaculaceae bacterium Isolate-104 (HZI)
+537	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 NA
+563	NA	NA	NA	NA	NA	NA	NA
+597	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Porphyromonadaceae	 Porphyromonas	 Porphyromonas sp. COT-239 OH1446
+610	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 NA	 NA	 NA
+616	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 NA	 NA	 Bacteroidales bacterium WCE2008
+628	NA	NA	NA	NA	NA	NA	NA
+657	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 NA
+678	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Bacteroidaceae	 Bacteroides	 Bacteroides sp. CAG:927
+740	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 NA
+764	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Muribaculaceae	 NA	 Muribaculaceae bacterium Isolate-104 (HZI)
+770	NA	NA	NA	NA	NA	NA	NA
+784	Bacteria	 Bacteroidetes	 Bacteroidales	 Bacteroidia	 Bacteroidaceae	 Bacteroides	 Bacteroides sp. CAG:927

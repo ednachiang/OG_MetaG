@@ -1,0 +1,45 @@
+	source	accession	function	e_value
+3	COG	COG5026	Hexokinase	3.40E-48
+5	COG	COG1903	Cobalamin biosynthesis protein CbiD	3.96E-79
+6	COG	COG2875	Precorrin-4 methylase	1.29E-100
+7	COG	COG2242	Precorrin-6B methylase 2	1.35E-37
+8	COG	COG1010	Precorrin-3B methylase	5.29E-116
+9	COG	COG4744	Uncharacterized conserved protein	5.18E-32
+10	COG	COG0811	Biopolymer transport proteins	9.00E-17
+12	COG	COG1429	Cobalamin biosynthesis protein CobN and related Mg-chelatases	0
+14	COG	COG1629	"""Outer membrane receptor proteins, mostly Fe transport"""	2.47E-60
+15	COG	COG4822	"""Cobalamin biosynthesis protein CbiK, Co2+ chelatase"""	3.42E-83
+16	COG	COG4771	Outer membrane receptor for ferrienterochelin and colicins	3.56E-58
+18	COG	COG2985	Predicted permease	1.57E-125
+19	COG	COG2966	Uncharacterized conserved protein	4.09E-41
+20	COG	COG3610	Uncharacterized conserved protein	5.40E-15
+22	COG	COG1797	"""Cobyrinic acid a,c-diamide synthase"""	4.87E-149
+23	COG	COG2096	Uncharacterized conserved protein	1.22E-58
+24	COG	COG0642	Signal transduction histidine kinase	6.29E-57
+25	COG	COG0842	"""ABC-type multidrug transport system, permease component"""	3.55E-10
+26	COG	COG0842	"""ABC-type multidrug transport system, permease component"""	7.25E-10
+27	COG	COG1566	Multidrug resistance efflux pump	7.46E-25
+28	COG	COG1538	Outer membrane protein	2.80E-33
+29	COG	COG3668	Plasmid stabilization system protein	3.21E-11
+32	COG	COG1492	Cobyric acid synthase	0
+33	COG	COG0079	Histidinol-phosphate/aromatic aminotransferase and cobyric acid decarboxylase	1.00E-74
+34	COG	COG1270	Cobalamin biosynthesis protein CobD/CbiB	9.57E-95
+35	COG	COG0406	"""Fructose-2,6-bisphosphatase"""	4.73E-27
+36	COG	COG0368	Cobalamin-5-phosphate synthase	2.59E-34
+37	COG	COG2038	NaMN:DMB phosphoribosyltransferase	3.06E-77
+38	COG	COG2087	Adenosyl cobinamide kinase/adenosyl cobinamide phosphate guanylyltransferase	3.40E-62
+56	COG	COG0863	DNA modification methylase	7.28E-13
+67	COG	COG4626	"""Phage terminase-like protein, large subunit"""	4.23E-67
+68	COG	COG4695	Phage-related protein	8.63E-47
+69	COG	COG3740	Phage head maturation protease	1.49E-27
+72	COG	COG5614	Bacteriophage head-tail adaptor	7.00E-10
+82	COG	COG3108	Uncharacterized protein conserved in bacteria	1.71E-06
+89	COG	COG4946	Uncharacterized protein related to the periplasmic component of the Tol biopolymer transport system	6.63E-66
+92	COG	COG0442	Prolyl-tRNA synthetase	1.18E-140
+93	COG	COG3304	Predicted membrane protein	2.71E-31
+94	COG	COG2911	Uncharacterized protein conserved in bacteria	1.28E-06
+95	COG	COG0533	Metal-dependent proteases with possible chaperone activity	2.69E-158
+96	COG	COG1058	Predicted nucleotide-utilizing enzyme related to molybdopterin-biosynthesis enzyme MoeA	1.30E-66
+97	COG	COG0227	Ribosomal protein L28	3.22E-24
+98	COG	COG0267	Ribosomal protein L33	3.53E-10
+100	COG	COG0552	Signal recognition particle GTPase	1.45E-144

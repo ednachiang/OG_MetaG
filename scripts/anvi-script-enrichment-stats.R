@@ -147,6 +147,7 @@ run_test_no_spread <- function(df) {
   df %>%
     # Error in glm step
     # Quasibinomial can take non-integer data
+    # Error = Error in family$linkfun(mustart) : Value 6.13897 out of range (0, 1)
     glm(cbind(x, N - x) ~ group, .,
         family = binomial(link = "logit")) %>%
     anova(test="Rao")
@@ -170,7 +171,7 @@ w_models <- df_in %>%
   mutate(x = N * p) %>%
   subset(select = -p) %>%
   #select(c(-p)) %>%
-    # For some reason, select() wasn't working, so I substitutted subset()
+    # For some reason, select() wasn't working, so I substituted subset()
   group_by(accession) %>%
   nest %>%
   mutate(model = map(data, run_test_no_spread))

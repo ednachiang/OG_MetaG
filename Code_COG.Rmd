@@ -269,6 +269,151 @@ ggplot(cog.stats, aes(x=Season, y=Unique_COGs, fill=Season)) +
         legend.title = element_text(face="bold"))
 ```
 
+### COG Category - Create DESeq object
+```{r}
+# https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
+# https://compbiocore.github.io/deseq-workshop-1/assets/deseq_workshop_1.html
+# https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
+
+
+### Test DESeq2 to determine fit type
+# https://support.bioconductor.org/p/81094/
+#cog.cat.dds <- phyloseq_to_deseq2(cog.cat.phy, ~Season)
+#cog.cat.dds$Season <- factor(cog.cat.dds$Season, levels=c("Summer", "Winter", "Spring"))
+#cog.cat.dds <- cog.cat.dds[rowSums(counts(cog.cat.dds)) > 1,]
+#cog.cat.local <- DESeq(cog.cat.dds, fitType = "local")
+#cog.cat.par <- DESeq(cog.cat.dds, fitType = "parametric")
+  # Local was automatically substituted because parametric isn't a good fit
+
+### Convert phyloseq object to deseq2 object
+cog.cat.dds <- phyloseq_to_deseq2(cog.cat.phy, ~Season)
+  # Design variable must be unordered otherwise you get an error
+cog.cat.dds$Season <- factor(cog.cat.dds$Season, levels=c("Summer", "Winter", "Spring"))
+
+# DESeq DataStructure for analyses
+cog.cat.dds <- DESeq(cog.cat.dds, fitType = 'local')
+
+# Hellinger-transformed data for visualizations
+cog.cat.hell <- hellinger(t(assay(cog.cat.dds)))
+```
+
+### COG Category - DESeq - find overrep genes
+```{r}
+# Pull out results from pairwise comparison
+cog.cat.sw <- results(cog.cat.dds, contrast=c("Season", "Summer", "Winter"))
+cog.cat.sw.sig <- cog.cat.sw[which(cog.cat.sw$padj < 0.05),]
+  # None
+cog.cat.sp <- results(cog.cat.dds, contrast=c("Season", "Summer", "Spring"))
+cog.cat.sp.sig <- cog.cat.sp[which(cog.cat.sp$padj < 0.05),]
+  # None
+cog.cat.wp <- results(cog.cat.dds, contrast=c("Season", "Winter", "Spring"))
+cog.cat.wp.sig <- cog.cat.wp[which(cog.cat.wp$padj < 0.05),]
+cog.cat.wp.sig[which(cog.cat.wp.sig$log2FoldChange > 0),]
+  # Enriched in Winter compared to Spring (positive log2FoldChange)
+      # M (Cell wall/membrane/envelope biogenesis)
+cog.cat.wp.sig[which(cog.cat.wp.sig$log2FoldChange < 0),]
+  # Enriched in Spring compared to Winter (negative log2FoldChange)
+    # G (carb transport & metab), K (transcription), T (signal transduction mechanisms), V (defense mechanisms)
+```
+
+### COG Category - DESeq heatmap of normalized + transformed counts
+```{r}
+# Prepare data
+cog.cat.hell <- otu_table(t(cog.cat.hell), taxa_are_rows = T)
+colnames(cog.cat.hell) <- c("3715", "3717", "3723", "3733", "3734", "3744",
+                            "3772", "3773" , "3775")
+cog.cat.all <- merge_phyloseq(cog.cat.hell, tax_table(cog.cat.phy), sample_data(cog.cat.phy))
+
+# Rename COG categories to be informative
+cog.cat.all.plot <- cog.cat.all
+taxa_names(cog.cat.all.plot) <- c("A (RNA processing and modification)",
+                                  "B (Chromatin structure and dynamics)",
+                                  "C (Energy production and conversion)",
+                                  "D (Cell cycle control, cell division, chromosome partitioning)",
+                                  "E (Amino acid transport and metabolism)",
+                                  "F (Nucleotide transport and metabolism)",
+                                  "G (Carbohydrate transport and metabolism)",
+                                  "H (Coenzyme transport and metabolism)",
+                                  "I (Lipid transport and metabolism)", 
+                                  "J (Translation, ribosomal structure, and biogenesis)", 
+                                  "K (Transcription)",
+                                  "L (Replication, recombination, and repair)",
+                                  "M (Cell wall/membrane/envelope biogenesis)",
+                                  "N (Cell motility)",
+                                  "O (Posttranslational modification, protein turnover, chaperones)",
+                                  "P (Inorganic ion transport and metabolism)",
+                                  "Q (Secondary metabolites biosynthesis, transport, and catabolism)",
+                                  "R (General function predicted only)",
+                                  "S (Function unknown)",
+                                  "T (Signal transduction mechanisms)",
+                                  "U (Intracellular trafficking, secretion, and vesicular transport)",
+                                  "V (Defense mechanisms)",
+                                  "W (Extracellular structures)",
+                                  "Y (Nuclear structure)",
+                                  "Z (Cytoskeleton)")
+
+
+tiff("cog.cat.all.heatmap.tiff", width=10.25, height=9, units="in", res=300)
+plot_heatmap(cog.cat.all.plot, sample.label = "Season",
+             sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734",
+                              "3773", "3775"),
+             taxa.order = c("Z (Cytoskeleton)", "Y (Nuclear structure)",
+                            "W (Extracellular structures)", "V (Defense mechanisms)",
+                            "U (Intracellular trafficking, secretion, and vesicular transport)",
+                            "T (Signal transduction mechanisms)",
+                            "S (Function unknown)",
+                            "R (General function predicted only)",
+                            "Q (Secondary metabolites biosynthesis, transport, and catabolism)",
+                            "P (Inorganic ion transport and metabolism)",
+                            "O (Posttranslational modification, protein turnover, chaperones)",
+                            "N (Cell motility)",
+                            "M (Cell wall/membrane/envelope biogenesis)",
+                            "L (Replication, recombination, and repair)",
+                            "K (Transcription)",
+                            "J (Translation, ribosomal structure, and biogenesis)",
+                            "I (Lipid transport and metabolism)",
+                            "H (Coenzyme transport and metabolism)",
+                            "G (Carbohydrate transport and metabolism)",
+                            "F (Nucleotide transport and metabolism)",
+                            "E (Amino acid transport and metabolism)",
+                            "D (Cell cycle control, cell division, chromosome partitioning)",
+                            "C (Energy production and conversion)",
+                            "B (Chromatin structure and dynamics)",
+                            "A (RNA processing and modification)")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season") +
+  ylab("COG Category\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"), limits = c(0.00, 0.35), breaks = c(0.00, 0.07, 0.14, 0.21, 0.28, 0.35),
+                       labels = c("0.00", "0.07", "0,14", "0.21", "0.28", "0.35"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=12, color = "black"),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border = element_blank(),
+        axis.title.x = element_text(size=14, face="bold"),
+        axis.title.y = element_text(size=14, face="bold"),
+        legend.title = element_text(size=14, face="bold"),
+        legend.text = element_text(size=12)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1)) +
+  annotate("rect", xmin = 0.5, xmax = 3.5, ymin = 25.6, ymax = 26.5,
+           fill="darkgoldenrod2") +
+  annotate("text", x = 1.99, y = 26.07, label = "Summer", size = 5.5) +
+  annotate("rect", xmin = 3.55, xmax = 6.5, ymin = 25.6, ymax = 26.5,
+           fill="#5DA5ED") +
+  annotate("text", x = 4.99, y = 26.07, label = "Winter", size = 5.5) +
+  annotate("rect", xmin = 6.55, xmax = 9.5, ymin = 25.6, ymax = 26.5,
+           fill="green3") +
+  annotate("text", x = 7.99, y = 26.07, label = "Spring", size = 5.5)
+dev.off()
+```
+
+
 ### COG - Clustering
 ```{r}
 # https://sites.google.com/site/mb3gustame/reference/dissimilarity

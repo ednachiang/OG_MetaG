@@ -286,16 +286,6 @@ ggplot(cog.stats, aes(x=Season, y=Unique_COGs, fill=Season)) +
 # https://compbiocore.github.io/deseq-workshop-1/assets/deseq_workshop_1.html
 # https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html
 
-
-### Test DESeq2 to determine fit type
-# https://support.bioconductor.org/p/81094/
-#cog.cat.dds <- phyloseq_to_deseq2(cog.cat.phy, ~Season)
-#cog.cat.dds$Season <- factor(cog.cat.dds$Season, levels=c("Summer", "Winter", "Spring"))
-#cog.cat.dds <- cog.cat.dds[rowSums(counts(cog.cat.dds)) > 1,]
-#cog.cat.local <- DESeq(cog.cat.dds, fitType = "local")
-#cog.cat.par <- DESeq(cog.cat.dds, fitType = "parametric")
-  # Local was automatically substituted because parametric isn't a good fit
-
 ### Convert phyloseq object to deseq2 object
 cog.cat.dds <- phyloseq_to_deseq2(cog.cat.phy, ~Season)
   # Design variable must be unordered otherwise you get an error
@@ -471,6 +461,82 @@ dev.off()
 ```
 
 
+### COG Category - Clustering
+```{r}
+cog.cat.dist <- dist(cog.cat.hell, method = "euclidean")
+cog.cat.dist.matrix <- as.matrix(cog.cat.dist)
+rownames(cog.cat.dist.matrix) <- meta$Season
+colnames(cog.cat.dist.matrix) <- meta$Season
+
+
+# Dendrogram
+cog.cat.hclust <- hclust(cog.cat.dist, method = "average")
+cog.cat.den <- as.dendrogram(cog.cat.hclust)
+cog.cat.den.data <- dendro_data(cog.cat.den, type = "rectangle")
+cog.cat.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
+cog.cat.den.data$labels[,3] <- ordered(cog.cat.den.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
+
+
+#tiff("cog.cat.dendro.tiff", width=10, height=5, units="in", res=300)
+ggplot(cog.cat.den.data$segments) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_text(data = cog.cat.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
+            hjust=0, size=5) +
+  ylab("Hellinger Distance") +
+  xlab("Season") +
+  labs(colour = "Season") +
+  coord_flip() +
+  scale_y_reverse() +
+  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size=20),
+        panel.border = element_blank(),
+        axis.line.x = element_line(),
+        legend.title = element_text(face="bold"),
+        axis.title.x = element_text(face="bold", size=20),
+        axis.title.y = element_text(face="bold", size=20))
+#dev.off()
+```
+
+
+### COG Category - PCoA & PERMANOVA
+```{r}
+cog.cat.pcoa <- pcoa(cog.cat.dist)
+  # Total variation explained = 71.5%
+cog.cat.phy.ord <- cog.cat.norm.phy
+sample_data(cog.cat.phy.ord)$Season <- ordered(sample_data(cog.cat.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
+
+#tiff("cog.cat.pcoa.tiff", width=7, height=5, units="in", res=300)
+plot_ordination(physeq = cog.cat.phy.ord, ordination = cog.cat.pcoa, axes = c(1,2),
+                color = "Season") +
+  geom_point(size=5) +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Hellinger Distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust=0.5, size=20))
+#dev.off()
+
+
+### Run PERMANOVA on Hellinger distance
+adonis(cog.cat.dist ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.1306
+beta.tax = betadisper(d=cog.cat.dist, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.27
+```
+
+
+
+
 ### COG - Clustering
 ```{r}
 # https://sites.google.com/site/mb3gustame/reference/dissimilarity
@@ -602,96 +668,4 @@ adonis(cog.wp.dist ~ Season, data=meta.wp, permutations= 99999)
   # p-value = 0.2
 
 ```
-
-### COG Category - Clustering
-```{r}
-# https://sites.google.com/site/mb3gustame/reference/dissimilarity
-cog.cat <- data.frame(otu_table(cog.cat.phy))
-colnames(cog.cat) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
-                        "3773", "3775")
-cog.cat.hell <- hellinger(t(cog.cat))
-cog.cat.dist <- dist(cog.cat.hell, method = "euclidean")
-cog.cat.dist.matrix <- as.matrix(cog.cat.dist)
-rownames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-colnames(cog.cat.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-
-
-
-# Dendrogram
-cog.cat.hclust <- hclust(cog.cat.dist, method = "average")
-cog.cat.den <- as.dendrogram(cog.cat.hclust)
-cog.cat.den.data <- dendro_data(cog.cat.den, type = "rectangle")
-cog.cat.den.data$labels[,3] <- c("Summer", "Winter", "Winter", "Winter", "Summer", "Spring", "Spring", "Spring", "Summer")
-cog.cat.den.data$labels[,3] <- ordered(cog.cat.den.data$labels[,3], levels=c("Summer", "Winter", "Spring"))
-
-
-#tiff("cog.cat.dendro.tiff", width=10, height=5, units="in", res=300)
-ggplot(cog.cat.den.data$segments) +
-  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
-  geom_text(data = cog.cat.den.data$labels, aes(x, y, label=label, colour=label, fontface = "bold"),
-            hjust=0, size=5) +
-  ylab("Hellinger Distance") +
-  xlab("Season") +
-  labs(colour = "Season") +
-  coord_flip() +
-  scale_y_reverse() +
-  scale_color_manual(values=c("darkgoldenrod3", "dodgerblue3", "green4")) +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.text.y = element_blank(),
-        axis.text.x = element_text(size=20),
-        panel.border = element_blank(),
-        axis.line.x = element_line(),
-        legend.title = element_text(face="bold"),
-        axis.title.x = element_text(face="bold", size=20),
-        axis.title.y = element_text(face="bold", size=20))
-#dev.off()
-
-
-
-
-
-### PCoA
-cog.cat.pcoa <- pcoa(cog.cat.dist)
-  # Total variance explained = 71.4%
-cog.cat.phy.ord <- cog.cat.phy
-sample_data(cog.cat.phy.ord)$Season <- ordered(sample_data(cog.cat.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
-
-
-#tiff("cog.cat.pcoa.tiff", width=10, height=5, units="in", res=300)
-plot_ordination(physeq = cog.cat.phy.ord, ordination = cog.cat.pcoa, axes = c(1, 2),
-                color="Season") + 
-  geom_point(size=5) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Hellinger Distance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.title.x = element_text(size=20),
-        axis.title.y = element_text(size=20),
-        legend.title = element_text(size=20),
-        legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
-#dev.off()
- 
-
-
-### Test normality
-hist(cog.cat.dist)
-qqnorm(cog.cat.dist)
-qqline(cog.cat.dist)
-shapiro.test(cog.cat.dist)
-  # p-value = 0.334
-  # Normal
-
-### Run PERMANOVA on Hellinger distance
-adonis(cog.cat.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.1269
-beta.tax = betadisper(d=cog.cat.dist, group=meta$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.219
-```
-
-
 

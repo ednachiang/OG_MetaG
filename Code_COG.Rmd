@@ -134,13 +134,24 @@ rownames(cog.cat.tax) <- cog.cat.tax[,1]
 colnames(cog.cat.tax) <- "Category"
 cog.cat.tax <- tax_table(cog.cat.tax)
 taxa_names(cog.cat.tax) <- cog.cat.tax[,1]
+colnames(cog.cat.tax) <- "Category"
 cog.cat.phy <- merge_phyloseq(cog.cat.otu, cog.cat.tax, sample_data(meta))
 #save(cog.cat.phy, file = "cog.cat.phy.Rdata")
+
+
+
+### Category - Normalized Counts ###
+cog.cat.dds <- phyloseq_to_deseq2(cog.cat.phy, ~Season)
+cog.cat.dds <- estimateSizeFactors(cog.cat.dds)
+cog.cat.norm <- counts(cog.cat.dds, normalized = T)
+cog.cat.norm.phy <- merge_phyloseq(otu_table(cog.cat.norm, taxa_are_rows = T), tax_table(cog.cat.phy), sample_data(cog.cat.phy))
+#save(cog.cat.norm.phy, file = "cog.cat.norm.phy.Rdata")
 ```
 ### COG - Load physeq objects
 ```{r}
 load("cog.phy.Rdata")
 load("cog.cat.phy.Rdata")
+load("cog.cat.norm.phy.Rdata")
 meta <- read.csv('metadata.csv', row.names=1)
 ```
 
@@ -316,6 +327,52 @@ cog.cat.wp.sig[which(cog.cat.wp.sig$log2FoldChange < 0),]
     # G (carb transport & metab), K (transcription), T (signal transduction mechanisms), V (defense mechanisms)
 ```
 
+### COG Category - Sig Category Dot Plot
+```{r}
+# Prepare data
+cog.cat.norm.df <- psmelt(cog.cat.norm.phy)
+m <- cog.cat.norm.df[which(cog.cat.norm.df$Category == "M"),]
+g <- cog.cat.norm.df[which(cog.cat.norm.df$Category == "G"),]
+k <- cog.cat.norm.df[which(cog.cat.norm.df$Category == "K"),]
+t <- cog.cat.norm.df[which(cog.cat.norm.df$Category == "T"),]
+v <- cog.cat.norm.df[which(cog.cat.norm.df$Category == "V"),]
+cog.cat.norm.sig <- rbind(m,g,k,t,v)
+cog.cat.norm.sig$Season <- ordered(cog.cat.norm.sig$Season,
+                                   levels=c("Summer", "Winter", "Spring"))
+
+
+# Create cat labels
+glab <- expression("                 G\nCarbohydrate transport\n     and metabolism")
+klab <- expression("         K\nTranscription\n")
+mlab <- expression("              M\nCell wall/membrane/\nenvelope biogenesis")
+tlab <- expression("              T\nSignal transduction\n     mechanisms")
+vlab <- expression("               V\nDefense mechanisms\n")
+newLab <- list("G" = glab, "K" = klab, "M" = mlab, "T" = tlab, "V" = vlab)
+newLab_labeller <- function(variable,value){
+  return(newLab[value])
+}
+
+#tiff("cog.cat.sig.tiff", width = 12, height = 4, units = "in", res = 300)
+ggplot(cog.cat.norm.sig, aes(x = Season, y = Abundance, fill = Season)) +
+  geom_dotplot(binaxis = 'y', stackdir = 'center', dotsize = 1.5, stackratio = 1.15) +
+  facet_grid(.~Category, labeller = newLab_labeller) +
+  ylab("Normalized counts") +
+  scale_fill_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  scale_y_continuous(breaks = c(6300, 10975, 15650, 20325, 25000),
+                     limits=c(6300, 25000)) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text = element_text(face="bold"),
+        strip.text.x = element_text(size=12, margin = margin(t = 25)),
+        strip.background = element_blank(),
+        legend.title = element_text(size = 14,face="bold"),
+        legend.text = element_text(size=12),
+        axis.title.y = element_text(size=14, face="bold"),
+        axis.text.y = element_text(size=12),
+        axis.title.x = element_text(size=14, face="bold"),
+        axis.text.x = element_text(size = 12, angle = 15, hjust = 0.5, vjust = 0.9))
+#dev.off()
+```
 ### COG Category - DESeq heatmap of normalized + transformed counts
 ```{r}
 # Prepare data

@@ -114,6 +114,7 @@ meta <- read.csv('metadata.csv', row.names=1)
 
 # Create phyloseq object
 cog.phy <- merge_phyloseq(cog.otu, cog.tax, sample_data(meta))
+colnames(tax_table(cog.phy)) <- "COG"
 #save(cog.phy, file = "cog.phy.Rdata")
 
 
@@ -400,7 +401,7 @@ taxa_names(cog.cat.all.plot) <- c("A (RNA processing and modification)",
                                   "Z (Cytoskeleton)")
 
 
-tiff("cog.cat.all.heatmap.tiff", width=10.25, height=9, units="in", res=300)
+#tiff("cog.cat.all.heatmap.tiff", width=10.25, height=9, units="in", res=300)
 plot_heatmap(cog.cat.all.plot, sample.label = "Season",
              sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734",
                               "3773", "3775"),
@@ -457,7 +458,7 @@ plot_heatmap(cog.cat.all.plot, sample.label = "Season",
   annotate("rect", xmin = 6.55, xmax = 9.5, ymin = 25.6, ymax = 26.5,
            fill="green3") +
   annotate("text", x = 7.99, y = 26.07, label = "Spring", size = 5.5)
-dev.off()
+#dev.off()
 ```
 
 
@@ -503,37 +504,332 @@ ggplot(cog.cat.den.data$segments) +
 
 
 ### COG Category - PCoA & PERMANOVA
-```{r}
-cog.cat.pcoa <- pcoa(cog.cat.dist)
-  # Total variation explained = 71.5%
-cog.cat.phy.ord <- cog.cat.norm.phy
-sample_data(cog.cat.phy.ord)$Season <- ordered(sample_data(cog.cat.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
-#tiff("cog.cat.pcoa.tiff", width=7, height=5, units="in", res=300)
-plot_ordination(physeq = cog.cat.phy.ord, ordination = cog.cat.pcoa, axes = c(1,2),
-                color = "Season") +
-  geom_point(size=5) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Hellinger Distance") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.title.x = element_text(size=20),
-        axis.title.y = element_text(size=20),
-        legend.title = element_text(size=20),
-        legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
+### COG Within-Category - Separate Phyloseq Object
+```{r}
+# Load COG classification data
+cog.class <- read.csv('cog/cog.classifications.tab', header = T, sep = "\t", row.names = 1)
+
+# Pull out COGs in each category
+mCOGs <- rownames(cog.class)[which(cog.class$Category == "M")]
+gCOGs <- rownames(cog.class)[which(cog.class$Category == "G")]
+kCOGs <- rownames(cog.class)[which(cog.class$Category == "K")]
+tCOGs <- rownames(cog.class)[which(cog.class$Category == "T")]
+vCOGs <- rownames(cog.class)[which(cog.class$Category == "V")]
+
+# Note: the length of each string of COGs != number of COGs in the below physeq objects
+# This is because not all of the COGs in a category are found in our data
+# To see what COGs are missing from our data, use this:
+  # setdiff(mCOGs, data.frame(tax_table(m.phy))$COG)
+
+# Create physeq object for COGs in each category
+m.phy <- prune_taxa(mCOGs, cog.phy)
+g.phy <- prune_taxa(gCOGs, cog.phy)
+k.phy <- prune_taxa(kCOGs, cog.phy)
+t.phy <- prune_taxa(tCOGs, cog.phy)
+v.phy <- prune_taxa(vCOGs, cog.phy)
+```
+
+
+### COG Within-Category - DESeq
+```{r}
+### Convert phyloseq object to deseq2 object
+m.dds <- phyloseq_to_deseq2(m.phy, ~Season)
+g.dds <- phyloseq_to_deseq2(g.phy, ~Season)
+k.dds <- phyloseq_to_deseq2(k.phy, ~Season)
+t.dds <- phyloseq_to_deseq2(t.phy, ~Season)
+v.dds <- phyloseq_to_deseq2(v.phy, ~Season)
+m.dds$Season <- factor(m.dds$Season, levels = c("Summer", "Winter", "Spring"))
+g.dds$Season <- factor(g.dds$Season, levels = c("Summer", "Winter", "Spring"))
+k.dds$Season <- factor(k.dds$Season, levels = c("Summer", "Winter", "Spring"))
+t.dds$Season <- factor(t.dds$Season, levels = c("Summer", "Winter", "Spring"))
+v.dds$Season <- factor(v.dds$Season, levels = c("Summer", "Winter", "Spring"))
+
+# DESeq DataStructure for analyses
+m.dds <- DESeq(m.dds)
+g.dds <- DESeq(g.dds)
+k.dds <- DESeq(k.dds)
+t.dds <- DESeq(t.dds)
+v.dds <- DESeq(v.dds)
+
+
+# Hellinger-transformed data for visualizations
+m.hell <- hellinger(t(assay(m.dds)))
+g.hell <- hellinger(t(assay(g.dds)))
+k.hell <- hellinger(t(assay(k.dds)))
+t.hell <- hellinger(t(assay(t.dds)))
+v.hell <- hellinger(t(assay(v.dds)))
+```
+
+
+### COG Within-Category - DESeq - find overrep genes
+```{r}
+##### M #####
+# Pull out results from pairwise comparison
+m.sw <- results(m.dds, contrast = c("Season", "Summer", "Winter"))
+m.sw.sig <- m.sw[which(m.sw$padj < 0.05),]
+  # Enriched in Summer compared to Winter  (positive log2FoldChange)
+    # COG5434
+m.sp <- results(m.dds, contrast = c("Season", "Summer", "Spring"))
+m.sp.sig <- m.sp[which(m.sp$padj < 0.05),]
+  # Enriched in Summer compared to Spring (positive log2FoldChange)
+  # COG2825, COG2885
+m.wp <- results(m.dds, contrast = c("Season", "Winter", "Spring"))
+m.wp.sig <- m.wp[which(m.wp$padj < 0.05),]
+m.wp.sig[which(m.wp.sig$log2FoldChange > 0),]
+  # Enriched in Winter compared to Spring (positive log2FoldChange)
+    # COG0774, COG1452, COG2335, COG2885, COG2982, COG3203, COG3637, COG4775
+m.wp.sig[which(m.wp.sig$log2FoldChange < 0),]
+  # Enriched in Spring compared to Winter (negative log2FoldChange)
+    # COG1686, COG1887, COG3757, COG3944
+
+
+
+##### G #####
+# Pull out results from pairwise comparison
+g.sw <- results(g.dds, contrast = c("Season", "Summer", "Winter"))
+g.sw.sig <- g.sw[which(g.sw$padj < 0.05),]
+  # Enriched in Summer compared to Winter (positive log2FoldChange)
+    # COG1105, COG2730, COG3507, COG3664, COG3693, COG3866, COG4284, COG4677
+g.sp <- results(g.dds, contrast = c("Season", "Summer", "Spring"))
+g.sp.sig <- g.sp[which(g.sp$padj < 0.05),]
+  # Enriched in Summer compared to Spring (positive log2FoldChange)
+    # COG2814
+g.wp <- results(g.dds, contrast = c("Season", "Winter", "Spring"))
+g.wp.sig <- g.wp[which(g.wp$padj < 0.05),]
+g.wp.sig[which(g.wp.sig$log2FoldChange > 0),]
+  # Enriched in Winter compared to Spring (positive log2FoldChange)
+    # COG0158, COG2814, COG3525, COG4409
+g.wp.sig[which(g.wp.sig$log2FoldChange < 0),]
+  # Enriched in Spring compared to Winter (negative log2FoldChange)
+    # COG1105, COG1175, COG1653, COG1925, COG2182, COG2190, COG2730, COG3664, COG3693, COG3866, COG4284, COG4813
+
+
+
+##### K #####
+# Pull out results from pairwise comparison
+k.sw <- results(k.dds, contrast = c("Season", "Summer", "Winter"))
+k.sw.sig <- k.sw[which(k.sw$padj < 0.05),]
+  # Enriched in Summer compared to Winter  (positive log2FoldChange)
+    # COG2207
+k.sp <- results(k.dds, contrast = c("Season", "Summer", "Spring"))
+k.sp.sig <- k.sp[which(k.sp$padj < 0.05),]
+  # Enriched in Summer compared to Spring (positive log2FoldChange)
+    # COG3636
+k.wp <- results(k.dds, contrast = c("Season", "Winter", "Spring"))
+k.wp.sig <- k.wp[which(k.wp$padj < 0.05),]
+k.wp.sig[which(k.wp.sig$log2FoldChange > 0),]
+  # Enriched in Winter compared to Spring (positive log2FoldChange)
+    # COG3636
+k.wp.sig[which(k.wp.sig$log2FoldChange < 0),]
+  # Enriched in Spring compared to Winter (negative log2FoldChange)
+    # COG1609
+
+
+
+##### T #####
+# Pull out results from pairwise comparison
+t.sw <- results(t.dds, contrast = c("Season", "Summer", "Winter"))
+t.sw.sig <- t.sw[which(t.sw$padj < 0.05),]
+  # None
+t.sp <- results(t.dds, contrast = c("Season", "Summer", "Spring"))
+t.sp.sig <- t.sp[which(t.sp$padj < 0.05),]
+  # Enriched in Summer compared to Spring (positive log2FoldChange)
+    # COG0589
+t.wp <- results(t.dds, contrast = c("Season", "Winter", "Spring"))
+t.wp.sig <- t.wp[which(t.wp$padj < 0.05),]
+  # None
+
+
+
+
+##### V #####
+# Pull out results from pairwise comparison
+v.sw <- results(v.dds, contrast = c("Season", "Summer", "Winter"))
+v.sw.sig <- v.sw[which(v.sw$padj < 0.05),]
+  # Enriched in Winter compared to Summer (negative log2FoldChange)
+    # COG0610
+v.sp <- results(v.dds, contrast = c("Season", "Summer", "Spring"))
+v.sp.sig <- v.sp[which(v.sp$padj < 0.05),]
+  # Enriched in Summer compared to Spring (positive log2FoldChange)
+    # COG0842, COG3023
+v.wp <- results(v.dds, contrast = c("Season", "Winter", "Spring"))
+v.wp.sig <- v.wp[which(v.wp$padj < 0.05),]
+  # Enriched in Spring compared to Winter (negative log2FoldChange)
+    # COG1132
+```
+
+### COG Within Category - DESeq heatmap of normalized + transformed counts
+```{r}
+##### M #####
+m.hell <- otu_table(t(m.hell), taxa_are_rows = T)
+colnames(m.hell) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773",
+                      "3775")
+m.hell.all <- merge_phyloseq(m.hell, tax_table(m.phy), sample_data(m.phy))
+m.sig <- c("COG2825", "COG2885", "COG5434", "COG1686", "COG1887", "COG3757", "COG3944",
+           "COG0774", "COG1452", "COG2335", "COG2982", "COG3203", "COG3637", "COG4775")
+m.hell.sig <- prune_taxa(m.sig, m.hell.all)
+
+
+
+#tiff("cog.m.heatmap.tiff", width=8, height=9, units="in", res=300)
+plot_heatmap(m.hell.sig, sample.label = "Season",
+             sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734",
+                              "3773", "3775"),
+             taxa.order = c("COG4775", "COG3637", "COG3203", "COG2982", "COG2335",
+                            "COG1452", "COG0774", "COG3944", "COG3757", "COG1887",
+                            "COG1686", "COG5434", "COG2885", "COG2825")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  scale_y_discrete(labels = c("COG4775 ()", "COG3637 ()", "COG3203 ()", "COG2982 ()", "COG2335 ()",
+                            "COG1452 ()", "COG0774 ()", "COG3944 ()", "COG3757 ()", "COG1887 ()",
+                            "COG1686 ()", "COG5434 ()", "COG2885 ()", "COG2825 ()")
+                     
+                     
+                     
+                     
+                     c("1","2","3","4","5","6","7","8","9","10","11","12","13","14")) +
+  xlab("Season") +
+  ylab("Significant COGs in Category M\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"), limits = c(0.00, 0.16), breaks = c(0.00, 0.04, 0.08, 0.12, 0.16),
+                       labels = c("0.00", "0.04", "0.08", "0.12", "0.16"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=12, color = "black"),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border = element_blank(),
+        axis.title.x = element_text(size=14, face="bold"),
+        axis.title.y = element_text(size=14, face="bold"),
+        legend.title = element_text(size=14, face="bold"),
+        legend.text = element_text(size=12)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1)) +
+  annotate("rect", xmin = 0.5, xmax = 3.5, ymin = 14.6, ymax = 15.5,
+           fill="darkgoldenrod2") +
+  annotate("text", x = 1.99, y = 15.07, label = "Summer", size = 5.5) +
+  annotate("rect", xmin = 3.55, xmax = 6.5, ymin = 14.6, ymax = 15.5,
+           fill="#5DA5ED") +
+  annotate("text", x = 4.99, y = 15.07, label = "Winter", size = 5.5) +
+  annotate("rect", xmin = 6.55, xmax = 9.5, ymin = 14.6, ymax = 15.5,
+           fill="green3") +
+  annotate("text", x = 7.99, y = 15.07, label = "Spring", size = 5.5)
 #dev.off()
 
 
-### Run PERMANOVA on Hellinger distance
-adonis(cog.cat.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.1306
-beta.tax = betadisper(d=cog.cat.dist, group=meta$Season)
-p <- permutest(beta.tax)
-p$tab
-  # p-value = 0.27
+
+
+
+
+
+##### G #####
+g.hell <- otu_table(t(g.hell), taxa_are_rows = T)
+colnames(g.hell) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773",
+                      "3775")
+g.hell.all <- merge_phyloseq(g.hell, tax_table(g.phy), sample_data(g.phy))
+g.sig <- c("COG2814", "COG1105", "COG2730", "COG3507", "COG3664", "COG3693", "COG3866",
+           "COG4284", "COG4677", "COG1175", "COG1653" , "COG1925", "COG2182",
+           "COG2190", "COG4813", "COG0158", "COG3525", "COG4409")
+g.hell.sig <- prune_taxa(g.sig, g.hell.all)
+
+
+
+
+
+tiff("cog.g.heatmap.tiff", width=8, height=9, units="in", res=300)
+plot_heatmap(g.hell.sig, sample.label = "Season",
+             sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734",
+                              "3773", "3775"),
+             taxa.order = c("COG4409", "COG3525", "COG0158", "COG4813", "COG2190",
+                            "COG2182", "COG1925", "COG1653", "COG1175", "COG4677",
+                            "COG4284", "COG3866", "COG3693", "COG3664", "COG3507",
+                            "COG2730", "COG1105", "COG2814")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  scale_y_discrete(labels = c()) +
+  xlab("Season") +
+  ylab("Significant COGs in Category G\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"), limits = c(0.00, 0.16), breaks = c(0.00, 0.04, 0.08, 0.12, 0.16),
+                       labels = c("0.00", "0.04", "0.08", "0.12", "0.16"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=12, color = "black"),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border = element_blank(),
+        axis.title.x = element_text(size=14, face="bold"),
+        axis.title.y = element_text(size=14, face="bold"),
+        legend.title = element_text(size=14, face="bold"),
+        legend.text = element_text(size=12)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1)) +
+  annotate("rect", xmin = 0.5, xmax = 3.5, ymin = 14.6, ymax = 15.5,
+           fill="darkgoldenrod2") +
+  annotate("text", x = 1.99, y = 15.07, label = "Summer", size = 5.5) +
+  annotate("rect", xmin = 3.55, xmax = 6.5, ymin = 14.6, ymax = 15.5,
+           fill="#5DA5ED") +
+  annotate("text", x = 4.99, y = 15.07, label = "Winter", size = 5.5) +
+  annotate("rect", xmin = 6.55, xmax = 9.5, ymin = 14.6, ymax = 15.5,
+           fill="green3") +
+  annotate("text", x = 7.99, y = 15.07, label = "Spring", size = 5.5)
+dev.off()
 ```
 
+
+
+
+
+
+
+### COG All - DESeq
+```{r}
+### Convert phyloseq object to deseq2 object
+cog.dds <- phyloseq_to_deseq2(cog.phy, ~Season)
+cog.dds$Season <- factor(cog.dds$Season, levels = c("Summer", "Winter", "Spring"))
+
+# DESeq DataStructure for analyses
+cog.dds <- DESeq(cog.dds)
+
+# Hellinger-transformed data for visualizations
+cog.hell <- hellinger(t(assay(cog.dds)))
+```
+
+
+### COG All - DESeq - find overrep genes
+```{r}
+# Pull out results from pairwise comparison
+cog.sw <- results(cog.dds, contrast = c("Season", "Summer", "Winter"))
+cog.sw.sig <- cog.sw[which(cog.sw$padj < 0.05),]
+cog.sw.sig[which(cog.sw.sig$log2FoldChange > 0),]
+  # Enriched in Summer compared to Winter (positive log2FoldChange)
+    # COG2207, COG3345, COG3507, COG3693, COG3866, COG3940
+cog.sw.sig[which(cog.sw.sig$log2FoldChange < 0),]
+  # Enriched in Winter compared to Summer (negative log2FoldChange)
+    # COG3246
+
+
+cog.sp <- results(cog.dds, contrast = c("Season", "Summer", "Spring"))
+cog.sp.sig <- cog.sp[which(cog.sp$padj < 0.05),]
+  # Enriched in Summer compared to Spring (positive log2FoldChange)
+    # COG0243, COG0437, COG0457, COG1240, COG1629, COG2825, COG2885
+
+
+cog.wp <- results(cog.dds, contrast = c("Season", "Winter", "Spring"))
+cog.wp.sig <- cog.wp[which(cog.wp$padj < 0.05),]
+cog.wp.sig[which(cog.wp.sig$log2FoldChange > 0),]
+  # Enriched in Winter compared to Spring (positive log2FoldChange)
+    # COG0457, COG0760, COG0774, COG1452, COG1463, COG1629, COG2825, COG2885, COG3637, COG4775
+cog.wp.sig[which(cog.wp.sig$log2FoldChange < 0),]
+  # Enriched in Spring compared to Winter (negative log2FoldChange)
+    # COG0004, COG0246, COG0395, COG0561, COG1026, COG1061, COG1070, COG1105, COG1131, COG1132, COG1136, COG1175, COG1472, COG1511, COG1609, COG1653, COG1874, COG1925, COG2182, COG2190, COG2207, COG2730, COG2972, COG3044, COG3345, COG3664, COG3693, COG3757, COG3866, COG3940, COG3973, COG4284, COG4485, COG4709, COG4753, COG5578
+
+```
 
 
 

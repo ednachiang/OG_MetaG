@@ -147,12 +147,23 @@ cog.cat.dds <- estimateSizeFactors(cog.cat.dds)
 cog.cat.norm <- counts(cog.cat.dds, normalized = T)
 cog.cat.norm.phy <- merge_phyloseq(otu_table(cog.cat.norm, taxa_are_rows = T), tax_table(cog.cat.phy), sample_data(cog.cat.phy))
 #save(cog.cat.norm.phy, file = "cog.cat.norm.phy.Rdata")
+
+
+
+
+### Category - All Counts ###
+cog.dds <- phyloseq_to_deseq2(cog.phy, ~Season)
+cog.dds <- estimateSizeFactors(cog.dds)
+cog.norm <- counts(cog.dds, normalized = T)
+cog.norm.phy <- merge_phyloseq(otu_table(cog.norm, taxa_are_rows = T), tax_table(cog.phy), sample_data(cog.phy))
+#save(cog.norm.phy, file = "cog.norm.phy.Rdata")
 ```
 ### COG - Load physeq objects
 ```{r}
 load("cog.phy.Rdata")
 load("cog.cat.phy.Rdata")
 load("cog.cat.norm.phy.Rdata")
+load("cog.norm.phy.Rdata")
 meta <- read.csv('metadata.csv', row.names=1)
 ```
 
@@ -861,17 +872,14 @@ cog.wp.sig[which(cog.wp.sig$log2FoldChange < 0),]
 
 
 
-### COG - Clustering
+
+### COG All - Clustering
 ```{r}
-# https://sites.google.com/site/mb3gustame/reference/dissimilarity
-cog <- data.frame(otu_table(cog.phy))
-colnames(cog) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", 
-                        "3773", "3775")
-cog.hell <- hellinger(t(cog))
 cog.dist <- dist(cog.hell, method = "euclidean")
 cog.dist.matrix <- as.matrix(cog.dist)
-rownames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
-colnames(cog.dist.matrix) <- c("Summer", "Summer", "Winter", "Winter", "Spring", "Summer", "Winter", "Spring", "Spring")
+rownames(cog.dist.matrix) <- meta$Season
+colnames(cog.dist.matrix) <- meta$Season
+
 
 # Dendrogram
 cog.hclust <- hclust(cog.dist, method = "average")
@@ -903,21 +911,19 @@ ggplot(cog.den.data$segments) +
         axis.title.x = element_text(face="bold", size=20),
         axis.title.y = element_text(face="bold", size=20))
 #dev.off()
+```
 
 
-
-
-
-
-
-### PCoA
+### COG All - PCoA & PERMANOVA
+```{r}
 cog.pcoa <- pcoa(cog.dist)
-  # Total variance explained = 62.4
-cog.phy.ord <- cog.phy
+  # Total variation explained = 62.4%
+cog.phy.ord <- cog.norm.phy
 sample_data(cog.phy.ord)$Season <- ordered(sample_data(cog.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
 
-#tiff("cog.pcoa.tiff", width=8, height=6, units="in", res=300)
+
+#tiff("cog.pcoa.tiff", width=7, height=5, units="in", res=300)
 plot_ordination(physeq = cog.phy.ord, ordination = cog.pcoa, axes = c(1,2),
                 color = "Season") +
   geom_point(size=5) +
@@ -935,31 +941,20 @@ plot_ordination(physeq = cog.phy.ord, ordination = cog.pcoa, axes = c(1,2),
 
 
 
-
-
-### Test normality
-hist(cog.dist)
-qqnorm(cog.dist)
-qqline(cog.dist)
-shapiro.test(cog.dist)
-  # p-value = 0.05018
-  # Normal
-
 ### Run PERMANOVA on Hellinger distance
 adonis(cog.dist ~ Season, data=meta, permutations = 99999)
-  # p-value = 0.02111
+  # p-value = 0.02154
 beta.tax = betadisper(d=cog.dist, group=meta$Season)
 p <- permutest(beta.tax)
 p$tab
-  # p-value = 0.738
+  # p-value = 0.731
 
 
 
 
-### Pairwise PERMANOVA comparisons
+### Pairwise PERMANOVA Comparisons
 cog.dist.matrix <- as.matrix(cog.dist)
 cog.dist.df <- data.frame(cog.dist.matrix)
-
 
 # Summer vs. Winter
 cog.sw.dist.df <- cog.dist.df[,-5]
@@ -968,7 +963,7 @@ cog.sw.dist.df <- cog.sw.dist.df[-5,]
 cog.sw.dist.df <- cog.sw.dist.df[-7:-8,]
 cog.sw.dist <- as.dist(cog.sw.dist.df)
 meta.sw <- meta[-which(meta$Season == "Spring"),]
-adonis2(cog.sw.dist ~ Season, data=meta.sw, permutations= 99999)
+adonis(cog.sw.dist ~ Season, data=meta.sw, permutations= 99999)
   # p-value = 0.2
 
 # Summer vs. Spring
@@ -990,6 +985,4 @@ cog.wp.dist <- as.dist(cog.wp.dist.df)
 meta.wp <- meta[-which(meta$Season == "Summer"),]
 adonis(cog.wp.dist ~ Season, data=meta.wp, permutations= 99999)
   # p-value = 0.2
-
 ```
-

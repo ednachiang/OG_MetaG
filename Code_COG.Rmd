@@ -504,7 +504,33 @@ ggplot(cog.cat.den.data$segments) +
 
 
 ### COG Category - PCoA & PERMANOVA
-
+```{r}
+cog.cat.pcoa <- pcoa(cog.cat.dist)
+  # Total variation explained = 71.5%
+cog.cat.phy.ord <- cog.cat.norm.phy
+sample_data(cog.cat.phy.ord)$Season <- ordered(sample_data(cog.cat.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
+#tiff("cog.cat.pcoa.tiff", width=7, height=5, units="in", res=300)
+plot_ordination(physeq = cog.cat.phy.ord, ordination = cog.cat.pcoa, axes = c(1,2),
+                color = "Season") +
+  geom_point(size=5) +
+  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  ggtitle("Hellinger Distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        legend.title = element_text(size=20),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust=0.5, size=20))
+#dev.off()
+### Run PERMANOVA on Hellinger distance
+adonis(cog.cat.dist ~ Season, data=meta, permutations = 99999)
+  # p-value = 0.1306
+beta.tax = betadisper(d=cog.cat.dist, group=meta$Season)
+p <- permutest(beta.tax)
+p$tab
+  # p-value = 0.27
+```
 ### COG Within-Category - Separate Phyloseq Object
 ```{r}
 # Load COG classification data
@@ -786,7 +812,9 @@ dev.off()
 
 
 
+```{r}
 
+```
 ### COG All - DESeq
 ```{r}
 ### Convert phyloseq object to deseq2 object

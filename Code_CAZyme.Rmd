@@ -81,14 +81,14 @@ ggplot(prodigalCounts, aes(x=Season, y=CAZymePercentage, fill=Season)) +
 ### dbCAN - Create phyloseq object (DO NOT RUN!!!)
 ```{r}
 # Load data
-#otu <- read.csv('dbcan/dbcan_otu_table.csv', row.names=1)
-#colnames(otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
-#tax <- read.csv('dbcan/dbcan_tax_table.csv', row.names=1)
-#tax <- tax_table(tax)
-#colnames(tax) <- c("Class", "Family")
-#taxa_names(tax) <- tax[,2]
+otu <- read.csv('dbcan/dbcan_otu_table.csv', row.names=1)
+colnames(otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
+tax <- read.csv('dbcan/dbcan_tax_table.csv', row.names=1)
+tax <- tax_table(tax)
+colnames(tax) <- c("Class", "Family")
+taxa_names(tax) <- tax[,2]
 meta <- read.csv('dbcan/dbcan.spades.metadata.csv', row.names=1)
-#meta.ord <- meta
+meta.ord <- meta
 
 # Remove CAZymes that appear in only 1 sample
 cazy.rem <- list()
@@ -401,6 +401,7 @@ dbcan.dds <- DESeq(dbcan.dds)
 # Hellinger-transformed data for visualizations
 dbcan.hell <- hellinger(t(assay(dbcan.dds)))
 ```
+
 
 ### dbCAN - DESeq - find overrep genes
 ```{r}

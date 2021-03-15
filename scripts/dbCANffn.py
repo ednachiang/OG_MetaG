@@ -12,7 +12,7 @@ directoryOutput = 'test_dbCANffn/'
     # Path to output dbCAN .ffn files
 
 # Input = list of CAZymes that appear in only 1 sample. These are removed in my R analysis.
-drop = [GH12, GH34, GH107, GH149, GT42, GT52, GT61, GT67, GT68, GT77, GT85, GT93, PL2, PL16, PL18, PL28]
+drop = ["GH12", "GH34", "GH107", "GH149", "GT42", "GT52", "GT61", "GT67", "GT68", "GT77", "GT85", "GT93", "PL2", "PL16", "PL18", "PL28"]
 
 
 

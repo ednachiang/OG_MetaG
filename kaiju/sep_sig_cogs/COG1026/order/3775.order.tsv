@@ -1,0 +1,7 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG1026/3775.COG1026.kaiju.output	57.352943	78	186802	Bacteria;Firmicutes;Clostridia;Clostridiales;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG1026/3775.COG1026.kaiju.output	0.735294	1	171549	Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG1026/3775.COG1026.kaiju.output	0.735294	1	526525	Bacteria;Firmicutes;Erysipelotrichia;Erysipelotrichales;NA;NA;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG1026/3775.COG1026.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG1026/3775.COG1026.kaiju.output	12.500000	17	NA	cannot be assigned to a (non-viral) order
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG1026/3775.COG1026.kaiju.output	28.676471	39	NA	unclassified

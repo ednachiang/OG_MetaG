@@ -1,0 +1,5 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG3246/3715.COG3246.kaiju.output	25.000000	1	189330	Bacteria;Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Dorea;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG3246/3715.COG3246.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG3246/3715.COG3246.kaiju.output	50.000000	2	NA	cannot be assigned to a (non-viral) genus
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG3246/3715.COG3246.kaiju.output	25.000000	1	NA	unclassified

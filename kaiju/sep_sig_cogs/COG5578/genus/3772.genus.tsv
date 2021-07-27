@@ -1,0 +1,5 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG5578/3772.COG5578.kaiju.output	14.285715	1	216851	Bacteria;Firmicutes;Clostridia;Clostridiales;Ruminococcaceae;Faecalibacterium;NA;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG5578/3772.COG5578.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG5578/3772.COG5578.kaiju.output	28.571430	2	NA	cannot be assigned to a (non-viral) genus
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG5578/3772.COG5578.kaiju.output	57.142860	4	NA	unclassified

@@ -1,0 +1,7 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4284/3723.COG4284.kaiju.output	16.666668	1	1262796	Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae;Clostridium;Clostridium sp. CAG:343;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4284/3723.COG4284.kaiju.output	16.666668	1	2320100	Bacteria;NA;NA;NA;NA;NA;bacterium 0.1xD8-82;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4284/3723.COG4284.kaiju.output	16.666668	1	2320113	Bacteria;NA;NA;NA;NA;NA;bacterium 1xD42-87;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4284/3723.COG4284.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4284/3723.COG4284.kaiju.output	33.333336	2	NA	cannot be assigned to a (non-viral) species
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4284/3723.COG4284.kaiju.output	16.666667	1	NA	unclassified

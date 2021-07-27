@@ -1,0 +1,6 @@
+file	percent	reads	taxon_id	taxon_name
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4709/3723.COG4709.kaiju.output	4.000000	1	1378168	Bacteria;Firmicutes;NA;NA;NA;NA;Firmicutes bacterium ASF500;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4709/3723.COG4709.kaiju.output	4.000000	1	2320113	Bacteria;NA;NA;NA;NA;NA;bacterium 1xD42-87;
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4709/3723.COG4709.kaiju.output	0.000000	0	10239	Viruses
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4709/3723.COG4709.kaiju.output	16.000000	4	NA	cannot be assigned to a (non-viral) species
+/home/GLBRCORG/echiang3/OG_metaG/kaiju/cogs/sep_enzymes/COG4709/3723.COG4709.kaiju.output	75.999999	19	NA	unclassified

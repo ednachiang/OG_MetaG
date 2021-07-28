@@ -1,0 +1,73 @@
+,3715,3717,3723,3733,3734,3744,3772,3773,3775
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella denticola;,2.325581,0,0,0,0,0,0,0,0
+Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Akkermansiaceae;Akkermansia;Akkermansia muciniphila;,2.325581,1.369863,1.639344,1.204819,1.724138,1.666667,1.515152,1.724138,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;Bacteroides rodentium;,2.325581,0,1.639344,1.204819,1.724138,1.666667,1.515152,1.724138,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes sp. CAG:268;,2.325581,1.369863,1.639344,0,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;Bacteroides sp. CAG:927;,2.325581,2.739726,3.278688,1.204819,3.448276,3.333333,0,0,0
+Bacteria;Spirochaetes;Spirochaetia;Brachyspirales;Brachyspiraceae;Brachyspira;Brachyspira sp. CAG:484;,2.325581,1.369863,1.639344,1.204819,0,0,1.515152,1.724138,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. CAG:1058;,2.325581,0,0,0,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. CAG:755;,2.325581,0,0,0,0,0,1.515152,0,0
+Bacteria;Proteobacteria;Betaproteobacteria;Burkholderiales;Sutterellaceae;Sutterella;Sutterella sp. CAG:521;,2.325581,0,1.639344,1.204819,0,1.666667,1.515152,1.724138,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes ihumii;,2.325581,1.369863,0,0,0,0,1.515152,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes sp. CHKCI003;,2.325581,2.739726,3.278688,3.614458,1.724138,3.333333,3.030303,3.448276,0
+Bacteria;Proteobacteria;Betaproteobacteria;Burkholderiales;Sutterellaceae;Turicimonas;Turicimonas muris;,2.325581,1.369863,0,0,0,0,0,0,0
+Bacteria;Proteobacteria;Deltaproteobacteria;Desulfovibrionales;Desulfovibrionaceae;Mailhella;Mailhella massiliensis;,2.325581,2.739726,0,0,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;Bacteroidales bacterium;,2.325581,0,1.639344,3.614458,1.724138,1.666667,0,0,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. MGM1;,2.325581,1.369863,1.639344,0,0,1.666667,0,1.724138,0
+Bacteria;Proteobacteria;Deltaproteobacteria;Desulfovibrionales;Desulfovibrionaceae;NA;Desulfovibrionaceae bacterium;,2.325581,1.369863,1.639344,2.409638,3.448276,1.666667,3.030303,5.172414,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. oral taxon 820;,2.325581,1.369863,0,0,0,1.666667,0,0,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Odoribacteraceae;Odoribacter;Odoribacter sp. Z80;,2.325581,1.369863,1.639344,1.204819,0,1.666667,1.515152,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;NA;Muribaculaceae bacterium Isolate-104 (HZI);,2.325581,1.369863,1.639344,1.204819,1.724138,0,3.030303,5.172414,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;NA;Muribaculaceae bacterium Isolate-110 (HZI);,2.325581,1.369863,3.278688,1.204819,3.448276,3.333333,0,0,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes dispar;,2.325581,0,1.639344,1.204819,0,0,0,0,0
+Viruses,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
+cannot be assigned to a (non-viral) species,44.186047,43.835617,44.262295,36.144577,44.827587,35.000000,42.424244,32.758621,44.736843
+unclassified,6.976745,12.328767,11.475410,10.843374,13.793103,13.333334,19.696970,22.413793,21.052632
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;NA;Rikenellaceae bacterium;,0,2.739726,0,0,1.724138,3.333333,1.515152,1.724138,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Alloprevotella;Alloprevotella tannerae;,0,1.369863,1.639344,0,0,1.666667,0,1.724138,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. CAG:1320;,0,1.369863,0,0,0,1.666667,0,1.724138,5.263158
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. CAG:485;,0,1.369863,0,1.204819,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. CAG:924;,0,1.369863,0,0,1.724138,1.666667,0,1.724138,0
+Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Akkermansiaceae;Akkermansia;Akkermansia glycaniphila;,0,1.369863,0,1.204819,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;NA;NA;NA;NA;Bacteroidetes bacterium GWB2_41_8;,0,1.369863,0,0,0,0,1.515152,0,0
+Bacteria;Elusimicrobia;Elusimicrobia;Elusimicrobiales;Elusimicrobiaceae;Elusimicrobium;Elusimicrobium sp. An273;,0,1.369863,0,0,0,0,0,1.724138,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Tannerellaceae;Parabacteroides;Parabacteroides sp. An277;,0,1.369863,0,0,0,0,0,0,0
+Bacteria;Candidatus Melainabacteria;NA;NA;NA;NA;Candidatus Melainabacteria bacterium;,0,1.369863,0,0,0,0,0,1.724138,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;Candidatus Amulumruptor;Candidatus Amulumruptor caecigallinarius;,0,1.369863,0,0,0,0,0,0,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;NA;Muribaculaceae bacterium Isolate-002 (NCI);,0,1.369863,0,0,0,1.666667,0,0,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;NA;Muribaculaceae bacterium Isolate-013 (NCI);,0,1.369863,3.278688,0,0,5.000000,1.515152,0,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes communis;,0,1.369863,0,0,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. CAG:1031;,0,0,3.278688,2.409638,0,0,4.545455,3.448276,2.631579
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;Candidatus Azobacteroides;Candidatus Azobacteroides pseudotrichonymphae;,0,0,1.639344,1.204819,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes putredinis CAG:67;,0,0,1.639344,1.204819,0,0,1.515152,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes timonensis;,0,0,1.639344,0,0,0,0,0,0
+Bacteria;Candidatus Melainabacteria;NA;NA;NA;NA;Candidatus Melainabacteria bacterium GWF2_37_15;,0,0,1.639344,0,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Barnesiellaceae;Barnesiella;Barnesiella sp. An22;,0,0,1.639344,0,0,0,0,0,0
+Bacteria;Proteobacteria;NA;NA;NA;NA;Proteobacteria bacterium CAG:495;,0,0,0,3.614458,0,0,3.030303,1.724138,0
+Bacteria;Firmicutes;Negativicutes;Acidaminococcales;Acidaminococcaceae;Phascolarctobacterium;Phascolarctobacterium succinatutens;,0,0,0,2.409638,1.724138,1.666667,0,1.724138,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;Bacteroidales bacterium 52_46;,0,0,0,2.409638,0,1.666667,0,1.724138,2.631579
+Bacteria;Proteobacteria;Epsilonproteobacteria;Campylobacterales;Campylobacteraceae;Campylobacter;Campylobacter jejuni;,0,0,0,1.204819,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Rikenella;Rikenella microfusus;,0,0,0,1.204819,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;uncultured Bacteroides sp.;,0,0,0,1.204819,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella paludivivens;,0,0,0,1.204819,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Porphyromonadaceae;Porphyromonas;Porphyromonas crevioricanis;,0,0,0,1.204819,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Odoribacteraceae;Butyricimonas;Butyricimonas virosa;,0,0,0,1.204819,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;Bacteroides sp. CAG:462;,0,0,0,1.204819,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. CAG:891;,0,0,0,1.204819,0,1.666667,0,0,0
+Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Rhodospirillaceae;Azospirillum;Azospirillum sp. 51_20;,0,0,0,1.204819,0,1.666667,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;Bacteroidales bacterium WCE2008;,0,0,0,1.204819,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes sp. An66;,0,0,0,1.204819,0,1.666667,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. MGM2;,0,0,0,1.204819,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Tannerellaceae;Parabacteroides;Parabacteroides sp. 52;,0,0,0,1.204819,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes sp. Z76;,0,0,0,1.204819,1.724138,0,1.515152,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. CAG:617;,0,0,0,0,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;Bacteroides luti;,0,0,0,0,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;Chitinophagia;Chitinophagales;Chitinophagaceae;NA;Chitinophagaceae bacterium;,0,0,0,0,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;Bacteroides sp. OF04-15BH;,0,0,0,0,1.724138,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;Alistipes indistinctus;,0,0,0,0,0,1.666667,0,1.724138,0
+Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Verrucomicrobiaceae;Haloferula;Haloferula sp. BvORR071;,0,0,0,0,0,1.666667,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;NA;Muribaculaceae bacterium;,0,0,0,0,0,1.666667,0,0,0
+Bacteria;Proteobacteria;Epsilonproteobacteria;Campylobacterales;Campylobacteraceae;Campylobacter;Campylobacter helveticus;,0,0,0,0,0,0,1.515152,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Alloprevotella;Alloprevotella sp. E39;,0,0,0,0,0,0,1.515152,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;NA;Prevotellaceae bacterium MN60;,0,0,0,0,0,0,0,1.724138,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;Prevotella sp. OH937_COT-195;,0,0,0,0,0,0,0,0,2.631579

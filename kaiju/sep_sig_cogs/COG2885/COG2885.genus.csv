@@ -1,0 +1,34 @@
+,3715,3717,3723,3733,3734,3744,3772,3773,3775
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;NA;,25.388601,17.785234,18.565401,19.475655,11.764706,16.853933,15.920398,14.537445,17.241379
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Prevotella;NA;,10.362695,8.724833,8.438819,8.614232,15.196079,13.108614,4.975124,12.775331,14.942529
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Tannerellaceae;Parabacteroides;NA;,3.108808,2.013423,1.687764,1.872659,1.470588,2.621723,2.487562,0.881057,2.873563
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Paraprevotella;NA;,2.590674,1.677852,0,0.749064,0,1.872659,0.497512,0.440529,2.873563
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Alistipes;NA;,1.554404,1.677852,2.109705,1.123595,0,1.872659,0.497512,1.321586,1.149425
+Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Akkermansiaceae;Akkermansia;NA;,1.036269,0.671141,0.843882,0,0.490196,0.749064,0.995025,0.881057,1.149425
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Odoribacteraceae;Odoribacter;NA;,1.036269,0.671141,2.109705,0.374532,1.470588,0,1.990050,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Odoribacteraceae;Butyricimonas;NA;,1.036269,1.006711,0.421941,1.872659,0.490196,0,2.985075,0.440529,0.574713
+Bacteria;Proteobacteria;Deltaproteobacteria;Desulfovibrionales;Desulfovibrionaceae;Mailhella;NA;,1.036269,0.671141,0,0,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;Candidatus Amulumruptor;NA;,1.036269,2.348993,0.843882,0.749064,1.470588,0.749064,0.995025,0,0.574713
+Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Moraxellaceae;Acinetobacter;NA;,0.518135,0,0,0,0,0.374532,0.497512,0,0
+Bacteria;Firmicutes;Clostridia;Clostridiales;Eubacteriaceae;Eubacterium;NA;,0.518135,0,0,0,0,0,0,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Barnesiellaceae;Barnesiella;NA;,0.518135,0,0,0.374532,0,0.374532,0.497512,0,0
+Bacteria;Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Blautia;NA;,0.518135,0.335570,0,0,0,0.374532,0,0,0.574713
+Viruses,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
+cannot be assigned to a (non-viral) genus,23.316061,25.167784,29.957808,22.471910,22.549019,27.340824,21.890549,25.991190,32.183910
+unclassified,26.424870,35.570469,32.489452,35.580525,42.647058,31.460676,37.313432,39.207047,23.563218
+Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Acetobacteraceae;Acetobacter;NA;,0,1.006711,0,1.498127,0.490196,1.498127,0,0,0
+Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Rhodospirillaceae;Azospirillum;NA;,0,0.335570,0,1.872659,0,0,1.990050,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;Muribaculum;NA;,0,0.335570,0.843882,0,0,0.374532,0.497512,0,0.574713
+Bacteria;Proteobacteria;Deltaproteobacteria;Desulfovibrionales;Desulfovibrionaceae;Desulfovibrio;NA;,0,0,1.265823,0.749064,0,0,1.492537,0.881057,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Muribaculaceae;Duncaniella;NA;,0,0,0.421941,0.374532,0,0,0.497512,0,0
+Bacteria;Proteobacteria;Epsilonproteobacteria;Campylobacterales;Campylobacteraceae;Campylobacter;NA;,0,0,0,0.749064,0,0,1.492537,0,0
+Bacteria;Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Marvinbryantia;NA;,0,0,0,0.374532,0,0,0,0.881057,0
+Bacteria;Elusimicrobia;Elusimicrobia;Elusimicrobiales;Elusimicrobiaceae;Elusimicrobium;NA;,0,0,0,0.374532,0,0,0.497512,0.440529,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prevotellaceae;Alloprevotella;NA;,0,0,0,0.374532,0.490196,0,0.995025,0,0
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Porphyromonadaceae;Massilibacteroides;NA;,0,0,0,0.374532,0,0,0,0,0
+Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;Rickettsiaceae;Rickettsia;NA;,0,0,0,0,0.490196,0,0,0.440529,0
+Bacteria;Firmicutes;Clostridia;Clostridiales;Oscillospiraceae;Oscillibacter;NA;,0,0,0,0,0.490196,0,0,0,0.574713
+Bacteria;Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Acetatifactor;NA;,0,0,0,0,0.490196,0,0,0,0
+Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae;Clostridium;NA;,0,0,0,0,0,0.374532,0.497512,0.440529,1.149425
+Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Pseudomonadaceae;Pseudomonas;NA;,0,0,0,0,0,0,0.497512,0,0
+Bacteria;Firmicutes;Bacilli;Bacillales;Bacillaceae;Bacillus;NA;,0,0,0,0,0,0,0,0.440529,0

@@ -4,9 +4,10 @@ import pandas as pd
     # Import pandas to use dataframes
 
 ##### CHANGE THESE PARAMETERS ACCORDINGLY
-directoryKaiju = 'test_kaijuSummarize/'
+directoryKaiju = '../kaiju/mucin_sep/'
     # Directory of kaiju outputs
     # directoryKaiju/directorySpecificPredictedProtein/taxon
+    # CHANGE FUNCTION makeDF ACCORDING TO DIRECTORY
 
 proteins = os.listdir(directoryKaiju)
     # Save all predicted proteins
@@ -38,8 +39,17 @@ def makeDF(taxaList, dataFrame, inputFile, taxaDict):
         #print(taxonName)
         taxaDict[taxonName] = (line1Split[1])
         currentSamp = line1Split[0]
-        currentSamp = currentSamp[:-21]
+
+        ## FOR SEP SIG COGS ##
+        #currentSamp = currentSamp[:-21]
+
+
+        ## FOR SEP SIG CAZYMES   or   SEP MUCIN ##
+        currentSamp = currentSamp[:-13]
         length = len(currentSamp)
+
+
+
         currentSamp = currentSamp[length-4 : length]
     
     #print(taxaDict)

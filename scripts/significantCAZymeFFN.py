@@ -68,7 +68,7 @@ def parse_CAZyme_ORFs(dbCAN_parsed_txt_path, dbCAN_tax_table_path, dbCAN_ffn_pat
             outputFFN = open(outputPath, mode = 'a')
                 # Open output file
             
-            # Create list of ORFs classified to entry5
+            # Create list of ORFs classified to entry2
             sigORF = []
 
             for row in df1.index:

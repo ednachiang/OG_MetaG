@@ -39,6 +39,187 @@ source('scripts/import.genus.sum.R')
 source('scripts/import.species.sum.R')
 ```
 
+
+
+
+### IHS2021
+```{r}
+GH10 <- read.csv('kaiju/sep_sig_cazymes/GH10/GH10.genus.use.csv')
+GH10.sum <- GH10 %>%
+  group_by(Taxa) %>%
+  summarize(Mean = mean(RelAbund),
+            SD = sd(RelAbund),
+            SE = se(RelAbund))
+GH10.plot <- ggplot(GH10.sum, aes(x=Taxa, y=Mean, fill=Taxa)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_fill_manual(name = "Genus", labels = c("Bacteroides", "Dysgonomonas", "Paraprevotella", "Prevotella", "Clostridium"), values = c("brown1", "gold", "darkslategray2", "white", "gray55")) +
+  xlab("Genus") +
+  ylab("Relative Abundance of GH10 Genes (%)") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        strip.text.x = element_blank(),
+        legend.title = element_text(size=12, face = "bold"),
+        legend.text = element_text(size=12),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 20)),
+        axis.text.x = element_blank())
+
+
+
+GH115 <- read.csv('kaiju/sep_sig_cazymes/GH115/GH115.genus.use.csv')
+GH115.sum <- GH115 %>%
+  group_by(Taxa) %>%
+  summarize(Mean = mean(RelAbund),
+            SD = sd(RelAbund),
+            SE = se(RelAbund))
+GH115.plot <- ggplot(GH115.sum, aes(x=Taxa, y=Mean, fill=Taxa)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_fill_manual(name = "Genus", labels = c("Bacteroides", "Prevotella", "Alistipes", "Clostridium", "Marvinbryantia"), values = c("brown1", "white", "yellow", "steelblue3", "gray75")) +
+  xlab("Genus") +
+  ylab("Relative Abundance of GH115 Genes (%)") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        strip.text.x = element_blank(),
+        legend.title = element_text(size=12, face = "bold"),
+        legend.text = element_text(size=12),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 20)),
+        axis.text.x = element_blank())
+
+
+
+
+
+GH20 <- read.csv('kaiju/sep_sig_cazymes/GH20/GH20.genus.use.csv')
+GH20.sum <- GH20 %>%
+  group_by(Taxa) %>%
+  summarize(Mean = mean(RelAbund),
+            SD = sd(RelAbund),
+            SE = se(RelAbund))
+GH20.plot <- ggplot(GH20.sum, aes(x=Taxa, y=Mean, fill=Taxa)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_fill_manual(name = "Genus", labels = c("Bacteroides", "Prevotella", "Alistipes", "Parabacteroides", "Akkermansia"), values = c("brown1", "gold", "darkslategray2", "white", "gray55")) +
+  xlab("Genus") +
+  ylab("Relative Abundance of GH20 Genes (%)") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        strip.text.x = element_blank(),
+        legend.title = element_text(size=12, face = "bold"),
+        legend.text = element_text(size=12),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 20)),
+        axis.text.x = element_blank())
+
+
+
+GH84 <- read.csv('kaiju/sep_sig_cazymes/GH84/GH84.genus.use.csv')
+GH84.sum <- GH84 %>%
+  group_by(Taxa) %>%
+  summarize(Mean = mean(RelAbund),
+            SD = sd(RelAbund),
+            SE = se(RelAbund))
+GH84.plot <- ggplot(GH84.sum, aes(x=Taxa, y=Mean, fill=Taxa)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_fill_manual(name = "Genus", labels = c("Bacteroides", "Alloprevotella", "Prevotella", "Parabacteroides", "Akkermansia"), values = c("brown1", "yellow", "darkslategray2", "white", "gray55")) +
+  xlab("Genus") +
+  ylab("Relative Abundance of GH84 Genes (%)") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        strip.text.x = element_blank(),
+        legend.title = element_text(size=12, face = "bold"),
+        legend.text = element_text(size=12),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 20)),
+        axis.text.x = element_blank())
+
+
+GT4 <- read.csv('kaiju/sep_sig_cazymes/GT4/GT4.genus.use.csv')
+GT4.sum <- GT4 %>%
+  group_by(Taxa) %>%
+  summarize(Mean = mean(RelAbund),
+            SD = sd(RelAbund),
+            SE = se(RelAbund))
+GT4.plot <- ggplot(GT4.sum, aes(x=Taxa, y=Mean, fill=Taxa)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_fill_manual(name = "Genus", labels = c("Bacteroides", "Prevotella", "Alistipes", "Parabacteroides", "Akkermansia"), values = c("brown1", "gold", "darkslategray2", "white", "gray55")) +
+  xlab("Genus") +
+  ylab("Relative Abundance of GT4 Genes (%)") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        strip.text.x = element_blank(),
+        legend.title = element_text(size=12, face = "bold"),
+        legend.text = element_text(size=12),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 20)),
+        axis.text.x = element_blank())
+
+
+
+GT9 <- read.csv('kaiju/sep_sig_cazymes/GT9/GT9.genus.use.csv')
+GT9.sum <- GT9 %>%
+  group_by(Taxa) %>%
+  summarize(Mean = mean(RelAbund),
+            SD = sd(RelAbund),
+            SE = se(RelAbund))
+GT9.plot <- ggplot(GT9.sum, aes(x=Taxa, y=Mean, fill=Taxa)) +
+  geom_bar(stat="identity", color="black") +
+  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
+  scale_fill_manual(name = "Genus", labels = c("Bacteroides", "Prevotella", "Alistipes", "Parabacteroides", "Akkermansia"), values = c("brown1", "gold", "darkslategray2", "white", "gray55")) +
+  xlab("Genus") +
+  ylab("Relative Abundance of GT9 Genes (%)") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        strip.text.x = element_blank(),
+        legend.title = element_text(size=12, face = "bold"),
+        legend.text = element_text(size=12),
+        panel.spacing = unit(0.5, "lines"),
+        axis.title.x = element_text(margin = margin(t = 20)),
+        axis.text.x = element_blank())
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### No Host
 ```{r}
 ########## Domain ##########

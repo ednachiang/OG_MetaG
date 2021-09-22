@@ -215,7 +215,7 @@ length(which(class == "PL"))
 
 ```
 
-### dbCAN - Class-level bar plot
+### dbCAN - Class-level dot plot
 ```{r}
 # Create phyloseq object to summarize data
 class.tax <- data.frame(c("Carbohydrate Esterase", "Glycoside Hydrolase", "Glycosyltransferase", 
@@ -227,38 +227,47 @@ dbcan.class.norm.otu <- otu_table(dbcan.class.norm, taxa_are_rows=T)
 colnames(dbcan.class.norm.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744", "3772", "3773", "3775")
 dbcan.class.phy <- merge_phyloseq(dbcan.class.norm.otu, class.tax, sample_data(meta))
 
+# Calculate relative abundance
+dbcan.class.phy <- transform_sample_counts(dbcan.class.phy, function(x){(x/sum(x))*100})
+
 # Summarize data
 dbcan.class.df <- psmelt(dbcan.class.phy)
-dbcan.class.sum <- dbcan.class.df %>%
-  group_by(Class, Season) %>%
-  summarize(Mean = mean(Abundance),
-            SD = sd(Abundance),
-            SE = se(Abundance))
-dbcan.class.sum$Class <- ordered(dbcan.class.sum$Class, c("Glycoside Hydrolase",
+dbcan.class.df$Class <- ordered(dbcan.class.df$Class, c("Glycoside Hydrolase",
                                                                   "Glycosyltransferase",
                                                                   "Carbohydrate Esterase",
                                                                   "Polysaccharide Lyase"))
-dbcan.class.sum$Season <- ordered(dbcan.class.sum$Season, levels = c("Summer", "Winter", "Spring"))
+dbcan.class.df$Season <- ordered(dbcan.class.df$Season, levels = c("Summer", "Winter", "Spring"))
+#dbcan.class.sum <- dbcan.class.df %>%
+#  group_by(Class, Season) %>%
+#  summarize(Mean = mean(Abundance),
+#            SD = sd(Abundance),
+#            SE = se(Abundance))
+#dbcan.class.sum$Class <- ordered(dbcan.class.sum$Class, c("Glycoside Hydrolase",
+#                                                                  "Glycosyltransferase",
+#                                                                  "Carbohydrate Esterase",
+#                                                                  "Polysaccharide Lyase"))
+#dbcan.class.sum$Season <- ordered(dbcan.class.sum$Season, levels = c("Summer", "Winter", #"Spring"))
 
 # Plot barplot
-#tiff("dbcan.class.tiff", width=10, height=4, units="in", res= 300)
-ggplot(dbcan.class.sum, aes(x=Season, y=Mean, fill=Season)) +
-  geom_bar(stat="identity", color="black") +
-  geom_errorbar(aes(ymax=Mean+SE, ymin=Mean-SE), width=0.25) +
-  scale_y_continuous(limits=c(0,9500)) +
+#tiff("dbcan.class.tiff", width=11, height=4, units="in", res= 300)
+ggplot(dbcan.class.df, aes(x=Season, y=Abundance, fill=Season)) +
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=1.5, stackratio=1.2) +
+  scale_y_continuous(limits=c(0,60), breaks = c(0,11,22,33,44,55)) +
   facet_grid(. ~ Class) +
   scale_fill_manual(name="Season", values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
   xlab("CAZyme Class") +
-  ylab("Mean Normalized Counts") +
+  ylab("Relative Abundance (%)") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         strip.background = element_blank(),
         strip.text = element_text(face="bold"),
         strip.text.x = element_text(size=11),
-        legend.title = element_text(face="bold"),
+        legend.title = element_text(size=12, face = "bold"),
+        legend.text = element_text(size=12),
         panel.spacing = unit(0.5, "lines"),
         axis.title.x = element_text(margin = margin(t = 20)))
 #dev.off()
+
 
 
 ```
@@ -429,7 +438,10 @@ dbcan.wp.sig[which(dbcan.wp.sig$log2FoldChange < 0),]
 ### dbCAN - DESeq heatmap of normalized + transformed counts
 ```{r}
 # Prepare data
-dbcan.hell.otu <- otu_table(t(dbcan.hell), taxa_are_rows = T)
+#dbcan.hell.otu <- otu_table(t(dbcan.hell), taxa_are_rows = T)
+# Trying it with rel abund
+test <- transform_sample_counts(dbcan.fam.norm.phy, function(x){(x/sum(x))*100})
+dbcan.hell.otu <- otu_table(test)
 colnames(dbcan.hell.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744",
                               "3772", "3773" , "3775")
 dbcan.sig <- merge_phyloseq(dbcan.hell.otu, tax_table(dbcan.phy),
@@ -450,9 +462,9 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
   scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
   xlab("Season\n\n") +
   ylab("CAZyme Family\n\n") +
-  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"), limits = c(0.02,0.27),
-                       breaks = c(0.02, 0.07, 0.12, 0.17, 0.22, 0.27),
-                       labels = c("0.02", "0.07", "0.12", "0.17", "0.22", "0.27"),
+  scale_fill_gradientn(name=expression("Relative\nAbundance (%)\n"), limits = c(0.0,7.5),
+                       #breaks = c(0.02, 0.07, 0.12, 0.17, 0.22, 0.27),
+                       #labels = c("0.02", "0.07", "0.12", "0.17", "0.22", "0.27"),
                        colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
                                    "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
                                    "#bd0026", "#800026", "#33000f")) +
@@ -528,16 +540,16 @@ sample_data(dbcan.phy.ord)$Season <- ordered(sample_data(dbcan.phy.ord)$Season, 
 #tiff("dbcan.pcoa.tiff", width=8, height=6, units="in", res=300)
 plot_ordination(physeq = dbcan.phy.ord, ordination = dbcan.pcoa, axes = c(1,2),
                 color = "Season") +
-  geom_point(size=5) +
+  geom_point(size=7) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Hellinger Distance") +
+  ggtitle("CAZyme Profiles") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
         axis.title.y = element_text(size=20),
         legend.title = element_text(size=20),
         legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
+        plot.title = element_text(hjust=0.5, size=30))
 #dev.off()
 
 

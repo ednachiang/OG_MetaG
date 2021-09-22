@@ -292,6 +292,127 @@ ggplot(cog.stats, aes(x=Season, y=Unique_COGs, fill=Season)) +
         legend.title = element_text(face="bold"))
 ```
 
+### COG Sporulation
+```{r}
+### Category D = Cell cycle control, cell division, chromosome partitioning
+cog.cat.phy99 <- transform_sample_counts(cog.cat.phy, function(x){(x/sum(x))*100})
+
+cog.d.phy <- subset_taxa(cog.cat.phy99, Category == "D")
+
+cog.d.df <- data.frame(sample_data(cog.d.phy))
+cog.d.df$RelAbund <- t(data.frame(otu_table(cog.d.phy)))
+
+hist(cog.d.df$RelAbund)
+qqnorm(cog.d.df$RelAbund)
+qqline(cog.d.df$RelAbund)
+shapiro.test(cog.d.df$RelAbund)
+  # p-value = 0.3253
+  # Normal
+summary(aov(formula = RelAbund ~ Season, data=cog.d.df))
+  # p-value = 0.769
+
+
+
+### Subset out COGs specific to sporulation
+#cog.spore <- c("COG0686","COG0784","COG1300","COG1774","COG1873","COG1994","COG2002","COG2359","COG2718","COG2719","COG3621","COG3679","COG3854","COG4326","COG4550","COG4862","COG5018","COG5801","COG5802","COG5803","COG5804","COG5805","COG5806","COG5807","COG5808","COG5809","COG5810","COG5811","COG5812","COG5813","COG5814","COG5815","COG5816","COG5817","COG5818","COG5819","COG5820","COG5821","COG5822","COG5823","COG5824","COG5825","COG5826","COG5827","COG5828","COG5829","COG5830","COG5831","COG5832","COG5833","COG5834","COG5835","COG5836","COG5837","COG5838","COG5839","COG5840","COG5841","COG5842","COG5843","COG5844","COG5845","COG5846","COG5847","COG5851","COG5866","COG5868","COG5870","COG5872","COG5873","COG5874","COG5875","COG5876","COG5878","COG5890","COG5895","COG5916","COG5917","COG5918","COG5919","COG5920","COG5921","COG5922","COG5923","COG5924","COG5925","COG5926")
+
+cog.spore.phy <- subset_taxa(cog.norm.phy, COG == "COG0686" | COG == "COG0784" | COG == "COG1300" | COG == "COG1774" | COG == "COG1873" | COG == "COG1994" | COG == "COG2002" | COG == "COG2359" | COG == "COG2718" | COG == "COG2719" | COG == "COG3621" | COG == "COG3679" | COG == "COG3854" | COG == "COG4326" | COG == "COG4550" | COG == "COG4862" | COG == "COG5018" | COG == "COG5801" | COG == "COG5802" | COG == "COG5803" | COG == "COG5804" | COG == "COG5805" | COG == "COG5806" | COG == "COG5807" | COG == "COG5808" | COG == "COG5809" | COG == "COG5810" | COG == "COG5811" | COG == "COG5812" | COG == "COG5813" | COG == "COG5814" | COG == "COG5815" | COG == "COG5816" | COG == "COG5817" | COG == "COG5818" | COG == "COG5819" | COG == "COG5820" | COG == "COG5821" | COG == "COG5822" | COG == "COG5823" | COG == "COG5824" | COG == "COG5825" | COG == "COG5826" | COG == "COG5827" | COG == "COG5828" | COG == "COG5829" | COG == "COG5830" | COG == "COG5831" | COG == "COG5832" | COG == "COG5833" | COG == "COG5834" | COG == "COG5835" | COG == "COG5836" | COG == "COG5837" | COG == "COG5838" | COG == "COG5839" | COG == "COG5840" | COG == "COG5841" | COG == "COG5842" | COG == "COG5843" | COG == "COG5844" | COG == "COG5845" | COG == "COG5846" | COG == "COG5847" | COG == "COG5851" | COG == "COG5866" | COG == "COG5868" | COG == "COG5870" | COG == "COG5872" | COG == "COG5873" | COG == "COG5874" | COG == "COG5875" | COG == "COG5876" | COG == "COG5878" | COG == "COG5890" | COG == "COG5895" | COG == "COG5916" | COG == "COG5917" | COG == "COG5918" | COG == "COG5919" | COG == "COG5920" | COG == "COG5921" | COG == "COG5922" | COG == "COG5923" | COG == "COG5924" | COG == "COG5925" | COG == "COG5926")
+
+# Format Data
+spore.df <- psmelt(cog.spore.phy)
+
+
+### Test -- NO SIG AFTER P ADJUST
+
+use <- which(spore.df$COG == "COG0686")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.295
+
+use <- which(spore.df$COG == "COG0784")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.329
+
+use <- which(spore.df$COG == "COG1300")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.0243*
+
+use <- which(spore.df$COG == "COG1774")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.0259*
+
+use <- which(spore.df$COG == "COG1873")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.075
+
+use <- which(spore.df$COG == "COG1994")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.28
+
+use <- which(spore.df$COG == "COG2002")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.0398*
+
+use <- which(spore.df$COG == "COG3679")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.0846
+
+use <- which(spore.df$COG == "COG3854")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.0322*
+
+use <- which(spore.df$COG == "COG4862")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.0524
+
+use <- which(spore.df$COG == "COG5018")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.571
+
+use <- which(spore.df$COG == "COG2359")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.821
+
+use <- which(spore.df$COG == "COG3621")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.285
+
+use <- which(spore.df$COG == "COG4550")
+spore.test <- spore.df[use,]
+summary(aov(formula = Abundance ~ Season, data=spore.test))
+  # p-value = 0.619
+
+
+# Adjust p
+p.adjust(c(0.295,0.329,0.0243,0.0259,0.075,0.28,0.0398,0.0846,0.0322,0.0524,0.571,0.821,0.285,0.619), method = "BH")
+  # 0.4130000 0.4187273 0.1393000 0.1393000 0.1692000 0.4130000 0.1393000 0.1692000 0.1393000 0.1467200 0.6661667 0.8210000 0.4130000 0.6666154
+
+
+# Add up all normalized counts of sporulation genes
+spore.sum <- spore.df %>%
+  group_by(Sample, Season) %>%
+  summarize(Mean = mean(Abundance),
+            SD = sd(Abundance),
+            SE = se(Abundance),
+            Total = sum(Abundance))
+
+summary(aov(formula = Total ~ Season, data=spore.sum))
+  # p-value = 0.104
+```
+
+
 ### COG Category - Create DESeq object
 ```{r}
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
@@ -445,20 +566,20 @@ sample_data(cog.phy.ord)$Season <- ordered(sample_data(cog.phy.ord)$Season, leve
 
 
 
-#tiff("cog.pcoa.tiff", width=7, height=5, units="in", res=300)
+tiff("cog.pcoa.tiff", width=8, height=6, units="in", res=300)
 plot_ordination(physeq = cog.phy.ord, ordination = cog.pcoa, axes = c(1,2),
                 color = "Season") +
-  geom_point(size=5) +
+  geom_point(size=7) +
   scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
-  ggtitle("Hellinger Distance") +
+  ggtitle("COG Profiles") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.title.x = element_text(size=20),
         axis.title.y = element_text(size=20),
         legend.title = element_text(size=20),
         legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=20))
-#dev.off()
+        plot.title = element_text(hjust=0.5, size=30))
+dev.off()
 
 
 
@@ -540,4 +661,138 @@ cog.wp.sig[which(cog.wp.sig$log2FoldChange < 0),]
 
 
 
+### COG All - DESeq heatmap of normalized + transformed counts
+```{r}
+# Prepare data
+cog.hell.otu <- otu_table(t(cog.hell), taxa_are_rows = T)
+colnames(cog.hell.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744",
+                              "3772", "3773" , "3775")
+cog.sig <- merge_phyloseq(cog.hell.otu, tax_table(cog.phy),
+                            sample_data(cog.phy))
+cog.sum.sig <- subset_taxa(cog.sig, COG == "COG3866" | COG == "COG3693" | COG == "COG3345" |
+                           COG == "COG3940" | COG == "COG2207" | COG == "COG3507" |
+                           COG == "COG1629" | COG == "COG0457" | COG == "COG2885" |
+                           COG == "COG2825" | COG == "COG1240" | COG == "COG0437" |
+                           COG == "COG0243")
+cog.win.sig <- subset_taxa(cog.sig, COG == "COG0457" | COG == "COG1463" | COG == "COG1629" | 
+                             COG == "COG0760" | COG == "COG4775" | COG == "COG3637" |
+                             COG == "COG2885" | COG == "COG2825" | COG == "COG1452" |
+                             COG == "COG0774" | COG == "COG3246")
+cog.spr.sig <- subset_taxa(cog.sig, COG == "COG1136" | COG == "COG1132" | COG == "COG1131" |
+                             COG == "COG4753" | COG == "COG2972" | COG == "COG5578" | 
+                             COG == "COG4709"| COG == "COG4485" | COG == "COG1511" | 
+                             COG == "COG3940"| COG == "COG1026" | COG == "COG0561" |
+                             COG == "COG3973"| COG == "COG3044" | COG == "COG0004" |
+                             COG == "COG3757" | COG == "COG1061" | COG == "COG2207" |
+                             COG == "COG1609" | COG == "COG3866" | COG == "COG3693" |
+                             COG == "COG3345" | COG == "COG3507" | COG == "COG4284" |
+                             COG == "COG3664" | COG == "COG2730" | COG == "COG2190" |
+                             COG == "COG2182" | COG == "COG1925" | COG == "COG1874" |
+                             COG == "COG1653" | COG == "COG1472" | COG == "COG1175" |
+                             COG == "COG1105" | COG == "COG1070" | COG == "COG0395" |
+                             COG == "COG0246")
 
+
+
+##### PLOT #####
+
+## Summer ##
+#tiff("cog.heatmap.sum.tiff", width=8.4, height=10, units="in", res=300)
+plot_heatmap(cog.sum.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), 
+             taxa.order = c("COG3866", "COG3693", "COG3345", "COG3940", "COG2207", "COG3507",
+                            "COG1629", "COG0457", "COG2885", "COG2825", "COG1240", "COG0437",
+                            "COG0243")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("COGs\n\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"),
+                       limits = c(0.00,0.091),
+                       breaks = c(0.000, 0.015, 0.030, 0.045, 0.060, 0.075, 0.090),
+                       labels = c("0.000", "0.015", "0.030", "0.045", "0.060", "0.075", "0.090"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+#dev.off()
+
+
+## Winter ##
+#tiff("cog.heatmap.win.tiff", width=8.4, height=10, units="in", res=300)
+plot_heatmap(cog.win.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), 
+             taxa.order = c("COG0457", "COG1463","COG1629", "COG0760", "COG4775", "COG3637",
+                            "COG2885" , "COG2825" , "COG1452", "COG0774", "COG3246")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("COGs\n\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"),
+                       limits = c(0.00,0.091),
+                       breaks = c(0.000, 0.015, 0.030, 0.045, 0.060, 0.075, 0.090),
+                       labels = c("0.000", "0.015", "0.030", "0.045", "0.060", "0.075", "0.090"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+#dev.off()
+
+
+
+
+## Spring ##
+tiff("cog.heatmap.spr.tiff", width=8, height=10, units="in", res=300)
+plot_heatmap(cog.spr.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), 
+             taxa.order = c("COG1136", "COG1132", "COG1131", "COG4753", "COG2972", "COG5578",
+                            "COG4709", "COG4485", "COG1511", "COG3940", "COG1026", "COG0561",
+                            "COG3973", "COG3044", "COG0004", "COG3757", "COG1061", "COG2207",
+                            "COG1609", "COG3866", "COG3693", "COG3345", "COG3507", "COG4284",
+                            "COG3664", "COG2730", "COG2190", "COG2182", "COG1925", "COG1874",
+                            "COG1653", "COG1472", "COG1175", "COG1105", "COG1070", "COG0395",
+                            "COG0246")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("COGs") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"),
+                       limits = c(0.00,0.085),
+                       breaks = c(0.000, 0.017, 0.034, 0.051, 0.068, 0.085),
+                       labels = c("0.000", "0.017", "0.034", "0.051", "0.068", "0.085"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(7,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+dev.off()
+```

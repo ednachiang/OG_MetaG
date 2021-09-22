@@ -4,7 +4,7 @@ import pandas as pd
     # Import pandas to use dataframes
 
 ##### CHANGE THESE PARAMETERS ACCORDINGLY
-directoryKaiju = '../kaiju/mucin_sep/'
+directoryKaiju = '../kaiju/sep_sig_cazymes/'
     # Directory of kaiju outputs
     # directoryKaiju/directorySpecificPredictedProtein/taxon
     # CHANGE FUNCTION makeDF ACCORDING TO DIRECTORY

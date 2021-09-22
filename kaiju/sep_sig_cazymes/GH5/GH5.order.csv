@@ -1,9 +1,9 @@
-,3715,3717,3723,3733,3734,3744,3772,3773,3775,3715.,3717.,3723.,3733.,3734.,3744.,3772.,3773.,3775.
-Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,13.333334,0,0,0,0,0,0,0,11.111112
-Bacteria;Firmicutes;Clostridia;Clostridiales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,13.333334,60.000004,100.000000,50.000000,20.000000,77.777779,0,35.714287,33.333336
-Viruses,0,0,0,0,0,0,0,0,0,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
-cannot be assigned to a (non-viral) order,0,0,0,0,0,0,0,0,0,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
-unclassified,0,0,0,0,0,0,0,0,0,73.333335,20.000000,0.000000,50.000000,69.999999,22.222222,100.000000,64.285713,44.444445
-Bacteria;Firmicutes;Bacilli;Bacillales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,0,20.000000,0,0,0,0,0,0,0
-Bacteria;Actinobacteria;Coriobacteriia;Eggerthellales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,0,0,0,0,10.000000,0,0,0,0
-Bacteria;Actinobacteria;Actinobacteria;Streptosporangiales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.111112
+,3715,3717,3723,3733,3734,3744,3772,3773,3775
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;NA;,13.333334,0,0,0,0,0,0,0,11.111112
+Bacteria;Firmicutes;Clostridia;Clostridiales;NA;NA;NA;,13.333334,60.000004,100.000000,50.000000,20.000000,77.777779,0,35.714287,33.333336
+Viruses,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
+cannot be assigned to a (non-viral) order,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
+unclassified,73.333335,20.000000,0.000000,50.000000,69.999999,22.222222,100.000000,64.285713,44.444445
+Bacteria;Firmicutes;Bacilli;Bacillales;NA;NA;NA;,0,20.000000,0,0,0,0,0,0,0
+Bacteria;Actinobacteria;Coriobacteriia;Eggerthellales;NA;NA;NA;,0,0,0,0,10.000000,0,0,0,0
+Bacteria;Actinobacteria;Actinobacteria;Streptosporangiales;NA;NA;NA;,0,0,0,0,0,0,0,0,11.111112

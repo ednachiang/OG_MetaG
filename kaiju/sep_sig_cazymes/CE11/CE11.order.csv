@@ -1,14 +1,14 @@
-,3715,3717,3723,3733,3734,3744,3772,3773,3775,3715.,3717.,3723.,3733.,3734.,3744.,3772.,3773.,3775.
-Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,72.916672,68.674698,67.692307,68.539330,70.967743,76.056335,56.338032,57.352943,72.093025
-Bacteria;Proteobacteria;Betaproteobacteria;Burkholderiales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,4.166667,2.409638,1.538462,1.123595,0,1.408451,1.408451,1.470588,2.325581
-Bacteria;Proteobacteria;Deltaproteobacteria;Desulfovibrionales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,4.166667,3.614458,3.076923,3.370786,3.225806,1.408451,4.225352,4.411765,0
-Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,2.083333,2.409638,1.538462,3.370786,3.225806,2.816901,2.816901,1.470588,4.651163
-Bacteria;Spirochaetes;Spirochaetia;Brachyspirales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,2.083333,1.204819,1.538462,1.123595,0,0,1.408451,1.470588,0
-Viruses,0,0,0,0,0,0,0,0,0,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
-cannot be assigned to a (non-viral) order,0,0,0,0,0,0,0,0,0,8.333334,7.228915,10.769231,6.741573,3.225806,2.816901,11.267606,5.882353,4.651163
-unclassified,0,0,0,0,0,0,0,0,0,6.250000,10.843374,10.769231,10.112359,12.903225,11.267605,18.309858,25.000000,16.279070
-Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,0,2.409638,3.076923,1.123595,3.225806,2.816901,2.816901,0,0
-Bacteria;Elusimicrobia;Elusimicrobia;Elusimicrobiales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,0,1.204819,0,0,0,0,0,1.470588,0
-Bacteria;Proteobacteria;Epsilonproteobacteria;Campylobacterales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,0,0,0,2.247191,0,0,1.408451,0,0
-Bacteria;Firmicutes;Negativicutes;Acidaminococcales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,0,0,0,2.247191,1.612903,1.408451,0,1.470588,0
-Bacteria;Bacteroidetes;Chitinophagia;Chitinophagales;NA;NA;NA;,0,0,0,0,0,0,0,0,0,0,0,0,0,1.612903,0,0,0,0
+,3715,3717,3723,3733,3734,3744,3772,3773,3775
+Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;NA;,72.916672,68.674698,67.692307,68.539330,70.967743,76.056335,56.338032,57.352943,72.093025
+Bacteria;Proteobacteria;Betaproteobacteria;Burkholderiales;NA;NA;NA;,4.166667,2.409638,1.538462,1.123595,0,1.408451,1.408451,1.470588,2.325581
+Bacteria;Proteobacteria;Deltaproteobacteria;Desulfovibrionales;NA;NA;NA;,4.166667,3.614458,3.076923,3.370786,3.225806,1.408451,4.225352,4.411765,0
+Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;NA;NA;NA;,2.083333,2.409638,1.538462,3.370786,3.225806,2.816901,2.816901,1.470588,4.651163
+Bacteria;Spirochaetes;Spirochaetia;Brachyspirales;NA;NA;NA;,2.083333,1.204819,1.538462,1.123595,0,0,1.408451,1.470588,0
+Viruses,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
+cannot be assigned to a (non-viral) order,8.333334,7.228915,10.769231,6.741573,3.225806,2.816901,11.267606,5.882353,4.651163
+unclassified,6.250000,10.843374,10.769231,10.112359,12.903225,11.267605,18.309858,25.000000,16.279070
+Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;NA;NA;NA;,0,2.409638,3.076923,1.123595,3.225806,2.816901,2.816901,0,0
+Bacteria;Elusimicrobia;Elusimicrobia;Elusimicrobiales;NA;NA;NA;,0,1.204819,0,0,0,0,0,1.470588,0
+Bacteria;Proteobacteria;Epsilonproteobacteria;Campylobacterales;NA;NA;NA;,0,0,0,2.247191,0,0,1.408451,0,0
+Bacteria;Firmicutes;Negativicutes;Acidaminococcales;NA;NA;NA;,0,0,0,2.247191,1.612903,1.408451,0,1.470588,0
+Bacteria;Bacteroidetes;Chitinophagia;Chitinophagales;NA;NA;NA;,0,0,0,0,1.612903,0,0,0,0

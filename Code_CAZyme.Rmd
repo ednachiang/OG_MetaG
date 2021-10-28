@@ -484,7 +484,80 @@ plot_heatmap(dbcan.sig, sample.label = "Season", sample.order = c("3715", "3717"
 ```
 
 
+### dbCAN - DESeq heatmap of normalized + transformed counts FOR AAAS
+```{r}
+# Prepare data
+dbcan.hell.otu <- otu_table(t(dbcan.hell), taxa_are_rows = T)
+# Trying it with rel abund
+#test <- transform_sample_counts(dbcan.fam.norm.phy, function(x){(x/sum(x))*100})
+#dbcan.hell.otu <- otu_table(test)
+colnames(dbcan.hell.otu) <- c("3715", "3717", "3723", "3733", "3734", "3744",
+                              "3772", "3773" , "3775")
+dbcan.sig <- merge_phyloseq(dbcan.hell.otu, tax_table(dbcan.phy),
+                            sample_data(dbcan.phy))
+dbcan.act.sig <- subset_taxa(dbcan.sig, Family == "PL1" | Family == "GH10" | 
+                               Family == "GH43" | Family == "GH115" | Family == "CE12")
+dbcan.win.sig <- subset_taxa(dbcan.sig, Family == "GH20" | Family == "GH84" | 
+                               Family == "GT4" | Family == "GT9" | Family == "CE11")
 
+
+#tiff("aaas.dbcan.active.heatmap.tiff", width=7, height=3, units="in", res=300)
+plot_heatmap(dbcan.act.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE12", "GH115", "GH43", "GH10", "PL1")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("CAZyme Family\n\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts"), 
+                       limits = c(0.03,0.20),
+                       #breaks = c(0.02, 0.07, 0.12, 0.17, 0.22, 0.27),
+                       #labels = c("0.02", "0.07", "0.12", "0.17", "0.22", "0.27"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(1,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+#dev.off()
+
+
+
+
+#tiff("aaas.dbcan.winter.heatmap.tiff", width=7, height=3, units="in", res=300)
+plot_heatmap(dbcan.win.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), taxa.order = c("CE11", "GT9", "GT4", "GH84", "GH20")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("CAZyme Family\n\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts"), 
+                       limits = c(0.027, 0.270),
+                       #breaks = c(0.02, 0.07, 0.12, 0.17, 0.22, 0.27),
+                       #labels = c("0.02", "0.07", "0.12", "0.17", "0.22", "0.27"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(1,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+#dev.off()
+```
 
 
 ### dbCAN - DESeq sample dist heatmap / dendrogram
@@ -537,11 +610,11 @@ dbcan.pcoa <- pcoa(dbcan.dist)
 dbcan.phy.ord <- dbcan.phy
 sample_data(dbcan.phy.ord)$Season <- ordered(sample_data(dbcan.phy.ord)$Season, levels = c("Summer", "Winter", "Spring"))
 
-#tiff("dbcan.pcoa.tiff", width=8, height=6, units="in", res=300)
+tiff("aaas.dbcan.pcoa.tiff", width=8, height=6, units="in", res=300)
 plot_ordination(physeq = dbcan.phy.ord, ordination = dbcan.pcoa, axes = c(1,2),
                 color = "Season") +
-  geom_point(size=7) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  geom_point(size=10) +
+  scale_color_manual(values=c("#00cccc", "#008484", "#004f4f")) +
   ggtitle("CAZyme Profiles") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -549,8 +622,8 @@ plot_ordination(physeq = dbcan.phy.ord, ordination = dbcan.pcoa, axes = c(1,2),
         axis.title.y = element_text(size=20),
         legend.title = element_text(size=20),
         legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=30))
-#dev.off()
+        plot.title = element_blank())
+dev.off()
 
 
 ### Test normality

@@ -566,11 +566,11 @@ sample_data(cog.phy.ord)$Season <- ordered(sample_data(cog.phy.ord)$Season, leve
 
 
 
-tiff("cog.pcoa.tiff", width=8, height=6, units="in", res=300)
+tiff("aaas.cog.pcoa.tiff", width=8, height=6, units="in", res=300)
 plot_ordination(physeq = cog.phy.ord, ordination = cog.pcoa, axes = c(1,2),
                 color = "Season") +
-  geom_point(size=7) +
-  scale_color_manual(values=c("darkgoldenrod2", "dodgerblue3", "green3")) +
+  geom_point(size=10) +
+  scale_color_manual(values=c("#00cccc", "#008484", "#004f4f")) +
   ggtitle("COG Profiles") +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -578,7 +578,7 @@ plot_ordination(physeq = cog.phy.ord, ordination = cog.pcoa, axes = c(1,2),
         axis.title.y = element_text(size=20),
         legend.title = element_text(size=20),
         legend.text = element_text(size=18),
-        plot.title = element_text(hjust=0.5, size=30))
+        plot.title = element_blank())
 dev.off()
 
 
@@ -693,6 +693,13 @@ cog.spr.sig <- subset_taxa(cog.sig, COG == "COG1136" | COG == "COG1132" | COG ==
                              COG == "COG0246")
 
 
+cog.act.sig <- subset_taxa(cog.sig, COG == "COG3940" | COG == "COG3866" | 
+                             COG == "COG3693" | COG == "COG3345" | COG == "COG2207")
+cog.win5.sig <- subset_taxa(cog.sig, COG == "COG0774" | COG == "COG1452" | 
+                              COG == "COG2825" | COG == "COG2885" | COG == "COG3637")
+                            
+
+
 
 ##### PLOT #####
 
@@ -762,7 +769,7 @@ plot_heatmap(cog.win.sig, sample.label = "Season", sample.order = c("3715", "371
 
 
 ## Spring ##
-tiff("cog.heatmap.spr.tiff", width=8, height=10, units="in", res=300)
+#tiff("cog.heatmap.spr.tiff", width=8, height=10, units="in", res=300)
 plot_heatmap(cog.spr.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), 
              taxa.order = c("COG1136", "COG1132", "COG1131", "COG4753", "COG2972", "COG5578",
                             "COG4709", "COG4485", "COG1511", "COG3940", "COG1026", "COG0561",
@@ -794,5 +801,71 @@ plot_heatmap(cog.spr.sig, sample.label = "Season", sample.order = c("3715", "371
   guides(fill = guide_colorbar(barheight = unit(7,"in"),
                                frame.colour="black",
                                frame.linewidth=1))
-dev.off()
+#dev.off()
+
+
+
+
+
+
+
+
+
+#tiff("aaas.cog.active.heatmap.tiff", width=7, height=3, units="in", res=300)
+plot_heatmap(cog.act.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), 
+             taxa.order = c("COG3940", "COG3866", "COG3693", "COG3345", "COG2207")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("COGs\n\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"),
+                       limits = c(0.004, 0.077),
+                       #breaks = c(0.000, 0.015, 0.030, 0.045, 0.060, 0.075, 0.090),
+                       #labels = c("0.000", "0.015", "0.030", "0.045", "0.060", "0.075", "0.090"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(1,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+#dev.off()
+
+
+
+#tiff("aaas.cog.winter.heatmap.tiff", width=7, height=3, units="in", res=300)
+plot_heatmap(cog.win5.sig, sample.label = "Season", sample.order = c("3715", "3717", "3744", "3723", "3733", "3772", "3734", "3773", "3775"), 
+             taxa.order = c("COG3637", "COG2885", "COG2825", "COG1452", "COG0774")) +
+  geom_tile(colour="gray40") +
+  scale_x_discrete(position = "top", labels=c("Summer", "Summer", "Summer", "Winter", "Winter", "Winter", "Spring", "Spring", "Spring")) +
+  xlab("Season\n\n") +
+  ylab("COGs\n\n") +
+  scale_fill_gradientn(name=expression("Hellinger-\nTransformed\nNormalized\nCounts\n"),
+                       limits = c(0.005, 0.040),
+                       #breaks = c(0.000, 0.015, 0.030, 0.045, 0.060, 0.075, 0.090),
+                       #labels = c("0.000", "0.015", "0.030", "0.045", "0.060", "0.075", "0.090"),
+                       colours = c("#FFFFFF", "#ffffcc", "#ffeda0", "#fed976",
+                                   "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c",
+                                   "#bd0026", "#800026", "#33000f")) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size=20),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border=element_blank(),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
+        legend.title = element_text(size=20, face="bold"),
+        legend.text = element_text(size=20)) +
+  guides(fill = guide_colorbar(barheight = unit(1,"in"),
+                               frame.colour="black",
+                               frame.linewidth=1))
+#dev.off()
 ```
